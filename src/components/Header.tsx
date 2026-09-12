@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../styles/NotchDock.css';
 
 export const Header: React.FC = () => {
   const [isNotchVisible, setIsNotchVisible] = useState(false);
@@ -11,11 +12,10 @@ export const Header: React.FC = () => {
         return;
       }
       const rect = heroElement.getBoundingClientRect();
-      // Show notch as soon as Hero bottom scrolls near or past top of screen
+      // Show notch dock when hero has scrolled near or past top of screen
       setIsNotchVisible(rect.bottom < 80);
     };
 
-    // Check initial position on mount
     handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -26,62 +26,41 @@ export const Header: React.FC = () => {
     };
   }, []);
 
+  const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header
       id="top-notch-header"
-      aria-label="Notch Navigation Bar"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 90,
-        pointerEvents: 'none',
-        display: 'flex',
-        justifyContent: 'center',
-        transform: isNotchVisible ? 'translateY(0)' : 'translateY(-120%)',
-        opacity: isNotchVisible ? 1 : 0,
-        transition: 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
-      }}
+      aria-label="Top Notch Identity Dock"
+      className={`notch-header-container ${isNotchVisible ? 'is-visible' : 'is-hidden'}`}
     >
-      {/* Top Center Cutout Notch Dock */}
-      <div
-        id="header-notch-dock"
-        style={{
-          pointerEvents: 'auto',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {/* Notch Content Anchor */}
+      {/* Top Center Cutout Notch Dock with Inverted Rounded Corners */}
+      <div id="header-notch-dock" className="notch-dock-body">
+        {/* Inverted Concave Ear Left */}
+        <svg className="notch-ear-left" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M0,0 H14 V14 C14,6.268 7.732,0 0,0 Z" fill="var(--color-canvas)" />
+          <path d="M0,0 C7.732,0 14,6.268 14,14" stroke="var(--hairline-base)" strokeWidth="1" fill="none" />
+        </svg>
+
+        {/* Inverted Concave Ear Right */}
+        <svg className="notch-ear-right" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M14,0 H0 V14 C0,6.268 6.268,0 14,0 Z" fill="var(--color-canvas)" />
+          <path d="M0,14 C0,6.268 6.268,0 14,0" stroke="var(--hairline-base)" strokeWidth="1" fill="none" />
+        </svg>
+
+        {/* Notch Content & Back-to-Top Brand Anchor */}
         <a
           href="#hero"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 800,
-            fontSize: 'var(--text-xs)',
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-            color: 'var(--color-ink)',
-            textDecoration: 'none',
-            padding: '8px 18px',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-          }}
+          onClick={handleScrollToTop}
+          className="notch-brand-anchor"
+          title="Return to Expedition Basecamp (Hero)"
         >
-          <span
-            style={{
-              width: '6px',
-              height: '6px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-olive)',
-              display: 'inline-block',
-            }}
-          />
-          Adventure Log.
+          <span className="notch-status-dot" aria-hidden="true" />
+          <span className="notch-brand-text">ADVENTURE LOG.</span>
+          <span className="notch-tag-badge">SELVAGANT</span>
         </a>
       </div>
     </header>

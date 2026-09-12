@@ -1,0 +1,138 @@
+/* ==========================================================================
+   TOP CENTER CUTOUT NOTCH DOCK
+   Precision inverted-corner tab inspired by tactile editorial craft.
+   ========================================================================== */
+
+.notch-header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 120;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.notch-header-container.is-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.notch-header-container.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Main Body of the Cutout Notch */
+.notch-dock-body {
+  pointer-events: auto;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  background-color: var(--color-canvas);
+  border-left: 1px solid var(--hairline-base);
+  border-right: 1px solid var(--hairline-base);
+  border-bottom: 1px solid var(--hairline-base);
+  border-top: none;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  box-shadow: 0 4px 16px rgba(24, 26, 24, 0.06);
+  padding: 0 var(--space-md);
+  user-select: none;
+}
+
+/* Inverted Corner (Concave Ear) Left */
+.notch-ear-left {
+  position: absolute;
+  top: 0;
+  left: -14px;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+/* Inverted Corner (Concave Ear) Right */
+.notch-ear-right {
+  position: absolute;
+  top: 0;
+  right: -14px;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+/* Interactive Brand Wordmark Inside Notch */
+.notch-brand-anchor {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xs);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  transition: color var(--duration-fast) ease, opacity var(--duration-fast) ease;
+}
+
+.notch-brand-anchor:hover {
+  color: var(--color-olive);
+}
+
+.notch-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-olive);
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(74, 88, 68, 0.15);
+  animation: pulse-beacon 2.4s infinite ease-in-out;
+}
+
+.notch-brand-text {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.notch-tag-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-faint);
+  background: var(--color-canvas-subtle);
+  border: 1px solid var(--hairline-subtle);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+@keyframes pulse-beacon {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(74, 88, 68, 0.25);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .notch-dock-body {
+    height: 36px;
+    padding: 0 var(--space-sm);
+  }
+  .notch-brand-text {
+    font-size: 12px;
+  }
+  .notch-tag-badge {
+    display: none;
+  }
+}
