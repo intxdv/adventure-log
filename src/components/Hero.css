@@ -1,0 +1,314 @@
+﻿/* ==========================================================================
+   Hero Section & Minimalist Expedition Header
+   ========================================================================== */
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 0 clamp(3rem, 6vw, 5rem);
+  background-color: var(--color-canvas);
+  overflow: hidden;
+}
+
+/* 1. Minimalist Hero Top Bar (Logo Left, Clean WIB Clock Right) */
+.hero-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--hairline-subtle);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 20;
+}
+
+.hero-top-bar.is-scrolled {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+}
+
+.hero-top-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.hero-top-logo:hover {
+  opacity: 0.82;
+  transform: translateY(-1px);
+}
+
+.hero-top-logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.hero-top-clock {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--color-ink);
+  font-weight: 500;
+  user-select: none;
+}
+
+/* 2. Hero Body Two-Column Grid */
+.hero-body-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: auto auto;
+  padding: clamp(2rem, 4vw, 4rem) var(--space-lg);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 6rem);
+  position: relative;
+  z-index: 10;
+}
+
+/* Sisi Kiri: Judul Dinamis & Bio Editorial */
+.hero-left-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-title-wrapper {
+  min-height: clamp(8rem, 16vw, 12rem);
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-dynamic-title {
+  margin: 0;
+  font-size: clamp(2.8rem, 6.2vw, 5.8rem);
+  line-height: 1.05;
+  color: var(--color-ink);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  position: relative;
+  display: inline-block;
+  user-select: none;
+}
+
+/* Tanda Titik Portal (Target Animasi 2 Dot-Zoom) */
+.hero-portal-dot {
+  display: inline-block;
+  color: var(--color-olive);
+  position: relative;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Kursor Blinking Typewriter */
+.hero-typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.82em;
+  background-color: var(--color-olive);
+  margin-left: 6px;
+  vertical-align: middle;
+  animation: cursorBlink 0.9s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Bio Editorial */
+.hero-bio-paragraph {
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.68;
+  color: var(--color-ink-muted);
+  max-width: 540px;
+  margin: 0 0 var(--space-xl) 0;
+  font-family: var(--font-serif);
+}
+
+.hero-bio-paragraph strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.hero-meta-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--color-olive);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+}
+
+/* Sisi Kanan: Compass Placeholder Dial */
+.hero-right-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-compass-dial {
+  width: clamp(280px, 32vw, 440px);
+  height: clamp(280px, 32vw, 440px);
+  border-radius: 50%;
+  border: 1px solid var(--hairline-base);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, rgba(247, 246, 242, 0.3) 70%, transparent 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(24, 26, 24, 0.04);
+  user-select: none;
+}
+
+/* Concentric Inner Ring */
+.hero-compass-dial::before {
+  content: "";
+  position: absolute;
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  border: 1px dashed var(--hairline-subtle);
+  animation: compassSlowSpin 120s linear infinite;
+}
+
+/* Core Reticle Ring */
+.hero-compass-dial::after {
+  content: "";
+  position: absolute;
+  width: 46%;
+  height: 46%;
+  border-radius: 50%;
+  border: 1px solid rgba(74, 88, 68, 0.2);
+}
+
+@keyframes compassSlowSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Cardinal Points (N, E, S, W) */
+.hero-compass-cardinal {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-ink-muted);
+  letter-spacing: 0.1em;
+}
+
+.hero-compass-cardinal.n { top: 12px; color: var(--color-olive); }
+.hero-compass-cardinal.s { bottom: 12px; }
+.hero-compass-cardinal.e { right: 14px; }
+.hero-compass-cardinal.w { left: 14px; }
+
+/* Compass Center Hub & Telemetry Ticks */
+.hero-compass-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 2;
+  gap: 6px;
+}
+
+.hero-compass-needle-ring {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--color-olive);
+  position: relative;
+}
+
+.hero-compass-needle-ring::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-olive);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-compass-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: var(--color-olive);
+  text-transform: uppercase;
+}
+
+.hero-compass-coords {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-faint);
+}
+
+/* 3. Dot-Zoom Fullscreen Portal Layer (Animasi 2) */
+.hero-portal-canvas-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .hero-body-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    text-align: left;
+  }
+
+  .hero-right-col {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-top-bar {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .hero-top-logo-img {
+    height: 24px;
+  }
+
+  .hero-top-clock {
+    font-size: 0.75rem;
+  }
+
+  .hero-title-wrapper {
+    min-height: 5.5rem;
+  }
+
+  .hero-dynamic-title {
+    font-size: 2.2rem;
+    white-space: normal;
+  }
+
+  .hero-compass-dial {
+    width: 240px;
+    height: 240px;
+  }
+}

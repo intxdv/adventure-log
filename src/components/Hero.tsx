@@ -1,230 +1,154 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useWibTime } from '../hooks/useWibTime';
+import './Hero.css';
+
+interface FontConfig {
+  text: string;
+  fontFamily: string;
+  fontWeight: number | string;
+  letterSpacing?: string;
+}
+
+const FONT_SEQUENCE: FontConfig[] = [
+  { text: 'Adventure Log.', fontFamily: 'Hitobito', fontWeight: 400, letterSpacing: '0.02em' },
+  { text: 'ADVENTURE LOG.', fontFamily: 'Lufga', fontWeight: 800, letterSpacing: '-0.02em' },
+  { text: 'ADVENTURE LOG.', fontFamily: 'Daydream', fontWeight: 400, letterSpacing: '0.04em' },
+  { text: 'ADVENTURE LOG.', fontFamily: 'Hitobito', fontWeight: 400, letterSpacing: '0.03em' },
+  { text: 'Adventure Log.', fontFamily: 'Printvetica', fontWeight: 400, letterSpacing: '-0.01em' },
+  { text: 'Adventure Log.', fontFamily: 'TBJ Serial Port', fontWeight: 400, letterSpacing: '0.02em' },
+  { text: 'Adventure Log.', fontFamily: 'Lufga', fontWeight: 800, letterSpacing: '-0.01em' },
+  { text: 'ADVENTURE LOG.', fontFamily: 'TBJ Serial Port', fontWeight: 700, letterSpacing: '0.04em' },
+];
 
 export const Hero: React.FC = () => {
-  const [timeString, setTimeString] = useState('');
+  const wibTime = useWibTime();
+  const [fontIndex, setFontIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState(FONT_SEQUENCE[0].text);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Monitor scroll for Top Bar visibility
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: 'Asia/Jakarta',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false,
-      };
-      setTimeString(new Intl.DateTimeFormat('id-ID', options).format(now) + ' WIB');
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
     };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Animasi 1: Typewriter & Multi-Font Morphing Loop
+  useEffect(() => {
+    const currentTarget = FONT_SEQUENCE[fontIndex];
+    const fullText = currentTarget.text;
+
+    if (!isDeleting && displayedText === fullText) {
+      // Pause at full text to let user appreciate the typography
+      timerRef.current = setTimeout(() => {
+        setIsDeleting(true);
+      }, 2200);
+      return () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+      };
+    }
+
+    if (isDeleting && displayedText === '') {
+      // Finished deleting, move to next font and start typing
+      setIsDeleting(false);
+      setFontIndex((prev) => (prev + 1) % FONT_SEQUENCE.length);
+      return;
+    }
+
+    const typingSpeed = isDeleting ? 38 : 72;
+    timerRef.current = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayedText(fullText.slice(0, displayedText.length + 1));
+      } else {
+        setDisplayedText(fullText.slice(0, displayedText.length - 1));
+      }
+    }, typingSpeed);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [displayedText, isDeleting, fontIndex]);
+
+  const currentFont = FONT_SEQUENCE[fontIndex];
+  const hasDot = displayedText.endsWith('.');
+  const baseText = hasDot ? displayedText.slice(0, -1) : displayedText;
+
   return (
-    <section
-      id="hero"
-      className="hairline-b"
-      style={{
-        paddingTop: 'clamp(3rem, 7vw, 6rem)',
-        paddingBottom: 'clamp(3rem, 7vw, 6rem)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      <div className="container">
-        {/* Top Field Telemetry Bar with Live WIB Clock */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 'var(--space-xs)',
-            marginBottom: 'var(--space-2xl)',
-            paddingBottom: 'var(--space-sm)',
-            borderBottom: '1px solid var(--hairline-subtle)',
-          }}
-        >
-          <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-            BASECAMP // TENGARAN, SEMARANG (7.45°S, 110.51°E)
-          </div>
-          <div
-            className="font-mono"
-            style={{
-              fontSize: 'var(--text-xs)',
-              color: 'var(--color-ink-muted)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'var(--space-sm)',
-            }}
-          >
-            <span>{timeString || '12:00:00 WIB'}</span>
-            <span style={{ color: 'var(--hairline-base)' }}>|</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--color-olive)',
-                }}
-              />
-              AVAILABLE FOR EXPEDITIONS
-            </span>
-          </div>
-        </div>
+    <section id="hero" className="hero-section" aria-label="Expedition Hero & Field Entry">
+      {/* 1. Minimalist Top Bar (Khusus Hero, memudar saat scroll) */}
+      <div className={`hero-top-bar ${isScrolled ? 'is-scrolled' : ''}`}>
+        <a href="#hero" className="hero-top-logo" aria-label="Selvagant Archive Home">
+          <img
+            src="/logo/Logo SVG/Logo-text-deep-ink.svg"
+            alt="Selvagant"
+            className="hero-top-logo-img"
+          />
+        </a>
 
-        {/* Hero Main Wordmark & Editorial Centerpiece */}
-        <div style={{ textAlign: 'center', margin: 'var(--space-2xl) auto var(--space-3xl)', maxWidth: '960px' }}>
-          {/* Moniker & Positioning Pill */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
-              gap: 'var(--space-sm)',
-              marginBottom: 'var(--space-lg)',
-            }}
-          >
-            <span className="tag-badge">
-              DISPATCH // 2026
-            </span>
-            <span
-              className="tag-badge"
+        {/* Live WIB Clock murni tanpa label */}
+        <div className="hero-top-clock font-mono" aria-live="polite">
+          {wibTime}
+        </div>
+      </div>
+
+      {/* 2. Hero Body Two-Column Asymmetric Grid */}
+      <div className="hero-body-container">
+        {/* Kolom Kiri: Judul Dinamis & Bio Editorial */}
+        <div className="hero-left-col">
+          <div className="hero-meta-kicker font-mono">
+            <span>[ 00 // FIELD ARCHIVE & EXPEDITIONS ]</span>
+          </div>
+
+          <div className="hero-title-wrapper">
+            <h1
+              className="hero-dynamic-title"
               style={{
-                borderColor: 'var(--color-olive)',
-                color: 'var(--color-olive)',
-                backgroundColor: 'rgba(74, 88, 68, 0.06)',
+                fontFamily: `'${currentFont.fontFamily}', sans-serif`,
+                fontWeight: currentFont.fontWeight,
+                letterSpacing: currentFont.letterSpacing || 'normal',
               }}
             >
-              SELV<span style={{ fontWeight: 400, letterSpacing: '0.04em' }}>AGANT</span>
-            </span>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)' }}>
-              THE WANDERING <em>SELV</em>
-            </span>
+              {baseText}
+              {hasDot && (
+                <span id="hero-portal-dot" className="hero-portal-dot">
+                  .
+                </span>
+              )}
+              <span className="hero-typewriter-cursor" aria-hidden="true" />
+            </h1>
           </div>
 
-          {/* Grand Editorial Display Title */}
-          <h1
-            id="hero-title"
-            style={{
-              fontSize: 'clamp(3.2rem, 8.5vw, 6.4rem)',
-              fontWeight: 800,
-              letterSpacing: '-0.035em',
-              lineHeight: 0.98,
-              marginBottom: 'var(--space-lg)',
-              color: 'var(--color-ink)',
-            }}
-          >
-            Adventure Log<span style={{ color: 'var(--color-olive)' }}>.</span>
-          </h1>
-
-          {/* Role Positioning & Manifesto Excerpt */}
-          <p
-            style={{
-              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-              lineHeight: 1.6,
-              maxWidth: '660px',
-              margin: '0 auto var(--space-xl)',
-              color: 'var(--color-ink-muted)',
-              fontFamily: 'var(--font-sans)',
-            }}
-          >
-            A digital field journal by Selvagant (Taki) — <strong>Creative Developer & Mobile Architect</strong> based in Central Java.
-            Bridging analytical software engineering with tactile digital systems and organic exploration.
+          <p className="hero-bio-paragraph font-serif">
+            A digital field journal by <strong>Selvagant (Taki)</strong> —{' '}
+            <strong>Creative Developer & Mobile Architect</strong> based in Central Java.
+            Bridging analytical software engineering with tactile digital systems and organic
+            exploration.
           </p>
-
-          {/* Field Waypoint Jump Links */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 'var(--space-md)',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-          >
-            <a
-              href="#expeditions"
-              className="tag-badge"
-              style={{
-                padding: '8px 16px',
-                fontSize: 'var(--text-xs)',
-                fontWeight: 600,
-                color: 'var(--color-ink)',
-                borderColor: 'var(--color-ink)',
-                backgroundColor: 'var(--color-canvas)',
-                textDecoration: 'none',
-              }}
-            >
-              [ 01. EXPEDITIONS ↓ ]
-            </a>
-            <a
-              href="#about"
-              className="tag-badge"
-              style={{
-                padding: '8px 16px',
-                fontSize: 'var(--text-xs)',
-                color: 'var(--color-ink-muted)',
-                backgroundColor: 'transparent',
-                textDecoration: 'none',
-              }}
-            >
-              [ 02. DOSSIER & MANIFESTO ]
-            </a>
-          </div>
         </div>
 
-        {/* Tactical Coordinates Grid from Dossier */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: 'var(--space-md)',
-            marginTop: 'var(--space-3xl)',
-            paddingTop: 'var(--space-lg)',
-            borderTop: '1px solid var(--hairline-base)',
-          }}
-        >
-          <div className="hairline-box" style={{ padding: 'var(--space-md)', background: 'var(--color-canvas-subtle)' }}>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-              COORD. 01 // MOBILE ARCHITECTURE
-            </span>
-            <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', marginTop: '4px' }}>
-              Mobile Engineer @ UPPTI Undip
-            </div>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px', lineHeight: 1.5 }}>
-              Flutter, Native Android (Kotlin), Clean Architecture, offline-first client sync.
-            </p>
-          </div>
+        {/* Kolom Kanan: Large Circular Compass Dial Placeholder */}
+        <div className="hero-right-col" aria-hidden="true">
+          <div className="hero-compass-dial" id="hero-compass-dial">
+            <span className="hero-compass-cardinal n">N</span>
+            <span className="hero-compass-cardinal e">E</span>
+            <span className="hero-compass-cardinal s">S</span>
+            <span className="hero-compass-cardinal w">W</span>
 
-          <div className="hairline-box" style={{ padding: 'var(--space-md)', background: 'var(--color-canvas-subtle)' }}>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-              COORD. 02 // CREATIVE WEB CRAFT
-            </span>
-            <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', marginTop: '4px' }}>
-              Tactile Systems & Shaders
+            <div className="hero-compass-hub">
+              <div className="hero-compass-needle-ring" />
+              <span className="hero-compass-label font-mono">COMPASS SENSOR</span>
+              <span className="hero-compass-coords font-mono">7.05°S // 110.44°E</span>
             </div>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px', lineHeight: 1.5 }}>
-              TypeScript, React 18, Canvas 2D telemetry, responsive editorial typography design tokens.
-            </p>
-          </div>
-
-          <div className="hairline-box" style={{ padding: 'var(--space-md)', background: 'var(--color-canvas-subtle)' }}>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-              COORD. 03 // LEADERSHIP & PEOPLE
-            </span>
-            <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', marginTop: '4px' }}>
-              Mas'ul DIGIT & MADANI · PSDM HMIF
-            </div>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px', lineHeight: 1.5 }}>
-              Strategic organization direction, student human capital development & laboratory mentoring.
-            </p>
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Expanding Dot Portal Anchor (GSAP Target) */}
+      <div id="hero-portal-curtain" className="hero-portal-canvas-overlay" aria-hidden="true" />
     </section>
   );
 };
