@@ -33,16 +33,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 38px;
+  height: 44px;
   background-color: var(--color-canvas);
   border-left: 1px solid var(--hairline-base);
   border-right: 1px solid var(--hairline-base);
   border-bottom: 1px solid var(--hairline-base);
   border-top: none;
-  border-bottom-left-radius: 14px;
-  border-bottom-right-radius: 14px;
-  box-shadow: 0 4px 16px rgba(24, 26, 24, 0.06);
-  padding: 0 var(--space-md);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  box-shadow: 0 4px 18px rgba(24, 26, 24, 0.07);
+  padding: 0 28px;
   user-select: none;
 }
 
@@ -50,9 +50,9 @@
 .notch-ear-left {
   position: absolute;
   top: 0;
-  left: -14px;
-  width: 14px;
-  height: 14px;
+  left: -16px;
+  width: 16px;
+  height: 16px;
   pointer-events: none;
 }
 
@@ -60,9 +60,9 @@
 .notch-ear-right {
   position: absolute;
   top: 0;
-  right: -14px;
-  width: 14px;
-  height: 14px;
+  right: -16px;
+  width: 16px;
+  height: 16px;
   pointer-events: none;
 }
 
@@ -75,8 +75,7 @@
   color: var(--color-ink);
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--text-xs);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   text-transform: uppercase;
   transition: color var(--duration-fast) ease, opacity var(--duration-fast) ease;
 }
@@ -85,55 +84,20 @@
   color: var(--color-olive);
 }
 
-.notch-status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--color-olive);
-  display: inline-block;
-  box-shadow: 0 0 0 2px rgba(74, 88, 68, 0.15);
-  animation: pulse-beacon 2.4s infinite ease-in-out;
-}
-
 .notch-brand-text {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-.notch-tag-badge {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.06em;
-  color: var(--color-ink-faint);
-  background: var(--color-canvas-subtle);
-  border: 1px solid var(--hairline-subtle);
-  padding: 1px 5px;
-  border-radius: 3px;
-}
-
-@keyframes pulse-beacon {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  50% {
-    transform: scale(1.25);
-    opacity: 1;
-    box-shadow: 0 0 0 4px rgba(74, 88, 68, 0.25);
-  }
+  letter-spacing: -0.015em;
+  line-height: 1;
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .notch-dock-body {
-    height: 36px;
-    padding: 0 var(--space-sm);
+    height: 40px;
+    padding: 0 20px;
   }
   .notch-brand-text {
-    font-size: 12px;
-  }
-  .notch-tag-badge {
-    display: none;
+    font-size: 13px;
   }
 }

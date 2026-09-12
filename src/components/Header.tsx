@@ -39,16 +39,16 @@ export const Header: React.FC = () => {
     >
       {/* Top Center Cutout Notch Dock with Inverted Rounded Corners */}
       <div id="header-notch-dock" className="notch-dock-body">
-        {/* Inverted Concave Ear Left */}
-        <svg className="notch-ear-left" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M0,0 H14 V14 C14,6.268 7.732,0 0,0 Z" fill="var(--color-canvas)" />
-          <path d="M0,0 C7.732,0 14,6.268 14,14" stroke="var(--hairline-base)" strokeWidth="1" fill="none" />
+        {/* Inverted Concave Ear Left (R=16) */}
+        <svg className="notch-ear-left" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M0,0 H16 V16 C16,7.163 8.837,0 0,0 Z" fill="var(--color-canvas)" />
+          <path d="M0,0 C8.837,0 16,7.163 16,16" stroke="var(--hairline-base)" strokeWidth="1" fill="none" />
         </svg>
 
-        {/* Inverted Concave Ear Right */}
-        <svg className="notch-ear-right" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M14,0 H0 V14 C0,6.268 6.268,0 14,0 Z" fill="var(--color-canvas)" />
-          <path d="M0,14 C0,6.268 6.268,0 14,0" stroke="var(--hairline-base)" strokeWidth="1" fill="none" />
+        {/* Inverted Concave Ear Right (R=16) */}
+        <svg className="notch-ear-right" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M16,0 H0 V16 C0,7.163 7.163,0 16,0 Z" fill="var(--color-canvas)" />
+          <path d="M0,16 C0,7.163 7.163,0 16,0" stroke="var(--hairline-base)" strokeWidth="1" fill="none" />
         </svg>
 
         {/* Notch Content & Back-to-Top Brand Anchor */}
@@ -58,7 +58,9 @@ export const Header: React.FC = () => {
           className="notch-brand-anchor"
           title="Return to Expedition Basecamp (Hero)"
         >
-          <span className="notch-brand-text">ADVENTURE LOG.</span>
+          <span className="notch-brand-text">
+            ADVENTURE LOG<span style={{ color: 'var(--color-olive)' }}>.</span>
+          </span>
         </a>
       </div>
     </header>
