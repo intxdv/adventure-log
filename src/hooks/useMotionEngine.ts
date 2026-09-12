@@ -243,20 +243,20 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 2: SLVGNT vector characters drop down smoothly from above
+          // Layer 2: SLVGNT vector characters drop down immediately & smoothly from above
           gsap.fromTo(
             '.slvgnt-char',
             { y: -65, opacity: 0 },
             {
               scrollTrigger: {
                 trigger: landscapeStage,
-                start: 'top 82%',
+                start: 'top 88%',
                 toggleActions: 'play none none reverse',
               },
               y: 0,
               opacity: 1,
-              stagger: 0.05,
-              duration: 0.85,
+              stagger: 0.045,
+              duration: 0.8,
               ease: 'power3.out',
             }
           );
@@ -295,18 +295,7 @@ export const useMotionEngine = () => {
             }
           );
 
-          // Multi-plane parallax scrub as user scrolls the landscape
-          gsap.to('.footer-landscape-wordmark', {
-            yPercent: -12,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: landscapeStage,
-              start: 'top bottom',
-              end: 'bottom bottom',
-              scrub: 0.6,
-            },
-          });
-
+          // Background sky parallax scrub as user scrolls the landscape
           gsap.to('.footer-landscape-bg', {
             yPercent: -5,
             ease: 'none',
@@ -319,11 +308,10 @@ export const useMotionEngine = () => {
           });
 
           // 5d. Interactive 3D Cursor-Dependent Parallax on Landscape Diorama
+          // Note: SLVGNT stands firmly anchored as the monumental baseline behind the hills
           const stageEl = landscapeStage as HTMLElement;
           const bgX = gsap.quickTo('.footer-landscape-bg', 'x', { duration: 0.9, ease: 'power2.out' });
           const bgY = gsap.quickTo('.footer-landscape-bg', 'y', { duration: 0.9, ease: 'power2.out' });
-          const wordmarkX = gsap.quickTo('.footer-landscape-wordmark', 'x', { duration: 0.7, ease: 'power2.out' });
-          const wordmarkY = gsap.quickTo('.footer-landscape-wordmark', 'y', { duration: 0.7, ease: 'power2.out' });
           const fgX = gsap.quickTo('.footer-landscape-fg', 'x', { duration: 0.5, ease: 'power2.out' });
           const fgY = gsap.quickTo('.footer-landscape-fg', 'y', { duration: 0.5, ease: 'power2.out' });
           const copyrightX = gsap.quickTo('.footer-stage-copyright', 'x', { duration: 0.4, ease: 'power2.out' });
@@ -339,8 +327,6 @@ export const useMotionEngine = () => {
 
             bgX(normX * -18);
             bgY(normY * -10);
-            wordmarkX(normX * 28);
-            wordmarkY(normY * 16);
             fgX(normX * 10);
             fgY(normY * 6);
             copyrightX(normX * 16);
