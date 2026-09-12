@@ -7,6 +7,7 @@ export interface FooterNavLink {
 export interface FooterSocialLink {
   label: string;
   url: string;
+  icon: string;
   note?: string;
 }
 
@@ -19,11 +20,11 @@ export const FOOTER_NAV_LINKS: FooterNavLink[] = [
 ];
 
 export const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
-  { label: 'GitHub', url: 'https://github.com/intxdv', note: 'intxdv' },
-  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/syafiq-abiyyu-taqi/', note: 'Syafiq Abiyyu Taqi' },
-  { label: 'X / Twitter', url: 'https://x.com/intxdv', note: '@intxdv' },
-  { label: 'Instagram', url: 'https://instagram.com/intxdv', note: '@intxdv' },
-  { label: 'Direct Dispatch', url: 'mailto:selvagant@gmail.com', note: 'selvagant@gmail.com' },
+  { label: 'GitHub', url: 'https://github.com/intxdv', icon: '/icons/github.svg', note: 'intxdv' },
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/syafiq-abiyyu-taqi/', icon: '/icons/linkedin.svg', note: 'Syafiq Abiyyu Taqi' },
+  { label: 'X', url: 'https://x.com/intxdv', icon: '/icons/x.svg', note: '@intxdv' },
+  { label: 'Instagram', url: 'https://instagram.com/intxdv', icon: '/icons/instagram.svg', note: '@intxdv' },
+  { label: 'Gmail', url: 'mailto:selvagant@gmail.com', icon: '/icons/gmail.svg', note: 'selvagant@gmail.com' },
 ];
 
 export const FOOTER_COLOPHON = {

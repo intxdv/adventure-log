@@ -97,7 +97,7 @@
   align-items: start;
 }
 
-/* Brand Identity Block on Left (Logo with Text, Tagline, Clock, Dispatch Socials) */
+/* Brand Identity Block on Left (Logo with Text, Title, Tagline, Clock, Socials) */
 .footer-brand-col {
   display: flex;
   flex-direction: column;
@@ -107,14 +107,26 @@
 .footer-brand-logo-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 2px;
 }
 
 .footer-brand-logo-img {
-  height: clamp(26px, 2.2vw, 32px);
+  height: clamp(22px, 2vw, 28px);
   width: auto;
   display: block;
   object-fit: contain;
+}
+
+.footer-brand-title {
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  line-height: 1;
+  margin-top: -2px;
+}
+
+.footer-brand-dot {
+  color: var(--color-olive);
 }
 
 .footer-brand-tagline {
@@ -122,7 +134,7 @@
   color: var(--color-ink-muted);
   line-height: 1.6;
   margin: 0;
-  max-width: 38ch;
+  max-width: 40ch;
 }
 
 .footer-clock-row {
@@ -142,23 +154,32 @@
 .footer-socials-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   margin-top: 6px;
 }
 
 .footer-social-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-ink-muted);
   text-decoration: none;
   background-color: var(--color-canvas-subtle);
   border: 1px solid var(--hairline-subtle);
-  padding: 6px 14px;
-  border-radius: 2px;
+  padding: 6px 12px;
+  border-radius: 3px;
   transition: all 0.2s ease;
+}
+
+.footer-social-icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .footer-social-pill:hover {
@@ -166,6 +187,10 @@
   background-color: #FFFFFF;
   border-color: var(--hairline-base);
   transform: translateY(-1px);
+}
+
+.footer-social-pill:hover .footer-social-icon {
+  opacity: 1;
 }
 
 .footer-social-pill:hover .footer-link-arrow {

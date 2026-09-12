@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
         </h2>
 
         <div className="footer-layout">
-          {/* Brand & Identity Column (Left Side: Logo-Text, Tagline, Clock, Dispatch Socials) */}
+          {/* Brand & Identity Column (Left Side: Logo-Text, Title, Tagline, Clock, Socials with SVG Icons) */}
           <div className="footer-brand-col">
             <div className="footer-brand-logo-wrapper">
               <img
@@ -52,6 +52,10 @@ export const Footer: React.FC = () => {
                 alt="Selvagant Logo"
                 className="footer-brand-logo-img"
               />
+            </div>
+
+            <div className="footer-brand-title font-display">
+              ADVENTURE LOG<span className="footer-brand-dot">.</span>
             </div>
 
             <p className="footer-brand-tagline font-serif">
@@ -74,6 +78,12 @@ export const Footer: React.FC = () => {
                   rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                   aria-label={social.label}
                 >
+                  <img
+                    src={social.icon}
+                    alt=""
+                    className="footer-social-icon"
+                    aria-hidden="true"
+                  />
                   <span>{social.label}</span>
                   <span className="footer-link-arrow" aria-hidden="true">↗</span>
                 </a>
