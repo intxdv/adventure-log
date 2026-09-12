@@ -647,31 +647,37 @@
 /* Modal Bottom Actions */
 .dossier-modal-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 14px 20px;
+  padding: 16px 20px;
   border-top: 1px solid var(--hairline-base);
   background-color: var(--color-canvas);
-  gap: 12px;
   flex-shrink: 0;
-}
-
-@media (max-width: 540px) {
-  .dossier-modal-footer {
-    flex-direction: column;
-    align-items: stretch;
-  }
 }
 
 .dossier-footer-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
+.dossier-footer-links.centered {
+  justify-content: center;
+  width: 100%;
+}
+
+.dossier-github-icon {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.dossier-action-btn:hover .dossier-github-icon {
+  transform: scale(1.1);
+}
+
 .dossier-action-btn {
-  padding: 8px 16px;
+  padding: 10px 22px;
   border-radius: 2px;
   font-size: 0.75rem;
   font-weight: 700;
@@ -680,7 +686,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
