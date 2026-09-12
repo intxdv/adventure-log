@@ -210,7 +210,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
 
     // Jika sudah mulai, klik memicu transisi halus menuju Section About (1.4s tenang & sinematik)
     const stageWrapper = document.getElementById('hero-stage-wrapper');
-    const targetScroll = stageWrapper ? stageWrapper.offsetTop + window.innerHeight : window.innerHeight;
+    const targetScroll = stageWrapper ? stageWrapper.offsetTop + window.innerHeight * 1.6 : window.innerHeight * 1.6;
 
     gsap.to(window, {
       duration: 1.4,

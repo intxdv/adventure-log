@@ -19,12 +19,12 @@ export const useMotionEngine = () => {
 
       if (stageWrapper && aboutSection && !prefersReducedMotion) {
         // Scrub the clip-path of Section 2 from circle(0%) to circle(150%)
-        // directly from center of screen as user scrolls through the stage
+        // Ada jeda jarak scroll (42vh) di mana Hero tetap diam & tenang sebelum lingkaran mekar
         const portalTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: stageWrapper,
-            start: 'top top',
-            end: '+=100%',
+            start: 'top -42vh',
+            end: '+=115%',
             scrub: 0.6,
             onUpdate: (self) => {
               // Coordinate Notch Dock appearance
