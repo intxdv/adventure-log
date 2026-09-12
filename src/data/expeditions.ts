@@ -10,13 +10,32 @@ export const initialExpeditions: Expedition[] = [
     categoryLabel: 'Mobile Architecture · Civic Tech',
     year: '2026',
     period: 'Jan 2026 – Present',
-    role: 'Lead Mobile Architect',
+    role: 'Lead Mobile Architect & Backend',
     status: 'Deployed',
     stack: ['Flutter', 'Dart', 'Elysia', 'Bun', 'Clean Arch', 'REST API'],
     summary: 'Sistem pelaporan insiden & fasilitas kampus untuk transparansi civitas akademika FSM Undip, menghubungkan pelapor langsung ke pengelola sarana dengan alur verifikasi transparan.',
     featured: true,
     repoUrl: 'https://github.com/laporfsm/lapor-fsm',
     link: 'https://github.com/laporfsm/lapor-fsm',
+    dossier: {
+      englishSummary:
+        'A centralized digital reporting and incident management mobile application developed to streamline grievance resolution and campus facility maintenance for the FSM Undip academic community.',
+      nature: 'Class Assignment',
+      isGroupProject: true,
+      groupRole: 'Lead Mobile Architect & Backend Engineer',
+      impact: [
+        'Designed and implemented Clean Architecture in Flutter with strict separation of concerns, ensuring high testability and reliable offline report drafting.',
+        'Engineered high-throughput REST microservices using Elysia and Bun, achieving sub-millisecond response times for campus incident dispatch.',
+        'Eliminated manual paper-based ticketing, accelerating incident triage and status visibility for thousands of faculty students and staff.',
+      ],
+      learnings: [
+        'Mastered end-to-end type-safe API contract design between Elysia and Flutter clients with zero schema drift.',
+        'Learned how to design empathetic, accessible mobile grievance forms that maintain user anonymity while collecting actionable evidence.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Repository', url: 'https://github.com/laporfsm/lapor-fsm' },
+      ],
+    },
   },
   {
     id: 'dipofeed',
@@ -34,6 +53,25 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/leanderarya/dipo-feed',
     link: 'https://github.com/leanderarya/dipo-feed',
+    dossier: {
+      englishSummary:
+        'A specialized agricultural mobile application engineered to assist Indonesian dairy cattle farmers in formulating and evaluating nutritionally balanced feed rations using local forage databases.',
+      nature: 'Class Assignment',
+      isGroupProject: true,
+      groupRole: 'Mobile Developer & UI Engineer',
+      impact: [
+        'Translated complex animal nutrition equations into an intuitive, offline-first mobile calculator using Flutter.',
+        'Enabled rural dairy farmers to optimize ration cost-efficiency directly in the field without requiring persistent cellular reception.',
+        'Integrated dynamic forage composition lookups from local datasets to reduce expensive commercial feed dependencies.',
+      ],
+      learnings: [
+        'Learned how to translate intricate domain-specific mathematical models into reactive, foolproof state management.',
+        'Gained firsthand empathy for agrarian user constraints, prioritizing large touch targets and high-contrast outdoor readability.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Repository', url: 'https://github.com/leanderarya/dipo-feed' },
+      ],
+    },
   },
   {
     id: 'aware',
@@ -51,6 +89,25 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/sekarwidhastri/AWARE',
     link: 'https://github.com/sekarwidhastri/AWARE',
+    dossier: {
+      englishSummary:
+        'An occupational safety screening platform that detects worker fatigue in under 30 seconds by combining real-time computer vision facial landmark tracking with daily health self-assessments.',
+      nature: 'Class Assignment',
+      isGroupProject: true,
+      groupRole: 'Computer Vision & Software Engineer',
+      impact: [
+        'Implemented real-time facial landmark telemetry with MediaPipe to calculate Eye Aspect Ratio (EAR) and Mouth Aspect Ratio (MAR) for automated drowsiness and yawning detection.',
+        'Built a rapid, pre-shift fit-to-work screening pipeline executing in under 30 seconds per worker on commodity webcam hardware.',
+        'Provided workplace safety supervisors with objective, data-backed fatigue alerts before hazardous shifts commence.',
+      ],
+      learnings: [
+        'Deepened practical knowledge of edge computer vision optimization and dynamic threshold calibration under erratic industrial lighting.',
+        'Learned the critical importance of human-centered AI design when communicating safety risk indicators to frontline workers without stigma.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Repository', url: 'https://github.com/sekarwidhastri/AWARE' },
+      ],
+    },
   },
   {
     id: 'kagu',
@@ -61,13 +118,32 @@ export const initialExpeditions: Expedition[] = [
     categoryLabel: 'Browser Extension · Voice AI',
     year: '2026',
     period: 'Agu – Sep 2026',
-    role: 'Creator & Lead Engineer',
+    role: 'Solo Creator & Lead Engineer',
     status: 'Active',
     stack: ['TypeScript', 'WXT', 'Gemini API', 'Whisper API', 'Next.js', 'BYOK'],
     summary: 'Ekstensi browser speech-to-text modern berbasis Google Gemini & Whisper API dengan auto-input field aktif, multi-lingua cerdas, dan sinkronisasi clipboard instan.',
     featured: true,
     repoUrl: 'https://github.com/intxdv/Speech-to-Text-Workspace',
     link: 'https://github.com/intxdv/Speech-to-Text-Workspace',
+    dossier: {
+      englishSummary:
+        'A modern, privacy-focused browser extension that transforms spoken ideas into formatted text directly inside any active web input field using Google Gemini and Whisper API with a Bring-Your-Own-Key model.',
+      nature: 'Self-initiated',
+      isGroupProject: false,
+      groupRole: 'Solo Creator & Fullstack Extension Engineer',
+      impact: [
+        'Engineered a zero-friction voice capture pipeline that injects transcribed text directly into active browser DOM input elements while preserving cursor position.',
+        'Architected a Bring-Your-Own-Key (BYOK) privacy model that eliminates central data tracking and provides cost-free transcription via Gemini Flash.',
+        'Built intelligent multilingual punctuation and tone-formatting options tailored for creative writing and developer workflows.',
+      ],
+      learnings: [
+        'Mastered modern WebExtension development using the WXT framework and navigating cross-browser content-script isolation constraints.',
+        'Explored client-side audio streaming, token caching, and resilient API fallback mechanisms between Whisper and Gemini.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Repository', url: 'https://github.com/intxdv/Speech-to-Text-Workspace' },
+      ],
+    },
   },
   {
     id: 'notecraft',
@@ -78,13 +154,32 @@ export const initialExpeditions: Expedition[] = [
     categoryLabel: 'Mobile & Backend · Interactive Audio',
     year: '2026',
     period: 'Mar 2026',
-    role: 'Mobile & Interactive Engineer',
+    role: 'Mobile & Interactive Audio Engineer',
     status: 'Active',
     stack: ['Flutter', 'Dart', 'Elysia', 'Bun', 'Audio Engine', 'Gamification'],
     summary: 'Platform interaktif edukasi musik melalui pendekatan game-based learning, menyatukan UI audio mobile responsif dengan backend performa tinggi Elysia + Bun.',
     featured: false,
     repoUrl: 'https://github.com/Note-Craft-Project/note-craft',
     link: 'https://github.com/Note-Craft-Project/note-craft',
+    dossier: {
+      englishSummary:
+        'An interactive music education mobile platform designed to make fundamental music theory intuitive through gamified rhythm training, interactive pitch canvas, and tactile audio feedback.',
+      nature: 'Class Assignment',
+      isGroupProject: true,
+      groupRole: 'Mobile & Interactive Audio Engineer',
+      impact: [
+        'Developed interactive custom canvas components in Flutter for real-time rhythm and pitch tapping with negligible latency.',
+        'Constructed a lightweight leaderboard and user progression backend with Elysia and Bun to sustain student motivation.',
+        'Structured modular audio playback controllers that synchronize visual notes with synthetic acoustic tones.',
+      ],
+      learnings: [
+        'Gained deep technical proficiency in low-latency mobile audio buffer handling and coordinating game tick loops with Flutter rendering cycles.',
+        'Learned effective modular collaboration in cross-functional agile teams managing simultaneous mobile and backend lifecycles.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Repository', url: 'https://github.com/Note-Craft-Project/note-craft' },
+      ],
+    },
   },
   {
     id: 'baca-di-teras',
@@ -95,13 +190,32 @@ export const initialExpeditions: Expedition[] = [
     categoryLabel: 'Library Automation · Public Systems',
     year: '2026',
     period: 'Jul – Agu 2026',
-    role: 'Systems Architect',
+    role: 'Systems Architect & Fullstack',
     status: 'Deployed',
     stack: ['PHP', 'MySQL', 'SLiMS', 'Web Architecture', 'Cataloging'],
     summary: 'Otomasi sistem perpustakaan terpadu untuk digitalisasi katalog publik dan sirkulasi buku warga di Kecamatan Teras, Boyolali, mendukung keterbukaan akses literasi.',
     featured: false,
     repoUrl: 'https://github.com/baca-di-teras/baca-di-teras',
     link: 'https://github.com/baca-di-teras/baca-di-teras',
+    dossier: {
+      englishSummary:
+        'A comprehensive public library automation deployment that digitized book cataloging, member registration, and book loans for rural community reading rooms in Teras District, Boyolali.',
+      nature: 'Community Initiative',
+      isGroupProject: true,
+      groupRole: 'Systems Architect & Fullstack Engineer',
+      impact: [
+        'Configured and deployed an open-source SLiMS (Senayan Library Management System) instance tailored for rural public service operations.',
+        'Migrated hundreds of legacy physical card catalogs into an online searchable OPAC (Open Public Access Catalog), empowering local youth and educators.',
+        'Streamlined circulation records to eliminate missing books and track community reading engagement trends.',
+      ],
+      learnings: [
+        'Learned how to adapt and maintain open-source software within resource-constrained municipal IT infrastructure.',
+        'Strengthened civic user onboarding skills, translating technical database workflows into clear, non-technical operational manuals for local volunteers.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Repository', url: 'https://github.com/baca-di-teras/baca-di-teras' },
+      ],
+    },
   },
   {
     id: 'orv-translation',
@@ -119,5 +233,24 @@ export const initialExpeditions: Expedition[] = [
     featured: false,
     repoUrl: 'https://github.com/intxdv/orv-id-translation',
     link: 'https://github.com/intxdv/orv-id-translation',
+    dossier: {
+      englishSummary:
+        'A fan-driven digital editorial and typesetting project publishing an Indonesian translation of the webnovel "Omniscient Reader’s Viewpoint" packaged into an elegant, standards-compliant EPUB3 edition.',
+      nature: 'Self-initiated',
+      isGroupProject: false,
+      groupRole: 'Solo Editorial Typesetter & Translator',
+      impact: [
+        'Crafted semantic, clean HTML5/CSS stylesheets calibrated specifically for optical contrast and comfortable long-form reading on e-ink devices.',
+        'Engineered standards-compliant EPUB3 files with interactive footnotes, structured table of contents, and responsive chapter typography.',
+        'Provided community readers with a high-fidelity digital book edition, elevating amateur webnovel translations into bookstore-grade publications.',
+      ],
+      learnings: [
+        'Mastered micro-typography principles including kerning, leading, typographic hierarchy, and cross-platform e-reader CSS rendering quirks.',
+        'Cultivated aesthetic restraint and rigorous attention to linguistic precision in large-scale literary projects.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Repository', url: 'https://github.com/intxdv/orv-id-translation' },
+      ],
+    },
   },
 ];
