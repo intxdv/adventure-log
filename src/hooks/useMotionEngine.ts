@@ -234,7 +234,7 @@ export const useMotionEngine = () => {
           gsap.from('.footer-landscape-bg', {
             scrollTrigger: {
               trigger: landscapeStage,
-              start: 'top 96%',
+              start: 'top bottom+=60',
               toggleActions: 'play none none reverse',
             },
             scale: 1.08,
@@ -244,13 +244,14 @@ export const useMotionEngine = () => {
           });
 
           // Layer 2: SLVGNT vector characters drop down majestically & smoothly from above
+          // Diajukan lebih awal: Mulai turun tepat saat landscape mendekati batas bawah layar
           gsap.fromTo(
             '.slvgnt-char',
             { y: -80, opacity: 0 },
             {
               scrollTrigger: {
                 trigger: landscapeStage,
-                start: 'top 96%',
+                start: 'top bottom+=60',
                 toggleActions: 'play none none reverse',
               },
               y: 0,
@@ -265,7 +266,7 @@ export const useMotionEngine = () => {
           gsap.from('.footer-landscape-fg', {
             scrollTrigger: {
               trigger: landscapeStage,
-              start: 'top 92%',
+              start: 'top bottom',
               toggleActions: 'play none none reverse',
             },
             y: 55,
@@ -274,23 +275,24 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 4: Frosted glass copyright badge (Rise straight up from bottom, strictly centered via margin-auto)
+          // Layer 4: Frosted glass copyright badge (Rise straight up when user reaches the bottom of the page)
+          // Trigger aktif tepat saat scroll mentok ke dasar halaman
           gsap.fromTo(
             '.footer-stage-copyright',
             {
-              y: 45,
+              y: 40,
               opacity: 0,
             },
             {
               scrollTrigger: {
                 trigger: landscapeStage,
-                start: 'top 90%',
+                start: 'bottom-=20 bottom',
                 toggleActions: 'play none none reverse',
               },
               y: 0,
               opacity: 1,
-              delay: 0.15,
-              duration: 1.1,
+              delay: 0.08,
+              duration: 1.0,
               ease: 'power3.out',
             }
           );
