@@ -163,45 +163,6 @@ export const FieldArsenal: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Rotary Nav Controls (Visible only on Mobile <= 768px) */}
-        <div className="arsenal-rotary-nav font-mono" aria-label="Carousel Rotary Navigation">
-          <button
-            type="button"
-            className="arsenal-nav-arrow-btn"
-            onClick={handlePrev}
-            aria-label="Previous capability pillar"
-          >
-            <span aria-hidden="true">←</span>
-            <span>PREV</span>
-          </button>
-
-          <div className="arsenal-nav-dots" aria-hidden="true">
-            {initialArsenal.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                className={`nav-dot ${activePillarIndex === idx ? 'is-active' : ''}`}
-                onClick={() => setActivePillarIndex(idx)}
-                aria-label={`Jump to pillar 0${idx + 1}`}
-              />
-            ))}
-          </div>
-
-          <span className="arsenal-nav-telemetry">
-            [0{activePillarIndex + 1} / 0{initialArsenal.length}]
-          </span>
-
-          <button
-            type="button"
-            className="arsenal-nav-arrow-btn"
-            onClick={handleNext}
-            aria-label="Next capability pillar"
-          >
-            <span>NEXT</span>
-            <span aria-hidden="true">→</span>
-          </button>
-        </div>
-
       </div>
     </section>
   );
