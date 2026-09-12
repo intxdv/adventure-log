@@ -1,5 +1,6 @@
-﻿import React from 'react';
+import React from 'react';
 import { Preloader } from './components/Preloader';
+import { TacticalNav } from './components/TacticalNav';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -15,6 +16,9 @@ export const App: React.FC = () => {
 
       {/* Preloader Screen */}
       <Preloader />
+
+      {/* Tactical Right-Rail & Mobile Floating Navigation */}
+      <TacticalNav />
 
       {/* Main Structural Content */}
       <Header />

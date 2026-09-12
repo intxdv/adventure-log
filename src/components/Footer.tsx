@@ -1,8 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer style={{ backgroundColor: 'var(--color-canvas)', position: 'relative', overflow: 'hidden' }}>
+    <footer id="footer" style={{ backgroundColor: 'var(--color-canvas)', position: 'relative', overflow: 'hidden' }}>
       {/* Ticker Marquee Ribbon */}
       <div
         style={{

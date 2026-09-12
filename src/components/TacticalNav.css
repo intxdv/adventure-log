@@ -1,0 +1,271 @@
+﻿/* Tactical Right-Rail Navigation Styles */
+
+.tactical-nav-rail {
+  position: fixed;
+  right: clamp(1rem, 2vw, 2.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5rem;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .tactical-nav-rail {
+    display: none;
+  }
+}
+
+/* Altimeter / Telemetry Top Tag */
+.tactical-nav-altimeter {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-faint);
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tactical-nav-altimeter .alt-val {
+  color: var(--color-olive);
+  font-weight: 700;
+}
+
+/* Vertical Ruler Spine */
+.tactical-nav-spine {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.25rem;
+}
+
+.tactical-nav-spine::before {
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: -10px;
+  bottom: -10px;
+  width: 1px;
+  background-color: var(--hairline-base);
+  z-index: 0;
+}
+
+/* Nav Item Link */
+.tactical-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  min-height: 44px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.tactical-nav-item:focus-visible {
+  outline: 2px solid var(--color-olive);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Hover Reveal Text Card */
+.tactical-nav-reveal {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem;
+  background: rgba(247, 246, 242, 0.94);
+  border: 1px solid var(--hairline-base);
+  border-radius: 4px;
+  box-shadow: 2px 2px 0px rgba(24, 26, 24, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateX(12px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.tactical-nav-item:hover .tactical-nav-reveal,
+.tactical-nav-item.active .tactical-nav-reveal {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+}
+
+.tactical-nav-item.active .tactical-nav-reveal {
+  border-color: var(--color-olive);
+  box-shadow: 2px 2px 0px var(--color-olive);
+}
+
+.tactical-nav-reveal .nav-idx {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-olive);
+}
+
+.tactical-nav-reveal .nav-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+/* Tactical Pip / Marker on the Spine */
+.tactical-nav-pip {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-canvas);
+  border: 1.5px solid var(--hairline-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tactical-nav-pip::after {
+  content: '';
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--hairline-strong);
+  transition: all 0.25s ease;
+}
+
+.tactical-nav-item:hover .tactical-nav-pip {
+  border-color: var(--color-ink);
+  transform: scale(1.15);
+}
+
+.tactical-nav-item.active .tactical-nav-pip {
+  border-color: var(--color-olive);
+  background: var(--color-olive);
+  transform: scale(1.25);
+  box-shadow: 0 0 0 3px rgba(74, 88, 68, 0.2);
+}
+
+.tactical-nav-item.active .tactical-nav-pip::after {
+  background-color: var(--color-canvas);
+}
+
+/* Coordinates Footer Stamp */
+.tactical-nav-footer {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-faint);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  margin-top: 0.5rem;
+  margin-right: 2px;
+  opacity: 0.75;
+}
+
+/* Mobile Floating Telemetry Navigation Dock */
+.tactical-nav-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .tactical-nav-mobile {
+    display: flex;
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 950;
+    width: calc(100% - 2rem);
+    max-width: 440px;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
+  .mobile-nav-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.4rem 0.65rem 0.4rem 0.9rem;
+    background: rgba(247, 246, 242, 0.95);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 9999px;
+    box-shadow: 0 8px 24px rgba(24, 26, 24, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    gap: 0.6rem;
+  }
+
+  .mobile-nav-telemetry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    font-size: 0.68rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-alt-val {
+    font-weight: 700;
+    color: var(--color-olive);
+    letter-spacing: 0.04em;
+  }
+
+  .mobile-sec-name {
+    color: var(--color-ink-muted);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+  }
+
+  .mobile-pips-row {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .mobile-pip-btn {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 4px;
+    border-radius: 9999px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-ink-muted);
+    font-size: 0.62rem;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-pip-btn:hover {
+    color: var(--color-ink);
+    background: var(--color-canvas-subtle);
+  }
+
+  .mobile-pip-btn.active {
+    background: var(--color-olive);
+    color: var(--color-canvas);
+    border-color: var(--color-olive);
+  }
+}
