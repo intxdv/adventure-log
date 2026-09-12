@@ -367,28 +367,25 @@
   pointer-events: none;
 }
 
-/* Layer 2: Sunken SLVGNT Typography */
+/* Layer 2: Sunken SLVGNT Typography (Pure Vector SVG) */
 .footer-landscape-wordmark {
   position: absolute;
   top: 44.03%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
+  width: 88.23%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 2;
   pointer-events: none;
 }
 
-.footer-slvgnt-text {
+.footer-slvgnt-svg {
+  width: 100%;
+  height: auto;
   display: block;
-  font-size: 23.47vw;
-  line-height: 0.85em;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: #FFFFFF;
-  text-transform: uppercase;
-  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.20));
-  margin: 0 auto;
+  pointer-events: none;
 }
 
 /* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout */

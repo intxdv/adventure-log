@@ -151,9 +151,14 @@ export const Footer: React.FC = () => {
           loading="lazy"
         />
 
-        {/* Layer 2: Giant Wordmark Typography */}
+        {/* Layer 2: Giant Wordmark Typography (Crisp 3.8KB Pure Vector) */}
         <div className="footer-landscape-wordmark" aria-hidden="true">
-          <span className="footer-slvgnt-text font-display">SLVGNT</span>
+          <img
+            src="/images/SLVGNT.svg"
+            alt="SLVGNT"
+            className="footer-slvgnt-svg"
+            loading="lazy"
+          />
         </div>
 
         {/* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout */}
