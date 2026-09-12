@@ -5,8 +5,18 @@
 .about-section {
   padding: var(--space-4xl) 0;
   position: relative;
-  background-color: var(--color-canvas);
+  background-color: #121512;
+  color: #F7F6F2;
   scroll-margin-top: 100px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-section .tag-badge {
+  background-color: rgba(143, 163, 130, 0.12);
+  border-color: rgba(143, 163, 130, 0.32);
+  color: #A3BA99;
 }
 
 .about-grid {
@@ -73,9 +83,9 @@
   margin: 0;
   position: relative;
   background-color: #FFFFFF;
-  border: 1px solid var(--hairline-base);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   padding: clamp(0.75rem, 1.75vw, 1.125rem);
-  box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .field-zine-frame {
@@ -107,7 +117,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justifyContent: center;
+  justify-content: center;
   background-color: var(--color-canvas);
   padding: var(--space-lg);
   text-align: center;
@@ -204,13 +214,13 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  color: var(--color-ink);
+  color: #F7F6F2;
   margin-bottom: var(--space-xs);
 }
 
 .about-subhead {
   font-size: var(--text-xs);
-  color: var(--color-olive);
+  color: #9DB594;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: var(--space-lg);
@@ -222,7 +232,7 @@
 .about-lead {
   font-size: var(--text-lg);
   line-height: 1.6;
-  color: var(--color-ink);
+  color: #E8E7E2;
   font-weight: 500;
   margin-bottom: var(--space-md);
 }
@@ -230,7 +240,7 @@
 .about-body {
   font-size: var(--text-base);
   line-height: 1.7;
-  color: var(--color-ink-muted);
+  color: #A6AAA0;
   margin-bottom: var(--space-xl);
 }
 
@@ -239,16 +249,16 @@
   position: relative;
   margin: 0 0 var(--space-xl) 0;
   padding: var(--space-lg) var(--space-xl);
-  background-color: var(--color-canvas-subtle);
-  border-left: 3px solid var(--color-olive);
-  border-top: 1px solid var(--hairline-subtle);
-  border-right: 1px solid var(--hairline-subtle);
-  border-bottom: 1px solid var(--hairline-subtle);
+  background-color: rgba(255, 255, 255, 0.035);
+  border-left: 3px solid #8FA382;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .about-manifesto-kicker {
   font-size: 0.7rem;
-  color: var(--color-olive);
+  color: #9DB594;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-xs);
   display: block;
@@ -258,13 +268,13 @@
   font-style: italic;
   font-size: var(--text-base);
   line-height: 1.75;
-  color: var(--color-ink);
+  color: #F2F0EB;
   margin-bottom: var(--space-sm);
 }
 
 .about-manifesto-cite {
   font-size: var(--text-xs);
-  color: var(--color-ink-muted);
+  color: #8C9086;
   display: block;
   text-align: right;
 }
@@ -286,9 +296,9 @@
 .selvagant-reveal-dock:hover,
 .selvagant-reveal-dock:focus-visible,
 .selvagant-reveal-dock:focus-within {
-  border-color: var(--hairline-base);
-  background-color: #FFFFFF;
-  box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.06), 0 2px 8px rgba(24, 26, 24, 0.03);
+  border-color: rgba(255, 255, 255, 0.14);
+  background-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.45);
 }
 
 .selvagant-trigger-row {
@@ -304,9 +314,10 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1;
-  color: var(--color-ink);
+  color: #F2F1EC;
   text-transform: uppercase;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 /* Revealed Meaning Drawer on Hover/Focus */
@@ -328,7 +339,7 @@
   min-height: 0;
   padding-top: var(--space-sm);
   margin-top: 8px;
-  border-top: 1px solid var(--hairline-subtle);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .selvagant-drawer-header {
@@ -336,7 +347,7 @@
   justifyContent: space-between;
   align-items: center;
   font-size: 0.7rem;
-  color: var(--color-olive);
+  color: #9DB594;
   font-weight: 600;
   letter-spacing: 0.04em;
   margin-bottom: 6px;
@@ -346,7 +357,7 @@
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
-  color: var(--color-olive);
+  color: #B5CCA8;
   letter-spacing: 0.02em;
   text-transform: none;
   font-size: 0.85rem;
@@ -354,7 +365,15 @@
 
 .selvagant-drawer-body {
   font-size: 0.725rem;
-  color: var(--color-ink-muted);
+  color: #A8ACA2;
   line-height: 1.6;
   margin: 0;
+}
+
+.selvagant-drawer-body strong {
+  color: #FFFFFF;
+}
+
+.selvagant-drawer-body em {
+  color: #E2E4DE;
 }

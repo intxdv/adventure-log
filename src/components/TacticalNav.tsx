@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TacticalNav.css';
 
 export interface NavSection {
@@ -69,7 +69,7 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
   return (
     <>
       {/* Desktop Vertical Rail */}
-      <nav className="tactical-nav-rail" aria-label="Expedition Sections">
+      <nav className={`tactical-nav-rail ${activeId === 'about' ? 'theme-dark' : ''}`} aria-label="Expedition Sections">
         {/* Altimeter Telemetry Header */}
         <div className="tactical-nav-altimeter">
           <span className="alt-label">ALT // ELEV</span>
@@ -111,7 +111,7 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
 
       {/* Mobile Floating Telemetry Navigation Dock */}
       <nav className="tactical-nav-mobile font-mono" aria-label="Mobile Section Navigation">
-        <div className="mobile-nav-pill">
+        <div className={`mobile-nav-pill ${activeId === 'about' ? 'theme-dark' : ''}`}>
           <div className="mobile-nav-telemetry">
             <span className="mobile-alt-val">+{altimeter}M</span>
             <span className="mobile-sec-name">[{currentSection.index}] {currentSection.label.split('/')[0].trim()}</span>

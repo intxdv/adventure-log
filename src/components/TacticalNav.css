@@ -1,4 +1,4 @@
-﻿/* Tactical Right-Rail Navigation Styles */
+/* Tactical Right-Rail Navigation Styles */
 
 .tactical-nav-rail {
   position: fixed;
@@ -268,4 +268,90 @@
     color: var(--color-canvas);
     border-color: var(--color-olive);
   }
+}
+
+/* ==========================================================================
+   Dark Theme Adaptation for Tactical Rail (Over Dark / Nocturnal Sections)
+   ========================================================================== */
+.tactical-nav-rail.theme-dark .tactical-nav-altimeter {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-altimeter .alt-val {
+  color: #9DB594;
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-spine::before {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-pip {
+  background: #121512;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-pip::after {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-item:hover .tactical-nav-pip {
+  border-color: #FFFFFF;
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-item.active .tactical-nav-pip {
+  border-color: #9DB594;
+  background: #9DB594;
+  box-shadow: 0 0 0 3px rgba(157, 181, 148, 0.25);
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-item.active .tactical-nav-pip::after {
+  background-color: #121512;
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-reveal {
+  background: rgba(24, 28, 24, 0.94);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-reveal .nav-idx {
+  color: #9DB594;
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-reveal .nav-title {
+  color: #F7F6F2;
+}
+
+.tactical-nav-rail.theme-dark .tactical-nav-footer {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Mobile Pill Dark Adaptation */
+.mobile-nav-pill.theme-dark {
+  background: rgba(20, 24, 20, 0.94);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.mobile-nav-pill.theme-dark .mobile-alt-val {
+  color: #9DB594;
+}
+
+.mobile-nav-pill.theme-dark .mobile-sec-name {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mobile-nav-pill.theme-dark .mobile-pip-btn {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mobile-nav-pill.theme-dark .mobile-pip-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-pill.theme-dark .mobile-pip-btn.active {
+  background: #9DB594;
+  color: #121512;
+  border-color: #9DB594;
 }
