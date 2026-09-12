@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    About Section & Field Dossier Styling (The Digital Cartographer)
    ========================================================================== */
 
@@ -75,6 +75,50 @@
 
 .field-dossier-frame:hover .field-dossier-img {
   transform: scale(1.025);
+}
+
+/* Fallback Container if Image Unloaded/Error */
+.field-dossier-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justifyContent: center;
+  background-color: var(--color-canvas);
+  padding: var(--space-lg);
+  text-align: center;
+  user-select: none;
+}
+
+.field-dossier-reticle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px dashed var(--color-olive);
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  margin-bottom: var(--space-sm);
+  color: var(--color-olive);
+  font-size: var(--text-xs);
+  position: relative;
+}
+
+.field-dossier-reticle::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 1px;
+  background-color: var(--color-olive);
+}
+
+.field-dossier-reticle::after {
+  content: '';
+  position: absolute;
+  height: 12px;
+  width: 1px;
+  background-color: var(--color-olive);
 }
 
 /* Tactile Corner Brackets */

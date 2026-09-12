@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './About.css';
 
 export const About: React.FC = () => {
+  const [hasImageError, setHasImageError] = useState(false);
+
   return (
     <section id="about" className="about-section hairline-b" aria-labelledby="about-heading">
       <div className="container about-grid">
@@ -17,21 +19,36 @@ export const About: React.FC = () => {
             </span>
           </header>
 
-          {/* Portrait Container Frame */}
+          {/* Portrait Container Frame with 1:1 Aspect Ratio */}
           <div className="field-dossier-frame">
             <span className="corner-bracket corner-tl" aria-hidden="true" />
             <span className="corner-bracket corner-tr" aria-hidden="true" />
             <span className="corner-bracket corner-bl" aria-hidden="true" />
             <span className="corner-bracket corner-br" aria-hidden="true" />
 
-            <img
-              src="/images/taki-portrait.jpg"
-              alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
-              className="field-dossier-img"
-              width={1080}
-              height={1080}
-              loading="lazy"
-            />
+            {!hasImageError ? (
+              <img
+                src="/images/taki-portrait.jpg"
+                alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
+                className="field-dossier-img"
+                width={1080}
+                height={1080}
+                loading="lazy"
+                onError={() => setHasImageError(true)}
+              />
+            ) : (
+              <div className="field-dossier-fallback">
+                <div className="field-dossier-reticle font-mono">
+                  FIELD
+                </div>
+                <div style={{ fontWeight: 700, fontSize: 'var(--text-base)', color: 'var(--color-ink)' }}>
+                  Syafiq Abiyyu Taqi
+                </div>
+                <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', marginTop: '4px' }}>
+                  ARCHIVE REF // TK-001
+                </div>
+              </div>
+            )}
           </div>
 
           <figcaption className="field-dossier-caption font-mono">
