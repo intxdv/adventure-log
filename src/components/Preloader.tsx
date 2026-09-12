@@ -173,9 +173,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           <div
             style={{
               height: '100%',
+              width: '100%',
               backgroundColor: 'var(--color-olive)',
-              width: `${progress}%`,
-              transition: 'width 0.08s linear',
+              transformOrigin: 'left',
+              transform: `scaleX(${progress / 100})`,
+              transition: 'transform 0.08s linear',
             }}
           />
         </div>
