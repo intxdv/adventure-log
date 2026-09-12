@@ -146,45 +146,45 @@ export const Footer: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* 3. Depth-Masked Landscape Wordmark Stage */}
-        <div
-          className="footer-landscape-stage"
-          role="img"
-          aria-label="Adventure Log Mountain Landscape Colophon with Sunken Wordmark"
-        >
-          {/* Layer 1: Background Landscape */}
-          <img
-            src="/images/footer-landscape-bg.png"
-            alt="Mountain Landscape Background"
-            className="footer-landscape-bg"
-            loading="lazy"
-          />
+      {/* 3. Full-Bleed Edge-to-Edge Landscape Stage (Pojok Kiri sampai Pojok Kanan) */}
+      <div
+        className="footer-landscape-stage"
+        role="img"
+        aria-label="SLVGNT Mountain Landscape with Retro CRT Monitor and Sunken Wordmark"
+      >
+        {/* Layer 1: Background Landscape Sky & Mountains */}
+        <img
+          src="/images/footer-landscape-bg.png"
+          alt="Mountain Landscape Background"
+          className="footer-landscape-bg"
+          loading="lazy"
+        />
 
-          {/* Layer 2: Giant Wordmark Typography */}
-          <div className="footer-wordmark-layer" aria-hidden="true">
-            <div className="footer-giant-wordmark">
-              ADVENTURE LOG<span className="footer-wordmark-dot">.</span>
-            </div>
-          </div>
-
-          {/* Layer 3: Foreground Landscape Cutout (Overlays front of typography) */}
-          <img
-            src="/images/footer-landscape-fg.png"
-            alt=""
-            aria-hidden="true"
-            className="footer-landscape-fg"
-            loading="lazy"
-          />
-
-          {/* Layer 4: Stage Overlay Telemetry */}
-          <div className="footer-stage-telemetry font-mono">
-            <span className="footer-stage-coord">SELVAGANT EXPEDITION BASECAMP // JAVA</span>
-            <span className="footer-stage-coord">7.9797° S, 112.6304° E · 3142M</span>
-          </div>
+        {/* Layer 2: Giant Wordmark Typography */}
+        <div className="footer-wordmark-layer" aria-hidden="true">
+          <div className="footer-giant-wordmark">SLVGNT</div>
         </div>
 
-        {/* 4. Bottom Dispatch Bar */}
+        {/* Layer 3: Foreground Landscape Cutout (Hill and Moss-Covered CRT Monitor) */}
+        <img
+          src="/images/footer-landscape-fg-slvgnt.png"
+          alt=""
+          aria-hidden="true"
+          className="footer-landscape-fg"
+          loading="lazy"
+        />
+
+        {/* Layer 4: Stage Overlay Telemetry */}
+        <div className="footer-stage-telemetry font-mono">
+          <span className="footer-stage-coord">SELVAGANT EXPEDITION BASECAMP // JAVA</span>
+          <span className="footer-stage-coord">7.9797° S, 112.6304° E · 3142M</span>
+        </div>
+      </div>
+
+      {/* 4. Bottom Dispatch Bar */}
+      <div className="container">
         <div className="footer-bottom-bar font-mono">
           <div>
             © 2026 SELVAGANT (TAKI) // ALL RIGHTS RESERVED // CARTOGRAPHIC DOSSIER NO. 07
