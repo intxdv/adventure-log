@@ -58,9 +58,7 @@ export const Header: React.FC = () => {
           className="notch-brand-anchor"
           title="Return to Expedition Basecamp (Hero)"
         >
-          <span className="notch-status-dot" aria-hidden="true" />
           <span className="notch-brand-text">ADVENTURE LOG.</span>
-          <span className="notch-tag-badge">SELVAGANT</span>
         </a>
       </div>
     </header>
