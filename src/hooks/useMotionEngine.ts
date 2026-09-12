@@ -243,10 +243,10 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 2: SLVGNT vector characters drop down immediately & smoothly from above
+          // Layer 2: SLVGNT vector characters drop down majestically & smoothly from above
           gsap.fromTo(
             '.slvgnt-char',
-            { y: -65, opacity: 0 },
+            { y: -80, opacity: 0 },
             {
               scrollTrigger: {
                 trigger: landscapeStage,
@@ -255,8 +255,8 @@ export const useMotionEngine = () => {
               },
               y: 0,
               opacity: 1,
-              stagger: 0.045,
-              duration: 0.8,
+              stagger: 0.08,
+              duration: 1.25,
               ease: 'power3.out',
             }
           );
@@ -289,8 +289,8 @@ export const useMotionEngine = () => {
               },
               y: 0,
               opacity: 1,
-              delay: 0.25,
-              duration: 0.85,
+              delay: 0.35,
+              duration: 1.1,
               ease: 'power3.out',
             }
           );
