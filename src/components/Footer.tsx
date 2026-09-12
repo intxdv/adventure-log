@@ -171,7 +171,7 @@ export const Footer: React.FC = () => {
 
         {/* Layer 4: Frosted White Glass Copyright Plaque on the Hill */}
         <div className="footer-stage-copyright font-mono">
-          <span>© 2026 SELVAGANT (TAKI) // ALL RIGHTS RESERVED</span>
+          <span>© 2026 SELVAGANT // ALL RIGHTS RESERVED</span>
         </div>
       </div>
     </footer>
