@@ -5,15 +5,29 @@
 .about-section {
   padding: var(--space-4xl) 0;
   position: relative;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  scroll-margin-top: 100px;
+  border-top: 1px solid var(--hairline-base);
+  border-bottom: 1px solid var(--hairline-base);
+  transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.6s ease,
+              color 0.6s ease;
+}
+
+/* Dynamic Nocturnal Canvas Active When Reaching Section */
+.about-section.is-nocturne {
   background-color: #121512;
   color: #F7F6F2;
-  scroll-margin-top: 100px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  border-top-color: rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .about-section .tag-badge {
+  transition: background-color 0.6s ease, border-color 0.6s ease, color 0.6s ease;
+}
+
+.about-section.is-nocturne .tag-badge {
   background-color: rgba(143, 163, 130, 0.12);
   border-color: rgba(143, 163, 130, 0.32);
   color: #A3BA99;
@@ -83,8 +97,14 @@
   margin: 0;
   position: relative;
   background-color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--hairline-base);
   padding: clamp(0.75rem, 1.75vw, 1.125rem);
+  box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
+  transition: box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s ease;
+}
+
+.about-section.is-nocturne .field-zine-card {
+  border-color: rgba(255, 255, 255, 0.16);
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
@@ -131,7 +151,7 @@
   border: 1px dashed var(--color-olive);
   display: flex;
   align-items: center;
-  justifyContent: center;
+  justify-content: center;
   margin-bottom: var(--space-sm);
   color: var(--color-olive);
   font-size: var(--text-xs);
@@ -142,7 +162,7 @@
 .field-zine-footer {
   margin-top: clamp(0.75rem, 1.5vw, 1rem);
   display: flex;
-  justifyContent: space-between;
+  justify-content: space-between;
   align-items: flex-start;
   gap: var(--space-md);
   padding-top: 4px;
@@ -214,34 +234,54 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  color: #F7F6F2;
+  color: var(--color-ink);
   margin-bottom: var(--space-xs);
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-headline {
+  color: #F7F6F2;
 }
 
 .about-subhead {
   font-size: var(--text-xs);
-  color: #9DB594;
+  color: var(--color-olive);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: var(--space-lg);
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-subhead {
+  color: #9DB594;
 }
 
 .about-lead {
   font-size: var(--text-lg);
   line-height: 1.6;
-  color: #E8E7E2;
+  color: var(--color-ink);
   font-weight: 500;
   margin-bottom: var(--space-md);
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-lead {
+  color: #E8E7E2;
 }
 
 .about-body {
   font-size: var(--text-base);
   line-height: 1.7;
-  color: #A6AAA0;
+  color: var(--color-ink-muted);
   margin-bottom: var(--space-xl);
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-body {
+  color: #A6AAA0;
 }
 
 /* Authentic Manifesto Blockquote */
@@ -249,6 +289,15 @@
   position: relative;
   margin: 0 0 var(--space-xl) 0;
   padding: var(--space-lg) var(--space-xl);
+  background-color: var(--color-canvas-subtle);
+  border-left: 3px solid var(--color-olive);
+  border-top: 1px solid var(--hairline-subtle);
+  border-right: 1px solid var(--hairline-subtle);
+  border-bottom: 1px solid var(--hairline-subtle);
+  transition: background-color 0.6s ease, border-color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-manifesto {
   background-color: rgba(255, 255, 255, 0.035);
   border-left: 3px solid #8FA382;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -258,25 +307,40 @@
 
 .about-manifesto-kicker {
   font-size: 0.7rem;
-  color: #9DB594;
+  color: var(--color-olive);
   letter-spacing: 0.08em;
   margin-bottom: var(--space-xs);
   display: block;
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-manifesto-kicker {
+  color: #9DB594;
 }
 
 .about-manifesto-quote {
   font-style: italic;
   font-size: var(--text-base);
   line-height: 1.75;
-  color: #F2F0EB;
+  color: var(--color-ink);
   margin-bottom: var(--space-sm);
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-manifesto-quote {
+  color: #F2F0EB;
 }
 
 .about-manifesto-cite {
   font-size: var(--text-xs);
-  color: #8C9086;
+  color: var(--color-ink-muted);
   display: block;
   text-align: right;
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .about-manifesto-cite {
+  color: #8C9086;
 }
 
 /* --------------------------------------------------------------------------
@@ -296,6 +360,14 @@
 .selvagant-reveal-dock:hover,
 .selvagant-reveal-dock:focus-visible,
 .selvagant-reveal-dock:focus-within {
+  border-color: var(--hairline-base);
+  background-color: #FFFFFF;
+  box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.06), 0 2px 8px rgba(24, 26, 24, 0.03);
+}
+
+.about-section.is-nocturne .selvagant-reveal-dock:hover,
+.about-section.is-nocturne .selvagant-reveal-dock:focus-visible,
+.about-section.is-nocturne .selvagant-reveal-dock:focus-within {
   border-color: rgba(255, 255, 255, 0.14);
   background-color: rgba(255, 255, 255, 0.04);
   box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.45);
@@ -314,10 +386,14 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1;
-  color: #F2F1EC;
+  color: var(--color-ink);
   text-transform: uppercase;
   margin: 0;
-  transition: color 0.3s ease;
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .selvagant-hero-word {
+  color: #F2F1EC;
 }
 
 /* Revealed Meaning Drawer on Hover/Focus */
@@ -339,41 +415,61 @@
   min-height: 0;
   padding-top: var(--space-sm);
   margin-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--hairline-subtle);
+  transition: border-color 0.6s ease;
+}
+
+.about-section.is-nocturne .selvagant-drawer-inner {
+  border-top-color: rgba(255, 255, 255, 0.12);
 }
 
 .selvagant-drawer-header {
   display: flex;
-  justifyContent: space-between;
+  justify-content: space-between;
   align-items: center;
   font-size: 0.7rem;
-  color: #9DB594;
+  color: var(--color-olive);
   font-weight: 600;
   letter-spacing: 0.04em;
   margin-bottom: 6px;
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .selvagant-drawer-header {
+  color: #9DB594;
 }
 
 .selvagant-selv-accent {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
-  color: #B5CCA8;
+  color: var(--color-olive);
   letter-spacing: 0.02em;
   text-transform: none;
   font-size: 0.85rem;
+  transition: color 0.6s ease;
+}
+
+.about-section.is-nocturne .selvagant-selv-accent {
+  color: #B5CCA8;
 }
 
 .selvagant-drawer-body {
   font-size: 0.725rem;
-  color: #A8ACA2;
+  color: var(--color-ink-muted);
   line-height: 1.6;
   margin: 0;
+  transition: color 0.6s ease;
 }
 
-.selvagant-drawer-body strong {
+.about-section.is-nocturne .selvagant-drawer-body {
+  color: #A8ACA2;
+}
+
+.about-section.is-nocturne .selvagant-drawer-body strong {
   color: #FFFFFF;
 }
 
-.selvagant-drawer-body em {
+.about-section.is-nocturne .selvagant-drawer-body em {
   color: #E2E4DE;
 }
