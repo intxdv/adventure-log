@@ -12,10 +12,6 @@ import './Footer.css';
 export const Footer: React.FC = () => {
   const wibTime = useWibTime();
 
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
@@ -176,29 +172,9 @@ export const Footer: React.FC = () => {
           loading="lazy"
         />
 
-        {/* Layer 4: Stage Overlay Bottom Dispatch Bar (Mentok ke bawah) */}
-        <div className="footer-stage-bottom-bar font-mono">
-          <div className="footer-stage-bottom-left">
-            <span className="footer-stage-coord">
-              © 2026 SELVAGANT (TAKI) // ALL RIGHTS RESERVED // CARTOGRAPHIC DOSSIER NO. 07
-            </span>
-            <span className="footer-stage-coord">
-              7.9797° S, 112.6304° E · 3142M
-            </span>
-          </div>
-
-          <div className="footer-stage-bottom-right">
-            <span className="footer-stage-coord">BASECAMP ACTIVE // 2026</span>
-            <button
-              type="button"
-              className="footer-stage-coord footer-stage-top-btn"
-              onClick={handleScrollToTop}
-              aria-label="Back to top of expedition log"
-            >
-              <span>TOP</span>
-              <span aria-hidden="true">↑</span>
-            </button>
-          </div>
+        {/* Layer 4: Stage Center Copyright Plaque (Sesuai Posisi Kotak Merah Taki) */}
+        <div className="footer-stage-copyright font-mono">
+          © 2026 SELVAGANT (TAKI) // ALL RIGHTS RESERVED
         </div>
       </div>
     </footer>

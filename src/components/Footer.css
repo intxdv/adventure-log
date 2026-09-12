@@ -324,53 +324,24 @@
   display: block;
 }
 
-/* Bottom Dispatch Bar Overlay (Mentok Bawah pada Rumput) */
-.footer-stage-bottom-bar {
+/* Centered Copyright Plaque (Positioned exactly on the hill ridge as drawn by Taki) */
+.footer-stage-copyright {
   position: absolute;
-  bottom: 16px;
-  left: clamp(1rem, 3.5vw, 3rem);
-  right: clamp(1rem, 3.5vw, 3rem);
+  top: 78%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 6;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.footer-stage-bottom-left,
-.footer-stage-bottom-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.footer-stage-coord {
   background: rgba(17, 20, 17, 0.72);
   backdrop-filter: blur(8px);
-  padding: 5px 12px;
+  padding: 6px 16px;
   border-radius: 2px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   color: rgba(255, 255, 255, 0.90);
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
+  font-size: clamp(0.62rem, 0.85vw, 0.82rem);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.footer-stage-top-btn {
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #A3B59D;
-  transition: all 0.2s ease;
-}
-
-.footer-stage-top-btn:hover {
-  background: rgba(17, 20, 17, 0.92);
-  color: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.35);
+  pointer-events: auto;
 }
 
 /* --------------------------------------------------------------------------
@@ -402,13 +373,14 @@
     margin-top: 0;
   }
 
-  .footer-stage-bottom-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    gap: 6px;
+  .footer-stage-copyright {
+    top: 79%;
+    font-size: 0.58rem;
+    padding: 4px 10px;
+    letter-spacing: 0.04em;
+    max-width: 90%;
+    text-align: center;
+    white-space: normal;
   }
 }
 
