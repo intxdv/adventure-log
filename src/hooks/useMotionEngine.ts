@@ -243,25 +243,6 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 2: SLVGNT vector characters drop down majestically & smoothly from above
-          // Diajukan lebih awal: Mulai turun tepat saat landscape mendekati batas bawah layar
-          gsap.fromTo(
-            '.slvgnt-char',
-            { y: -80, opacity: 0 },
-            {
-              scrollTrigger: {
-                trigger: landscapeStage,
-                start: 'top bottom+=60',
-                toggleActions: 'play none none reverse',
-              },
-              y: 0,
-              opacity: 1,
-              stagger: 0.08,
-              duration: 1.25,
-              ease: 'power3.out',
-            }
-          );
-
           // Layer 3: Foreground hill with mossy CRT monitor
           gsap.from('.footer-landscape-fg', {
             scrollTrigger: {
@@ -275,26 +256,45 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 4: Frosted glass copyright badge (Rise straight up when user reaches the bottom of the page)
-          // Trigger aktif tepat saat scroll mentok ke dasar halaman
-          gsap.fromTo(
+          // Layer 2 & 4: Coordinated Finale Timeline (Aktif saat scroll mentok ke paling bawah)
+          // 1. SLVGNT turun berurutan dari atas ke balik bukit
+          // 2. Setelah SLVGNT selesai mendarat, badge ALL RIGHTS RESERVED naik dari bawah di tengah
+          const finaleTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: landscapeStage,
+              start: 'bottom-=20 bottom',
+              toggleActions: 'play none none reverse',
+            },
+          });
+
+          // Step 1: SLVGNT vector characters drop down majestically & smoothly from above
+          finaleTimeline.fromTo(
+            '.slvgnt-char',
+            { y: -80, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.08,
+              duration: 1.15,
+              ease: 'power3.out',
+            },
+            0
+          );
+
+          // Step 2: Frosted glass copyright badge rises straight up after SLVGNT lands
+          finaleTimeline.fromTo(
             '.footer-stage-copyright',
             {
               y: 40,
               opacity: 0,
             },
             {
-              scrollTrigger: {
-                trigger: landscapeStage,
-                start: 'bottom-=20 bottom',
-                toggleActions: 'play none none reverse',
-              },
               y: 0,
               opacity: 1,
-              delay: 0.08,
-              duration: 1.0,
+              duration: 0.95,
               ease: 'power3.out',
-            }
+            },
+            0.90 // Dimulai tepat saat karakter SLVGNT mendarat mantap
           );
 
           // Background sky parallax scrub as user scrolls the landscape
