@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   /* ==========================================================================
      Adventure Log Design Tokens (The Digital Cartographer)
      Reference: resource/specs/core-concept.md
@@ -25,6 +25,7 @@
   --font-display: 'Lufga', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Lufga', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-printvetica: 'Printvetica', var(--font-display);
 
   /* Typography Scales */
   --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);

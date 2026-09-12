@@ -272,57 +272,40 @@
    Interactive SELVAGANT Display Dock (Left Column Below Card)
    -------------------------------------------------------------------------- */
 .selvagant-reveal-dock {
-  background-color: #FFFFFF;
-  border: 1px solid var(--hairline-base);
-  padding: clamp(0.75rem, 1.5vw, 1rem) clamp(0.875rem, 1.75vw, 1.25rem);
-  box-shadow: 0 4px 16px -2px rgba(24, 26, 24, 0.04);
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: clamp(0.75rem, 1.5vw, 1rem) clamp(0.75rem, 1.75vw, 1.125rem);
+  box-shadow: none;
   cursor: pointer;
   outline: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  border-radius: 2px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .selvagant-reveal-dock:hover,
 .selvagant-reveal-dock:focus-visible,
 .selvagant-reveal-dock:focus-within {
-  border-color: var(--color-olive-border);
-  box-shadow: 0 8px 24px -4px rgba(74, 88, 68, 0.12);
-  background-color: var(--color-canvas-subtle);
+  border-color: var(--hairline-base);
+  background-color: #FFFFFF;
+  box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.06), 0 2px 8px rgba(24, 26, 24, 0.03);
 }
 
 .selvagant-trigger-row {
   display: flex;
-  justifyContent: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 8px;
+  justifyContent: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
 .selvagant-hero-word {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3.25vw, 2.35rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
+  font-family: var(--font-printvetica);
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: 1;
   color: var(--color-ink);
-}
-
-.selvagant-selv-accent {
-  font-style: italic;
-  color: var(--color-olive);
-  margin-right: 1px;
-}
-
-.selvagant-cue-tag {
-  font-size: 0.65rem;
-  color: var(--color-olive);
-  letter-spacing: 0.05em;
-  transition: transform 0.25s ease, color 0.25s ease;
-}
-
-.selvagant-reveal-dock:hover .selvagant-cue-tag,
-.selvagant-reveal-dock:focus-within .selvagant-cue-tag {
-  color: var(--color-ink);
-  transform: translateY(2px);
+  text-transform: uppercase;
+  margin: 0;
 }
 
 /* Revealed Meaning Drawer on Hover/Focus */

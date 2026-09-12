@@ -48,18 +48,15 @@ export const About: React.FC = () => {
 
           {/* Interactive SELVAGANT Display Dock with Hover Meaning Disclosure */}
           <div
-            className="selvagant-reveal-dock hairline-box"
+            className="selvagant-reveal-dock"
             tabIndex={0}
             role="region"
             aria-label="Selvagant Moniker Etymology & Meaning"
           >
             <div className="selvagant-trigger-row">
-              <div className="selvagant-hero-word font-display">
-                <span className="selvagant-selv-accent">SELV</span>AGANT
-              </div>
-              <span className="selvagant-cue-tag font-mono">
-                [ HOVER FOR MEANING ↘ ]
-              </span>
+              <h3 className="selvagant-hero-word">
+                SELVAGANT
+              </h3>
             </div>
 
             {/* Revealed Meaning Drawer */}
