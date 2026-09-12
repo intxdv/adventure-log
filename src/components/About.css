@@ -317,7 +317,7 @@
 
 .about-manifesto-cite {
   font-size: var(--text-xs);
-  color: var(--color-ink-faint);
+  color: var(--color-ink-muted);
   display: block;
   text-align: right;
 }
