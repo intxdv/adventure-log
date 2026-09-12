@@ -95,11 +95,24 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         startupTimerRef.current = null;
       }
 
-      // Tampilkan Top Bar dan Phrase Bio secara serempak
+      // Tampilkan Top Bar, Kicker, Compass, dan Phrase Bio secara serempak
       gsap.to('.hero-top-bar', {
         opacity: 1,
         y: 0,
         duration: 0.65,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.hero-meta-kicker', {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.hero-compass-backdrop', {
+        opacity: 0.55,
+        duration: 0.85,
         ease: 'power2.out',
       });
 
@@ -252,7 +265,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
       <div className="hero-body-container">
         {/* Kolom Kiri: Judul Dinamis & Bio Editorial */}
         <div className="hero-left-col">
-          <div className="hero-meta-kicker font-mono">
+          <div className={`hero-meta-kicker font-mono ${hasStartedLoop ? 'is-visible' : ''}`}>
             <span>[ 00 // FIELD ARCHIVE & EXPEDITIONS ]</span>
           </div>
 
@@ -272,7 +285,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
                   .
                 </span>
               )}
-              <span className="hero-typewriter-cursor" aria-hidden="true" />
+              {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
             </h1>
           </div>
 
@@ -288,7 +301,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         </div>
 
         {/* 3. Atmospheric Background Compass Dial (Fixed Position di Layer Belakang) */}
-        <div className="hero-compass-backdrop" aria-hidden="true">
+        <div className={`hero-compass-backdrop ${hasStartedLoop ? 'is-visible' : ''}`} aria-hidden="true">
           <div className="hero-compass-dial" id="hero-compass-dial">
             <span className="hero-compass-cardinal n">N</span>
             <span className="hero-compass-cardinal e">E</span>

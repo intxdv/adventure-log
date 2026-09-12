@@ -225,6 +225,15 @@
   color: var(--color-olive);
   margin-bottom: var(--space-sm);
   text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
+}
+
+.hero-meta-kicker.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* 3. Atmospheric Background Compass (Fixed on Page / Layer Belakang) */
@@ -235,8 +244,14 @@
   transform: translateY(-50%);
   pointer-events: none;
   z-index: 1;
-  opacity: 0.55;
+  opacity: 0;
+  transition: opacity 0.85s ease;
   user-select: none;
+  will-change: opacity;
+}
+
+.hero-compass-backdrop.is-visible {
+  opacity: 0.55;
 }
 
 .hero-compass-dial {
