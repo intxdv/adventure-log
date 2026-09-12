@@ -148,7 +148,7 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. Full-Bleed Edge-to-Edge Landscape Stage (Pojok Kiri sampai Pojok Kanan) */}
+      {/* 3. Full-Bleed Edge-to-Edge Landscape Stage (Mentok Bawah & Gradient di Atas) */}
       <div
         className="footer-landscape-stage"
         role="img"
@@ -176,24 +176,22 @@ export const Footer: React.FC = () => {
           loading="lazy"
         />
 
-        {/* Layer 4: Stage Overlay Telemetry */}
-        <div className="footer-stage-telemetry font-mono">
-          <span className="footer-stage-coord">SELVAGANT EXPEDITION BASECAMP // JAVA</span>
-          <span className="footer-stage-coord">7.9797° S, 112.6304° E · 3142M</span>
-        </div>
-      </div>
-
-      {/* 4. Bottom Dispatch Bar */}
-      <div className="container">
-        <div className="footer-bottom-bar font-mono">
-          <div>
-            © 2026 SELVAGANT (TAKI) // ALL RIGHTS RESERVED // CARTOGRAPHIC DOSSIER NO. 07
+        {/* Layer 4: Stage Overlay Bottom Dispatch Bar (Mentok ke bawah) */}
+        <div className="footer-stage-bottom-bar font-mono">
+          <div className="footer-stage-bottom-left">
+            <span className="footer-stage-coord">
+              © 2026 SELVAGANT (TAKI) // ALL RIGHTS RESERVED // CARTOGRAPHIC DOSSIER NO. 07
+            </span>
+            <span className="footer-stage-coord">
+              7.9797° S, 112.6304° E · 3142M
+            </span>
           </div>
-          <div className="footer-bottom-right">
-            <span>STATION ACTIVE // 2026</span>
+
+          <div className="footer-stage-bottom-right">
+            <span className="footer-stage-coord">BASECAMP ACTIVE // 2026</span>
             <button
               type="button"
-              className="footer-back-to-top font-mono"
+              className="footer-stage-coord footer-stage-top-btn"
               onClick={handleScrollToTop}
               aria-label="Back to top of expedition log"
             >

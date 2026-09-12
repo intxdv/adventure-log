@@ -64,15 +64,15 @@
    -------------------------------------------------------------------------- */
 .footer-container {
   padding-top: var(--space-4xl);
-  padding-bottom: var(--space-3xl);
+  padding-bottom: var(--space-xl);
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-2xl);
-  border-bottom: 1px solid var(--hairline-base);
-  padding-bottom: var(--space-3xl);
+  border-bottom: none;
+  padding-bottom: var(--space-md);
 }
 
 .footer-col {
@@ -236,7 +236,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. Full-Bleed Depth-Masked Landscape Wordmark Stage (Pojok Kanan Kiri)
+   3. Full-Bleed Depth-Masked Landscape Wordmark Stage (Mentok Bawah + Gradasi Atas)
    -------------------------------------------------------------------------- */
 .footer-landscape-stage {
   position: relative;
@@ -244,12 +244,30 @@
   aspect-ratio: 16 / 9;
   min-height: 380px;
   max-height: 85vh;
-  margin-top: var(--space-3xl);
+  margin-top: 0;
+  margin-bottom: 0;
   overflow: hidden;
-  border-top: 1px solid var(--hairline-base);
-  border-bottom: 1px solid var(--hairline-base);
   background-color: #111411;
   user-select: none;
+}
+
+/* Seamless Top Gradient Overlay (Menumpuk lembut dari kanvas ke langit alam) */
+.footer-landscape-stage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(100px, 22vw, 280px);
+  background: linear-gradient(
+    to bottom,
+    var(--color-canvas) 0%,
+    rgba(247, 246, 242, 0.92) 25%,
+    rgba(247, 246, 242, 0.55) 60%,
+    rgba(247, 246, 242, 0) 100%
+  );
+  z-index: 5;
+  pointer-events: none;
 }
 
 /* Background Layer (Sky & Mountains) */
@@ -274,7 +292,6 @@
   justify-content: center;
   padding: 0 var(--space-md);
   pointer-events: none;
-  /* Harmonized so the rolling green hill and retro CRT monitor cut across the lower half of the letters */
   transform: translateY(-2%);
 }
 
@@ -293,7 +310,7 @@
   will-change: transform;
 }
 
-/* Foreground Cutout Layer */
+/* Foreground Cutout Layer (Hill & Mossy Retro CRT Monitor) */
 .footer-landscape-fg {
   position: absolute;
   inset: 0;
@@ -306,70 +323,53 @@
   display: block;
 }
 
-/* Stage Overlay Telemetry */
-.footer-stage-telemetry {
+/* Bottom Dispatch Bar Overlay (Mentok Bawah pada Rumput) */
+.footer-stage-bottom-bar {
   position: absolute;
-  bottom: 14px;
-  left: 18px;
-  right: 18px;
-  z-index: 4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-  pointer-events: none;
-}
-
-.footer-stage-coord {
-  background: rgba(17, 20, 17, 0.65);
-  backdrop-filter: blur(4px);
-  padding: 3px 8px;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* --------------------------------------------------------------------------
-   4. Bottom Dispatch Bar
-   -------------------------------------------------------------------------- */
-.footer-bottom-bar {
-  padding-top: var(--space-xl);
+  bottom: 16px;
+  left: clamp(1rem, 3.5vw, 3rem);
+  right: clamp(1rem, 3.5vw, 3rem);
+  z-index: 6;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--space-md);
-  font-size: 0.7rem;
-  color: var(--color-ink-faint);
-  letter-spacing: 0.04em;
+  gap: 12px;
 }
 
-.footer-bottom-right {
+.footer-stage-bottom-left,
+.footer-stage-bottom-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.footer-back-to-top {
-  background: transparent;
-  border: none;
-  padding: 0;
-  font-size: 0.7rem;
-  color: var(--color-olive);
-  font-weight: 700;
+.footer-stage-coord {
+  background: rgba(17, 20, 17, 0.72);
+  backdrop-filter: blur(8px);
+  padding: 5px 12px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.90);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.footer-stage-top-btn {
   cursor: pointer;
-  letter-spacing: 0.05em;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  transition: color 0.2s ease;
+  gap: 6px;
+  color: #A3B59D;
+  transition: all 0.2s ease;
 }
 
-.footer-back-to-top:hover {
-  color: var(--color-ink);
-  text-decoration: underline;
+.footer-stage-top-btn:hover {
+  background: rgba(17, 20, 17, 0.92);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 /* --------------------------------------------------------------------------
@@ -401,10 +401,10 @@
   }
 
   .footer-landscape-stage {
-    min-height: 220px;
+    min-height: 240px;
     height: auto;
     aspect-ratio: 16 / 9;
-    margin-top: var(--space-2xl);
+    margin-top: 0;
   }
 
   .footer-wordmark-layer {
@@ -418,10 +418,13 @@
     line-height: 0.85;
   }
 
-  .footer-bottom-bar {
+  .footer-stage-bottom-bar {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    gap: 8px;
   }
 }
 
