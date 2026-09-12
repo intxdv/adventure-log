@@ -99,12 +99,15 @@ export const About: React.FC = () => {
 
           {/* Authentic Manifesto Blockquote from taki-bio-dossier.md */}
           <blockquote className="about-manifesto" cite="resource/specs/taki-bio-dossier.md">
-            <span className="about-manifesto-kicker font-mono">[ FIELD MANIFESTO // THE WANDERING SELV ]</span>
+            <span className="about-manifesto-kicker font-mono">[ EXPEDITION MANIFESTO // THE WANDERING SELV ]</span>
             <p className="about-manifesto-quote font-display">
-              “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman... Terus berjalan, terus melangkah, karena ‘kita terlalu berharga untuk disia-siakan’.”
+              “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman. Sebagian waktu berusaha, sebagian waktu menyesali keputusan—yang kemudian tersadar sia-sia saja menyesali toh sudah sejauh ini—dan sebagian waktu bersyukur: aku bisa membawa pulang sesuatu dari wilayah eksplorasi sambil berpikir, <em>‘Ternyata tak seburuk itu.’</em>
+            </p>
+            <p className="about-manifesto-quote font-display" style={{ marginTop: 'var(--space-xs)', fontSize: 'var(--text-sm)', color: 'var(--color-ink-muted)', fontStyle: 'normal' }}>
+              Terus berjalan, terus melangkah, karena ‘kita terlalu berharga untuk disia-siakan’.”
             </p>
             <cite className="about-manifesto-cite font-mono">
-              — Syafiq Abiyyu Taqi (Taki / Selvagant)
+              — Syafiq Abiyyu Taqi (Taki / Selvagant) · Field Log Reflection
             </cite>
           </blockquote>
 
