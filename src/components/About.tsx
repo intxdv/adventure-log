@@ -63,7 +63,11 @@ export const About: React.FC = () => {
             </div>
             <div className="field-dossier-meta-row" style={{ color: 'var(--color-ink-muted)' }}>
               <span>ROLE: MOBILE ARCHITECT</span>
-              <span>STN: UNDIP '23</span>
+              <span>STN: INFORMATIKA UNDIP '23</span>
+            </div>
+            <div className="field-dossier-stamp">
+              <span>SELVAGANT VERIFIED DOSSIER</span>
+              <span>SCALE: 1:1 NATURAL</span>
             </div>
           </figcaption>
         </figure>

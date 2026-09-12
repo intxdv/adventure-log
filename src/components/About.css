@@ -194,6 +194,21 @@
   height: 5px;
   border-radius: 50%;
   background-color: var(--color-olive);
+  box-shadow: 0 0 0 2px var(--color-olive-tint);
+}
+
+.field-dossier-stamp {
+  margin-top: 6px;
+  padding: 4px 8px;
+  border: 1px dashed var(--color-olive-border);
+  background-color: var(--color-olive-tint);
+  display: flex;
+  justifyContent: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  color: var(--color-olive);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 /* --------------------------------------------------------------------------
