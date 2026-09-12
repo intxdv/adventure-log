@@ -1,0 +1,444 @@
+/* ==========================================================================
+   Footer & Colophon Component Styles (Adventure Log Design System)
+   ========================================================================== */
+
+.footer-section {
+  background-color: var(--color-canvas);
+  position: relative;
+  overflow: hidden;
+  color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   1. Marquee Ticker Ribbon
+   -------------------------------------------------------------------------- */
+.footer-marquee-ribbon {
+  border-top: 1px solid var(--hairline-base);
+  border-bottom: 1px solid var(--hairline-base);
+  background-color: var(--color-canvas-subtle);
+  overflow: hidden;
+  padding: 10px 0;
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+}
+
+.footer-marquee-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+  animation: footerMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.footer-marquee-ribbon:hover .footer-marquee-track {
+  animation-play-state: paused;
+}
+
+.footer-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.footer-marquee-bullet {
+  color: var(--color-olive);
+  font-size: 0.7rem;
+}
+
+@keyframes footerMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Main Colophon 4-Column Grid
+   -------------------------------------------------------------------------- */
+.footer-container {
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-3xl);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2xl);
+  border-bottom: 1px solid var(--hairline-base);
+  padding-bottom: var(--space-3xl);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer-col-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-olive);
+  letter-spacing: 0.08em;
+}
+
+.footer-col-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--hairline-subtle);
+}
+
+/* Col 1 & 2 Lists */
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-link-item {
+  display: flex;
+  align-items: baseline;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.825rem;
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.footer-link-idx {
+  color: var(--color-ink-faint);
+  font-size: 0.7rem;
+}
+
+.footer-link:hover {
+  color: var(--color-ink);
+  transform: translateX(3px);
+}
+
+.footer-link:hover .footer-link-idx {
+  color: var(--color-olive);
+}
+
+.footer-link-arrow {
+  font-size: 0.72rem;
+  color: var(--color-ink-faint);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer-link:hover .footer-link-arrow {
+  color: var(--color-olive);
+  transform: translate(2px, -2px);
+}
+
+/* Col 3: Telemetry Block */
+.footer-telemetry-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: var(--color-canvas-subtle);
+  border: 1px solid var(--hairline-subtle);
+  padding: 12px 14px;
+  border-radius: 2px;
+}
+
+.footer-telemetry-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-telemetry-label {
+  font-size: 0.62rem;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.footer-telemetry-val {
+  font-size: 0.75rem;
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+.footer-live-clock-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #2E7D32;
+  box-shadow: 0 0 8px rgba(46, 125, 50, 0.6);
+  animation: footerClockPulse 2s infinite ease-in-out;
+}
+
+@keyframes footerClockPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.footer-clock-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.05em;
+}
+
+/* Col 4: Colophon Credits */
+.footer-colophon-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-colophon-text {
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-colophon-meta {
+  font-size: 0.7rem;
+  color: var(--color-ink-faint);
+  line-height: 1.6;
+  border-top: 1px solid var(--hairline-subtle);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Depth-Masked Landscape Wordmark Stage
+   -------------------------------------------------------------------------- */
+.footer-landscape-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(340px, 46vw, 680px);
+  margin-top: var(--space-3xl);
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid var(--hairline-base);
+  background-color: #111411;
+  box-shadow: 0 16px 40px rgba(24, 26, 24, 0.08);
+  user-select: none;
+}
+
+/* Background Layer */
+.footer-landscape-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  z-index: 1;
+  display: block;
+}
+
+/* Middle Wordmark Layer */
+.footer-wordmark-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-md);
+  pointer-events: none;
+  /* Push text slightly below top horizon to let mountains cut through */
+  transform: translateY(-8%);
+}
+
+.footer-giant-wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 11.5vw, 13.5rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.8);
+  will-change: transform;
+}
+
+.footer-wordmark-dot {
+  color: #A3B59D;
+}
+
+/* Foreground Cutout Layer */
+.footer-landscape-fg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  z-index: 3;
+  pointer-events: none;
+  display: block;
+}
+
+/* Stage Overlay Telemetry */
+.footer-stage-telemetry {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+}
+
+.footer-stage-coord {
+  background: rgba(17, 20, 17, 0.65);
+  backdrop-filter: blur(4px);
+  padding: 3px 8px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   4. Bottom Dispatch Bar
+   -------------------------------------------------------------------------- */
+.footer-bottom-bar {
+  padding-top: var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  font-size: 0.7rem;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.04em;
+}
+
+.footer-bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-back-to-top {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.7rem;
+  color: var(--color-olive);
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.footer-back-to-top:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   5. Responsive Viewport Adaptations
+   -------------------------------------------------------------------------- */
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .footer-wordmark-layer {
+    transform: translateY(-5%);
+  }
+}
+
+/* Mobile (<= 768px) */
+@media (max-width: 768px) {
+  .footer-container {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .footer-landscape-stage {
+    height: 280px;
+    margin-top: var(--space-2xl);
+  }
+
+  .footer-wordmark-layer {
+    transform: translateY(-4%);
+  }
+
+  .footer-giant-wordmark {
+    font-size: clamp(2.2rem, 9vw, 4rem);
+    white-space: normal;
+    padding: 0 8px;
+    line-height: 0.95;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Accessibility: Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .footer-marquee-track {
+    animation: none;
+  }
+
+  .footer-live-dot {
+    animation: none;
+  }
+
+  .footer-link,
+  .footer-link-arrow {
+    transition: none;
+  }
+}

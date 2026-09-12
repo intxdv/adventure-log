@@ -1,116 +1,205 @@
 import React from 'react';
+import { useWibTime } from '../hooks/useWibTime';
+import {
+  FOOTER_NAV_LINKS,
+  FOOTER_SOCIAL_LINKS,
+  FOOTER_TELEMETRY,
+  FOOTER_COLOPHON,
+  MARQUEE_ITEMS,
+} from '../data/footer';
+import './Footer.css';
 
 export const Footer: React.FC = () => {
+  const wibTime = useWibTime();
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <footer id="footer" style={{ backgroundColor: 'var(--color-canvas)', position: 'relative', overflow: 'hidden' }}>
-      {/* Ticker Marquee Ribbon */}
-      <div
-        style={{
-          borderTop: '1px solid var(--hairline-base)',
-          borderBottom: '1px solid var(--hairline-base)',
-          padding: 'var(--space-xs) 0',
-          backgroundColor: 'var(--color-canvas-subtle)',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        <div
-          className="font-mono"
-          style={{
-            display: 'inline-block',
-            fontSize: 'var(--text-xs)',
-            color: 'var(--color-olive)',
-            letterSpacing: '0.1em',
-          }}
-        >
-          ✦ EXPLORE THE UNKNOWN ✦ CRAFT WITH PRECISION ✦ THE DIGITAL CARTOGRAPHER ✦ DISPATCH // 2026 ✦ SELVAGANT — THE WANDERING SELV ✦
+    <footer id="footer" className="footer-section" aria-labelledby="colophon-heading">
+      {/* 1. Ticker Marquee Ribbon */}
+      <div className="footer-marquee-ribbon" role="region" aria-label="Field Dispatch Marquee">
+        <div className="footer-marquee-track font-mono" aria-hidden="true">
+          {/* Double items array for endless smooth marquee loop */}
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
+            <span key={idx} className="footer-marquee-item">
+              <span className="footer-marquee-bullet">✦</span>
+              <span>{item}</span>
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* Main Colophon 4-Column Grid */}
-      <div className="container" style={{ padding: 'var(--space-4xl) var(--container-pad) var(--space-3xl)' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: 'var(--space-2xl)',
-            marginBottom: 'var(--space-4xl)',
-          }}
-        >
+      {/* 2. Main Colophon Grid & Landscape Stage */}
+      <div className="container footer-container">
+        {/* Screen Reader Heading */}
+        <h2 id="colophon-heading" className="sr-only">
+          Colophon, Navigation, and Basecamp Telemetry
+        </h2>
+
+        {/* 4-Column Editorial Information Grid */}
+        <div className="footer-grid">
           {/* Col 1: Index */}
-          <div>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', display: 'block', marginBottom: 'var(--space-md)' }}>
-              [ 01 // INDEX ]
-            </span>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
-              <li><a href="#hero" style={{ fontSize: 'var(--text-sm)' }}>00. Expedition Log</a></li>
-              <li><a href="#about" style={{ fontSize: 'var(--text-sm)' }}>01. Field Brief</a></li>
-              <li><a href="#expeditions" style={{ fontSize: 'var(--text-sm)' }}>02. Selected Works</a></li>
-              <li><a href="#arsenal" style={{ fontSize: 'var(--text-sm)' }}>03. Technical Gear</a></li>
+          <div className="footer-col">
+            <div className="footer-col-header font-mono">
+              <span>[ 01 // INDEX ]</span>
+            </div>
+            <ul className="footer-links-list" role="list">
+              {FOOTER_NAV_LINKS.map((link) => (
+                <li key={link.index} className="footer-link-item">
+                  <a
+                    href={link.href}
+                    className="footer-link font-mono"
+                    onClick={(e) => handleAnchorClick(e, link.href)}
+                  >
+                    <span className="footer-link-idx">{link.index}.</span>
+                    <span>{link.label}</span>
+                    <span className="footer-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Col 2: Connect */}
-          <div>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', display: 'block', marginBottom: 'var(--space-md)' }}>
-              [ 02 // CONNECT ]
-            </span>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
-              <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--text-sm)' }}>GitHub ↗</a></li>
-              <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--text-sm)' }}>LinkedIn ↗</a></li>
-              <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--text-sm)' }}>X / Twitter ↗</a></li>
-              <li><a href="mailto:hello@example.com" style={{ fontSize: 'var(--text-sm)' }}>Direct Dispatch ↗</a></li>
+          {/* Col 2: Connect / Socials */}
+          <div className="footer-col">
+            <div className="footer-col-header font-mono">
+              <span>[ 02 // CONNECT ]</span>
+            </div>
+            <ul className="footer-links-list" role="list">
+              {FOOTER_SOCIAL_LINKS.map((social) => (
+                <li key={social.label} className="footer-link-item">
+                  <a
+                    href={social.url}
+                    className="footer-link font-mono"
+                    target={social.url.startsWith('mailto:') ? undefined : '_blank'}
+                    rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                  >
+                    <span>{social.label}</span>
+                    <span className="footer-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Col 3: Basecamp Telemetry */}
-          <div>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', display: 'block', marginBottom: 'var(--space-md)' }}>
-              [ 03 // BASECAMP ]
-            </span>
-            <p className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)', lineHeight: 1.8 }}>
-              LOCATION: INDONESIA<br />
-              COORDINATES: 7.9797° S, 112.6304° E<br />
-              TIMEZONE: GMT+7 (WIB)<br />
-              STATUS: SELECT PROJECTS OPEN
-            </p>
+          <div className="footer-col">
+            <div className="footer-col-header font-mono">
+              <span>[ 03 // BASECAMP ]</span>
+            </div>
+            <div className="footer-telemetry-block font-mono">
+              <div className="footer-telemetry-row">
+                <span className="footer-telemetry-label">LIVE WIB CLOCK //</span>
+                <div className="footer-live-clock-row">
+                  <span className="footer-live-dot" aria-hidden="true" />
+                  <span className="footer-clock-text" aria-live="polite">
+                    {wibTime}
+                  </span>
+                </div>
+              </div>
+
+              <div className="footer-telemetry-row">
+                <span className="footer-telemetry-label">COORDINATES //</span>
+                <span className="footer-telemetry-val">{FOOTER_TELEMETRY.coordinates}</span>
+              </div>
+
+              <div className="footer-telemetry-row">
+                <span className="footer-telemetry-label">STATION & ELEVATION //</span>
+                <span className="footer-telemetry-val">{FOOTER_TELEMETRY.elevation}</span>
+              </div>
+
+              <div className="footer-telemetry-row">
+                <span className="footer-telemetry-label">COMMISSION STATUS //</span>
+                <span className="footer-telemetry-val" style={{ color: 'var(--color-olive)' }}>
+                  {FOOTER_TELEMETRY.status}
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Col 4: Colophon Credits */}
-          <div>
-            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', display: 'block', marginBottom: 'var(--space-md)' }}>
-              [ 04 // COLOPHON ]
-            </span>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)', lineHeight: 1.8 }}>
-              Designed & developed by Selvagant (Taki) — Creative Developer & Mobile Architect. Set in Lufga & JetBrains Mono. Built with React & Vite.
-            </p>
+          <div className="footer-col">
+            <div className="footer-col-header font-mono">
+              <span>[ 04 // COLOPHON ]</span>
+            </div>
+            <div className="footer-colophon-body">
+              <p className="footer-colophon-text font-serif">
+                {FOOTER_COLOPHON.craft}
+              </p>
+              <div className="footer-colophon-meta font-mono">
+                <div>TYPOGRAPHY: {FOOTER_COLOPHON.typography}</div>
+                <div>SYSTEM: {FOOTER_COLOPHON.stack}</div>
+                <div>ARCHIVE: {FOOTER_COLOPHON.edition}</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Giant Sunken Wordmark Display */}
+        {/* 3. Depth-Masked Landscape Wordmark Stage */}
         <div
-          style={{
-            textAlign: 'center',
-            borderTop: '1px solid var(--hairline-base)',
-            paddingTop: 'var(--space-xl)',
-            userSelect: 'none',
-          }}
+          className="footer-landscape-stage"
+          role="img"
+          aria-label="Adventure Log Mountain Landscape Colophon with Sunken Wordmark"
         >
-          <div
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'var(--text-giant)',
-              fontWeight: 800,
-              lineHeight: 0.85,
-              letterSpacing: '-0.04em',
-              color: 'var(--hairline-strong)',
-              marginBottom: 'var(--space-md)',
-            }}
-          >
-            ADVENTURE LOG.
+          {/* Layer 1: Background Landscape */}
+          <img
+            src="/images/footer-landscape-bg.png"
+            alt="Mountain Landscape Background"
+            className="footer-landscape-bg"
+            loading="lazy"
+          />
+
+          {/* Layer 2: Giant Wordmark Typography */}
+          <div className="footer-wordmark-layer" aria-hidden="true">
+            <div className="footer-giant-wordmark">
+              ADVENTURE LOG<span className="footer-wordmark-dot">.</span>
+            </div>
           </div>
-          <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)' }}>
-            © 2026 SELVAGANT (TAKI) · ALL RIGHTS RESERVED · FIELD LOG VERSION 1.0
+
+          {/* Layer 3: Foreground Landscape Cutout (Overlays front of typography) */}
+          <img
+            src="/images/footer-landscape-fg.png"
+            alt=""
+            aria-hidden="true"
+            className="footer-landscape-fg"
+            loading="lazy"
+          />
+
+          {/* Layer 4: Stage Overlay Telemetry */}
+          <div className="footer-stage-telemetry font-mono">
+            <span className="footer-stage-coord">SELVAGANT EXPEDITION BASECAMP // JAVA</span>
+            <span className="footer-stage-coord">7.9797° S, 112.6304° E · 3142M</span>
+          </div>
+        </div>
+
+        {/* 4. Bottom Dispatch Bar */}
+        <div className="footer-bottom-bar font-mono">
+          <div>
+            © 2026 SELVAGANT (TAKI) // ALL RIGHTS RESERVED // CARTOGRAPHIC DOSSIER NO. 07
+          </div>
+          <div className="footer-bottom-right">
+            <span>STATION ACTIVE // 2026</span>
+            <button
+              type="button"
+              className="footer-back-to-top font-mono"
+              onClick={handleScrollToTop}
+              aria-label="Back to top of expedition log"
+            >
+              <span>TOP</span>
+              <span aria-hidden="true">↑</span>
+            </button>
           </div>
         </div>
       </div>
