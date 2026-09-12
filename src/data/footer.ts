@@ -20,21 +20,14 @@ export const FOOTER_NAV_LINKS: FooterNavLink[] = [
 
 export const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { label: 'GitHub', url: 'https://github.com/intxdv', note: 'intxdv' },
-  { label: 'LinkedIn', url: 'https://linkedin.com/in/syafiq-abiyyu-taqi', note: 'Syafiq Abiyyu Taqi' },
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/syafiq-abiyyu-taqi/', note: 'Syafiq Abiyyu Taqi' },
   { label: 'X / Twitter', url: 'https://x.com/intxdv', note: '@intxdv' },
-  { label: 'Direct Dispatch', url: 'mailto:syafiqabiyyutaqi123@gmail.com', note: 'Email' },
+  { label: 'Instagram', url: 'https://instagram.com/intxdv', note: '@intxdv' },
+  { label: 'Direct Dispatch', url: 'mailto:selvagant@gmail.com', note: 'selvagant@gmail.com' },
 ];
 
-export const FOOTER_TELEMETRY = {
-  station: 'EXPEDITION HQ // CENTRAL JAVA',
-  region: 'INDONESIA · WIB (UTC+7)',
-  coordinates: '7.05° S, 110.44° E [SEMARANG SECTOR]',
-  elevation: '348M [HIGHLAND FOOTHILLS]',
-  status: 'AVAILABLE FOR SELECT COMMISSIONS',
-};
-
 export const FOOTER_COLOPHON = {
-  craft: 'Designed & architected by Selvagant (Taki) — Creative Developer & Mobile Architect.',
+  tagline: 'Personal digital archive & software engineering field log by Selvagant.',
   typography: 'Lufga, Newsreader, JetBrains Mono.',
   stack: 'React 19 · TypeScript · Vite · Modular CSS.',
   edition: 'Adventure Log Field Archive · Edition 2026.',
@@ -49,4 +42,3 @@ export const MARQUEE_ITEMS: string[] = [
   'SELVAGANT — THE WANDERING SELV',
   'QUIET ARCHITECTURE',
 ];
-

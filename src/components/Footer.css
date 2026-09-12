@@ -1,32 +1,36 @@
 /* ==========================================================================
-   Footer & Colophon Component Styles (Adventure Log Design System)
+   Adventure Log: Colophon & Giant Footer Section
+   Inspired by Opnest layout, Swiss editorial typography, & outdoor cartography.
    ========================================================================== */
 
 .footer-section {
-  background-color: var(--color-canvas);
   position: relative;
+  width: 100%;
+  background-color: var(--color-canvas);
   overflow: hidden;
-  color: var(--color-ink);
+  display: flex;
+  flex-direction: column;
 }
 
 /* --------------------------------------------------------------------------
-   1. Marquee Ticker Ribbon
+   1. Continuous Ticker Marquee Ribbon
    -------------------------------------------------------------------------- */
 .footer-marquee-ribbon {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-canvas);
   border-top: 1px solid var(--hairline-base);
   border-bottom: 1px solid var(--hairline-base);
-  background-color: var(--color-canvas-subtle);
-  overflow: hidden;
-  padding: 10px 0;
-  white-space: nowrap;
-  user-select: none;
+  padding: 14px 0;
   position: relative;
+  z-index: 2;
+  user-select: none;
 }
 
 .footer-marquee-track {
-  display: inline-flex;
-  align-items: center;
-  gap: 2.5rem;
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
   animation: footerMarquee 38s linear infinite;
   will-change: transform;
 }
@@ -38,11 +42,12 @@
 .footer-marquee-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  color: var(--color-ink);
+  gap: 28px;
+  padding-right: 28px;
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-muted);
 }
 
 .footer-marquee-bullet {
@@ -73,30 +78,65 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Main Colophon Wide & Airy Layout (Opnest Style)
+   2. Main Colophon Wide & Airy Layout (5-Column Custom Opnest Alignment)
    -------------------------------------------------------------------------- */
 .footer-container {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   padding-top: var(--space-4xl);
-  padding-bottom: var(--space-2xl);
+  padding-bottom: var(--space-3xl);
   padding-left: clamp(24px, 5vw, 80px);
   padding-right: clamp(24px, 5vw, 80px);
 }
 
 .footer-layout {
   display: grid;
-  grid-template-columns: 1.15fr 2fr;
-  gap: clamp(32px, 6vw, 96px);
+  grid-template-columns: auto minmax(240px, 1fr) 2.2fr;
+  gap: clamp(28px, 4.5vw, 72px);
   align-items: start;
 }
 
-/* Brand Identity Block on Left */
+/* Far Left: Emblem Logo & Live Clock Column */
+.footer-meta-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 125px;
+  gap: var(--space-xl);
+}
+
+.footer-logo-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo-img {
+  height: 42px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.footer-clock-block {
+  display: flex;
+  align-items: center;
+}
+
+.footer-clock-time {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+/* Left Column: Brand Identity Block */
 .footer-brand-col {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .footer-brand-title {
@@ -112,45 +152,11 @@
 }
 
 .footer-brand-tagline {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--color-ink-muted);
   line-height: 1.6;
   margin: 0;
-  max-width: 36ch;
-}
-
-.footer-socials-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.footer-social-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--color-ink-muted);
-  text-decoration: none;
-  background-color: var(--color-canvas-subtle);
-  border: 1px solid var(--hairline-subtle);
-  padding: 5px 12px;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-}
-
-.footer-social-pill:hover {
-  color: var(--color-ink);
-  background-color: #FFFFFF;
-  border-color: var(--hairline-base);
-  transform: translateY(-1px);
-}
-
-.footer-social-pill:hover .footer-link-arrow {
-  color: var(--color-olive);
-  transform: translate(2px, -2px);
+  max-width: 32ch;
 }
 
 /* 3-Column Navigation & Information Grid on Right */
@@ -183,7 +189,7 @@
   background-color: var(--hairline-subtle);
 }
 
-/* Col 1: Index Links */
+/* Links List (Dispatch & Index) */
 .footer-links-list {
   list-style: none;
   padding: 0;
@@ -234,47 +240,6 @@
   transform: translate(2px, -2px);
 }
 
-/* Col 2: Telemetry List (Clean, No Boxed Card, No Blinking Beacon) */
-.footer-telemetry-block {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-
-.footer-telemetry-row {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.footer-telemetry-label {
-  font-size: 0.62rem;
-  color: var(--color-ink-faint);
-  letter-spacing: 0.08em;
-  font-weight: 700;
-}
-
-.footer-telemetry-val {
-  font-size: 0.78rem;
-  color: var(--color-ink);
-  font-weight: 500;
-}
-
-.footer-status-val {
-  color: var(--color-olive);
-  font-weight: 600;
-}
-
-.footer-clock-text {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--color-ink);
-  letter-spacing: 0.06em;
-}
-
 /* Col 3: Colophon Meta */
 .footer-colophon-body {
   display: flex;
@@ -288,7 +253,7 @@
   line-height: 1.8;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 /* --------------------------------------------------------------------------
@@ -318,84 +283,80 @@
     var(--color-canvas) 0%,
     rgba(247, 246, 242, 0.92) 20%,
     rgba(247, 246, 242, 0.50) 55%,
-    rgba(247, 246, 242, 0) 100%
+    rgba(247, 246, 242, 0.0) 100%
   );
-  z-index: 5;
   pointer-events: none;
+  z-index: 5;
 }
 
-/* Background Layer (Sky & Mountains) */
+/* Layer 1: Background Sky, Hills, & Distant Mountains */
 .footer-landscape-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
+  object-fit: fill;
   z-index: 1;
-  display: block;
+  pointer-events: none;
 }
 
-/* Middle Wordmark Layer (Figma Node 54:33: y=667px / 1515px = 44.03% from top) */
-.footer-wordmark-layer {
+/* Layer 2: Sunken SLVGNT Typography */
+.footer-landscape-wordmark {
   position: absolute;
   top: 44.03%;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 2;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  pointer-events: none;
-  transform: none;
-}
-
-.footer-giant-wordmark {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 23.47vw, 646px);
-  font-weight: 800;
-  line-height: 0.85em;
-  letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.88);
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
-  /* Figma drop shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) */
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.20);
-  will-change: transform;
-}
-
-/* Foreground Cutout Layer (Hill & Mossy Retro CRT Monitor) */
-.footer-landscape-fg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-  z-index: 3;
-  pointer-events: none;
-  display: block;
-}
-
-/* Centered Copyright Plaque (Frosted white glass style on the hill ridge) */
-.footer-stage-copyright {
-  position: absolute;
-  top: 78%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 6;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.footer-slvgnt-text {
+  display: block;
+  font-size: 23.47vw;
+  line-height: 0.85em;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.20));
+  margin: 0 auto;
+}
+
+/* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout */
+.footer-landscape-fg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Layer 4: Frosted White Glass Copyright Plaque on the Hill Slope */
+.footer-stage-copyright {
+  position: absolute;
+  left: 50%;
+  top: 80.5%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  padding: 6px 18px;
-  border-radius: 2px;
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 4px;
+  padding: 8px 20px;
   color: var(--color-ink);
-  font-size: clamp(0.62rem, 0.85vw, 0.82rem);
-  font-weight: 600;
+  font-size: 0.68rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
   white-space: nowrap;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -403,7 +364,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. Responsive Viewport Adaptations
+   4. Responsive Viewport Adaptations
    -------------------------------------------------------------------------- */
 
 /* Tablet (<= 1024px) */
@@ -411,6 +372,13 @@
   .footer-layout {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
+  }
+
+  .footer-meta-col {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: auto;
   }
 
   .footer-nav-grid {
@@ -430,7 +398,16 @@
 
   .footer-layout {
     grid-template-columns: 1fr;
-    gap: var(--space-2xl);
+    gap: var(--space-xl);
+  }
+
+  .footer-meta-col {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: auto;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--hairline-subtle);
   }
 
   .footer-nav-grid {
@@ -459,7 +436,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   6. Accessibility: Reduced Motion
+   5. Accessibility: Reduced Motion
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .footer-marquee-track {
@@ -467,9 +444,7 @@
   }
 
   .footer-link,
-  .footer-link-arrow,
-  .footer-social-pill {
+  .footer-link-arrow {
     transition: none;
   }
 }
-
