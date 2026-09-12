@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { useWibTime } from '../hooks/useWibTime';
 import './Hero.css';
@@ -83,6 +83,37 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hasStartedLoop, setHasStartedLoop] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startupTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Fungsi untuk langsung memulai seluruh animasi Hero tanpa menunggu sisa jeda
+  const startHeroImmediately = useCallback(() => {
+    setHasStartedLoop((prev) => {
+      if (prev) return true;
+
+      if (startupTimerRef.current) {
+        clearTimeout(startupTimerRef.current);
+        startupTimerRef.current = null;
+      }
+
+      // Tampilkan Top Bar dan Phrase Bio secara serempak
+      gsap.to('.hero-top-bar', {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.hero-bio-phrase', {
+        opacity: 1,
+        y: 0,
+        stagger: 0.06,
+        duration: 0.65,
+        ease: 'power2.out',
+      });
+
+      return true;
+    });
+  }, []);
 
   // Monitor scroll untuk Top Bar visibility
   useEffect(() => {
@@ -93,29 +124,50 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Jeda hening 2.2 detik pasca-loader sebelum seluruh elemen hero beranimasi serempak
+  // Jeda hening default 2.2 detik, TETAPI jika user mulai gerak (scroll, wheel, touch, keydown),
+  // langsung paksa mulai animasinya agar tidak ada kesan "kosong" saat user buru-buru!
   useEffect(() => {
     if (!isAppLoaded) return;
 
-    const startupTimer = setTimeout(() => {
-      setHasStartedLoop(true);
+    // Jika user sudah berada di posisi scroll > 15 saat siap, langsung mulai
+    if (window.scrollY > 15) {
+      startHeroImmediately();
+      return;
+    }
 
-      // Animasi stagger frase bio serempak bersama typewriter
-      gsap.to('.hero-bio-phrase', {
-        opacity: 1,
-        y: 0,
-        stagger: 0.08,
-        duration: 0.8,
-        ease: 'power2.out',
-      });
-    }, 2200); // 2.2 detik jeda hening unhurried
+    startupTimerRef.current = setTimeout(() => {
+      startHeroImmediately();
+    }, 2200); // 2.2 detik jeda hening unhurried jika user diam menikmati
 
-    return () => clearTimeout(startupTimer);
-  }, [isAppLoaded]);
+    const handleEarlyInteraction = () => {
+      startHeroImmediately();
+    };
+
+    window.addEventListener('scroll', handleEarlyInteraction, { passive: true, once: true });
+    window.addEventListener('wheel', handleEarlyInteraction, { passive: true, once: true });
+    window.addEventListener('touchstart', handleEarlyInteraction, { passive: true, once: true });
+    window.addEventListener('keydown', handleEarlyInteraction, { passive: true, once: true });
+
+    return () => {
+      if (startupTimerRef.current) clearTimeout(startupTimerRef.current);
+      window.removeEventListener('scroll', handleEarlyInteraction);
+      window.removeEventListener('wheel', handleEarlyInteraction);
+      window.removeEventListener('touchstart', handleEarlyInteraction);
+      window.removeEventListener('keydown', handleEarlyInteraction);
+    };
+  }, [isAppLoaded, startHeroImmediately]);
 
   const handleHeroClick = (e: React.MouseEvent<HTMLElement>) => {
     // Jangan picu transisi jika user mengklik link, tombol, atau navigasi top bar
     if ((e.target as HTMLElement).closest('a, button, .hero-top-bar')) return;
+
+    // Jika animasi belum mulai, klik pertama langsung paksa mulai animasinya
+    if (!hasStartedLoop) {
+      startHeroImmediately();
+      return;
+    }
+
+    // Jika sudah mulai, klik memicu transisi halus menuju Section About
     const aboutEl = document.getElementById('about');
     if (aboutEl) {
       aboutEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
