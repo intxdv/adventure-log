@@ -82,7 +82,7 @@ export const Footer: React.FC = () => {
               [ 04 // COLOPHON ]
             </span>
             <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)', lineHeight: 1.8 }}>
-              Designed & developed by Taki (Selvagant). Set in Lufga & JetBrains Mono. Built with React & Vite.
+              Designed & developed by Selvagant (Taki) — Creative Developer & Mobile Architect. Set in Lufga & JetBrains Mono. Built with React & Vite.
             </p>
           </div>
         </div>
@@ -110,7 +110,7 @@ export const Footer: React.FC = () => {
             ADVENTURE LOG.
           </div>
           <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)' }}>
-            © 2026 TAKI · ALL RIGHTS RESERVED · FIELD LOG VERSION 1.0
+            © 2026 SELVAGANT (TAKI) · ALL RIGHTS RESERVED · FIELD LOG VERSION 1.0
           </div>
         </div>
       </div>

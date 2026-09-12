@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export const Hero: React.FC = () => {
   return (
@@ -38,7 +38,7 @@ export const Hero: React.FC = () => {
             className="tag-badge"
             style={{ marginBottom: 'var(--space-md)' }}
           >
-            FIELD ARCHIVE & CARTOGRAPHY
+            SELVAGANT // CREATIVE DEVELOPER & MOBILE ARCHITECT
           </span>
           <h1
             id="hero-title"
@@ -60,8 +60,8 @@ export const Hero: React.FC = () => {
               color: 'var(--color-ink-muted)',
             }}
           >
-            A digital field journal where precision engineering meets organic exploration.
-            Documenting architectural feats, mobile systems, and creative web craft.
+            A digital field journal by Selvagant (Taki) — Creative Developer & Mobile Architect.
+            Crafting tactile digital systems, robust mobile architectures, and immersive web experiences.
           </p>
         </div>
 

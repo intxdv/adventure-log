@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Header: React.FC = () => {
   const [timeString, setTimeString] = useState('');
@@ -59,9 +59,9 @@ export const Header: React.FC = () => {
           </a>
           <span
             className="tag-badge"
-            style={{ display: 'none' /* Will be unhidden on md+ screens via css or inline */ }}
+            style={{ display: 'inline-flex' }}
           >
-            DISPATCH 2026
+            SELVAGANT
           </span>
         </div>
 

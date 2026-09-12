@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export const About: React.FC = () => {
   return (
@@ -92,19 +92,31 @@ export const About: React.FC = () => {
           {/* Editorial Storytelling & Moniker */}
           <div>
             <div style={{ marginBottom: 'var(--space-sm)' }}>
-              <span className="tag-badge">FIELD BRIEF // 01</span>
+              <span className="tag-badge">FIELD BRIEF // 01 · ABOUT SELVAGANT</span>
             </div>
             
             <h2
               style={{
                 fontSize: 'var(--text-2xl)',
                 fontWeight: 700,
-                marginBottom: 'var(--space-md)',
+                marginBottom: 'var(--space-xs)',
                 letterSpacing: '-0.02em',
               }}
             >
-              The Digital Cartographer.
+              About Selvagant.
             </h2>
+            <div
+              className="font-mono"
+              style={{
+                fontSize: 'var(--text-xs)',
+                color: 'var(--color-olive)',
+                marginBottom: 'var(--space-md)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
+              Creative Developer & Mobile Architect // The Digital Cartographer
+            </div>
 
             <p style={{ marginBottom: 'var(--space-md)' }}>
               Operating at the intersection of deep engineering logic and organic visual taste.
