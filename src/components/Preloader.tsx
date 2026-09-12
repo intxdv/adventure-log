@@ -50,16 +50,16 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
     const triggerRevealSequence = () => {
       setProgress(100);
-      // Pacing pause: allow user to register 100% calibration for 400ms
+      // Pacing pause: allow user to comfortably register 100% calibration for 500ms
       pauseTimer = setTimeout(() => {
         setIsRevealing(true);
-        // Slower, cinematic curtain reveal (850ms)
+        // Majestic unhurried curtain reveal transition (1350ms)
         dismissTimer = setTimeout(() => {
           setIsDismissed(true);
           window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
           onComplete?.();
-        }, 850);
-      }, 420);
+        }, 1350);
+      }, 500);
     };
 
     const animate = (timestamp: number) => {
@@ -95,7 +95,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     // Emergency fallback safety timer
     const fallbackTimer = setTimeout(() => {
       triggerRevealSequence();
-    }, 2200);
+    }, 2800);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
@@ -120,9 +120,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 'clamp(1.5rem, 5vw, 3.5rem)',
-        transition: 'opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
+        transition: 'opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1), transform 1.35s cubic-bezier(0.16, 1, 0.3, 1)',
         opacity: isRevealing ? 0 : 1,
-        transform: isRevealing ? 'translateY(-24px) scale(0.985)' : 'translateY(0) scale(1)',
+        transform: isRevealing ? 'translateY(-36px) scale(0.985)' : 'translateY(0) scale(1)',
         pointerEvents: isRevealing ? 'none' : 'all',
       }}
     >
