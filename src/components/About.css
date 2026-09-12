@@ -1,0 +1,274 @@
+﻿/* ==========================================================================
+   About Section & Field Dossier Styling (The Digital Cartographer)
+   ========================================================================== */
+
+.about-section {
+  padding: var(--space-4xl) 0;
+  position: relative;
+  background-color: var(--color-canvas);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Field Dossier (Archival Card / Left Column)
+   -------------------------------------------------------------------------- */
+.field-dossier {
+  margin: 0;
+  position: relative;
+  background-color: var(--color-canvas-subtle);
+  border: 1px solid var(--hairline-base);
+  padding: var(--space-md);
+  box-shadow: 0 4px 20px rgba(24, 26, 24, 0.03);
+}
+
+.field-dossier-header {
+  display: flex;
+  justifyContent: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--hairline-subtle);
+  padding-bottom: 6px;
+}
+
+.field-dossier-id {
+  font-size: var(--text-xs);
+  color: var(--color-olive);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.field-dossier-coord {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+}
+
+.field-dossier-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-canvas);
+  border: 1px solid var(--hairline-base);
+  overflow: hidden;
+}
+
+.field-dossier-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.03) brightness(0.98);
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.field-dossier-frame:hover .field-dossier-img {
+  transform: scale(1.025);
+}
+
+/* Tactile Corner Brackets */
+.corner-bracket {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 2;
+  border-color: var(--color-olive);
+}
+
+.corner-tl {
+  top: 8px;
+  left: 8px;
+  border-top: 1.5px solid;
+  border-left: 1.5px solid;
+}
+
+.corner-tr {
+  top: 8px;
+  right: 8px;
+  border-top: 1.5px solid;
+  border-right: 1.5px solid;
+}
+
+.corner-bl {
+  bottom: 8px;
+  left: 8px;
+  border-bottom: 1.5px solid;
+  border-left: 1.5px solid;
+}
+
+.corner-br {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 1.5px solid;
+  border-right: 1.5px solid;
+}
+
+.field-dossier-caption {
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--hairline-subtle);
+}
+
+.field-dossier-meta-row {
+  display: flex;
+  justifyContent: space-between;
+  align-items: center;
+  font-size: var(--text-xs);
+}
+
+.field-dossier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--color-olive-tint);
+  color: var(--color-olive);
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--color-olive-border);
+}
+
+.field-dossier-pulse {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-olive);
+}
+
+/* --------------------------------------------------------------------------
+   Editorial Article (Right Column)
+   -------------------------------------------------------------------------- */
+.about-article {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-kicker {
+  margin-bottom: var(--space-sm);
+}
+
+.about-headline {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.about-subhead {
+  font-size: var(--text-xs);
+  color: var(--color-olive);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.about-lead {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--color-ink);
+  font-weight: 500;
+  margin-bottom: var(--space-md);
+}
+
+.about-body {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-xl);
+}
+
+/* Authentic Manifesto Blockquote */
+.about-manifesto {
+  position: relative;
+  margin: 0 0 var(--space-xl) 0;
+  padding: var(--space-lg) var(--space-xl);
+  background-color: var(--color-canvas-subtle);
+  border-left: 3px solid var(--color-olive);
+  border-top: 1px solid var(--hairline-subtle);
+  border-right: 1px solid var(--hairline-subtle);
+  border-bottom: 1px solid var(--hairline-subtle);
+}
+
+.about-manifesto-kicker {
+  font-size: 0.7rem;
+  color: var(--color-olive);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.about-manifesto-quote {
+  font-style: italic;
+  font-size: var(--text-base);
+  line-height: 1.75;
+  color: var(--color-ink);
+  margin-bottom: var(--space-sm);
+}
+
+.about-manifesto-cite {
+  font-size: var(--text-xs);
+  color: var(--color-ink-faint);
+  display: block;
+  text-align: right;
+}
+
+/* Moniker Origin Aside */
+.about-moniker {
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-olive-tint);
+  border: 1px solid var(--color-olive-border);
+  position: relative;
+}
+
+.about-moniker-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.about-moniker-selv {
+  font-style: italic;
+  font-weight: 800;
+  color: var(--color-olive);
+  border-bottom: 2px solid var(--color-olive);
+  padding-bottom: 1px;
+}
+
+.about-moniker-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  font-family: var(--font-body);
+}
+
+.about-moniker-desc {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  margin-top: 6px;
+  line-height: 1.6;
+}
