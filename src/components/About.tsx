@@ -63,11 +63,11 @@ export const About: React.FC = () => {
             <div className="selvagant-drawer">
               <div className="selvagant-drawer-inner">
                 <div className="selvagant-drawer-header font-mono">
-                  <span>THE WANDERING SELV</span>
+                  <span>THE WANDERING <span className="selvagant-selv-accent">Selv</span></span>
                   <span style={{ color: 'var(--color-ink-faint)' }}>// ETYMOLOGY</span>
                 </div>
                 <p className="selvagant-drawer-body font-mono">
-                  Rooted in <strong>Solivagant</strong> (one who wanders alone) and <strong>Selva</strong> (the untamed forest) + Self-determination. An ongoing exploration of software systems, mobile architectures, and digital craft as conscious self-discovery.
+                  Evolved from the Latin <em>Solivagant</em> (one who wanders alone), condensed into <em>Slvgnt</em>, and ultimately forged into <strong>Selvagant</strong> by infusing <strong>Selv</strong>—a deliberate phonetic resonance with <em>Self</em>. A moniker capturing a solitary expedition across software craft, architecture, and conscious self-discovery.
                 </p>
               </div>
             </div>
