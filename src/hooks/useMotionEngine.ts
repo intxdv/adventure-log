@@ -234,7 +234,7 @@ export const useMotionEngine = () => {
           gsap.from('.footer-landscape-bg', {
             scrollTrigger: {
               trigger: landscapeStage,
-              start: 'top 88%',
+              start: 'top 96%',
               toggleActions: 'play none none reverse',
             },
             scale: 1.08,
@@ -250,7 +250,7 @@ export const useMotionEngine = () => {
             {
               scrollTrigger: {
                 trigger: landscapeStage,
-                start: 'top 88%',
+                start: 'top 96%',
                 toggleActions: 'play none none reverse',
               },
               y: 0,
@@ -265,7 +265,7 @@ export const useMotionEngine = () => {
           gsap.from('.footer-landscape-fg', {
             scrollTrigger: {
               trigger: landscapeStage,
-              start: 'top 84%',
+              start: 'top 92%',
               toggleActions: 'play none none reverse',
             },
             y: 55,
@@ -284,12 +284,12 @@ export const useMotionEngine = () => {
             {
               scrollTrigger: {
                 trigger: landscapeStage,
-                start: 'top 76%',
+                start: 'top 90%',
                 toggleActions: 'play none none reverse',
               },
               y: 0,
               opacity: 1,
-              delay: 0.35,
+              delay: 0.15,
               duration: 1.1,
               ease: 'power3.out',
             }
