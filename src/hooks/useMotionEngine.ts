@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+﻿import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -8,106 +8,122 @@ export const useMotionEngine = () => {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Wait for DOM layout to settle
     const ctx = gsap.context(() => {
       // ======================================================================
-      // 1. HERO PINNING & DOT-ZOOM PORTAL TO ABOUT (ANIMASI 2)
+      // 1. HERO PINNING & CENTER SOLID CIRCLE PORTAL TO ABOUT
       // ======================================================================
       const heroSection = document.getElementById('hero');
-      const portalDot = document.getElementById('hero-portal-dot');
+      const aboutSection = document.getElementById('about');
       const notchHeader = document.getElementById('top-notch-header');
 
       if (heroSection && !prefersReducedMotion) {
-        // Create an expanding aperture element if not already present
-        let portalCircle = document.getElementById('hero-portal-aperture');
-        if (!portalCircle) {
-          portalCircle = document.createElement('div');
-          portalCircle.id = 'hero-portal-aperture';
-          portalCircle.style.cssText = `
+        // Create solid nocturnal expanding circle anchored at EXACT center of viewport
+        let centerPortal = document.getElementById('hero-center-portal');
+        if (!centerPortal) {
+          centerPortal = document.createElement('div');
+          centerPortal.id = 'hero-center-portal';
+          centerPortal.style.cssText = `
             position: fixed;
-            width: 24px;
-            height: 24px;
+            top: 50vh;
+            left: 50vw;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background-color: var(--color-olive);
+            background-color: #121512;
             pointer-events: none;
-            z-index: 90;
+            z-index: 95;
             transform: translate(-50%, -50%) scale(0);
             will-change: transform, opacity;
             opacity: 0;
           `;
-          document.body.appendChild(portalCircle);
+          document.body.appendChild(centerPortal);
         }
 
         const heroTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: heroSection,
             start: 'top top',
-            end: '+=120%',
+            end: '+=140%',
             pin: true,
-            scrub: 0.7,
+            scrub: 0.8,
             anticipatePin: 1,
             onUpdate: (self) => {
-              // Synchronize portal aperture origin with current dot position
-              if (portalDot && portalCircle) {
-                const rect = portalDot.getBoundingClientRect();
-                if (rect.width > 0) {
-                  portalCircle.style.left = `${rect.left + rect.width / 2}px`;
-                  portalCircle.style.top = `${rect.top + rect.height / 2}px`;
+              // Coordinate Notch Dock appearance
+              if (notchHeader) {
+                if (self.progress > 0.7) {
+                  notchHeader.classList.add('is-visible');
+                  notchHeader.classList.remove('is-hidden');
+                } else if (self.progress < 0.25) {
+                  notchHeader.classList.remove('is-visible');
+                  notchHeader.classList.add('is-hidden');
                 }
               }
 
-              // Show or hide Notch Dock based on progress
-              if (notchHeader) {
-                if (self.progress > 0.75) {
-                  notchHeader.classList.add('is-visible');
-                  notchHeader.classList.remove('is-hidden');
-                } else if (self.progress < 0.3) {
-                  notchHeader.classList.remove('is-visible');
-                  notchHeader.classList.add('is-hidden');
+              // Pre-trigger nocturnal mode on About section as portal envelops screen
+              if (aboutSection) {
+                if (self.progress > 0.5) {
+                  aboutSection.classList.add('is-nocturne');
                 }
               }
             },
           },
         });
 
-        // Step 1: Content softens as scroll starts
+        // Step 1: Lingkaran solid nocturnal (#121512) muncul dari tengah layar dan membesar
         heroTimeline.to(
-          '.hero-left-col, .hero-right-col',
+          centerPortal,
           {
-            opacity: 0.15,
-            scale: 0.96,
-            duration: 0.35,
-            ease: 'power1.out',
+            opacity: 1,
+            scale: 220,
+            duration: 0.6,
+            ease: 'power2.in',
           },
           0
         );
 
-        // Step 2: Dot portal aperture appears and expands exponentially to cover screen
+        // Step 2: Konten Hero meredup lembut di balik tirai nocturnal
         heroTimeline.to(
-          portalCircle,
+          '.hero-body-container, .hero-top-bar',
           {
-            opacity: 1,
-            scale: 160,
-            duration: 0.75,
-            ease: 'power2.in',
+            opacity: 0,
+            duration: 0.35,
+            ease: 'power1.out',
           },
-          0.15
+          0.1
         );
 
-        // Step 3: Dissolve the portal circle smoothly to reveal About section
+        // Step 3: Ketika layar telah tertutup penuh, tirai memudar halus untuk menampilkan Section About
         heroTimeline.to(
-          portalCircle,
+          centerPortal,
           {
             opacity: 0,
             duration: 0.3,
             ease: 'power1.out',
           },
-          0.85
+          0.7
         );
       }
 
       // ======================================================================
-      // 2. ABOUT -> SELECTED EXPEDITIONS TRANSITION
+      // 2. ABOUT SECTION ENTRANCE & CHOREOGRAPHY
+      // ======================================================================
+      if (aboutSection) {
+        gsap.from('.field-zine-card, .about-content-col', {
+          scrollTrigger: {
+            trigger: aboutSection,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse',
+          },
+          y: 35,
+          opacity: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: 'power2.out',
+        });
+      }
+
+      // ======================================================================
+      // 3. ABOUT -> SELECTED EXPEDITIONS TRANSITION
       // ======================================================================
       const expeditionsSection = document.getElementById('selected-expeditions');
       if (expeditionsSection) {
@@ -141,7 +157,7 @@ export const useMotionEngine = () => {
       }
 
       // ======================================================================
-      // 3. SELECTED EXPEDITIONS -> FIELD ARSENAL TRANSITION
+      // 4. SELECTED EXPEDITIONS -> FIELD ARSENAL TRANSITION
       // ======================================================================
       const arsenalSection = document.getElementById('field-arsenal');
       if (arsenalSection) {
@@ -160,15 +176,13 @@ export const useMotionEngine = () => {
       }
 
       // ======================================================================
-      // 4. FOOTER MULTI-PLANE PARALLAX CHOREOGRAPHY (SLVGNT + HILLS)
+      // 5. FOOTER MULTI-PLANE PARALLAX CHOREOGRAPHY (SLVGNT + HILLS)
       // ======================================================================
       const footerStage = document.querySelector('.footer-landscape-stage');
       const footerWordmark = document.querySelector('.footer-stage-wordmark');
       const footerBg = document.querySelector('.footer-stage-bg');
 
       if (footerStage && footerWordmark && !prefersReducedMotion) {
-        // Multi-plane parallax:
-        // SLVGNT wordmark starts deeper and rises up behind the grassy foreground cutout
         gsap.fromTo(
           footerWordmark,
           { yPercent: 12 },
@@ -184,7 +198,6 @@ export const useMotionEngine = () => {
           }
         );
 
-        // Background landscape sky moves with a gentle, slower rate
         if (footerBg) {
           gsap.fromTo(
             footerBg,
@@ -205,11 +218,10 @@ export const useMotionEngine = () => {
     });
 
     return () => {
-      // Clean up all GSAP timelines and triggers on unmount
       ctx.revert();
-      const aperture = document.getElementById('hero-portal-aperture');
-      if (aperture && aperture.parentNode) {
-        aperture.parentNode.removeChild(aperture);
+      const portal = document.getElementById('hero-center-portal');
+      if (portal && portal.parentNode) {
+        portal.parentNode.removeChild(portal);
       }
     };
   }, []);

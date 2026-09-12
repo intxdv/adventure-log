@@ -10,6 +10,7 @@ import { FieldArsenal } from './components/FieldArsenal';
 import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
+  const [isAppLoaded, setIsAppLoaded] = React.useState(false);
   useMotionEngine();
 
   return (
@@ -18,7 +19,7 @@ export const App: React.FC = () => {
       <div className="paper-grain-overlay" aria-hidden="true" />
 
       {/* Preloader Screen */}
-      <Preloader />
+      <Preloader onComplete={() => setIsAppLoaded(true)} />
 
       {/* Tactical Right-Rail & Mobile Floating Navigation */}
       <TacticalNav />
@@ -26,7 +27,7 @@ export const App: React.FC = () => {
       {/* Main Structural Content */}
       <Header />
       <main id="main-content">
-        <Hero />
+        <Hero isAppLoaded={isAppLoaded} />
         <About />
         <SelectedExpeditions />
         <FieldArsenal />
