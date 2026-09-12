@@ -4,6 +4,7 @@ import './About.css';
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
   const [isNocturne, setIsNocturne] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +26,22 @@ export const About: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen((prev) => !prev);
+  };
+
+  const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setIsDrawerOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setIsDrawerOpen(false);
+    }
+  };
 
   return (
     <section
@@ -72,12 +89,22 @@ export const About: React.FC = () => {
             </figcaption>
           </figure>
 
-          {/* Interactive SELVAGANT Display Dock with Hover Meaning Disclosure */}
+          {/* Interactive SELVAGANT Display Dock with Click & Hover Disclosure */}
           <div
-            className="selvagant-reveal-dock"
+            className={`selvagant-reveal-dock ${isDrawerOpen ? 'is-expanded' : ''}`}
             tabIndex={0}
-            role="region"
-            aria-label="Selvagant Moniker Etymology & Meaning"
+            role="button"
+            aria-expanded={isDrawerOpen}
+            aria-label="Selvagant Moniker Etymology & Meaning - Click to toggle"
+            onClick={toggleDrawer}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleDrawer();
+              }
+            }}
           >
             <div className="selvagant-trigger-row">
               <h3 className="selvagant-hero-word">

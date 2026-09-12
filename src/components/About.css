@@ -378,17 +378,15 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-.selvagant-reveal-dock:hover,
-.selvagant-reveal-dock:focus-visible,
-.selvagant-reveal-dock:focus-within {
+.selvagant-reveal-dock.is-expanded,
+.selvagant-reveal-dock:focus-visible {
   border-color: var(--hairline-base);
   background-color: #FFFFFF;
   box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.06), 0 2px 8px rgba(24, 26, 24, 0.03);
 }
 
-.about-section.is-nocturne .selvagant-reveal-dock:hover,
-.about-section.is-nocturne .selvagant-reveal-dock:focus-visible,
-.about-section.is-nocturne .selvagant-reveal-dock:focus-within {
+.about-section.is-nocturne .selvagant-reveal-dock.is-expanded,
+.about-section.is-nocturne .selvagant-reveal-dock:focus-visible {
   border-color: rgba(255, 255, 255, 0.14);
   background-color: rgba(255, 255, 255, 0.04);
   box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.45);
@@ -417,7 +415,7 @@
   color: #F2F1EC;
 }
 
-/* Revealed Meaning Drawer on Hover/Focus */
+/* Revealed Meaning Drawer on Click/Hover Toggle */
 .selvagant-drawer {
   display: grid;
   grid-template-rows: 0fr;
@@ -426,8 +424,7 @@
   transition: grid-template-rows 0.4s var(--ease-out-expo), opacity 0.3s ease;
 }
 
-.selvagant-reveal-dock:hover .selvagant-drawer,
-.selvagant-reveal-dock:focus-within .selvagant-drawer {
+.selvagant-reveal-dock.is-expanded .selvagant-drawer {
   grid-template-rows: 1fr;
   opacity: 1;
 }
