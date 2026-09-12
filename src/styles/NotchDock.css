@@ -76,96 +76,60 @@
   pointer-events: none;
 }
 
-/* Bottom Reading / Scroll Progress Hairline */
-.notch-progress-track {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  overflow: hidden;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  pointer-events: none;
-}
-
-.notch-progress-bar {
-  height: 100%;
-  background-color: var(--color-olive);
-  opacity: 0.85;
-  transition: width 0.08s linear;
-}
-
-/* Interactive Brand Wordmark Inside Notch */
+/* Interactive Brand Wordmark & Centered Hover Arrow Inside Notch */
 .notch-brand-anchor {
+  position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: var(--color-ink);
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: -0.015em;
   text-transform: uppercase;
-  transition: color var(--duration-fast) ease;
+  height: 100%;
 }
 
-.notch-brand-anchor:hover {
-  color: var(--color-olive);
-}
-
-.notch-brand-text {
+/* Default View: ADVENTURE LOG. */
+.notch-label-default {
+  display: inline-flex;
+  align-items: center;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: -0.015em;
   line-height: 1;
+  color: var(--color-ink);
+  transition: opacity 0.22s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transform: translateY(0);
+  white-space: nowrap;
+}
+
+/* Hover View: Clean Centered Upward Arrow (↑) */
+.notch-label-hover {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) translateY(8px);
   display: inline-flex;
-  align-items: baseline;
-}
-
-/* Micro-Interaction: Period Dot morphs into Compass Return Arrow (↑) on Hover */
-.notch-period-container {
-  position: relative;
-  display: inline-block;
-  width: 10px;
-  height: 14px;
-  margin-left: 1px;
+  align-items: center;
+  justify-content: center;
   color: var(--color-olive);
-  vertical-align: baseline;
-}
-
-.notch-period-dot {
-  position: absolute;
-  left: 1px;
-  bottom: 0;
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1;
-  transition: opacity 0.2s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.notch-period-arrow {
-  position: absolute;
-  left: 0;
-  bottom: 1px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 1;
-  transition: opacity 0.2s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
   opacity: 0;
-  transform: translateY(4px);
+  transition: opacity 0.22s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), color var(--duration-fast) ease;
+  pointer-events: none;
 }
 
-.notch-dock-body:hover .notch-period-dot {
+/* Morph Trigger on Hover */
+.notch-dock-body:hover .notch-label-default {
   opacity: 0;
-  transform: translateY(-4px);
+  transform: translateY(-8px);
 }
 
-.notch-dock-body:hover .notch-period-arrow {
+.notch-dock-body:hover .notch-label-hover {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, -50%) translateY(0);
 }
 
 /* Mobile Responsiveness */
@@ -174,10 +138,10 @@
     height: 40px;
     padding: 0 20px;
   }
-  .notch-brand-text {
+  .notch-label-default {
     font-size: 13px;
   }
   .notch-dock-body:hover {
-    transform: none; /* Disable spring on touch screens */
+    transform: none; /* Disable tactile spring on touch screens */
   }
 }
