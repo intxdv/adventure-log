@@ -1,31 +1,70 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAssetReadiness } from '../hooks/useAssetReadiness';
 
 interface PreloaderProps {
   onComplete?: () => void;
 }
 
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
+  const isAssetsReady = useAssetReadiness();
   const [progress, setProgress] = useState(0);
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          setTimeout(() => {
-            setIsDismissed(true);
-            onComplete?.();
-          }, 300);
-          return 100;
-        }
-        const increment = Math.floor(Math.random() * 15) + 8;
-        return Math.min(prev + increment, 100);
-      });
-    }, 100);
+    let animationFrameId: number;
+    let startTime: number | null = null;
+    const targetDuration = 1350; // Max 1.35 seconds for crisp entrance
 
-    return () => clearInterval(timer);
-  }, [onComplete]);
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const linearRatio = Math.min(elapsed / targetDuration, 1);
+
+      // Nonlinear expedition calibration curve (accelerate -> tactile linger -> snap to complete)
+      let calculatedProgress: number;
+      if (linearRatio < 0.6) {
+        calculatedProgress = Math.floor((linearRatio / 0.6) * 68);
+      } else if (linearRatio < 0.85) {
+        // Lingers slightly while assets rasterize
+        calculatedProgress = 68 + Math.floor(((linearRatio - 0.6) / 0.25) * 22);
+      } else {
+        calculatedProgress = 90 + Math.floor(((linearRatio - 0.85) / 0.15) * 10);
+      }
+
+      // If assets are ready, allow progress to reach 100%
+      if (isAssetsReady && linearRatio >= 0.95) {
+        calculatedProgress = 100;
+      }
+
+      setProgress(Math.min(100, calculatedProgress));
+
+      if (linearRatio < 1 && calculatedProgress < 100) {
+        animationFrameId = requestAnimationFrame(animate);
+      } else {
+        setProgress(100);
+        setTimeout(() => {
+          setIsDismissed(true);
+          onComplete?.();
+        }, 320);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    // Emergency fallback safety timer: guarantee dismissal within 1.8 seconds max
+    const fallbackTimer = setTimeout(() => {
+      setProgress(100);
+      setTimeout(() => {
+        setIsDismissed(true);
+        onComplete?.();
+      }, 200);
+    }, 1800);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      clearTimeout(fallbackTimer);
+    };
+  }, [isAssetsReady, onComplete]);
 
   if (isDismissed) return null;
 
