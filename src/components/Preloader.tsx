@@ -8,13 +8,7 @@ interface PreloaderProps {
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const isAssetsReady = useAssetReadiness();
   const [progress, setProgress] = useState(0);
-  const [isDismissed, setIsDismissed] = useState(() => {
-    try {
-      return sessionStorage.getItem('adventure_log_preloaded') === 'true';
-    } catch {
-      return false;
-    }
-  });
+  const [isDismissed, setIsDismissed] = useState(false);
 
   // Lock body scroll while preloader is active to prevent scroll leak
   useEffect(() => {
@@ -64,11 +58,6 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       } else {
         setProgress(100);
         setTimeout(() => {
-          try {
-            sessionStorage.setItem('adventure_log_preloaded', 'true');
-          } catch {
-            // Ignore storage errors
-          }
           setIsDismissed(true);
           onComplete?.();
         }, 340);
@@ -81,11 +70,6 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     const fallbackTimer = setTimeout(() => {
       setProgress(100);
       setTimeout(() => {
-        try {
-          sessionStorage.setItem('adventure_log_preloaded', 'true');
-        } catch {
-          // Ignore storage errors
-        }
         setIsDismissed(true);
         onComplete?.();
       }, 200);
