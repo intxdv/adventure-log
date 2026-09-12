@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const useMotionEngine = () => {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let footerMouseMoveHandler: ((e: MouseEvent) => void) | null = null;
 
     const ctx = gsap.context(() => {
       // ======================================================================
@@ -43,8 +44,10 @@ export const useMotionEngine = () => {
           scrollTrigger: {
             trigger: stageWrapper,
             start: 'top top',
-            end: 'bottom top',
+            end: '+=100%',
+            pin: true,
             scrub: 0.6,
+            anticipatePin: 1,
             onUpdate: (self) => {
               // Coordinate Notch Dock appearance
               if (notchHeader) {
@@ -56,25 +59,18 @@ export const useMotionEngine = () => {
                   notchHeader.classList.add('is-hidden');
                 }
               }
-
-              // Pre-trigger nocturnal mode on About section as portal envelops screen
-              if (aboutSection) {
-                if (self.progress > 0.45) {
-                  aboutSection.classList.add('is-nocturne');
-                }
-              }
             },
           },
         });
 
         // Step 1: Lingkaran solid nocturnal (#121512) muncul dari tengah layar dan membesar
-        // Mengembang menutupi seluruh layar pada progress 0.0 -> 0.70 (scale 320)
+        // Mengembang menutupi seluruh layar pada progress 0.0 -> 0.80 (scale 350)
         heroTimeline.to(
           centerPortal,
           {
             opacity: 1,
-            scale: 320,
-            duration: 0.70,
+            scale: 350,
+            duration: 0.80,
             ease: 'power2.in',
           },
           0
@@ -85,45 +81,22 @@ export const useMotionEngine = () => {
           '.hero-body-container, .hero-top-bar',
           {
             opacity: 0,
-            duration: 0.28,
+            duration: 0.35,
             ease: 'power1.out',
           },
           0.05
         );
 
-        // Step 3: Cegah Section About bocor di bawah layar sebelum lingkaran penuh.
-        // Section About di-hold hidden & opacity: 0 sampai layar 100% hitam pekat (progress 0.70).
-        // Tepat di progress 0.75 - 1.0 (ketika About sudah seated sempurna di top: 0),
-        // About diungkapkan secara dramatis dan mulus tanpa merangkak dari bawah!
-        if (aboutSection) {
-          heroTimeline.fromTo(
-            aboutSection,
-            {
-              opacity: 0,
-              visibility: 'hidden',
-              pointerEvents: 'none',
-            },
-            {
-              opacity: 1,
-              visibility: 'visible',
-              pointerEvents: 'auto',
-              duration: 0.25,
-              ease: 'power2.out',
-            },
-            0.75
-          );
-        }
-
-        // Step 4: Di progress 0.88 - 1.0, tirai lingkaran memudar halus
-        // mengungkap Section About yang sudah 100% identik latar belakangnya (#121512)
+        // Step 3: Di progress 0.90 - 1.0 (saat portal sudah 100% solid gelap dan unpin terjadi),
+        // portal memudar halus mengungkap Section About yang berlatar identik #121512
         heroTimeline.to(
           centerPortal,
           {
             opacity: 0,
-            duration: 0.12,
+            duration: 0.1,
             ease: 'power1.out',
           },
-          0.88
+          0.9
         );
       }
 
@@ -210,23 +183,23 @@ export const useMotionEngine = () => {
             start: 'top 92%',
             toggleActions: 'play none none reverse',
           },
-          y: -18,
+          y: -22,
           opacity: 0,
-          duration: 0.7,
+          duration: 1.1,
           ease: 'power2.out',
         });
 
-        // 5b. 4-Column Colophon stagger entrance
+        // 5b. 4-Column Colophon stagger entrance (Lebih lama dan anggun)
         gsap.from('.footer-identity-col, .footer-journal-col, .footer-col', {
           scrollTrigger: {
             trigger: '.footer-container',
             start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
-          y: 35,
+          y: 40,
           opacity: 0,
-          stagger: 0.12,
-          duration: 0.8,
+          stagger: 0.16,
+          duration: 1.0,
           ease: 'power2.out',
         });
 
@@ -240,9 +213,9 @@ export const useMotionEngine = () => {
               start: 'top 88%',
               toggleActions: 'play none none reverse',
             },
-            scale: 1.06,
+            scale: 1.08,
             opacity: 0,
-            duration: 1.2,
+            duration: 1.6,
             ease: 'power2.out',
           });
 
@@ -253,11 +226,11 @@ export const useMotionEngine = () => {
               start: 'top 82%',
               toggleActions: 'play none none reverse',
             },
-            y: 90,
+            y: 110,
             opacity: 0,
-            stagger: 0.08,
-            duration: 0.9,
-            ease: 'back.out(1.3)',
+            stagger: 0.12,
+            duration: 1.3,
+            ease: 'back.out(1.2)',
           });
 
           // Layer 3: Foreground hill with mossy CRT monitor
@@ -267,9 +240,9 @@ export const useMotionEngine = () => {
               start: 'top 84%',
               toggleActions: 'play none none reverse',
             },
-            y: 45,
+            y: 55,
             opacity: 0,
-            duration: 0.9,
+            duration: 1.3,
             ease: 'power2.out',
           });
 
@@ -281,9 +254,9 @@ export const useMotionEngine = () => {
               toggleActions: 'play none none reverse',
             },
             opacity: 0,
-            scale: 0.92,
-            delay: 0.35,
-            duration: 0.6,
+            scale: 0.90,
+            delay: 0.5,
+            duration: 0.8,
             ease: 'power2.out',
           });
 
@@ -309,12 +282,47 @@ export const useMotionEngine = () => {
               scrub: 0.4,
             },
           });
+
+          // 5d. Interactive 3D Cursor-Dependent Parallax on Landscape Diorama
+          const stageEl = landscapeStage as HTMLElement;
+          const bgX = gsap.quickTo('.footer-landscape-bg', 'x', { duration: 0.9, ease: 'power2.out' });
+          const bgY = gsap.quickTo('.footer-landscape-bg', 'y', { duration: 0.9, ease: 'power2.out' });
+          const wordmarkX = gsap.quickTo('.footer-landscape-wordmark', 'x', { duration: 0.7, ease: 'power2.out' });
+          const wordmarkY = gsap.quickTo('.footer-landscape-wordmark', 'y', { duration: 0.7, ease: 'power2.out' });
+          const fgX = gsap.quickTo('.footer-landscape-fg', 'x', { duration: 0.5, ease: 'power2.out' });
+          const fgY = gsap.quickTo('.footer-landscape-fg', 'y', { duration: 0.5, ease: 'power2.out' });
+          const copyrightX = gsap.quickTo('.footer-stage-copyright', 'x', { duration: 0.4, ease: 'power2.out' });
+          const copyrightY = gsap.quickTo('.footer-stage-copyright', 'y', { duration: 0.4, ease: 'power2.out' });
+
+          const handleFooterMouseMove = (e: MouseEvent) => {
+            const rect = stageEl.getBoundingClientRect();
+            // Hanya aktif saat stage berada di dalam atau dekat viewport
+            if (rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
+
+            const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+            const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+
+            bgX(normX * -18);
+            bgY(normY * -10);
+            wordmarkX(normX * 28);
+            wordmarkY(normY * 16);
+            fgX(normX * 10);
+            fgY(normY * 6);
+            copyrightX(normX * 16);
+            copyrightY(normY * 12);
+          };
+
+          footerMouseMoveHandler = handleFooterMouseMove;
+          window.addEventListener('mousemove', footerMouseMoveHandler, { passive: true });
         }
       }
     });
 
     return () => {
       ctx.revert();
+      if (footerMouseMoveHandler) {
+        window.removeEventListener('mousemove', footerMouseMoveHandler);
+      }
       const portal = document.getElementById('hero-center-portal');
       if (portal && portal.parentNode) {
         portal.parentNode.removeChild(portal);

@@ -4,11 +4,11 @@
 
 .about-section {
   min-height: 100vh;
-  padding: clamp(3.5rem, 6vw, 6rem) 0;
+  padding: clamp(2rem, 4vh, 4rem) 0;
   position: relative;
   background-color: #121512;
   color: #F7F6F2;
-  scroll-margin-top: 80px;
+  scroll-margin-top: 0;
   border-top: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;

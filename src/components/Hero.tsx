@@ -78,7 +78,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
   const wibTime = useWibTime();
   const [fontIndex, setFontIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState(FONT_SEQUENCE[0].text);
+  const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hasStartedLoop, setHasStartedLoop] = useState(false);
@@ -101,23 +101,21 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
       setHasStartedLoop(true);
 
       // Animasi stagger frase bio serempak bersama typewriter
-      gsap.fromTo(
-        '.hero-bio-phrase',
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.08,
-          duration: 0.7,
-          ease: 'power2.out',
-        }
-      );
+      gsap.to('.hero-bio-phrase', {
+        opacity: 1,
+        y: 0,
+        stagger: 0.08,
+        duration: 0.8,
+        ease: 'power2.out',
+      });
     }, 2200); // 2.2 detik jeda hening unhurried
 
     return () => clearTimeout(startupTimer);
   }, [isAppLoaded]);
 
-  const handleMobileTap = () => {
+  const handleHeroClick = (e: React.MouseEvent<HTMLElement>) => {
+    // Jangan picu transisi jika user mengklik link, tombol, atau navigasi top bar
+    if ((e.target as HTMLElement).closest('a, button, .hero-top-bar')) return;
     const aboutEl = document.getElementById('about');
     if (aboutEl) {
       aboutEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -167,7 +165,12 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
   const baseText = hasDot ? displayedText.slice(0, -1) : displayedText;
 
   return (
-    <section id="hero" className="hero-section" aria-label="Expedition Hero & Field Entry">
+    <section
+      id="hero"
+      className="hero-section"
+      aria-label="Expedition Hero & Field Entry"
+      onClick={handleHeroClick}
+    >
       {/* 1. Minimalist Top Bar (Khusus Hero, memudar saat scroll) */}
       <div className={`hero-top-bar ${!hasStartedLoop ? 'is-initial-hidden' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
         <a href="#hero" className="hero-top-logo" aria-label="Selvagant Archive Home">
@@ -247,18 +250,6 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* 4. Mobile Tap Transition Prompt */}
-      <div
-        className="hero-mobile-tap-prompt font-mono"
-        onClick={handleMobileTap}
-        role="button"
-        tabIndex={0}
-        aria-label="Tap to enter Field Dossier"
-      >
-        <span>[ TAP TO ENTER FIELD DOSSIER ]</span>
-        <span className="tap-arrow" aria-hidden="true">↓</span>
       </div>
     </section>
   );

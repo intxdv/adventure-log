@@ -1,12 +1,6 @@
-/* Sticky Scroll Stage for Seamless Portal Transition */
+/* Scroll Stage for Seamless Portal Transition */
 .hero-stage-wrapper {
   position: relative;
-  height: 200vh;
-}
-
-.hero-stage-wrapper .hero-section {
-  position: sticky;
-  top: 0;
   height: 100vh;
 }
 
@@ -19,6 +13,7 @@
   padding: 0 0 clamp(2rem, 4vw, 4rem);
   background-color: var(--color-canvas);
   overflow: hidden;
+  cursor: pointer;
 }
 
 /* 1. Minimalist Hero Top Bar with Tactical Editorial Datum Line */
@@ -216,8 +211,9 @@
 
 .hero-bio-phrase {
   display: inline-block;
-  opacity: 1;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(14px);
+  will-change: opacity, transform;
 }
 
 .hero-meta-kicker {
@@ -387,39 +383,5 @@
   .hero-compass-dial {
     width: 220px;
     height: 220px;
-  }
-}
-
-/* Mobile Tap Transition Prompt */
-.hero-mobile-tap-prompt {
-  display: none;
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid var(--hairline-base);
-  background-color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  color: var(--color-ink);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  z-index: 15;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  user-select: none;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.hero-mobile-tap-prompt:active {
-  transform: translateX(-50%) scale(0.96);
-}
-
-@media (max-width: 768px) {
-  .hero-mobile-tap-prompt {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
   }
 }
