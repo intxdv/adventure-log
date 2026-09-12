@@ -46,20 +46,20 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     let startTime: number | null = null;
     let pauseTimer: ReturnType<typeof setTimeout> | null = null;
     let dismissTimer: ReturnType<typeof setTimeout> | null = null;
-    const targetDuration = 1200; // 1.2 seconds for counter
+    const targetDuration = 2400; // 2.4s unhurried, measured telemetry loading
 
     const triggerRevealSequence = () => {
       setProgress(100);
-      // Pacing pause: allow user to comfortably register 100% calibration for 500ms
+      // Pacing pause: allow user to comfortably absorb 100% calibration for 900ms
       pauseTimer = setTimeout(() => {
         setIsRevealing(true);
-        // Majestic unhurried curtain reveal transition (1350ms)
+        // Deeply cinematic, slow curtain reveal transition (1750ms)
         dismissTimer = setTimeout(() => {
           setIsDismissed(true);
           window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
           onComplete?.();
-        }, 1350);
-      }, 500);
+        }, 1750);
+      }, 900);
     };
 
     const animate = (timestamp: number) => {
@@ -67,17 +67,17 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       const elapsed = timestamp - startTime;
       const linearRatio = Math.min(elapsed / targetDuration, 1);
 
-      // Nonlinear calibration curve
+      // Nonlinear calibration curve with deliberate steps
       let calculatedProgress: number;
-      if (linearRatio < 0.6) {
-        calculatedProgress = Math.floor((linearRatio / 0.6) * 68);
-      } else if (linearRatio < 0.85) {
-        calculatedProgress = 68 + Math.floor(((linearRatio - 0.6) / 0.25) * 22);
+      if (linearRatio < 0.5) {
+        calculatedProgress = Math.floor((linearRatio / 0.5) * 52);
+      } else if (linearRatio < 0.8) {
+        calculatedProgress = 52 + Math.floor(((linearRatio - 0.5) / 0.3) * 34);
       } else {
-        calculatedProgress = 90 + Math.floor(((linearRatio - 0.85) / 0.15) * 10);
+        calculatedProgress = 86 + Math.floor(((linearRatio - 0.8) / 0.2) * 14);
       }
 
-      if (isAssetsReady && linearRatio >= 0.95) {
+      if (isAssetsReady && linearRatio >= 0.96) {
         calculatedProgress = 100;
       }
 
@@ -92,10 +92,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
     animationFrameId = requestAnimationFrame(animate);
 
-    // Emergency fallback safety timer
+    // Emergency fallback safety timer (5.5 seconds)
     const fallbackTimer = setTimeout(() => {
       triggerRevealSequence();
-    }, 2800);
+    }, 5500);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
@@ -120,9 +120,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 'clamp(1.5rem, 5vw, 3.5rem)',
-        transition: 'opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1), transform 1.35s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'opacity 1.75s cubic-bezier(0.22, 1, 0.36, 1), transform 1.75s cubic-bezier(0.22, 1, 0.36, 1)',
         opacity: isRevealing ? 0 : 1,
-        transform: isRevealing ? 'translateY(-36px) scale(0.985)' : 'translateY(0) scale(1)',
+        transform: isRevealing ? 'translateY(-40px) scale(0.98)' : 'translateY(0) scale(1)',
         pointerEvents: isRevealing ? 'none' : 'all',
       }}
     >
