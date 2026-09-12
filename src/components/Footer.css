@@ -78,7 +78,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Main Colophon Wide & Airy Layout (5-Column Custom Opnest Alignment)
+   2. Main Colophon Wide & Airy Layout (Opnest Alignment)
    -------------------------------------------------------------------------- */
 .footer-container {
   width: 100%;
@@ -92,36 +92,43 @@
 
 .footer-layout {
   display: grid;
-  grid-template-columns: auto minmax(240px, 1fr) 2.2fr;
-  gap: clamp(28px, 4.5vw, 72px);
+  grid-template-columns: minmax(320px, 1.25fr) minmax(280px, 1fr);
+  gap: clamp(40px, 7vw, 120px);
   align-items: start;
 }
 
-/* Far Left: Emblem Logo & Live Clock Column */
-.footer-meta-col {
+/* Brand Identity Block on Left (Logo with Text, Tagline, Clock, Dispatch Socials) */
+.footer-brand-col {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  min-height: 125px;
-  gap: var(--space-xl);
+  gap: var(--space-md);
 }
 
-.footer-logo-wrapper {
+.footer-brand-logo-wrapper {
   display: flex;
   align-items: center;
+  margin-bottom: 2px;
 }
 
-.footer-logo-img {
-  height: 42px;
+.footer-brand-logo-img {
+  height: clamp(26px, 2.2vw, 32px);
   width: auto;
   display: block;
   object-fit: contain;
 }
 
-.footer-clock-block {
+.footer-brand-tagline {
+  font-size: 0.95rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 38ch;
+}
+
+.footer-clock-row {
   display: flex;
   align-items: center;
+  margin-top: 2px;
 }
 
 .footer-clock-time {
@@ -132,38 +139,45 @@
   line-height: 1;
 }
 
-/* Left Column: Brand Identity Block */
-.footer-brand-col {
+.footer-socials-row {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
 }
 
-.footer-brand-title {
-  font-size: clamp(1.4rem, 2.2vw, 2rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  line-height: 1;
-}
-
-.footer-brand-dot {
-  color: var(--color-olive);
-}
-
-.footer-brand-tagline {
-  font-size: 0.92rem;
+.footer-social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--color-ink-muted);
-  line-height: 1.6;
-  margin: 0;
-  max-width: 32ch;
+  text-decoration: none;
+  background-color: var(--color-canvas-subtle);
+  border: 1px solid var(--hairline-subtle);
+  padding: 6px 14px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
 }
 
-/* 3-Column Navigation & Information Grid on Right */
+.footer-social-pill:hover {
+  color: var(--color-ink);
+  background-color: #FFFFFF;
+  border-color: var(--hairline-base);
+  transform: translateY(-1px);
+}
+
+.footer-social-pill:hover .footer-link-arrow {
+  color: var(--color-olive);
+  transform: translate(2px, -2px);
+}
+
+/* 2-Column Navigation Grid on Right: Index & Colophon */
 .footer-nav-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(20px, 3.5vw, 56px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4.5vw, 64px);
 }
 
 .footer-col {
@@ -189,7 +203,7 @@
   background-color: var(--hairline-subtle);
 }
 
-/* Links List (Dispatch & Index) */
+/* Links List (Index) */
 .footer-links-list {
   list-style: none;
   padding: 0;
@@ -240,7 +254,7 @@
   transform: translate(2px, -2px);
 }
 
-/* Col 3: Colophon Meta */
+/* Col 2: Colophon Meta */
 .footer-colophon-body {
   display: flex;
   flex-direction: column;
@@ -374,15 +388,8 @@
     gap: var(--space-2xl);
   }
 
-  .footer-meta-col {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    min-height: auto;
-  }
-
   .footer-nav-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-xl);
   }
 }
@@ -399,15 +406,6 @@
   .footer-layout {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
-  }
-
-  .footer-meta-col {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    min-height: auto;
-    padding-bottom: var(--space-sm);
-    border-bottom: 1px solid var(--hairline-subtle);
   }
 
   .footer-nav-grid {
@@ -444,7 +442,8 @@
   }
 
   .footer-link,
-  .footer-link-arrow {
+  .footer-link-arrow,
+  .footer-social-pill {
     transition: none;
   }
 }

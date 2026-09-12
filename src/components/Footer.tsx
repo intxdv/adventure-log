@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Main Colophon Wide & Airy Layout */}
+      {/* 2. Main Colophon Wide & Airy Layout (Opnest Style) */}
       <div className="footer-container">
         {/* Visually Hidden Screen Reader Heading */}
         <h2 id="colophon-heading" className="sr-only">
@@ -44,61 +44,49 @@ export const Footer: React.FC = () => {
         </h2>
 
         <div className="footer-layout">
-          {/* Far Left: Emblem Logo & Live Clock */}
-          <div className="footer-meta-col">
-            <div className="footer-logo-wrapper">
+          {/* Brand & Identity Column (Left Side: Logo-Text, Tagline, Clock, Dispatch Socials) */}
+          <div className="footer-brand-col">
+            <div className="footer-brand-logo-wrapper">
               <img
-                src="/logo/Logo SVG/Logo-deep-ink.svg"
-                alt="Selvagant Emblem"
-                className="footer-logo-img"
+                src="/logo/Logo SVG/Logo-text-deep-ink.svg"
+                alt="Selvagant Logo"
+                className="footer-brand-logo-img"
               />
             </div>
-            <div className="footer-clock-block font-mono">
+
+            <p className="footer-brand-tagline font-serif">
+              {FOOTER_COLOPHON.tagline}
+            </p>
+
+            <div className="footer-clock-row font-mono">
               <span className="footer-clock-time" aria-live="polite">
                 {wibTime}
               </span>
             </div>
-          </div>
 
-          {/* Left Column: Brand Identity Block */}
-          <div className="footer-brand-col">
-            <div className="footer-brand-title font-display">
-              ADVENTURE LOG<span className="footer-brand-dot">.</span>
+            <div className="footer-socials-row font-mono" role="list">
+              {FOOTER_SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.url}
+                  className="footer-social-pill"
+                  target={social.url.startsWith('mailto:') ? undefined : '_blank'}
+                  rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                  aria-label={social.label}
+                >
+                  <span>{social.label}</span>
+                  <span className="footer-link-arrow" aria-hidden="true">↗</span>
+                </a>
+              ))}
             </div>
-            <p className="footer-brand-tagline font-serif">
-              {FOOTER_COLOPHON.tagline}
-            </p>
           </div>
 
-          {/* Right Information Grid: Dispatch, Index, Colophon */}
+          {/* Right Information Grid: Index & Colophon */}
           <div className="footer-nav-grid">
-            {/* Col 1: Dispatch (Social Links) */}
+            {/* Col 1: Index */}
             <div className="footer-col">
               <div className="footer-col-header font-mono">
-                <span>[ 01 // DISPATCH ]</span>
-              </div>
-              <ul className="footer-links-list" role="list">
-                {FOOTER_SOCIAL_LINKS.map((social) => (
-                  <li key={social.label} className="footer-link-item">
-                    <a
-                      href={social.url}
-                      className="footer-link font-mono"
-                      target={social.url.startsWith('mailto:') ? undefined : '_blank'}
-                      rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                      aria-label={social.label}
-                    >
-                      <span>{social.label}</span>
-                      <span className="footer-link-arrow" aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Col 2: Index (Page Navigation) */}
-            <div className="footer-col">
-              <div className="footer-col-header font-mono">
-                <span>[ 02 // INDEX ]</span>
+                <span>[ 01 // INDEX ]</span>
               </div>
               <ul className="footer-links-list" role="list">
                 {FOOTER_NAV_LINKS.map((link) => (
@@ -117,10 +105,10 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
 
-            {/* Col 3: Colophon Credits */}
+            {/* Col 2: Colophon Credits */}
             <div className="footer-col">
               <div className="footer-col-header font-mono">
-                <span>[ 03 // COLOPHON ]</span>
+                <span>[ 02 // COLOPHON ]</span>
               </div>
               <div className="footer-colophon-body font-mono">
                 <div className="footer-colophon-meta">
