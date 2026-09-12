@@ -122,8 +122,8 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
       gsap.to('.hero-bio-word', {
         opacity: 1,
         y: 0,
-        stagger: 0.032,
-        duration: 0.45,
+        stagger: 0.075,
+        duration: 0.65,
         ease: 'power2.out',
       });
 
@@ -140,7 +140,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Jeda hening default 2.2 detik, TETAPI jika user mulai gerak (scroll, wheel, touch, keydown),
+  // Jeda hening 0.8 detik pasca-preloader, TETAPI jika user mulai gerak (scroll, wheel, touch, keydown),
   // langsung paksa mulai animasinya agar tidak ada kesan "kosong" saat user buru-buru!
   useEffect(() => {
     if (!isAppLoaded) return;
@@ -153,7 +153,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
 
     startupTimerRef.current = setTimeout(() => {
       startHeroImmediately();
-    }, 2200); // 2.2 detik jeda hening unhurried jika user diam menikmati
+    }, 800); // 0.8 detik jeda nyaman pasca-preloader agar responsif
 
     const handleEarlyInteraction = () => {
       startHeroImmediately();

@@ -80,38 +80,55 @@ export const useMotionEngine = () => {
         );
 
         portalTimeline.fromTo(
-          '.about-headline',
-          { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' },
-          1.15
-        );
-
-        portalTimeline.fromTo(
           '.field-zine-card',
           { opacity: 0, y: 28, scale: 0.94 },
           { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'back.out(1.2)' },
-          1.25
+          1.12
+        );
+
+        // Stagger per-kata pada headline Section 2
+        portalTimeline.fromTo(
+          '.about-headline .about-word',
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, stagger: 0.06, duration: 0.35, ease: 'power2.out' },
+          1.16
+        );
+
+        // Stagger per-kata pada bio editorial Section 2
+        portalTimeline.fromTo(
+          '.about-lead .about-word, .about-body .about-word',
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, stagger: 0.015, duration: 0.3, ease: 'power2.out' },
+          1.28
+        );
+
+        // Stagger per-kata pada kutipan manifesto
+        portalTimeline.fromTo(
+          '.about-manifesto .about-manifesto-kicker',
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
+          1.52
         );
 
         portalTimeline.fromTo(
-          '.about-lead, .about-body, .about-manifesto',
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, stagger: 0.08, duration: 0.38, ease: 'power2.out' },
-          1.35
+          '.about-manifesto .about-word, .about-manifesto-cite',
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, stagger: 0.012, duration: 0.25, ease: 'power2.out' },
+          1.56
         );
 
         portalTimeline.fromTo(
           '.selvagant-reveal-dock',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          1.48
+          1.72
         );
 
         portalTimeline.fromTo(
           '.about-tags-row .tag-badge',
           { opacity: 0, y: 10, scale: 0.92 },
           { opacity: 1, y: 0, scale: 1, stagger: 0.05, duration: 0.3, ease: 'power2.out' },
-          1.58
+          1.80
         );
       }
 
@@ -216,19 +233,23 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 2: Hardcoded SLVGNT individual characters rise up from behind the hill
-          gsap.from('.slvgnt-char', {
-            scrollTrigger: {
-              trigger: landscapeStage,
-              start: 'top 82%',
-              toggleActions: 'play none none reverse',
-            },
-            y: 110,
-            opacity: 0,
-            stagger: 0.12,
-            duration: 1.3,
-            ease: 'back.out(1.2)',
-          });
+          // Layer 2: SLVGNT vector characters drop down smoothly from above
+          gsap.fromTo(
+            '.slvgnt-char',
+            { y: -65, opacity: 0 },
+            {
+              scrollTrigger: {
+                trigger: landscapeStage,
+                start: 'top 82%',
+                toggleActions: 'play none none reverse',
+              },
+              y: 0,
+              opacity: 1,
+              stagger: 0.05,
+              duration: 0.85,
+              ease: 'power3.out',
+            }
+          );
 
           // Layer 3: Foreground hill with mossy CRT monitor
           gsap.from('.footer-landscape-fg', {
@@ -243,21 +264,30 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 4: Frosted glass copyright badge (Permanently centered via xPercent/yPercent)
-          gsap.set('.footer-stage-copyright', { xPercent: -50, yPercent: -50 });
-
-          gsap.from('.footer-stage-copyright', {
-            scrollTrigger: {
-              trigger: landscapeStage,
-              start: 'top 76%',
-              toggleActions: 'play none none reverse',
+          // Layer 4: Frosted glass copyright badge (Rise straight up from bottom, strictly centered)
+          gsap.fromTo(
+            '.footer-stage-copyright',
+            {
+              xPercent: -50,
+              yPercent: -50,
+              y: 45,
+              opacity: 0,
             },
-            opacity: 0,
-            scale: 0.90,
-            delay: 0.5,
-            duration: 0.8,
-            ease: 'power2.out',
-          });
+            {
+              scrollTrigger: {
+                trigger: landscapeStage,
+                start: 'top 76%',
+                toggleActions: 'play none none reverse',
+              },
+              xPercent: -50,
+              yPercent: -50,
+              y: 0,
+              opacity: 1,
+              delay: 0.25,
+              duration: 0.85,
+              ease: 'power3.out',
+            }
+          );
 
           // Multi-plane parallax scrub as user scrolls the landscape
           gsap.to('.footer-landscape-wordmark', {

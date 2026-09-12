@@ -113,7 +113,11 @@ export const About: React.FC = () => {
             </div>
             
             <h2 id="about-heading" className="about-headline font-display">
-              Creative Developer &amp; Mobile Architect<span style={{ color: 'var(--color-olive)' }}>.</span>
+              <span className="about-word">Creative</span>{' '}
+              <span className="about-word">Developer</span>{' '}
+              <span className="about-word">&amp;</span>{' '}
+              <span className="about-word">Mobile</span>{' '}
+              <span className="about-word">Architect<span style={{ color: 'var(--color-olive)' }}>.</span></span>
             </h2>
 
             <p className="about-subhead font-mono">
@@ -122,19 +126,113 @@ export const About: React.FC = () => {
           </header>
 
           <p className="about-lead">
-            Undergraduate Computer Science student at Universitas Diponegoro specializing in Software Engineering.
-            I build resilient mobile architectures and tactile web environments where engineering rigor meets calm editorial aesthetics.
+            <span className="about-word">Undergraduate</span>{' '}
+            <span className="about-word">Computer</span>{' '}
+            <span className="about-word">Science</span>{' '}
+            <span className="about-word">student</span>{' '}
+            <span className="about-word">at</span>{' '}
+            <span className="about-word">Universitas</span>{' '}
+            <span className="about-word">Diponegoro</span>{' '}
+            <span className="about-word">specializing</span>{' '}
+            <span className="about-word">in</span>{' '}
+            <span className="about-word">Software</span>{' '}
+            <span className="about-word">Engineering.</span>{' '}
+            <span className="about-word">I</span>{' '}
+            <span className="about-word">build</span>{' '}
+            <span className="about-word">resilient</span>{' '}
+            <span className="about-word">mobile</span>{' '}
+            <span className="about-word">architectures</span>{' '}
+            <span className="about-word">and</span>{' '}
+            <span className="about-word">tactile</span>{' '}
+            <span className="about-word">web</span>{' '}
+            <span className="about-word">environments</span>{' '}
+            <span className="about-word">where</span>{' '}
+            <span className="about-word">engineering</span>{' '}
+            <span className="about-word">rigor</span>{' '}
+            <span className="about-word">meets</span>{' '}
+            <span className="about-word">calm</span>{' '}
+            <span className="about-word">editorial</span>{' '}
+            <span className="about-word">aesthetics.</span>
           </p>
 
           <p className="about-body">
-            From architecting mobile solutions at UPPTI Undip to leading community initiatives at DIGIT and MADANI, every interface is approached as a deliberate expedition: eliminating unnecessary noise, establishing structural clarity, and honoring the craft.
+            <span className="about-word">From</span>{' '}
+            <span className="about-word">architecting</span>{' '}
+            <span className="about-word">mobile</span>{' '}
+            <span className="about-word">solutions</span>{' '}
+            <span className="about-word">at</span>{' '}
+            <span className="about-word">UPPTI</span>{' '}
+            <span className="about-word">Undip</span>{' '}
+            <span className="about-word">to</span>{' '}
+            <span className="about-word">leading</span>{' '}
+            <span className="about-word">community</span>{' '}
+            <span className="about-word">initiatives</span>{' '}
+            <span className="about-word">at</span>{' '}
+            <span className="about-word">DIGIT</span>{' '}
+            <span className="about-word">and</span>{' '}
+            <span className="about-word">MADANI,</span>{' '}
+            <span className="about-word">every</span>{' '}
+            <span className="about-word">interface</span>{' '}
+            <span className="about-word">is</span>{' '}
+            <span className="about-word">approached</span>{' '}
+            <span className="about-word">as</span>{' '}
+            <span className="about-word">a</span>{' '}
+            <span className="about-word">deliberate</span>{' '}
+            <span className="about-word">expedition:</span>{' '}
+            <span className="about-word">eliminating</span>{' '}
+            <span className="about-word">unnecessary</span>{' '}
+            <span className="about-word">noise,</span>{' '}
+            <span className="about-word">establishing</span>{' '}
+            <span className="about-word">structural</span>{' '}
+            <span className="about-word">clarity,</span>{' '}
+            <span className="about-word">and</span>{' '}
+            <span className="about-word">honoring</span>{' '}
+            <span className="about-word">the</span>{' '}
+            <span className="about-word">craft.</span>
           </p>
 
           {/* Authentic Manifesto Blockquote from taki-bio-dossier.md */}
           <blockquote className="about-manifesto" cite="resource/specs/taki-bio-dossier.md">
             <span className="about-manifesto-kicker font-mono">[ EXPEDITION MANIFESTO // FIELD LOG ]</span>
             <p className="about-manifesto-quote font-display">
-              “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman. Sebagian waktu berusaha, sebagian waktu menyesali keputusan—hingga tersadar bahwa penyesalan itu sia-sia sambil mengingat alasan berjuang—dan membawa pulang sesuatu dari wilayah eksplorasi sambil berpikir, <em>‘Ternyata tak seburuk itu.’</em>”
+              <span className="about-word">“Menyusuri</span>{' '}
+              <span className="about-word">daerah</span>{' '}
+              <span className="about-word">yang</span>{' '}
+              <span className="about-word">tak</span>{' '}
+              <span className="about-word">terjamah</span>{' '}
+              <span className="about-word">indra</span>{' '}
+              <span className="about-word">sejarah,</span>{' '}
+              <span className="about-word">tak</span>{' '}
+              <span className="about-word">terjamah</span>{' '}
+              <span className="about-word">pengalaman.</span>{' '}
+              <span className="about-word">Sebagian</span>{' '}
+              <span className="about-word">waktu</span>{' '}
+              <span className="about-word">berusaha,</span>{' '}
+              <span className="about-word">sebagian</span>{' '}
+              <span className="about-word">waktu</span>{' '}
+              <span className="about-word">menyesali</span>{' '}
+              <span className="about-word">keputusan—hingga</span>{' '}
+              <span className="about-word">tersadar</span>{' '}
+              <span className="about-word">bahwa</span>{' '}
+              <span className="about-word">penyesalan</span>{' '}
+              <span className="about-word">itu</span>{' '}
+              <span className="about-word">sia-sia</span>{' '}
+              <span className="about-word">sambil</span>{' '}
+              <span className="about-word">mengingat</span>{' '}
+              <span className="about-word">alasan</span>{' '}
+              <span className="about-word">berjuang—dan</span>{' '}
+              <span className="about-word">membawa</span>{' '}
+              <span className="about-word">pulang</span>{' '}
+              <span className="about-word">sesuatu</span>{' '}
+              <span className="about-word">dari</span>{' '}
+              <span className="about-word">wilayah</span>{' '}
+              <span className="about-word">eksplorasi</span>{' '}
+              <span className="about-word">sambil</span>{' '}
+              <span className="about-word">berpikir,</span>{' '}
+              <span className="about-word"><em>‘Ternyata</em></span>{' '}
+              <span className="about-word"><em>tak</em></span>{' '}
+              <span className="about-word"><em>seburuk</em></span>{' '}
+              <span className="about-word"><em>itu.’</em>”</span>
             </p>
             <cite className="about-manifesto-cite font-mono">
               — Syafiq Abiyyu Taqi · Catatan Refleksi Eksplorasi
