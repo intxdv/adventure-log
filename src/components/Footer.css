@@ -324,23 +324,24 @@
   display: block;
 }
 
-/* Centered Copyright Plaque (Positioned exactly on the hill ridge as drawn by Taki) */
+/* Centered Copyright Plaque (Frosted white glass style on the hill ridge) */
 .footer-stage-copyright {
   position: absolute;
   top: 78%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 6;
-  background: rgba(17, 20, 17, 0.72);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(8px);
-  padding: 6px 16px;
+  padding: 6px 18px;
   border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  color: var(--color-ink);
   font-size: clamp(0.62rem, 0.85vw, 0.82rem);
+  font-weight: 600;
   letter-spacing: 0.08em;
   white-space: nowrap;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
   pointer-events: auto;
 }
 
