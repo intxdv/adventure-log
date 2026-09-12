@@ -58,16 +58,28 @@
   margin-bottom: 0;
 }
 
-/* 3 Pillars Grid */
-.arsenal-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2vw, 1.75rem);
+/* 3 Pillars Viewport & Track System */
+.arsenal-viewport {
+  width: 100%;
+  position: relative;
 }
 
-@media (max-width: 1024px) {
-  .arsenal-grid {
-    grid-template-columns: 1fr;
+/* Desktop: 3 Columns Grid */
+@media (min-width: 769px) {
+  .arsenal-mobile-tabs,
+  .arsenal-rotary-nav {
+    display: none !important;
+  }
+
+  .arsenal-viewport {
+    overflow: visible;
+  }
+
+  .arsenal-track {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2vw, 1.75rem);
+    transform: none !important;
   }
 }
 
@@ -230,22 +242,84 @@
   letter-spacing: 0.02em;
 }
 
-/* Mobile Optimizations */
-@media (max-width: 640px) {
+/* ==========================================================================
+   Mobile Rotary Swipe Carousel Optimization (<= 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
   .arsenal-section {
     padding: var(--space-3xl) 0;
   }
 
+  /* Quick Pillar Selector Tabs */
+  .arsenal-mobile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: var(--space-md);
+  }
+
+  .arsenal-tab-btn {
+    background: transparent;
+    border: 1px solid var(--hairline-base);
+    padding: 6px 12px;
+    font-size: 0.72rem;
+    border-radius: 2px;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .arsenal-tab-btn .tab-idx {
+    color: var(--color-olive);
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .arsenal-tab-btn.active {
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
+    border-color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  .arsenal-tab-btn.active .tab-idx {
+    color: #A3B59D;
+  }
+
+  /* Carousel Viewport & Sliding Track */
+  .arsenal-viewport {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    touch-action: pan-y;
+  }
+
+  .arsenal-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(calc(-100% * var(--active-index)));
+    will-change: transform;
+  }
+
   .arsenal-pillar {
-    padding: 1.15rem;
+    min-width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 1.25rem 1.15rem;
   }
 
   .arsenal-pillar-title {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
   }
 
   .arsenal-pillar-tagline {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
   }
 
   .arsenal-skill-item {
@@ -259,4 +333,67 @@
   .arsenal-skill-spec {
     font-size: 0.65rem;
   }
+
+  /* Bottom Rotary Controls */
+  .arsenal-rotary-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-lg);
+    padding: 8px 12px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--hairline-base);
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(24, 26, 24, 0.03);
+  }
+
+  .arsenal-nav-arrow-btn {
+    background: transparent;
+    border: 1px solid var(--hairline-base);
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .arsenal-nav-arrow-btn:active {
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
+  }
+
+  .arsenal-nav-dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--hairline-base);
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.25s ease;
+  }
+
+  .nav-dot.is-active {
+    background-color: var(--color-olive);
+    transform: scale(1.35);
+  }
+
+  .arsenal-nav-telemetry {
+    font-size: 0.72rem;
+    color: var(--color-olive);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
 }
+
