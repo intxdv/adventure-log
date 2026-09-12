@@ -1,4 +1,4 @@
-﻿@import './fonts.css';
+@import './fonts.css';
 @import './tokens.css';
 
 /* ==========================================================================
@@ -136,6 +136,38 @@ code, kbd, samp, pre, .font-mono {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-radius: 2px;
+}
+
+/* ==========================================================================
+   Responsive Adaptability (Mobile & Tablet Breakpoints)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --space-4xl: 3.5rem;
+    --space-3xl: 2.5rem;
+    --space-2xl: 2rem;
+  }
+
+  #header-notch-placeholder {
+    display: none !important;
+  }
+
+  header nav > div:first-child {
+    display: none !important; /* Hide long nav on small screens, keep time telemetry */
+  }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --space-4xl: 2.75rem;
+    --space-3xl: 2rem;
+  }
 }
 
 /* Motion Sensitivity */
