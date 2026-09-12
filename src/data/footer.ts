@@ -20,32 +20,33 @@ export const FOOTER_NAV_LINKS: FooterNavLink[] = [
 
 export const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { label: 'GitHub', url: 'https://github.com/intxdv', note: 'intxdv' },
-  { label: 'LinkedIn', url: 'https://linkedin.com/in/leanderarya', note: 'Leander Arya' },
+  { label: 'LinkedIn', url: 'https://linkedin.com/in/syafiq-abiyyu-taqi', note: 'Syafiq Abiyyu Taqi' },
   { label: 'X / Twitter', url: 'https://x.com/intxdv', note: '@intxdv' },
-  { label: 'Direct Dispatch', url: 'mailto:leanderarya2003@gmail.com', note: 'Email' },
+  { label: 'Direct Dispatch', url: 'mailto:syafiqabiyyutaqi123@gmail.com', note: 'Email' },
 ];
 
 export const FOOTER_TELEMETRY = {
-  station: 'BASECAMP ALPHA // JAVA RIDGE',
-  region: 'INDONESIA · GMT+7',
-  coordinates: '7.9797° S, 112.6304° E',
-  elevation: '3,142M [PEAK BASE]',
+  station: 'EXPEDITION HQ // CENTRAL JAVA',
+  region: 'INDONESIA · WIB (UTC+7)',
+  coordinates: '7.05° S, 110.44° E [SEMARANG SECTOR]',
+  elevation: '348M [HIGHLAND FOOTHILLS]',
   status: 'AVAILABLE FOR SELECT COMMISSIONS',
 };
 
 export const FOOTER_COLOPHON = {
   craft: 'Designed & architected by Selvagant (Taki) — Creative Developer & Mobile Architect.',
-  typography: 'Printvetica, Lufga, JetBrains Mono.',
-  stack: 'React 19 · TypeScript · Vite · Pure Modular CSS.',
-  edition: 'Adventure Log Portfolio · Edition 2026.',
+  typography: 'Lufga, Newsreader, JetBrains Mono.',
+  stack: 'React 19 · TypeScript · Vite · Modular CSS.',
+  edition: 'Adventure Log Field Archive · Edition 2026.',
 };
 
 export const MARQUEE_ITEMS: string[] = [
+  'NATIVE CRAFT & MOBILE ARCHITECTURE',
   'EXPLORE THE UNKNOWN',
   'CRAFT WITH PRECISION',
   'THE DIGITAL CARTOGRAPHER',
   'FIELD DOSSIER // 2026',
   'SELVAGANT — THE WANDERING SELV',
   'QUIET ARCHITECTURE',
-  'NATIVE CRAFT & MOBILE ARCHITECTURE',
 ];
+

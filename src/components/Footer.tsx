@@ -37,107 +37,106 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Main Colophon Grid & Landscape Stage */}
-      <div className="container footer-container">
-        {/* Screen Reader Heading */}
+      {/* 2. Main Colophon Wide & Airy Layout (Opnest Style) */}
+      <div className="footer-container">
+        {/* Visually Hidden Screen Reader Heading */}
         <h2 id="colophon-heading" className="sr-only">
           Colophon, Navigation, and Basecamp Telemetry
         </h2>
 
-        {/* 4-Column Editorial Information Grid */}
-        <div className="footer-grid">
-          {/* Col 1: Index */}
-          <div className="footer-col">
-            <div className="footer-col-header font-mono">
-              <span>[ 01 // INDEX ]</span>
+        <div className="footer-layout">
+          {/* Brand Identity & Socials Block (Left Side) */}
+          <div className="footer-brand-col">
+            <div className="footer-brand-title font-display">
+              ADVENTURE LOG<span className="footer-brand-dot">.</span>
             </div>
-            <ul className="footer-links-list" role="list">
-              {FOOTER_NAV_LINKS.map((link) => (
-                <li key={link.index} className="footer-link-item">
-                  <a
-                    href={link.href}
-                    className="footer-link font-mono"
-                    onClick={(e) => handleAnchorClick(e, link.href)}
-                  >
-                    <span className="footer-link-idx">{link.index}.</span>
-                    <span>{link.label}</span>
-                    <span className="footer-link-arrow" aria-hidden="true">↗</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 2: Connect / Socials */}
-          <div className="footer-col">
-            <div className="footer-col-header font-mono">
-              <span>[ 02 // CONNECT ]</span>
-            </div>
-            <ul className="footer-links-list" role="list">
+            <p className="footer-brand-tagline font-serif">
+              Personal digital archive & software engineering field log by Syafiq Abiyyu Taqi (Selvagant).
+            </p>
+            <div className="footer-socials-row font-mono" role="list">
               {FOOTER_SOCIAL_LINKS.map((social) => (
-                <li key={social.label} className="footer-link-item">
-                  <a
-                    href={social.url}
-                    className="footer-link font-mono"
-                    target={social.url.startsWith('mailto:') ? undefined : '_blank'}
-                    rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                  >
-                    <span>{social.label}</span>
-                    <span className="footer-link-arrow" aria-hidden="true">↗</span>
-                  </a>
-                </li>
+                <a
+                  key={social.label}
+                  href={social.url}
+                  className="footer-social-pill"
+                  target={social.url.startsWith('mailto:') ? undefined : '_blank'}
+                  rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                  aria-label={social.label}
+                >
+                  <span>{social.label}</span>
+                  <span className="footer-link-arrow" aria-hidden="true">↗</span>
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Col 3: Basecamp Telemetry */}
-          <div className="footer-col">
-            <div className="footer-col-header font-mono">
-              <span>[ 03 // BASECAMP ]</span>
+          {/* Right Information Grid */}
+          <div className="footer-nav-grid">
+            {/* Col 1: Index */}
+            <div className="footer-col">
+              <div className="footer-col-header font-mono">
+                <span>[ 01 // INDEX ]</span>
+              </div>
+              <ul className="footer-links-list" role="list">
+                {FOOTER_NAV_LINKS.map((link) => (
+                  <li key={link.index} className="footer-link-item">
+                    <a
+                      href={link.href}
+                      className="footer-link font-mono"
+                      onClick={(e) => handleAnchorClick(e, link.href)}
+                    >
+                      <span className="footer-link-idx">{link.index}.</span>
+                      <span>{link.label}</span>
+                      <span className="footer-link-arrow" aria-hidden="true">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="footer-telemetry-block font-mono">
-              <div className="footer-telemetry-row">
-                <span className="footer-telemetry-label">LIVE WIB CLOCK //</span>
-                <div className="footer-live-clock-row">
-                  <span className="footer-live-dot" aria-hidden="true" />
+
+            {/* Col 2: Basecamp Telemetry (No Blinking Beacon, Clean Monospace) */}
+            <div className="footer-col">
+              <div className="footer-col-header font-mono">
+                <span>[ 02 // BASECAMP ]</span>
+              </div>
+              <div className="footer-telemetry-block font-mono">
+                <div className="footer-telemetry-row">
+                  <span className="footer-telemetry-label">LIVE WIB CLOCK //</span>
                   <span className="footer-clock-text" aria-live="polite">
                     {wibTime}
                   </span>
                 </div>
-              </div>
 
-              <div className="footer-telemetry-row">
-                <span className="footer-telemetry-label">COORDINATES //</span>
-                <span className="footer-telemetry-val">{FOOTER_TELEMETRY.coordinates}</span>
-              </div>
+                <div className="footer-telemetry-row">
+                  <span className="footer-telemetry-label">SECTOR COORDINATES //</span>
+                  <span className="footer-telemetry-val">{FOOTER_TELEMETRY.coordinates}</span>
+                </div>
 
-              <div className="footer-telemetry-row">
-                <span className="footer-telemetry-label">STATION & ELEVATION //</span>
-                <span className="footer-telemetry-val">{FOOTER_TELEMETRY.elevation}</span>
-              </div>
+                <div className="footer-telemetry-row">
+                  <span className="footer-telemetry-label">STATION & REGION //</span>
+                  <span className="footer-telemetry-val">{FOOTER_TELEMETRY.region}</span>
+                </div>
 
-              <div className="footer-telemetry-row">
-                <span className="footer-telemetry-label">COMMISSION STATUS //</span>
-                <span className="footer-telemetry-val" style={{ color: 'var(--color-olive)' }}>
-                  {FOOTER_TELEMETRY.status}
-                </span>
+                <div className="footer-telemetry-row">
+                  <span className="footer-telemetry-label">COMMISSION STATUS //</span>
+                  <span className="footer-telemetry-val footer-status-val">
+                    {FOOTER_TELEMETRY.status}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Col 4: Colophon Credits */}
-          <div className="footer-col">
-            <div className="footer-col-header font-mono">
-              <span>[ 04 // COLOPHON ]</span>
-            </div>
-            <div className="footer-colophon-body">
-              <p className="footer-colophon-text font-serif">
-                {FOOTER_COLOPHON.craft}
-              </p>
-              <div className="footer-colophon-meta font-mono">
-                <div>TYPOGRAPHY: {FOOTER_COLOPHON.typography}</div>
-                <div>SYSTEM: {FOOTER_COLOPHON.stack}</div>
-                <div>ARCHIVE: {FOOTER_COLOPHON.edition}</div>
+            {/* Col 3: Colophon Credits */}
+            <div className="footer-col">
+              <div className="footer-col-header font-mono">
+                <span>[ 03 // COLOPHON ]</span>
+              </div>
+              <div className="footer-colophon-body font-mono">
+                <div className="footer-colophon-meta">
+                  <div>TYPOGRAPHY: {FOOTER_COLOPHON.typography}</div>
+                  <div>SYSTEM: {FOOTER_COLOPHON.stack}</div>
+                  <div>ARCHIVE: {FOOTER_COLOPHON.edition}</div>
+                </div>
               </div>
             </div>
           </div>
