@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Hero Section & Minimalist Expedition Header (Opnest / Cartographer Layout)
    ========================================================================== */
 
@@ -13,7 +13,7 @@
   overflow: hidden;
 }
 
-/* 1. Minimalist Hero Top Bar (Logo Far-Left, Clean WIB Clock Far-Right) */
+/* 1. Minimalist Hero Top Bar with Tactical Editorial Datum Line */
 .hero-top-bar {
   display: flex;
   align-items: center;
@@ -25,9 +25,58 @@
   padding-bottom: var(--space-md);
   padding-left: clamp(24px, 5vw, 80px);
   padding-right: clamp(24px, 5vw, 80px);
-  border-bottom: 1px solid var(--hairline-subtle);
+  position: relative;
+  border-bottom: 1px solid var(--hairline-base);
   transition: opacity 0.4s ease, transform 0.4s ease;
   z-index: 20;
+}
+
+/* Tactical Corner Crosshair Marks on the Datum Line */
+.hero-top-bar::before,
+.hero-top-bar::after {
+  content: "+";
+  position: absolute;
+  bottom: -7px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1;
+  color: var(--color-olive);
+  font-weight: 400;
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero-top-bar::before {
+  left: clamp(24px, 5vw, 80px);
+}
+
+.hero-top-bar::after {
+  right: clamp(24px, 5vw, 80px);
+}
+
+/* Center Tactical Telemetry / Datum Marker */
+.hero-top-datum {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-faint);
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.hero-datum-cross {
+  color: var(--color-olive);
+  font-size: 0.72rem;
+}
+
+.hero-datum-text {
+  transition: color 0.2s ease;
+}
+
+.hero-top-bar:hover .hero-datum-text {
+  color: var(--color-ink-muted);
 }
 
 .hero-top-bar.is-scrolled {
@@ -278,6 +327,12 @@
     transform: none;
     margin-top: var(--space-2xl);
     opacity: 0.45;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-top-datum {
+    display: none;
   }
 }
 

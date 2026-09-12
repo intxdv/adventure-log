@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useWibTime } from '../hooks/useWibTime';
 import './Hero.css';
 
@@ -156,6 +156,13 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             className="hero-top-logo-img"
           />
         </a>
+
+        {/* Center Tactical Telemetry Coordinate / Datum */}
+        <div className="hero-top-datum font-mono" aria-hidden="true">
+          <span className="hero-datum-cross">+</span>
+          <span className="hero-datum-text">COORD. 7.05°S 110.44°E // BASECAMP DATUM</span>
+          <span className="hero-datum-cross">+</span>
+        </div>
 
         {/* Live WIB Clock murni tanpa label teks */}
         <div className="hero-top-clock font-mono" aria-live="polite">
