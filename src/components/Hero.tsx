@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Hero: React.FC = () => {
+  const [timeString, setTimeString] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      };
+      setTimeString(new Intl.DateTimeFormat('id-ID', options).format(now) + ' WIB');
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -13,22 +33,45 @@ export const Hero: React.FC = () => {
       }}
     >
       <div className="container">
-        {/* Top Field Telemetry Bar */}
+        {/* Top Field Telemetry Bar with Live WIB Clock */}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 'var(--space-xs)',
             marginBottom: 'var(--space-2xl)',
             paddingBottom: 'var(--space-sm)',
             borderBottom: '1px solid var(--hairline-subtle)',
           }}
         >
           <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-            LOG ENTRY // 001.2026
+            BASECAMP // TENGARAN, SEMARANG (7.45°S, 110.51°E)
           </div>
-          <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)' }}>
-            STATUS: AVAILABLE FOR SELECTED EXPEDITIONS
+          <div
+            className="font-mono"
+            style={{
+              fontSize: 'var(--text-xs)',
+              color: 'var(--color-ink-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--space-sm)',
+            }}
+          >
+            <span>{timeString || '12:00:00 WIB'}</span>
+            <span style={{ color: 'var(--hairline-base)' }}>|</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--color-olive)',
+                }}
+              />
+              AVAILABLE FOR EXPEDITIONS
+            </span>
           </div>
         </div>
 
