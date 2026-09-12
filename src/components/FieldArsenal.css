@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Field Arsenal & Technical Gear Section (Field Inventory & Capabilities)
    ========================================================================== */
 
@@ -109,33 +109,15 @@
   letter-spacing: 0.06em;
 }
 
-.arsenal-pillar-status {
+.arsenal-pillar-code {
   font-size: 0.68rem;
-  color: var(--color-ink-muted);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  letter-spacing: 0.04em;
-}
-
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--color-olive);
-  box-shadow: 0 0 0 2px rgba(74, 88, 68, 0.2);
+  color: var(--color-ink-faint);
+  letter-spacing: 0.06em;
 }
 
 /* Pillar Body */
 .arsenal-pillar-body {
   margin-bottom: var(--space-lg);
-}
-
-.arsenal-pillar-code {
-  font-size: 0.65rem;
-  color: var(--color-ink-faint);
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
 }
 
 .arsenal-pillar-title {

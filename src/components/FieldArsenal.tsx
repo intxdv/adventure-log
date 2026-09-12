@@ -37,15 +37,11 @@ export const FieldArsenal: React.FC = () => {
                 {/* Pillar Header Meta */}
                 <div className="arsenal-pillar-header font-mono">
                   <span className="arsenal-pillar-index">{pillar.pillarIndex}</span>
-                  <span className="arsenal-pillar-status">
-                    <span className="status-dot" aria-hidden="true" />
-                    <span>ACTIVE</span>
-                  </span>
+                  <span className="arsenal-pillar-code">{pillar.code}</span>
                 </div>
 
                 {/* Pillar Body */}
                 <div className="arsenal-pillar-body">
-                  <div className="arsenal-pillar-code font-mono">{pillar.code}</div>
                   <h3 id={`pillar-${pillar.id}`} className="arsenal-pillar-title font-display">
                     {pillar.title}
                   </h3>
