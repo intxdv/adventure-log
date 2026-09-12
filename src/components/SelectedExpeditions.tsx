@@ -154,6 +154,37 @@ const ExpeditionCard: React.FC<ExpeditionCardProps> = ({ expedition }) => {
           </span>
         </div>
 
+        {/* Card Visual Blueprint / Thumbnail Frame */}
+        <div className="exp-card-visual" aria-hidden="true">
+          {expedition.image ? (
+            <img
+              src={expedition.image}
+              alt={expedition.title}
+              className="exp-card-img"
+              loading="lazy"
+              width={640}
+              height={360}
+            />
+          ) : (
+            <div className="exp-blueprint-frame">
+              <svg className="exp-blueprint-grid" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id={`grid-${expedition.id}`} width="24" height="24" patternUnits="userSpaceOnUse">
+                    <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(74, 88, 68, 0.12)" strokeWidth="0.8" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill={`url(#grid-${expedition.id})`} />
+                <circle cx="50%" cy="50%" r="28" fill="none" stroke="rgba(74, 88, 68, 0.22)" strokeDasharray="3,3" />
+                <path d="M 12 12 L 20 12 M 12 12 L 12 20" stroke="rgba(74, 88, 68, 0.35)" strokeWidth="1.2" fill="none" />
+              </svg>
+              <div className="exp-blueprint-stamp font-mono">
+                <span>SYS.SPEC // {expedition.id.toUpperCase()}</span>
+                <span>{expedition.stack[0]}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Card Body */}
         <div className="exp-card-body">
           <h3 className="exp-card-title font-display">

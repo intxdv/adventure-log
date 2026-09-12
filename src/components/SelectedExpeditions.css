@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Selected Expeditions Section (Field Archive & Repertory)
    ========================================================================== */
 
@@ -180,6 +180,68 @@
   height: 5px;
   border-radius: 50%;
   background-color: currentColor;
+}
+
+/* Card Visual Blueprint / Thumbnail Frame */
+.exp-card-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--color-canvas);
+  border: 1px solid var(--hairline-subtle);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+}
+
+.exp-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.expedition-card:hover .exp-card-img {
+  transform: scale(1.04);
+}
+
+.exp-blueprint-frame {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: radial-gradient(circle at 50% 50%, rgba(143, 163, 130, 0.08) 0%, rgba(247, 246, 242, 0.5) 100%);
+  transition: background 0.3s ease;
+}
+
+.expedition-card:hover .exp-blueprint-frame {
+  background: radial-gradient(circle at 50% 50%, rgba(143, 163, 130, 0.16) 0%, rgba(247, 246, 242, 0.3) 100%);
+}
+
+.exp-blueprint-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.exp-blueprint-stamp {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  color: var(--color-olive);
+  letter-spacing: 0.08em;
+  opacity: 0.85;
 }
 
 /* Card Main Typography */
