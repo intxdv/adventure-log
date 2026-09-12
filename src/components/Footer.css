@@ -369,10 +369,10 @@
   pointer-events: none;
 }
 
-/* Layer 2: Sunken SLVGNT Typography (Exact Figma Vector Silhouette) */
+/* Layer 2: Sunken SLVGNT Typography (Exact Figma Vector Silhouette, sunken into hill terrain) */
 .footer-landscape-wordmark {
   position: absolute;
-  top: 48%;
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 88.23%;
