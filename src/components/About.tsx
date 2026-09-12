@@ -1,31 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './About.css';
 
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
-  const [isNocturne, setIsNocturne] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById('about');
-      if (!section) return;
-
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Activate nocturnal mode only when user has arrived at the section
-      const hasArrived = rect.top <= windowHeight * 0.4 && rect.bottom >= windowHeight * 0.15;
-      setIsNocturne(hasArrived);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
@@ -46,10 +24,10 @@ export const About: React.FC = () => {
   return (
     <section
       id="about"
-      className={`about-section hairline-b ${isNocturne ? 'is-nocturne' : ''}`}
+      className="about-section is-nocturne"
       aria-labelledby="about-heading"
     >
-      <div className="container about-grid">
+      <div className="about-container about-grid">
         
         {/* Left Column: Zine-Style Card Frame (Reference-Inspired) */}
         <div className="field-card-wrapper">

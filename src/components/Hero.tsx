@@ -93,34 +93,36 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Delay jeda awal setelah preloader selesai sebelum typewriter mulai
+  // Jeda hening 2.2 detik pasca-loader sebelum seluruh elemen hero beranimasi serempak
   useEffect(() => {
     if (!isAppLoaded) return;
 
     const startupTimer = setTimeout(() => {
       setHasStartedLoop(true);
-    }, 1200); // Tunggu 1.2 detik dengan tenang agar visitor menyerap tampilan awal
+
+      // Animasi stagger frase bio serempak bersama typewriter
+      gsap.fromTo(
+        '.hero-bio-phrase',
+        { opacity: 0, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.7,
+          ease: 'power2.out',
+        }
+      );
+    }, 2200); // 2.2 detik jeda hening unhurried
 
     return () => clearTimeout(startupTimer);
   }, [isAppLoaded]);
 
-  // Animasi Stagger untuk Keterangan Bio Editorial di Hero
-  useEffect(() => {
-    if (!isAppLoaded) return;
-
-    gsap.fromTo(
-      '.hero-bio-phrase',
-      { opacity: 0, y: 16 },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.09,
-        duration: 0.7,
-        ease: 'power2.out',
-        delay: 0.5,
-      }
-    );
-  }, [isAppLoaded]);
+  const handleMobileTap = () => {
+    const aboutEl = document.getElementById('about');
+    if (aboutEl) {
+      aboutEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   // Animasi 1: Typewriter & Multi-Font Morphing Loop
   useEffect(() => {
@@ -167,7 +169,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
   return (
     <section id="hero" className="hero-section" aria-label="Expedition Hero & Field Entry">
       {/* 1. Minimalist Top Bar (Khusus Hero, memudar saat scroll) */}
-      <div className={`hero-top-bar ${isScrolled ? 'is-scrolled' : ''}`}>
+      <div className={`hero-top-bar ${!hasStartedLoop ? 'is-initial-hidden' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
         <a href="#hero" className="hero-top-logo" aria-label="Selvagant Archive Home">
           <img
             src="/logo/Logo SVG/Logo-text-deep-ink.svg"
@@ -245,6 +247,18 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* 4. Mobile Tap Transition Prompt */}
+      <div
+        className="hero-mobile-tap-prompt font-mono"
+        onClick={handleMobileTap}
+        role="button"
+        tabIndex={0}
+        aria-label="Tap to enter Field Dossier"
+      >
+        <span>[ TAP TO ENTER FIELD DOSSIER ]</span>
+        <span className="tap-arrow" aria-hidden="true">↓</span>
       </div>
     </section>
   );

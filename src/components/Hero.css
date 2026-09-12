@@ -35,8 +35,14 @@
   padding-right: clamp(24px, 5vw, 80px);
   position: relative;
   border-bottom: 2px solid var(--hairline-base);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 20;
+}
+
+.hero-top-bar.is-initial-hidden {
+  opacity: 0;
+  transform: translateY(-14px);
+  pointer-events: none;
 }
 
 /* Tactical Corner Crosshair Marks on the Datum Line */
@@ -381,5 +387,39 @@
   .hero-compass-dial {
     width: 220px;
     height: 220px;
+  }
+}
+
+/* Mobile Tap Transition Prompt */
+.hero-mobile-tap-prompt {
+  display: none;
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-base);
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  color: var(--color-ink);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  z-index: 15;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  user-select: none;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.hero-mobile-tap-prompt:active {
+  transform: translateX(-50%) scale(0.96);
+}
+
+@media (max-width: 768px) {
+  .hero-mobile-tap-prompt {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
 }

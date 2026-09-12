@@ -68,39 +68,62 @@ export const useMotionEngine = () => {
         });
 
         // Step 1: Lingkaran solid nocturnal (#121512) muncul dari tengah layar dan membesar
-        // Hingga progress 0.65, membesar hingga menutupi seluruh layar kanvas
+        // Mengembang menutupi seluruh layar pada progress 0.0 -> 0.70 (scale 320)
         heroTimeline.to(
           centerPortal,
           {
             opacity: 1,
-            scale: 260,
-            duration: 0.65,
+            scale: 320,
+            duration: 0.70,
             ease: 'power2.in',
           },
           0
         );
 
-        // Step 2: Konten Hero meredup lembut di balik tirai nocturnal
+        // Step 2: Konten Hero meredup lembut di awal ekspansi portal
         heroTimeline.to(
           '.hero-body-container, .hero-top-bar',
           {
             opacity: 0,
-            duration: 0.35,
+            duration: 0.28,
             ease: 'power1.out',
           },
-          0.1
+          0.05
         );
 
-        // Step 3: Di progress 0.85-1.0 (ketika Section About sudah tiba persis di top: 0),
-        // tirai memudar halus mengungkap Section About yang sudah penuh duduk di atas layar!
+        // Step 3: Cegah Section About bocor di bawah layar sebelum lingkaran penuh.
+        // Section About di-hold hidden & opacity: 0 sampai layar 100% hitam pekat (progress 0.70).
+        // Tepat di progress 0.75 - 1.0 (ketika About sudah seated sempurna di top: 0),
+        // About diungkapkan secara dramatis dan mulus tanpa merangkak dari bawah!
+        if (aboutSection) {
+          heroTimeline.fromTo(
+            aboutSection,
+            {
+              opacity: 0,
+              visibility: 'hidden',
+              pointerEvents: 'none',
+            },
+            {
+              opacity: 1,
+              visibility: 'visible',
+              pointerEvents: 'auto',
+              duration: 0.25,
+              ease: 'power2.out',
+            },
+            0.75
+          );
+        }
+
+        // Step 4: Di progress 0.88 - 1.0, tirai lingkaran memudar halus
+        // mengungkap Section About yang sudah 100% identik latar belakangnya (#121512)
         heroTimeline.to(
           centerPortal,
           {
             opacity: 0,
-            duration: 0.15,
+            duration: 0.12,
             ease: 'power1.out',
           },
-          0.85
+          0.88
         );
       }
 
@@ -176,43 +199,116 @@ export const useMotionEngine = () => {
       }
 
       // ======================================================================
-      // 5. FOOTER MULTI-PLANE PARALLAX CHOREOGRAPHY (SLVGNT + HILLS)
+      // 5. FOOTER MULTI-STAGE ENTRANCE & LAYERED CHOREOGRAPHY
       // ======================================================================
-      const footerStage = document.querySelector('.footer-landscape-stage');
-      const footerWordmark = document.querySelector('.footer-stage-wordmark');
-      const footerBg = document.querySelector('.footer-stage-bg');
+      const footerSection = document.getElementById('footer');
+      if (footerSection && !prefersReducedMotion) {
+        // 5a. Marquee Ribbon slide & fade in
+        gsap.from('.footer-marquee-ribbon', {
+          scrollTrigger: {
+            trigger: footerSection,
+            start: 'top 92%',
+            toggleActions: 'play none none reverse',
+          },
+          y: -18,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power2.out',
+        });
 
-      if (footerStage && footerWordmark && !prefersReducedMotion) {
-        gsap.fromTo(
-          footerWordmark,
-          { yPercent: 12 },
-          {
-            yPercent: -14,
+        // 5b. 4-Column Colophon stagger entrance
+        gsap.from('.footer-identity-col, .footer-journal-col, .footer-col', {
+          scrollTrigger: {
+            trigger: '.footer-container',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          y: 35,
+          opacity: 0,
+          stagger: 0.12,
+          duration: 0.8,
+          ease: 'power2.out',
+        });
+
+        // 5c. Landscape Stage: Multi-layer individual entrances & parallax
+        const landscapeStage = document.querySelector('.footer-landscape-stage');
+        if (landscapeStage) {
+          // Layer 1: Background mountain sky soft zoom & fade
+          gsap.from('.footer-landscape-bg', {
+            scrollTrigger: {
+              trigger: landscapeStage,
+              start: 'top 88%',
+              toggleActions: 'play none none reverse',
+            },
+            scale: 1.06,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'power2.out',
+          });
+
+          // Layer 2: Hardcoded SLVGNT individual characters rise up from behind the hill
+          gsap.from('.slvgnt-char', {
+            scrollTrigger: {
+              trigger: landscapeStage,
+              start: 'top 82%',
+              toggleActions: 'play none none reverse',
+            },
+            y: 90,
+            opacity: 0,
+            stagger: 0.08,
+            duration: 0.9,
+            ease: 'back.out(1.3)',
+          });
+
+          // Layer 3: Foreground hill with mossy CRT monitor
+          gsap.from('.footer-landscape-fg', {
+            scrollTrigger: {
+              trigger: landscapeStage,
+              start: 'top 84%',
+              toggleActions: 'play none none reverse',
+            },
+            y: 45,
+            opacity: 0,
+            duration: 0.9,
+            ease: 'power2.out',
+          });
+
+          // Layer 4: Frosted glass copyright badge
+          gsap.from('.footer-stage-copyright', {
+            scrollTrigger: {
+              trigger: landscapeStage,
+              start: 'top 76%',
+              toggleActions: 'play none none reverse',
+            },
+            opacity: 0,
+            scale: 0.92,
+            delay: 0.35,
+            duration: 0.6,
+            ease: 'power2.out',
+          });
+
+          // Multi-plane parallax scrub as user scrolls the landscape
+          gsap.to('.footer-landscape-wordmark', {
+            yPercent: -12,
             ease: 'none',
             scrollTrigger: {
-              trigger: footerStage,
+              trigger: landscapeStage,
               start: 'top bottom',
               end: 'bottom bottom',
               scrub: 0.6,
             },
-          }
-        );
+          });
 
-        if (footerBg) {
-          gsap.fromTo(
-            footerBg,
-            { yPercent: 0 },
-            {
-              yPercent: -6,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: footerStage,
-                start: 'top bottom',
-                end: 'bottom bottom',
-                scrub: 0.4,
-              },
-            }
-          );
+          gsap.to('.footer-landscape-bg', {
+            yPercent: -5,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: landscapeStage,
+              start: 'top bottom',
+              end: 'bottom bottom',
+              scrub: 0.4,
+            },
+          });
         }
       }
     });
