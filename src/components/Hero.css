@@ -27,11 +27,16 @@
   cursor: pointer;
 }
 
-/* 1. Minimalist Hero Top Bar with Tactical Editorial Datum Line */
+/* 1. Minimalist Hero Top Bar with Full-Bleed Tactical Editorial Datum Line */
 .hero-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  border-bottom: 2.5px solid rgba(18, 21, 18, 0.28);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 20;
+}
+
+.hero-top-bar-inner {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
@@ -39,39 +44,16 @@
   padding-bottom: var(--space-md);
   padding-left: clamp(24px, 5vw, 80px);
   padding-right: clamp(24px, 5vw, 80px);
-  position: relative;
-  border-bottom: 2px solid var(--hairline-base);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .hero-top-bar.is-initial-hidden {
   opacity: 0;
   transform: translateY(-14px);
   pointer-events: none;
-}
-
-/* Tactical Corner Crosshair Marks on the Datum Line */
-.hero-top-bar::before,
-.hero-top-bar::after {
-  content: "+";
-  position: absolute;
-  bottom: -9px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  line-height: 1;
-  color: var(--color-olive);
-  font-weight: 700;
-  user-select: none;
-  pointer-events: none;
-}
-
-.hero-top-bar::before {
-  left: clamp(24px, 5vw, 80px);
-}
-
-.hero-top-bar::after {
-  right: clamp(24px, 5vw, 80px);
 }
 
 /* Center Tactical Telemetry / Motto Marker */
@@ -220,10 +202,10 @@
   font-weight: 600;
 }
 
-.hero-bio-phrase {
+.hero-bio-word {
   display: inline-block;
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(12px);
   will-change: opacity, transform;
 }
 

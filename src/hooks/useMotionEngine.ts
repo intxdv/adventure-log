@@ -53,7 +53,7 @@ export const useMotionEngine = () => {
           { clipPath: 'circle(0% at 50% 50%)' },
           {
             clipPath: 'circle(150% at 50% 50%)',
-            duration: 1,
+            duration: 1.0,
             ease: 'power2.inOut',
           },
           0
@@ -64,27 +64,54 @@ export const useMotionEngine = () => {
           '.hero-body-container, .hero-top-bar',
           {
             opacity: 0,
-            duration: 0.35,
+            duration: 0.4,
             ease: 'power1.out',
           },
           0.05
         );
 
-        // 1c. Elemen internal About mekar masuk saat lingkaran terbuka (tidak muncul duluan!)
+        // 1c. Entrance Tiap Elemen Section 2 (Muncul SETELAH seluruh screen tertutup hijau/gelap)
+        // Dimulai pada t = 1.05 setelah lingkaran mekar 100% penuh!
         portalTimeline.fromTo(
-          '.field-zine-card, .about-content-col',
-          {
-            y: 35,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.1,
-            duration: 0.45,
-            ease: 'power2.out',
-          },
-          0.35
+          '.about-kicker, .about-subhead',
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
+          1.05
+        );
+
+        portalTimeline.fromTo(
+          '.about-headline',
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' },
+          1.15
+        );
+
+        portalTimeline.fromTo(
+          '.field-zine-card',
+          { opacity: 0, y: 28, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'back.out(1.2)' },
+          1.25
+        );
+
+        portalTimeline.fromTo(
+          '.about-lead, .about-body, .about-manifesto',
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, stagger: 0.08, duration: 0.38, ease: 'power2.out' },
+          1.35
+        );
+
+        portalTimeline.fromTo(
+          '.selvagant-reveal-dock',
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
+          1.48
+        );
+
+        portalTimeline.fromTo(
+          '.about-tags-row .tag-badge',
+          { opacity: 0, y: 10, scale: 0.92 },
+          { opacity: 1, y: 0, scale: 1, stagger: 0.05, duration: 0.3, ease: 'power2.out' },
+          1.58
         );
       }
 
@@ -216,7 +243,9 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 4: Frosted glass copyright badge
+          // Layer 4: Frosted glass copyright badge (Permanently centered via xPercent/yPercent)
+          gsap.set('.footer-stage-copyright', { xPercent: -50, yPercent: -50 });
+
           gsap.from('.footer-stage-copyright', {
             scrollTrigger: {
               trigger: landscapeStage,

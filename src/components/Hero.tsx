@@ -119,11 +119,11 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         ease: 'power2.out',
       });
 
-      gsap.to('.hero-bio-phrase', {
+      gsap.to('.hero-bio-word', {
         opacity: 1,
         y: 0,
-        stagger: 0.06,
-        duration: 0.65,
+        stagger: 0.032,
+        duration: 0.45,
         ease: 'power2.out',
       });
 
@@ -243,28 +243,28 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
       aria-label="Expedition Hero & Field Entry"
       onClick={handleHeroClick}
     >
-      {/* 1. Minimalist Top Bar (Khusus Hero, memudar saat scroll) */}
+      {/* 1. Minimalist Top Bar (Khusus Hero, full bleed edge-to-edge) */}
       <div className={`hero-top-bar ${!hasStartedLoop ? 'is-initial-hidden' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
-        <a href="#hero" className="hero-top-logo" aria-label="Selvagant Archive Home">
-          <img
-            src="/logo/Logo SVG/Logo-text-deep-ink.svg"
-            alt="Selvagant"
-            className="hero-top-logo-img"
-          />
-        </a>
+        <div className="hero-top-bar-inner">
+          <a href="#hero" className="hero-top-logo" aria-label="Selvagant Archive Home">
+            <img
+              src="/logo/Logo SVG/Logo-text-deep-ink.svg"
+              alt="Selvagant"
+              className="hero-top-logo-img"
+            />
+          </a>
 
-        {/* Center Tactical Motto / Datum */}
-        <div className="hero-top-datum font-mono" aria-hidden="true">
-          <span className="hero-datum-cross">+</span>
-          <span className="hero-top-motto font-serif">
-            The Wandering <em>Selv.</em>
-          </span>
-          <span className="hero-datum-cross">+</span>
-        </div>
+          {/* Center Tactical Motto / Datum (Clean tanpa bintang/plus) */}
+          <div className="hero-top-datum font-mono" aria-hidden="true">
+            <span className="hero-top-motto font-serif">
+              The Wandering <em>Selv.</em>
+            </span>
+          </div>
 
-        {/* Live WIB Clock murni tanpa label teks */}
-        <div className="hero-top-clock font-mono" aria-live="polite">
-          {wibTime}
+          {/* Live WIB Clock murni tanpa label teks */}
+          <div className="hero-top-clock font-mono" aria-live="polite">
+            {wibTime}
+          </div>
         </div>
       </div>
 
@@ -297,13 +297,34 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           </div>
 
           <p className="hero-bio-paragraph font-serif">
-            <span className="hero-bio-phrase">A digital field journal by </span>{' '}
-            <span className="hero-bio-phrase"><strong>Selvagant (Taki)</strong> — </span>{' '}
-            <span className="hero-bio-phrase"><strong>Creative Developer & Mobile Architect</strong> </span>{' '}
-            <span className="hero-bio-phrase">based in Central Java. </span>{' '}
-            <span className="hero-bio-phrase">Bridging analytical software engineering </span>{' '}
-            <span className="hero-bio-phrase">with tactile digital systems </span>{' '}
-            <span className="hero-bio-phrase">and organic exploration.</span>
+            <span className="hero-bio-word">A</span>{' '}
+            <span className="hero-bio-word">digital</span>{' '}
+            <span className="hero-bio-word">field</span>{' '}
+            <span className="hero-bio-word">journal</span>{' '}
+            <span className="hero-bio-word">by</span>{' '}
+            <span className="hero-bio-word"><strong>Selvagant</strong></span>{' '}
+            <span className="hero-bio-word"><strong>(Taki)</strong></span>{' '}
+            <span className="hero-bio-word">—</span>{' '}
+            <span className="hero-bio-word"><strong>Creative</strong></span>{' '}
+            <span className="hero-bio-word"><strong>Developer</strong></span>{' '}
+            <span className="hero-bio-word"><strong>&amp;</strong></span>{' '}
+            <span className="hero-bio-word"><strong>Mobile</strong></span>{' '}
+            <span className="hero-bio-word"><strong>Architect</strong></span>{' '}
+            <span className="hero-bio-word">based</span>{' '}
+            <span className="hero-bio-word">in</span>{' '}
+            <span className="hero-bio-word">Central</span>{' '}
+            <span className="hero-bio-word">Java.</span>{' '}
+            <span className="hero-bio-word">Bridging</span>{' '}
+            <span className="hero-bio-word">analytical</span>{' '}
+            <span className="hero-bio-word">software</span>{' '}
+            <span className="hero-bio-word">engineering</span>{' '}
+            <span className="hero-bio-word">with</span>{' '}
+            <span className="hero-bio-word">tactile</span>{' '}
+            <span className="hero-bio-word">digital</span>{' '}
+            <span className="hero-bio-word">systems</span>{' '}
+            <span className="hero-bio-word">and</span>{' '}
+            <span className="hero-bio-word">organic</span>{' '}
+            <span className="hero-bio-word">exploration.</span>
           </p>
         </div>
 

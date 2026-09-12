@@ -367,29 +367,30 @@
   pointer-events: none;
 }
 
-/* Layer 2: Sunken SLVGNT Typography (Hardcoded Individual Letters for Choreography) */
+/* Layer 2: Sunken SLVGNT Typography (Exact Figma Vector Silhouette) */
 .footer-landscape-wordmark {
   position: absolute;
-  top: 59%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 88.23%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
   z-index: 2;
   pointer-events: none;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(3.5rem, 16.5vw, 17.5rem);
-  line-height: 0.85;
-  color: rgba(255, 255, 255, 0.94);
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   user-select: none;
 }
 
+.footer-landscape-wordmark-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
 .slvgnt-char {
-  display: inline-block;
+  transform-origin: center bottom;
   will-change: transform, opacity;
 }
 
@@ -465,7 +466,9 @@
   }
 
   .footer-stage-copyright {
+    left: 50%;
     top: 79%;
+    transform: translate(-50%, -50%);
     font-size: 0.58rem;
     padding: 4px 10px;
     letter-spacing: 0.04em;
