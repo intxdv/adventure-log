@@ -8,30 +8,51 @@ interface PreloaderProps {
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const isAssetsReady = useAssetReadiness();
   const [progress, setProgress] = useState(0);
-  const [isDismissed, setIsDismissed] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem('adventure_log_preloaded') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  // Lock body scroll while preloader is active to prevent scroll leak
+  useEffect(() => {
+    if (!isDismissed) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isDismissed]);
 
   useEffect(() => {
+    if (isDismissed) {
+      onComplete?.();
+      return;
+    }
+
     let animationFrameId: number;
     let startTime: number | null = null;
-    const targetDuration = 1350; // Max 1.35 seconds for crisp entrance
+    const targetDuration = 1350; // Max 1.35 seconds
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const linearRatio = Math.min(elapsed / targetDuration, 1);
 
-      // Nonlinear expedition calibration curve (accelerate -> tactile linger -> snap to complete)
+      // Nonlinear calibration curve (accelerate -> tactile check -> snap to 100%)
       let calculatedProgress: number;
       if (linearRatio < 0.6) {
         calculatedProgress = Math.floor((linearRatio / 0.6) * 68);
       } else if (linearRatio < 0.85) {
-        // Lingers slightly while assets rasterize
         calculatedProgress = 68 + Math.floor(((linearRatio - 0.6) / 0.25) * 22);
       } else {
         calculatedProgress = 90 + Math.floor(((linearRatio - 0.85) / 0.15) * 10);
       }
 
-      // If assets are ready, allow progress to reach 100%
       if (isAssetsReady && linearRatio >= 0.95) {
         calculatedProgress = 100;
       }
@@ -43,9 +64,14 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       } else {
         setProgress(100);
         setTimeout(() => {
+          try {
+            sessionStorage.setItem('adventure_log_preloaded', 'true');
+          } catch {
+            // Ignore storage errors
+          }
           setIsDismissed(true);
           onComplete?.();
-        }, 320);
+        }, 340);
       }
     };
 
@@ -55,6 +81,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     const fallbackTimer = setTimeout(() => {
       setProgress(100);
       setTimeout(() => {
+        try {
+          sessionStorage.setItem('adventure_log_preloaded', 'true');
+        } catch {
+          // Ignore storage errors
+        }
         setIsDismissed(true);
         onComplete?.();
       }, 200);
@@ -64,12 +95,14 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       cancelAnimationFrame(animationFrameId);
       clearTimeout(fallbackTimer);
     };
-  }, [isAssetsReady, onComplete]);
+  }, [isAssetsReady, isDismissed, onComplete]);
 
   if (isDismissed) return null;
 
   return (
     <div
+      id="preloader-curtain"
+      aria-label="Expedition Telemetry Preloader"
       style={{
         position: 'fixed',
         inset: 0,
@@ -78,55 +111,103 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: 'clamp(1.5rem, 5vw, 3rem)',
-        transition: 'opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo)',
+        padding: 'clamp(1.5rem, 5vw, 3.5rem)',
+        transition: 'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)',
         opacity: progress === 100 ? 0 : 1,
+        transform: progress === 100 ? 'translateY(-18px) scale(0.99)' : 'translateY(0) scale(1)',
         pointerEvents: progress === 100 ? 'none' : 'all',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-          [ EXPEDITION TELEMETRY UNIT ]
+      {/* Top Telemetry Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+        <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', letterSpacing: '0.04em' }}>
+          [ EXPEDITION TELEMETRY UNIT // 001.2026 ]
         </span>
         <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)' }}>
-          BASECAMP: 7.9797° S, 112.6304° E
+          BASECAMP // 7.45° S, 110.51° E · SEMARANG, ID
         </span>
       </div>
 
-      <div style={{ textAlign: 'center' }}>
+      {/* Centerpiece Artifact */}
+      <div style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto', width: '100%' }}>
+        <div style={{ marginBottom: 'var(--space-md)' }}>
+          <span className="tag-badge">
+            SELVAGANT // THE DIGITAL CARTOGRAPHER
+          </span>
+        </div>
+
         <h2
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'var(--text-2xl)',
+            fontSize: 'clamp(2rem, 5vw, 3.25rem)',
             fontWeight: 800,
-            marginBottom: 'var(--space-xs)',
-            letterSpacing: '-0.02em',
+            marginBottom: 'var(--space-md)',
+            letterSpacing: '-0.03em',
+            lineHeight: 1,
+            color: 'var(--color-ink)',
           }}
         >
-          ADVENTURE LOG.
+          Adventure Log<span style={{ color: 'var(--color-olive)' }}>.</span>
         </h2>
-        <p className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)' }}>
-          INITIALIZING FIELD ARCHIVE & CARTOGRAPHER PROTOCOLS...
+
+        {/* Tactile Progress Track Bar */}
+        <div
+          style={{
+            width: '100%',
+            height: '2px',
+            backgroundColor: 'var(--hairline-base)',
+            margin: 'var(--space-md) auto',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+          aria-hidden="true"
+        >
+          <div
+            style={{
+              height: '100%',
+              backgroundColor: 'var(--color-olive)',
+              width: `${progress}%`,
+              transition: 'width 0.08s linear',
+            }}
+          />
+        </div>
+
+        <p className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', letterSpacing: '0.02em' }}>
+          CALIBRATING SENSORS & ARCHIVAL SYSTEMS...
         </p>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      {/* Bottom Status & Numerical Counter */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 'var(--space-md)' }}>
         <div>
-          <span className="font-mono" style={{ fontSize: 'var(--text-xs)', display: 'block', color: 'var(--color-ink-muted)' }}>
-            STATUS: CALIBRATING INSTRUMENTS
+          <span className="font-mono" style={{ fontSize: 'var(--text-xs)', display: 'block', color: 'var(--color-ink-muted)', marginBottom: '2px' }}>
+            STATUS // CALIBRATING INSTRUMENTS
           </span>
-          <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-            SYSTEM: OK
+          <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--color-olive)',
+                display: 'inline-block',
+              }}
+            />
+            STATION // INFORMATIKA UNDIP '23
           </span>
         </div>
+
         <div style={{ textAlign: 'right' }}>
           <span
             className="font-mono"
             style={{
-              fontSize: 'var(--text-2xl)',
+              fontSize: 'clamp(2.5rem, 6vw, 4.25rem)',
               fontWeight: 700,
               color: 'var(--color-ink)',
               fontVariantNumeric: 'tabular-nums',
+              lineHeight: 1,
+              display: 'block',
+              letterSpacing: '-0.03em',
             }}
           >
             {String(progress).padStart(2, '0')}%
