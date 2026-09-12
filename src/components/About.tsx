@@ -114,13 +114,16 @@ export const About: React.FC = () => {
           {/* Moniker Etymology & Typography Citation */}
           <aside className="about-moniker" aria-label="Moniker Origin">
             <div className="about-moniker-title">
-              <span className="about-moniker-selv font-display">Selv</span>agant
+              <span className="about-moniker-word">
+                <span className="about-moniker-selv">Selv</span>
+                <span className="about-moniker-rest">agant</span>
+              </span>
               <span className="about-moniker-subtitle font-mono">
-                — The Wandering <span style={{ fontStyle: 'italic', fontWeight: 600 }}>Selv</span>
+                — The Wandering <span className="about-moniker-selv-accent">Selv</span>
               </span>
             </div>
             <p className="about-moniker-desc font-mono">
-              Rooted in <strong>Solivagant</strong> (one who wanders alone) and <strong>Selva</strong> (the wild forest) + Self-determination. An ongoing exploration of digital craft as conscious self-discovery.
+              Rooted in <strong>Solivagant</strong> (one who wanders alone) and <strong>Selva</strong> (the untamed forest) + Self-determination. An ongoing exploration of software engineering, mobile systems, and digital cartography as conscious self-discovery.
             </p>
           </aside>
         </article>
