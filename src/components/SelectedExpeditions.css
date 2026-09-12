@@ -326,13 +326,24 @@
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .exp-card-link:hover {
   color: var(--color-olive);
   transform: translateX(2px);
+}
+
+.exp-card-github-icon {
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.exp-card-link:hover .exp-card-github-icon {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .exp-card-period {
