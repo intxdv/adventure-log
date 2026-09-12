@@ -241,9 +241,7 @@
 .footer-landscape-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  min-height: 380px;
-  max-height: 85vh;
+  aspect-ratio: 2752 / 1515;
   margin-top: 0;
   margin-bottom: 0;
   overflow: hidden;
@@ -258,12 +256,12 @@
   top: 0;
   left: 0;
   right: 0;
-  height: clamp(100px, 22vw, 280px);
+  height: clamp(80px, 18vw, 240px);
   background: linear-gradient(
     to bottom,
     var(--color-canvas) 0%,
-    rgba(247, 246, 242, 0.92) 25%,
-    rgba(247, 246, 242, 0.55) 60%,
+    rgba(247, 246, 242, 0.92) 20%,
+    rgba(247, 246, 242, 0.50) 55%,
     rgba(247, 246, 242, 0) 100%
   );
   z-index: 5;
@@ -282,28 +280,31 @@
   display: block;
 }
 
-/* Middle Wordmark Layer */
+/* Middle Wordmark Layer (Figma Node 54:33: y=667px / 1515px = 44.03% from top) */
 .footer-wordmark-layer {
   position: absolute;
-  inset: 0;
+  top: 44.03%;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 2;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 0 var(--space-md);
   pointer-events: none;
-  transform: translateY(-2%);
+  transform: none;
 }
 
 .footer-giant-wordmark {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 16vw, 20rem);
+  font-size: clamp(2rem, 23.47vw, 646px);
   font-weight: 800;
-  line-height: 0.85;
-  letter-spacing: 0.02em;
+  line-height: 0.85em;
+  letter-spacing: -0.01em;
   color: rgba(255, 255, 255, 0.88);
   text-align: center;
   margin: 0;
+  padding: 0;
   white-space: nowrap;
   /* Figma drop shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) */
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.20);
@@ -382,17 +383,13 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-xl);
   }
-
-  .footer-wordmark-layer {
-    transform: translateY(-5%);
-  }
 }
 
 /* Mobile (<= 768px) */
 @media (max-width: 768px) {
   .footer-container {
     padding-top: var(--space-3xl);
-    padding-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
   }
 
   .footer-grid {
@@ -401,30 +398,17 @@
   }
 
   .footer-landscape-stage {
-    min-height: 240px;
-    height: auto;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 2752 / 1515;
     margin-top: 0;
-  }
-
-  .footer-wordmark-layer {
-    transform: translateY(-2%);
-  }
-
-  .footer-giant-wordmark {
-    font-size: clamp(2.4rem, 15vw, 6rem);
-    white-space: nowrap;
-    padding: 0 4px;
-    line-height: 0.85;
   }
 
   .footer-stage-bottom-bar {
     flex-direction: column;
     align-items: flex-start;
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-    gap: 8px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    gap: 6px;
   }
 }
 
