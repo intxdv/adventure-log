@@ -8,69 +8,44 @@ export const About: React.FC = () => {
     <section id="about" className="about-section hairline-b" aria-labelledby="about-heading">
       <div className="container about-grid">
         
-        {/* Tactical Archival Portrait / Field Dossier Frame */}
-        <figure className="field-dossier" aria-label="Field Explorer Dossier: Syafiq Abiyyu Taqi">
-          <header className="field-dossier-header">
-            <span className="field-dossier-id font-mono">
-              [ FIELD DOSSIER // 001 ]
-            </span>
-            <span className="field-dossier-coord font-mono">
-              7.45° S, 110.51° E · SEMARANG
-            </span>
-          </header>
+        {/* Left Column: Zine-Style Card Frame (Reference-Inspired) */}
+        <div className="field-card-wrapper">
+          <figure className="field-zine-card" aria-label="Portrait: Syafiq Abiyyu Taqi">
+            <div className="field-zine-frame">
+              {!hasImageError ? (
+                <img
+                  src="/images/taki-portrait.jpg"
+                  alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
+                  className="field-zine-img"
+                  width={1080}
+                  height={1080}
+                  loading="lazy"
+                  onError={() => setHasImageError(true)}
+                />
+              ) : (
+                <div className="field-dossier-fallback">
+                  <div className="field-dossier-reticle font-mono">FIELD</div>
+                  <div style={{ fontWeight: 700, fontSize: 'var(--text-base)', color: 'var(--color-ink)' }}>
+                    TAKI
+                  </div>
+                  <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', marginTop: '4px' }}>
+                    Syafiq Abiyyu Taqi
+                  </div>
+                </div>
+              )}
+            </div>
 
-          {/* Portrait Container Frame with 1:1 Aspect Ratio */}
-          <div className="field-dossier-frame">
-            <span className="corner-bracket corner-tl" aria-hidden="true" />
-            <span className="corner-bracket corner-tr" aria-hidden="true" />
-            <span className="corner-bracket corner-bl" aria-hidden="true" />
-            <span className="corner-bracket corner-br" aria-hidden="true" />
-
-            {!hasImageError ? (
-              <img
-                src="/images/taki-portrait.jpg"
-                alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
-                className="field-dossier-img"
-                width={1080}
-                height={1080}
-                loading="lazy"
-                onError={() => setHasImageError(true)}
-              />
-            ) : (
-              <div className="field-dossier-fallback">
-                <div className="field-dossier-reticle font-mono">
-                  FIELD
-                </div>
-                <div style={{ fontWeight: 700, fontSize: 'var(--text-base)', color: 'var(--color-ink)' }}>
-                  Syafiq Abiyyu Taqi
-                </div>
-                <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', marginTop: '4px' }}>
-                  ARCHIVE REF // TK-001
-                </div>
+            <figcaption className="field-zine-footer">
+              <div className="field-zine-identity">
+                <span className="field-zine-callname">TAKI</span>
+                <span className="field-zine-fullname">Syafiq Abiyyu Taqi</span>
               </div>
-            )}
-          </div>
-
-          <figcaption className="field-dossier-caption font-mono">
-            <div className="field-dossier-meta-row">
-              <span style={{ color: 'var(--color-ink)', fontWeight: 600 }}>
-                SUBJECT: SYAFIQ ABIYYU TAQI
-              </span>
-              <span className="field-dossier-badge">
-                <span className="field-dossier-pulse" aria-hidden="true" />
-                ACTIVE
-              </span>
-            </div>
-            <div className="field-dossier-meta-row" style={{ color: 'var(--color-ink-muted)' }}>
-              <span>ROLE: MOBILE ARCHITECT</span>
-              <span>STN: INFORMATIKA UNDIP '23</span>
-            </div>
-            <div className="field-dossier-stamp">
-              <span>SELVAGANT VERIFIED DOSSIER</span>
-              <span>SCALE: 1:1 NATURAL</span>
-            </div>
-          </figcaption>
-        </figure>
+              <div className="field-zine-quote">
+                “karena kita terlalu berharga untuk disia-siakan.”
+              </div>
+            </figcaption>
+          </figure>
+        </div>
 
         {/* Editorial Storytelling & Manifesto */}
         <article className="about-article">

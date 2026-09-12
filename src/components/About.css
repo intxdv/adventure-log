@@ -52,58 +52,51 @@
 }
 
 /* --------------------------------------------------------------------------
-   Field Dossier (Archival Card / Left Column)
+   Zine Card / Field Portrait (Left Column)
    -------------------------------------------------------------------------- */
-.field-dossier {
+.field-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 440px;
+}
+
+@media (max-width: 960px) {
+  .field-card-wrapper {
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+.field-zine-card {
   margin: 0;
   position: relative;
-  background-color: var(--color-canvas-subtle);
+  background-color: #FFFFFF;
   border: 1px solid var(--hairline-base);
-  padding: var(--space-md);
-  box-shadow: 0 4px 20px rgba(24, 26, 24, 0.03);
+  padding: clamp(0.75rem, 1.75vw, 1.125rem);
+  box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
 }
 
-.field-dossier-header {
-  display: flex;
-  justifyContent: space-between;
-  align-items: center;
-  margin-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--hairline-subtle);
-  padding-bottom: 6px;
-}
-
-.field-dossier-id {
-  font-size: var(--text-xs);
-  color: var(--color-olive);
-  letter-spacing: 0.05em;
-  font-weight: 600;
-}
-
-.field-dossier-coord {
-  font-size: var(--text-xs);
-  color: var(--color-ink-muted);
-}
-
-.field-dossier-frame {
+.field-zine-frame {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: var(--color-canvas);
-  border: 1px solid var(--hairline-base);
+  background-color: var(--color-canvas-subtle);
   overflow: hidden;
+  border: 1px solid var(--hairline-subtle);
 }
 
-.field-dossier-img {
+.field-zine-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: contrast(1.03) brightness(0.98);
+  filter: contrast(1.02) brightness(0.98);
   transition: transform 0.6s var(--ease-out-expo);
 }
 
-.field-dossier-frame:hover .field-dossier-img {
-  transform: scale(1.025);
+.field-zine-frame:hover .field-zine-img {
+  transform: scale(1.02);
 }
 
 /* Fallback Container if Image Unloaded/Error */
@@ -134,110 +127,60 @@
   position: relative;
 }
 
-.field-dossier-reticle::before {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 1px;
-  background-color: var(--color-olive);
+/* Zine Card Footer (Inspired by reference VOL. 1 layout) */
+.field-zine-footer {
+  margin-top: clamp(0.75rem, 1.5vw, 1rem);
+  display: flex;
+  justifyContent: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+  padding-top: 4px;
 }
 
-.field-dossier-reticle::after {
-  content: '';
-  position: absolute;
-  height: 12px;
-  width: 1px;
-  background-color: var(--color-olive);
-}
-
-/* Tactile Corner Brackets */
-.corner-bracket {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  pointer-events: none;
-  z-index: 2;
-  border-color: var(--color-olive);
-}
-
-.corner-tl {
-  top: 8px;
-  left: 8px;
-  border-top: 1.5px solid;
-  border-left: 1.5px solid;
-}
-
-.corner-tr {
-  top: 8px;
-  right: 8px;
-  border-top: 1.5px solid;
-  border-right: 1.5px solid;
-}
-
-.corner-bl {
-  bottom: 8px;
-  left: 8px;
-  border-bottom: 1.5px solid;
-  border-left: 1.5px solid;
-}
-
-.corner-br {
-  bottom: 8px;
-  right: 8px;
-  border-bottom: 1.5px solid;
-  border-right: 1.5px solid;
-}
-
-.field-dossier-caption {
-  margin-top: var(--space-sm);
+.field-zine-identity {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding-top: 6px;
-  border-top: 1px solid var(--hairline-subtle);
 }
 
-.field-dossier-meta-row {
-  display: flex;
-  justifyContent: space-between;
-  align-items: center;
-  font-size: var(--text-xs);
+.field-zine-callname {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--color-ink);
 }
 
-.field-dossier-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background-color: var(--color-olive-tint);
-  color: var(--color-olive);
-  padding: 2px 8px;
-  border-radius: 2px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  border: 1px solid var(--color-olive-border);
-}
-
-.field-dossier-pulse {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--color-olive);
-  box-shadow: 0 0 0 2px var(--color-olive-tint);
-}
-
-.field-dossier-stamp {
+.field-zine-fullname {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-ink-muted);
   margin-top: 6px;
-  padding: 4px 8px;
-  border: 1px dashed var(--color-olive-border);
-  background-color: var(--color-olive-tint);
-  display: flex;
-  justifyContent: space-between;
-  align-items: center;
-  font-size: 0.65rem;
-  color: var(--color-olive);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.field-zine-quote {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.825rem);
+  line-height: 1.45;
+  color: var(--color-ink);
+  max-width: 175px;
+  text-align: right;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 480px) {
+  .field-zine-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .field-zine-quote {
+    text-align: left;
+    max-width: 100%;
+  }
 }
 
 /* --------------------------------------------------------------------------
