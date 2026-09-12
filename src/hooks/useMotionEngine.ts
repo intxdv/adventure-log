@@ -75,54 +75,55 @@ export const useMotionEngine = () => {
         portalTimeline.fromTo(
           '.about-kicker, .about-subhead',
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
+          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
           1.05
         );
 
         portalTimeline.fromTo(
           '.field-zine-card',
           { opacity: 0, y: 28, scale: 0.94 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'back.out(1.2)' },
-          1.12
+          { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(1.2)' },
+          1.10
         );
 
         // Stagger per-kata pada headline Section 2
         portalTimeline.fromTo(
           '.about-headline .about-word',
           { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, stagger: 0.06, duration: 0.35, ease: 'power2.out' },
-          1.16
+          { opacity: 1, y: 0, stagger: 0.035, duration: 0.25, ease: 'power2.out' },
+          1.15
         );
 
-        // Stagger per-kata pada bio editorial Section 2
+        // Stagger per-kata pada bio editorial Section 2 (Selesai sebelum t = 1.76)
         portalTimeline.fromTo(
           '.about-lead .about-word, .about-body .about-word',
           { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, stagger: 0.015, duration: 0.3, ease: 'power2.out' },
-          1.28
+          { opacity: 1, y: 0, stagger: 0.006, duration: 0.18, ease: 'power2.out' },
+          1.22
         );
 
         // Selvagant reveal dock
         portalTimeline.fromTo(
           '.selvagant-reveal-dock',
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          1.44
+          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
+          1.36
         );
 
         portalTimeline.fromTo(
           '.about-tags-row .tag-badge',
           { opacity: 0, y: 10, scale: 0.92 },
-          { opacity: 1, y: 0, scale: 1, stagger: 0.05, duration: 0.3, ease: 'power2.out' },
-          1.54
+          { opacity: 1, y: 0, scale: 1, stagger: 0.04, duration: 0.25, ease: 'power2.out' },
+          1.42
         );
 
-        // TERAKHIR: Frame kotak manifesto & kutipan muncul setelah semua elemen Section 2 selesai
+        // TERAKHIR BANGET: Kotak manifesto baru mulai muncul setelah SEMUA elemen lain di Section 2 SELESAI TOTAL
+        // Pada t = 1.90 (semua teks bio, card, dock, dan tags sudah 100% diam dan selesai)
         portalTimeline.fromTo(
           '.about-manifesto',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          1.66
+          1.90
         );
 
         // Kicker kutipan manifesto
@@ -130,14 +131,14 @@ export const useMotionEngine = () => {
           '.about-manifesto .about-manifesto-kicker',
           { opacity: 0, y: 10 },
           { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.72
+          2.26
         );
 
         portalTimeline.fromTo(
           '.about-manifesto .about-word, .about-manifesto-cite',
           { opacity: 0, y: 10 },
           { opacity: 1, y: 0, stagger: 0.012, duration: 0.25, ease: 'power2.out' },
-          1.76
+          2.52
         );
       }
 
