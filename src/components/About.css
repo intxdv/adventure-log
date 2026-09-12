@@ -122,6 +122,8 @@
   border: 1px solid var(--hairline-base);
   padding: clamp(0.75rem, 1.75vw, 1.125rem);
   box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
+  opacity: 0;
+  will-change: opacity, transform;
   transition: box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s ease;
 }
 
@@ -342,6 +344,8 @@
   background-color: var(--color-canvas-subtle);
   border: 1px solid var(--hairline-base);
   border-radius: 4px;
+  opacity: 0;
+  will-change: opacity, transform;
   transition: background-color 0.6s ease, border-color 0.6s ease;
 }
 
@@ -399,6 +403,8 @@
   cursor: pointer;
   outline: none;
   border-radius: 2px;
+  opacity: 0;
+  will-change: opacity, transform;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 

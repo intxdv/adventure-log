@@ -332,7 +332,7 @@
   margin-top: 0;
   margin-bottom: 0;
   overflow: hidden;
-  background-color: #5ea1db;
+  background-color: #111411;
   user-select: none;
 }
 
@@ -355,13 +355,15 @@
   z-index: 5;
 }
 
-/* Layer 1: Background Sky, Hills, & Distant Mountains (Overscan Bleed Parallax Anti-Bolong) */
+/* Layer 1: Background Sky, Hills, & Distant Mountains (Centered Bleed Parallax Anti-Bolong) */
 .footer-landscape-bg {
   position: absolute;
   top: -4%;
-  left: -7%;
-  width: 114%;
-  height: 116%;
+  left: -6%;
+  width: 112%;
+  height: 114%;
+  max-width: none !important;
+  max-height: none !important;
   object-fit: fill;
   z-index: 1;
   pointer-events: none;
@@ -394,13 +396,15 @@
   will-change: transform, opacity;
 }
 
-/* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout (Overscan Bleed Parallax Anti-Bolong) */
+/* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout (Centered Bleed Parallax Anti-Bolong) */
 .footer-landscape-fg {
   position: absolute;
   top: -4%;
-  left: -7%;
-  width: 114%;
-  height: 116%;
+  left: -6%;
+  width: 112%;
+  height: 114%;
+  max-width: none !important;
+  max-height: none !important;
   object-fit: fill;
   z-index: 3;
   pointer-events: none;

@@ -127,6 +127,31 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         ease: 'power2.out',
       });
 
+      // 4. Tactical Navigation Entrance Choreography
+      gsap.fromTo(
+        '.tactical-nav-altimeter',
+        { opacity: 0, y: -12 },
+        { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', delay: 0.1 }
+      );
+
+      gsap.fromTo(
+        '.tactical-nav-item',
+        { opacity: 0, x: 26 },
+        { opacity: 1, x: 0, stagger: 0.065, duration: 0.55, ease: 'power3.out', delay: 0.15 }
+      );
+
+      gsap.fromTo(
+        '.tactical-nav-footer',
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', delay: 0.35 }
+      );
+
+      gsap.fromTo(
+        '.tactical-nav-mobile',
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.2 }
+      );
+
       return true;
     });
   }, []);
@@ -140,8 +165,8 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Jeda hening 0.8 detik pasca-preloader, TETAPI jika user mulai gerak (scroll, wheel, touch, keydown),
-  // langsung paksa mulai animasinya agar tidak ada kesan "kosong" saat user buru-buru!
+  // Jeda hening 0.35 detik pasca-preloader, TETAPI jika user mulai gerak (scroll, wheel, touch, keydown),
+  // langsung paksa mulai animasinya agar responsif seketika!
   useEffect(() => {
     if (!isAppLoaded) return;
 
@@ -153,7 +178,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
 
     startupTimerRef.current = setTimeout(() => {
       startHeroImmediately();
-    }, 800); // 0.8 detik jeda nyaman pasca-preloader agar responsif
+    }, 350); // 0.35 detik jeda responsif pasca-preloader
 
     const handleEarlyInteraction = () => {
       startHeroImmediately();

@@ -102,6 +102,14 @@ export const useMotionEngine = () => {
           1.28
         );
 
+        // Frame kotak manifesto muncul tepat sebelum teksnya mengalir
+        portalTimeline.fromTo(
+          '.about-manifesto',
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
+          1.46
+        );
+
         // Stagger per-kata pada kutipan manifesto
         portalTimeline.fromTo(
           '.about-manifesto .about-manifesto-kicker',

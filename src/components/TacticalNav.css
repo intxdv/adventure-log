@@ -13,6 +13,25 @@
   user-select: none;
 }
 
+/* Entrance initial hidden states (Revealed by Hero entrance animation) */
+.tactical-nav-altimeter,
+.tactical-nav-item,
+.tactical-nav-footer,
+.tactical-nav-mobile {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tactical-nav-altimeter,
+  .tactical-nav-item,
+  .tactical-nav-footer,
+  .tactical-nav-mobile {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 768px) {
   .tactical-nav-rail {
     display: none;
