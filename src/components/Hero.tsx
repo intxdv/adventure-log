@@ -132,7 +132,7 @@ export const Hero: React.FC = () => {
               fontFamily: 'var(--font-sans)',
             }}
           >
-            A digital field journal by Syafiq Abiyyu Taqi — <strong>Creative Developer & Mobile Architect</strong> based in Central Java.
+            A digital field journal by Selvagant (Taki) — <strong>Creative Developer & Mobile Architect</strong> based in Central Java.
             Bridging analytical software engineering with tactile digital systems and organic exploration.
           </p>
 
