@@ -78,7 +78,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Main Colophon Wide & Airy Layout (Opnest Alignment)
+   2. Main Colophon Wide & Airy Layout (4-Column Balanced Grid)
    -------------------------------------------------------------------------- */
 .footer-container {
   width: 100%;
@@ -92,16 +92,16 @@
 
 .footer-layout {
   display: grid;
-  grid-template-columns: minmax(320px, 1.25fr) minmax(280px, 1fr);
-  gap: clamp(40px, 7vw, 120px);
+  grid-template-columns: minmax(220px, 1.1fr) minmax(280px, 1.35fr) minmax(180px, 0.9fr) minmax(220px, 1fr);
+  gap: clamp(24px, 3.5vw, 64px);
   align-items: start;
 }
 
-/* Brand Identity Block on Left (Logo with Text, Title, Tagline, Clock, Socials) */
-.footer-brand-col {
+/* Col 1: Creator Identity & Dispatch (Logo, Wandering Selv, Clock, Icons) */
+.footer-identity-col {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 14px;
 }
 
 .footer-brand-logo-wrapper {
@@ -116,25 +116,19 @@
   object-fit: contain;
 }
 
-.footer-brand-title {
-  font-size: clamp(1.4rem, 2.2vw, 2rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  line-height: 1;
-  margin-top: -2px;
-}
-
-.footer-brand-dot {
-  color: var(--color-olive);
-}
-
-.footer-brand-tagline {
+.footer-wandering-selv {
   font-size: 0.95rem;
   color: var(--color-ink-muted);
-  line-height: 1.6;
+  line-height: 1.4;
   margin: 0;
-  max-width: 40ch;
+  letter-spacing: 0.01em;
+}
+
+.footer-selv-accent {
+  font-style: italic;
+  font-family: var(--font-serif, 'Newsreader', serif);
+  color: var(--color-ink);
+  font-weight: 600;
 }
 
 .footer-clock-row {
@@ -144,67 +138,102 @@
 }
 
 .footer-clock-time {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--color-ink);
   letter-spacing: 0.06em;
   line-height: 1;
 }
 
-.footer-socials-row {
+.footer-dispatch-icons-row {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
-.footer-social-pill {
+.footer-dispatch-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-ink-muted);
-  text-decoration: none;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   background-color: var(--color-canvas-subtle);
   border: 1px solid var(--hairline-subtle);
-  padding: 6px 12px;
-  border-radius: 3px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--color-ink-muted);
   transition: all 0.2s ease;
 }
 
-.footer-social-icon {
-  width: 14px;
-  height: 14px;
+.footer-dispatch-btn:hover {
+  background-color: #FFFFFF;
+  border-color: var(--hairline-base);
+  color: var(--color-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.footer-dispatch-svg {
+  width: 16px;
+  height: 16px;
   display: block;
   object-fit: contain;
   opacity: 0.8;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-.footer-social-pill:hover {
-  color: var(--color-ink);
-  background-color: #FFFFFF;
-  border-color: var(--hairline-base);
-  transform: translateY(-1px);
-}
-
-.footer-social-pill:hover .footer-social-icon {
+.footer-dispatch-btn:hover .footer-dispatch-svg {
   opacity: 1;
 }
 
-.footer-social-pill:hover .footer-link-arrow {
+/* Col 2: Adventure Log Journal Block */
+.footer-journal-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer-journal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
   color: var(--color-olive);
-  transform: translate(2px, -2px);
+  letter-spacing: 0.08em;
 }
 
-/* 2-Column Navigation Grid on Right: Index & Colophon */
-.footer-nav-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(24px, 4.5vw, 64px);
+.footer-journal-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--hairline-subtle);
 }
 
+.footer-brand-title {
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  line-height: 1;
+  margin: 0;
+}
+
+.footer-brand-dot {
+  color: var(--color-olive);
+}
+
+.footer-brand-tagline {
+  font-size: 0.92rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 38ch;
+}
+
+/* Col 3 & 4: Navigation Grid (Index & Colophon) */
 .footer-col {
   display: flex;
   flex-direction: column;
@@ -279,7 +308,7 @@
   transform: translate(2px, -2px);
 }
 
-/* Col 2: Colophon Meta */
+/* Col 4: Colophon Meta */
 .footer-colophon-body {
   display: flex;
   flex-direction: column;
@@ -406,16 +435,11 @@
    4. Responsive Viewport Adaptations
    -------------------------------------------------------------------------- */
 
-/* Tablet (<= 1024px) */
-@media (max-width: 1024px) {
+/* Tablet (<= 1100px) */
+@media (max-width: 1100px) {
   .footer-layout {
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-  }
-
-  .footer-nav-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-xl);
+    gap: var(--space-2xl);
   }
 }
 
@@ -429,11 +453,6 @@
   }
 
   .footer-layout {
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
-  }
-
-  .footer-nav-grid {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
   }
@@ -468,7 +487,7 @@
 
   .footer-link,
   .footer-link-arrow,
-  .footer-social-pill {
+  .footer-dispatch-btn {
     transition: none;
   }
 }

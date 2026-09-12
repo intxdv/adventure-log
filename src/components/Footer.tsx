@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Main Colophon Wide & Airy Layout (Opnest Style) */}
+      {/* 2. Main Colophon Wide & Airy Layout (4-Column Balanced Grid) */}
       <div className="footer-container">
         {/* Visually Hidden Screen Reader Heading */}
         <h2 id="colophon-heading" className="sr-only">
@@ -44,8 +44,8 @@ export const Footer: React.FC = () => {
         </h2>
 
         <div className="footer-layout">
-          {/* Brand & Identity Column (Left Side: Logo-Text, Title, Tagline, Clock, Socials with SVG Icons) */}
-          <div className="footer-brand-col">
+          {/* Col 1: Creator Identity & Dispatch (Logo Slvgnt, The Wandering Selv, Clock, Dispatch Icons) */}
+          <div className="footer-identity-col">
             <div className="footer-brand-logo-wrapper">
               <img
                 src="/logo/Logo SVG/Logo-text-deep-ink.svg"
@@ -54,12 +54,8 @@ export const Footer: React.FC = () => {
               />
             </div>
 
-            <div className="footer-brand-title font-display">
-              ADVENTURE LOG<span className="footer-brand-dot">.</span>
-            </div>
-
-            <p className="footer-brand-tagline font-serif">
-              {FOOTER_COLOPHON.tagline}
+            <p className="footer-wandering-selv font-serif">
+              The Wandering <span className="footer-selv-accent">Selv</span>.
             </p>
 
             <div className="footer-clock-row font-mono">
@@ -68,64 +64,73 @@ export const Footer: React.FC = () => {
               </span>
             </div>
 
-            <div className="footer-socials-row font-mono" role="list">
+            <div className="footer-dispatch-icons-row" role="list">
               {FOOTER_SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.label}
                   href={social.url}
-                  className="footer-social-pill"
+                  className="footer-dispatch-btn"
                   target={social.url.startsWith('mailto:') ? undefined : '_blank'}
                   rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                   aria-label={social.label}
+                  title={social.label}
                 >
                   <img
                     src={social.icon}
                     alt=""
-                    className="footer-social-icon"
+                    className="footer-dispatch-svg"
                     aria-hidden="true"
                   />
-                  <span>{social.label}</span>
-                  <span className="footer-link-arrow" aria-hidden="true">↗</span>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Right Information Grid: Index & Colophon */}
-          <div className="footer-nav-grid">
-            {/* Col 1: Index */}
-            <div className="footer-col">
-              <div className="footer-col-header font-mono">
-                <span>[ 01 // INDEX ]</span>
-              </div>
-              <ul className="footer-links-list" role="list">
-                {FOOTER_NAV_LINKS.map((link) => (
-                  <li key={link.index} className="footer-link-item">
-                    <a
-                      href={link.href}
-                      className="footer-link font-mono"
-                      onClick={(e) => handleAnchorClick(e, link.href)}
-                    >
-                      <span className="footer-link-idx">{link.index}.</span>
-                      <span>{link.label}</span>
-                      <span className="footer-link-arrow" aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Col 2: Adventure Log Journal Block */}
+          <div className="footer-journal-col">
+            <div className="footer-journal-header font-mono">
+              <span>[ PUBLICATION ]</span>
             </div>
+            <div className="footer-brand-title font-display">
+              ADVENTURE LOG<span className="footer-brand-dot">.</span>
+            </div>
+            <p className="footer-brand-tagline font-serif">
+              {FOOTER_COLOPHON.tagline}
+            </p>
+          </div>
 
-            {/* Col 2: Colophon Credits */}
-            <div className="footer-col">
-              <div className="footer-col-header font-mono">
-                <span>[ 02 // COLOPHON ]</span>
-              </div>
-              <div className="footer-colophon-body font-mono">
-                <div className="footer-colophon-meta">
-                  <div>TYPOGRAPHY: {FOOTER_COLOPHON.typography}</div>
-                  <div>SYSTEM: {FOOTER_COLOPHON.stack}</div>
-                  <div>ARCHIVE: {FOOTER_COLOPHON.edition}</div>
-                </div>
+          {/* Col 3: Index */}
+          <div className="footer-col">
+            <div className="footer-col-header font-mono">
+              <span>[ 01 // INDEX ]</span>
+            </div>
+            <ul className="footer-links-list" role="list">
+              {FOOTER_NAV_LINKS.map((link) => (
+                <li key={link.index} className="footer-link-item">
+                  <a
+                    href={link.href}
+                    className="footer-link font-mono"
+                    onClick={(e) => handleAnchorClick(e, link.href)}
+                  >
+                    <span className="footer-link-idx">{link.index}.</span>
+                    <span>{link.label}</span>
+                    <span className="footer-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 4: Colophon Credits */}
+          <div className="footer-col">
+            <div className="footer-col-header font-mono">
+              <span>[ 02 // COLOPHON ]</span>
+            </div>
+            <div className="footer-colophon-body font-mono">
+              <div className="footer-colophon-meta">
+                <div>TYPOGRAPHY: {FOOTER_COLOPHON.typography}</div>
+                <div>SYSTEM: {FOOTER_COLOPHON.stack}</div>
+                <div>ARCHIVE: {FOOTER_COLOPHON.edition}</div>
               </div>
             </div>
           </div>
