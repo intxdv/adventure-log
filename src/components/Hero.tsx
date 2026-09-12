@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import gsap from 'gsap';
 import { useWibTime } from '../hooks/useWibTime';
 import './Hero.css';
 
@@ -10,62 +11,62 @@ interface FontConfig {
   letterSpacing?: string;
 }
 
-// 8 Variasi Font & Casing terkalibrasi secara optik agar ukuran tinggi & lebarnya seimbang
+// 8 Variasi Font & Casing terkalibrasi secara optik dengan skala berwibawa & megah
 const FONT_SEQUENCE: FontConfig[] = [
   {
     text: 'Adventure Log.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.4rem, 5vw, 4.3rem)',
+    fontSize: 'clamp(3.4rem, 6.8vw, 5.8rem)',
     letterSpacing: '0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.1rem, 4.3vw, 3.8rem)',
+    fontSize: 'clamp(3.1rem, 6.2vw, 5.2rem)',
     letterSpacing: '-0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Daydream',
     fontWeight: 400,
-    fontSize: 'clamp(1.6rem, 3.2vw, 2.7rem)',
+    fontSize: 'clamp(2.3rem, 4.6vw, 3.8rem)',
     letterSpacing: '0.04em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.1rem, 4.2vw, 3.7rem)',
+    fontSize: 'clamp(3.1rem, 6.2vw, 5.2rem)',
     letterSpacing: '0.03em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Printvetica',
     fontWeight: 400,
-    fontSize: 'clamp(2.2rem, 4.5vw, 3.9rem)',
+    fontSize: 'clamp(3.3rem, 6.5vw, 5.4rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 400,
-    fontSize: 'clamp(1.9rem, 3.8vw, 3.3rem)',
+    fontSize: 'clamp(2.8rem, 5.6vw, 4.6rem)',
     letterSpacing: '0.02em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.4rem, 5vw, 4.3rem)',
+    fontSize: 'clamp(3.4rem, 6.8vw, 5.8rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 700,
-    fontSize: 'clamp(1.8rem, 3.6vw, 3.1rem)',
+    fontSize: 'clamp(2.7rem, 5.4vw, 4.4rem)',
     letterSpacing: '0.04em',
   },
 ];
@@ -101,6 +102,24 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     }, 1200); // Tunggu 1.2 detik dengan tenang agar visitor menyerap tampilan awal
 
     return () => clearTimeout(startupTimer);
+  }, [isAppLoaded]);
+
+  // Animasi Stagger untuk Keterangan Bio Editorial di Hero
+  useEffect(() => {
+    if (!isAppLoaded) return;
+
+    gsap.fromTo(
+      '.hero-bio-phrase',
+      { opacity: 0, y: 16 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.09,
+        duration: 0.7,
+        ease: 'power2.out',
+        delay: 0.5,
+      }
+    );
   }, [isAppLoaded]);
 
   // Animasi 1: Typewriter & Multi-Font Morphing Loop
@@ -157,10 +176,12 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           />
         </a>
 
-        {/* Center Tactical Telemetry Coordinate / Datum */}
+        {/* Center Tactical Motto / Datum */}
         <div className="hero-top-datum font-mono" aria-hidden="true">
           <span className="hero-datum-cross">+</span>
-          <span className="hero-datum-text">COORD. 7.05°S 110.44°E // BASECAMP DATUM</span>
+          <span className="hero-top-motto font-serif">
+            The Wandering <em>Selv.</em>
+          </span>
           <span className="hero-datum-cross">+</span>
         </div>
 
@@ -199,10 +220,13 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           </div>
 
           <p className="hero-bio-paragraph font-serif">
-            A digital field journal by <strong>Selvagant (Taki)</strong> —{' '}
-            <strong>Creative Developer & Mobile Architect</strong> based in Central Java.
-            Bridging analytical software engineering with tactile digital systems and organic
-            exploration.
+            <span className="hero-bio-phrase">A digital field journal by </span>{' '}
+            <span className="hero-bio-phrase"><strong>Selvagant (Taki)</strong> — </span>{' '}
+            <span className="hero-bio-phrase"><strong>Creative Developer & Mobile Architect</strong> </span>{' '}
+            <span className="hero-bio-phrase">based in Central Java. </span>{' '}
+            <span className="hero-bio-phrase">Bridging analytical software engineering </span>{' '}
+            <span className="hero-bio-phrase">with tactile digital systems </span>{' '}
+            <span className="hero-bio-phrase">and organic exploration.</span>
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-﻿import { useEffect } from 'react';
+import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,11 +12,11 @@ export const useMotionEngine = () => {
       // ======================================================================
       // 1. HERO PINNING & CENTER SOLID CIRCLE PORTAL TO ABOUT
       // ======================================================================
-      const heroSection = document.getElementById('hero');
+      const stageWrapper = document.getElementById('hero-stage-wrapper') || document.getElementById('hero');
       const aboutSection = document.getElementById('about');
       const notchHeader = document.getElementById('top-notch-header');
 
-      if (heroSection && !prefersReducedMotion) {
+      if (stageWrapper && !prefersReducedMotion) {
         // Create solid nocturnal expanding circle anchored at EXACT center of viewport
         let centerPortal = document.getElementById('hero-center-portal');
         if (!centerPortal) {
@@ -41,16 +41,14 @@ export const useMotionEngine = () => {
 
         const heroTimeline = gsap.timeline({
           scrollTrigger: {
-            trigger: heroSection,
+            trigger: stageWrapper,
             start: 'top top',
-            end: '+=140%',
-            pin: true,
-            scrub: 0.8,
-            anticipatePin: 1,
+            end: 'bottom top',
+            scrub: 0.6,
             onUpdate: (self) => {
               // Coordinate Notch Dock appearance
               if (notchHeader) {
-                if (self.progress > 0.7) {
+                if (self.progress > 0.8) {
                   notchHeader.classList.add('is-visible');
                   notchHeader.classList.remove('is-hidden');
                 } else if (self.progress < 0.25) {
@@ -61,7 +59,7 @@ export const useMotionEngine = () => {
 
               // Pre-trigger nocturnal mode on About section as portal envelops screen
               if (aboutSection) {
-                if (self.progress > 0.5) {
+                if (self.progress > 0.45) {
                   aboutSection.classList.add('is-nocturne');
                 }
               }
@@ -70,12 +68,13 @@ export const useMotionEngine = () => {
         });
 
         // Step 1: Lingkaran solid nocturnal (#121512) muncul dari tengah layar dan membesar
+        // Hingga progress 0.65, membesar hingga menutupi seluruh layar kanvas
         heroTimeline.to(
           centerPortal,
           {
             opacity: 1,
-            scale: 220,
-            duration: 0.6,
+            scale: 260,
+            duration: 0.65,
             ease: 'power2.in',
           },
           0
@@ -92,15 +91,16 @@ export const useMotionEngine = () => {
           0.1
         );
 
-        // Step 3: Ketika layar telah tertutup penuh, tirai memudar halus untuk menampilkan Section About
+        // Step 3: Di progress 0.85-1.0 (ketika Section About sudah tiba persis di top: 0),
+        // tirai memudar halus mengungkap Section About yang sudah penuh duduk di atas layar!
         heroTimeline.to(
           centerPortal,
           {
             opacity: 0,
-            duration: 0.3,
+            duration: 0.15,
             ease: 'power1.out',
           },
-          0.7
+          0.85
         );
       }
 

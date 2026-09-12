@@ -27,7 +27,9 @@ export const App: React.FC = () => {
       {/* Main Structural Content */}
       <Header />
       <main id="main-content">
-        <Hero isAppLoaded={isAppLoaded} />
+        <div id="hero-stage-wrapper" className="hero-stage-wrapper">
+          <Hero isAppLoaded={isAppLoaded} />
+        </div>
         <About />
         <SelectedExpeditions />
         <FieldArsenal />
