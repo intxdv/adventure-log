@@ -30,9 +30,19 @@ export interface Expedition {
   dossier: ExpeditionDossier;
 }
 
+export interface ArsenalSkill {
+  name: string;
+  spec?: string;
+  highlight?: boolean;
+}
+
 export interface ArsenalPillar {
   id: string;
+  pillarIndex: string;
+  code: string;
   title: string;
   tagline: string;
-  skills: string[];
+  description: string;
+  skills: ArsenalSkill[];
+  tools: string[];
 }

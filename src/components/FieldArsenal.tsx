@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { initialArsenal } from '../data/arsenal';
 
 export const FieldArsenal: React.FC = () => {
@@ -92,7 +92,7 @@ export const FieldArsenal: React.FC = () => {
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
                   {pillar.skills.map((skill) => (
                     <li
-                      key={skill}
+                      key={skill.name}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -108,7 +108,7 @@ export const FieldArsenal: React.FC = () => {
                         ▸
                       </span>
                       <span className="font-mono" style={{ fontSize: 'var(--text-xs)' }}>
-                        {skill}
+                        {skill.name}
                       </span>
                     </li>
                   ))}
