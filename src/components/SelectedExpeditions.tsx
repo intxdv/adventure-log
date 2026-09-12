@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { initialExpeditions } from '../data/expeditions';
 import type { Expedition, ExpeditionCategory } from '../types';
 import './SelectedExpeditions.css';
@@ -19,6 +19,28 @@ const FILTER_OPTIONS: FilterOption[] = [
 export const SelectedExpeditions: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<ExpeditionCategory>('all');
   const [isArchiveExpanded, setIsArchiveExpanded] = useState<boolean>(false);
+  const [activeDossier, setActiveDossier] = useState<Expedition | null>(null);
+
+  // Close modal on Escape key and lock body scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveDossier(null);
+      }
+    };
+
+    if (activeDossier) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeDossier]);
 
   // Compute counts for each category
   const counts = useMemo(() => {
@@ -99,7 +121,11 @@ export const SelectedExpeditions: React.FC = () => {
         {/* Expeditions Grid / Cards */}
         <div className="expeditions-grid" role="region" aria-label="Field Log Cards">
           {displayedExpeditions.map((exp) => (
-            <ExpeditionCard key={exp.id} expedition={exp} />
+            <ExpeditionCard
+              key={exp.id}
+              expedition={exp}
+              onOpenDossier={(target) => setActiveDossier(target)}
+            />
           ))}
         </div>
 
@@ -125,6 +151,14 @@ export const SelectedExpeditions: React.FC = () => {
         )}
 
       </div>
+
+      {/* Tactile Field Dossier Pop-Up Modal */}
+      {activeDossier && (
+        <ExpeditionDossierModal
+          expedition={activeDossier}
+          onClose={() => setActiveDossier(null)}
+        />
+      )}
     </section>
   );
 };
@@ -132,11 +166,24 @@ export const SelectedExpeditions: React.FC = () => {
 // Modular, Type-Safe Expedition Card Component
 interface ExpeditionCardProps {
   expedition: Expedition;
+  onOpenDossier: (expedition: Expedition) => void;
 }
 
-const ExpeditionCard: React.FC<ExpeditionCardProps> = ({ expedition }) => {
+const ExpeditionCard: React.FC<ExpeditionCardProps> = ({ expedition, onOpenDossier }) => {
   return (
-    <article className="expedition-card hairline-box" aria-label={`Project: ${expedition.title}`}>
+    <article
+      className="expedition-card hairline-box"
+      aria-label={`Project: ${expedition.title}. Click to view full dossier.`}
+      onClick={() => onOpenDossier(expedition)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onOpenDossier(expedition);
+        }
+      }}
+    >
       <div>
         {/* Card Header Metadata */}
         <div className="exp-card-header font-mono">
@@ -207,16 +254,31 @@ const ExpeditionCard: React.FC<ExpeditionCardProps> = ({ expedition }) => {
         </div>
 
         <div className="exp-card-actions font-mono">
+          <button
+            type="button"
+            className="exp-card-dossier-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenDossier(expedition);
+            }}
+            title={`Open Apple Dev Academy portfolio dossier for ${expedition.title}`}
+          >
+            <span>VIEW DOSSIER</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+
           <a
             href={expedition.repoUrl || expedition.link || '#'}
             target="_blank"
             rel="noopener noreferrer"
             className="exp-card-link"
+            onClick={(e) => e.stopPropagation()}
             title={`Inspect repository for ${expedition.title}`}
           >
-            <span>INSPECT REPO</span>
+            <span>REPO</span>
             <span aria-hidden="true">↗</span>
           </a>
+
           {expedition.period && (
             <span className="exp-card-period">{expedition.period}</span>
           )}
@@ -225,4 +287,174 @@ const ExpeditionCard: React.FC<ExpeditionCardProps> = ({ expedition }) => {
     </article>
   );
 };
+
+// Tactile Field Dossier Pop-Up Modal (Apple Developer Academy Portfolio Specification)
+interface ExpeditionDossierModalProps {
+  expedition: Expedition;
+  onClose: () => void;
+}
+
+const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedition, onClose }) => {
+  return (
+    <div
+      className="dossier-modal-backdrop"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dossier-modal-title"
+    >
+      <div className="dossier-modal-container hairline-box">
+        {/* Modal Top Bar */}
+        <div className="dossier-modal-top font-mono">
+          <div className="dossier-modal-header-meta">
+            <span className="dossier-index-badge">{expedition.indexNumber}</span>
+            <span className="dossier-meta-sep">//</span>
+            <span className="dossier-meta-tag">{expedition.categoryLabel}</span>
+          </div>
+          <button
+            onClick={onClose}
+            className="dossier-close-btn font-mono"
+            aria-label="Close dossier modal"
+            title="Close dossier (Esc)"
+          >
+            <span>CLOSE [ESC]</span>
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+
+        {/* Modal Scrollable Content */}
+        <div className="dossier-modal-body">
+          {/* Title & Tagline */}
+          <div className="dossier-title-block">
+            <h3 id="dossier-modal-title" className="dossier-title font-display">
+              {expedition.title}
+            </h3>
+            <p className="dossier-tagline">“{expedition.tagline}”</p>
+          </div>
+
+          {/* Classification & Ownership Matrix (Apple Developer Academy Criteria) */}
+          <div className="dossier-meta-grid font-mono">
+            <div className="dossier-meta-cell">
+              <span className="dossier-label">PROJECT NATURE</span>
+              <span className="dossier-nature-badge">{expedition.dossier.nature.toUpperCase()}</span>
+            </div>
+
+            <div className="dossier-meta-cell">
+              <span className="dossier-label">TEAM STRUCTURE</span>
+              <span
+                className={`dossier-team-badge ${
+                  expedition.dossier.isGroupProject ? 'is-group' : 'is-individual'
+                }`}
+              >
+                {expedition.dossier.isGroupProject ? 'GROUP PROJECT' : 'INDIVIDUAL PROJECT'}
+              </span>
+            </div>
+
+            <div className="dossier-meta-cell">
+              <span className="dossier-label">ROLE IN PROJECT</span>
+              <span className="dossier-role-value">
+                {expedition.dossier.groupRole || expedition.role}
+              </span>
+            </div>
+
+            <div className="dossier-meta-cell">
+              <span className="dossier-label">TIMELINE</span>
+              <span className="dossier-timeline-value">
+                {expedition.period || expedition.year}
+              </span>
+            </div>
+          </div>
+
+          {/* Section 1: Executive Summary (1-2 sentences in English) */}
+          <div className="dossier-section">
+            <h4 className="dossier-section-title font-mono">
+              <span className="dossier-sec-num">[01]</span> PROJECT SUMMARY
+            </h4>
+            <p className="dossier-narrative-summary font-serif">
+              {expedition.dossier.englishSummary}
+            </p>
+          </div>
+
+          {/* Section 2: Demonstrated Impact & Value Delivered */}
+          <div className="dossier-section">
+            <h4 className="dossier-section-title font-mono">
+              <span className="dossier-sec-num">[02]</span> KEY IMPACT & VALUE DELIVERED
+            </h4>
+            <ul className="dossier-bullet-list">
+              {expedition.dossier.impact.map((item, idx) => (
+                <li key={idx} className="dossier-bullet-item">
+                  <span className="dossier-bullet-marker font-mono" aria-hidden="true">◆</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Section 3: Lessons Learned & Architectural Mastery */}
+          <div className="dossier-section">
+            <h4 className="dossier-section-title font-mono">
+              <span className="dossier-sec-num">[03]</span> LESSONS LEARNED & ARCHITECTURAL INSIGHTS
+            </h4>
+            <ul className="dossier-bullet-list">
+              {expedition.dossier.learnings.map((item, idx) => (
+                <li key={idx} className="dossier-bullet-item">
+                  <span className="dossier-bullet-marker font-mono" aria-hidden="true">→</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Section 4: System Stack & Telemetry */}
+          <div className="dossier-section">
+            <h4 className="dossier-section-title font-mono">
+              <span className="dossier-sec-num">[04]</span> TECHNICAL ARSENAL & TELEMETRY
+            </h4>
+            <div className="dossier-stack-tags font-mono">
+              {expedition.stack.map((tech) => (
+                <span key={tech} className="dossier-stack-tag">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Bottom Actions */}
+        <div className="dossier-modal-footer font-mono">
+          <div className="dossier-footer-links">
+            {expedition.repoUrl && (
+              <a
+                href={expedition.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="dossier-action-btn primary"
+              >
+                <span>OPEN REPOSITORY</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            {expedition.link && expedition.link !== expedition.repoUrl && (
+              <a
+                href={expedition.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="dossier-action-btn secondary"
+              >
+                <span>LIVE DEMO</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+          <button onClick={onClose} className="dossier-action-btn secondary">
+            <span>CLOSE SPEC SHEET</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 

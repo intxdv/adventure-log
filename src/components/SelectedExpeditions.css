@@ -117,6 +117,7 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  cursor: pointer;
   box-shadow: 0 4px 16px rgba(24, 26, 24, 0.03);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
@@ -127,6 +128,11 @@
   transform: translateY(-3px);
   border-color: var(--color-olive);
   box-shadow: 0 12px 30px -6px rgba(24, 26, 24, 0.08), 0 2px 8px rgba(24, 26, 24, 0.04);
+}
+
+.expedition-card:focus-visible {
+  outline: 2px solid var(--color-olive);
+  outline-offset: 2px;
 }
 
 /* Card Header */
@@ -286,13 +292,37 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 4px;
+  gap: 12px;
 }
 
-.exp-card-link {
-  font-size: 0.72rem;
+.exp-card-dossier-btn {
+  background: transparent;
+  border: 1px solid var(--hairline-base);
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--color-ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.exp-card-dossier-btn:hover {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+  border-color: var(--color-ink);
+}
+
+.exp-card-link {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -308,6 +338,7 @@
 .exp-card-period {
   font-size: 0.68rem;
   color: var(--color-ink-faint);
+  margin-left: auto;
 }
 
 /* Archive Expander Dock (Option B Bottom Bar) */
@@ -350,3 +381,349 @@
 .expeditions-expand-btn.is-expanded .expand-icon {
   transform: rotate(180deg);
 }
+
+/* ==========================================================================
+   Field Dossier Pop-Up Modal (Apple Developer Academy Portfolio Spec)
+   ========================================================================== */
+
+.dossier-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(18, 20, 18, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  animation: modalBackdropFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dossier-modal-container {
+  background-color: #FFFFFF;
+  border: 1px solid var(--hairline-base);
+  width: 100%;
+  max-width: 780px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  box-shadow: 0 24px 60px -12px rgba(24, 26, 24, 0.25), 0 8px 24px -4px rgba(24, 26, 24, 0.12);
+  position: relative;
+  overflow: hidden;
+  animation: modalContentScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Modal Top Bar */
+.dossier-modal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--hairline-base);
+  background-color: var(--color-canvas);
+  flex-shrink: 0;
+}
+
+.dossier-modal-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+}
+
+.dossier-index-badge {
+  font-weight: 700;
+  color: var(--color-olive);
+  letter-spacing: 0.06em;
+}
+
+.dossier-meta-sep {
+  color: var(--color-ink-faint);
+}
+
+.dossier-meta-tag {
+  color: var(--color-ink-muted);
+  letter-spacing: 0.04em;
+}
+
+.dossier-close-btn {
+  background: transparent;
+  border: 1px solid var(--hairline-base);
+  padding: 5px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.dossier-close-btn:hover {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+  background-color: #FFFFFF;
+}
+
+/* Modal Scrollable Body */
+.dossier-modal-body {
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Title & Tagline */
+.dossier-title-block {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--hairline-subtle);
+}
+
+.dossier-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin: 0 0 6px 0;
+}
+
+.dossier-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-ink-muted);
+  margin: 0;
+}
+
+/* Metadata & Ownership Grid (Apple Developer Academy Format) */
+.dossier-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px 18px;
+  margin-bottom: var(--space-xl);
+  background-color: var(--color-canvas);
+  border: 1px solid var(--hairline-base);
+  border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+  .dossier-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.dossier-meta-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dossier-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-faint);
+  font-weight: 600;
+}
+
+.dossier-nature-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.04em;
+}
+
+.dossier-team-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 2px;
+  width: fit-content;
+}
+
+.dossier-team-badge.is-group {
+  background-color: rgba(74, 88, 68, 0.12);
+  color: var(--color-olive);
+  border: 1px solid rgba(74, 88, 68, 0.28);
+}
+
+.dossier-team-badge.is-individual {
+  background-color: rgba(138, 140, 134, 0.12);
+  color: var(--color-ink);
+  border: 1px solid var(--hairline-base);
+}
+
+.dossier-role-value,
+.dossier-timeline-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* Dossier Content Sections */
+.dossier-section {
+  margin-bottom: var(--space-xl);
+}
+
+.dossier-section:last-child {
+  margin-bottom: 0;
+}
+
+.dossier-section-title {
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-muted);
+  margin: 0 0 var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--hairline-subtle);
+}
+
+.dossier-sec-num {
+  color: var(--color-olive);
+}
+
+.dossier-narrative-summary {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.dossier-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dossier-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--color-ink);
+}
+
+.dossier-bullet-marker {
+  color: var(--color-olive);
+  font-size: 0.7rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.dossier-stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dossier-stack-tag {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--hairline-base);
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  color: var(--color-ink-muted);
+  border-radius: 2px;
+  letter-spacing: 0.02em;
+}
+
+/* Modal Bottom Actions */
+.dossier-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-top: 1px solid var(--hairline-base);
+  background-color: var(--color-canvas);
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 540px) {
+  .dossier-modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.dossier-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dossier-action-btn {
+  padding: 8px 16px;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dossier-action-btn.primary {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+  border: 1px solid var(--color-ink);
+}
+
+.dossier-action-btn.primary:hover {
+  background-color: var(--color-olive);
+  border-color: var(--color-olive);
+}
+
+.dossier-action-btn.secondary {
+  background-color: #FFFFFF;
+  color: var(--color-ink);
+  border: 1px solid var(--hairline-base);
+}
+
+.dossier-action-btn.secondary:hover {
+  border-color: var(--color-ink);
+}
+
+/* Modal Animations */
+@keyframes modalBackdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalContentScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
