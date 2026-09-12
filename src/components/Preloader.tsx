@@ -8,6 +8,7 @@ interface PreloaderProps {
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const isAssetsReady = useAssetReadiness();
   const [progress, setProgress] = useState(0);
+  const [isRevealing, setIsRevealing] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
   // Force viewport to top on initial mount & disable browser scrollRestoration caching
@@ -43,14 +44,30 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
     let animationFrameId: number;
     let startTime: number | null = null;
-    const targetDuration = 1350; // Max 1.35 seconds
+    let pauseTimer: ReturnType<typeof setTimeout> | null = null;
+    let dismissTimer: ReturnType<typeof setTimeout> | null = null;
+    const targetDuration = 1200; // 1.2 seconds for counter
+
+    const triggerRevealSequence = () => {
+      setProgress(100);
+      // Pacing pause: allow user to register 100% calibration for 400ms
+      pauseTimer = setTimeout(() => {
+        setIsRevealing(true);
+        // Slower, cinematic curtain reveal (850ms)
+        dismissTimer = setTimeout(() => {
+          setIsDismissed(true);
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+          onComplete?.();
+        }, 850);
+      }, 420);
+    };
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const linearRatio = Math.min(elapsed / targetDuration, 1);
 
-      // Nonlinear calibration curve (accelerate -> tactile check -> snap to 100%)
+      // Nonlinear calibration curve
       let calculatedProgress: number;
       if (linearRatio < 0.6) {
         calculatedProgress = Math.floor((linearRatio / 0.6) * 68);
@@ -69,30 +86,22 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       if (linearRatio < 1 && calculatedProgress < 100) {
         animationFrameId = requestAnimationFrame(animate);
       } else {
-        setProgress(100);
-        setTimeout(() => {
-          setIsDismissed(true);
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
-          onComplete?.();
-        }, 340);
+        triggerRevealSequence();
       }
     };
 
     animationFrameId = requestAnimationFrame(animate);
 
-    // Emergency fallback safety timer: guarantee dismissal within 1.8 seconds max
+    // Emergency fallback safety timer
     const fallbackTimer = setTimeout(() => {
-      setProgress(100);
-      setTimeout(() => {
-        setIsDismissed(true);
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
-        onComplete?.();
-      }, 200);
-    }, 1800);
+      triggerRevealSequence();
+    }, 2200);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       clearTimeout(fallbackTimer);
+      if (pauseTimer) clearTimeout(pauseTimer);
+      if (dismissTimer) clearTimeout(dismissTimer);
     };
   }, [isAssetsReady, isDismissed, onComplete]);
 
@@ -111,10 +120,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 'clamp(1.5rem, 5vw, 3.5rem)',
-        transition: 'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)',
-        opacity: progress === 100 ? 0 : 1,
-        transform: progress === 100 ? 'translateY(-18px) scale(0.99)' : 'translateY(0) scale(1)',
-        pointerEvents: progress === 100 ? 'none' : 'all',
+        transition: 'opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
+        opacity: isRevealing ? 0 : 1,
+        transform: isRevealing ? 'translateY(-24px) scale(0.985)' : 'translateY(0) scale(1)',
+        pointerEvents: isRevealing ? 'none' : 'all',
       }}
     >
       {/* Top Telemetry Header */}
