@@ -26,8 +26,8 @@ export const Hero: React.FC = () => {
       id="hero"
       className="hairline-b"
       style={{
-        paddingTop: 'var(--space-4xl)',
-        paddingBottom: 'var(--space-4xl)',
+        paddingTop: 'clamp(3rem, 7vw, 6rem)',
+        paddingBottom: 'clamp(3rem, 7vw, 6rem)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -75,44 +75,113 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Hero Main Wordmark & Notch Morph Source */}
-        <div style={{ textAlign: 'center', margin: 'var(--space-xl) 0 var(--space-2xl)' }}>
-          <span
-            className="tag-badge"
-            style={{ marginBottom: 'var(--space-md)' }}
+        {/* Hero Main Wordmark & Editorial Centerpiece */}
+        <div style={{ textAlign: 'center', margin: 'var(--space-2xl) auto var(--space-3xl)', maxWidth: '960px' }}>
+          {/* Moniker & Positioning Pill */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              gap: 'var(--space-sm)',
+              marginBottom: 'var(--space-lg)',
+            }}
           >
-            SELVAGANT // CREATIVE DEVELOPER & MOBILE ARCHITECT
-          </span>
+            <span className="tag-badge">
+              DISPATCH // 2026
+            </span>
+            <span
+              className="tag-badge"
+              style={{
+                borderColor: 'var(--color-olive)',
+                color: 'var(--color-olive)',
+                backgroundColor: 'rgba(74, 88, 68, 0.06)',
+              }}
+            >
+              SELV<span style={{ fontWeight: 400, letterSpacing: '0.04em' }}>AGANT</span>
+            </span>
+            <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)' }}>
+              THE WANDERING <em>SELV</em>
+            </span>
+          </div>
+
+          {/* Grand Editorial Display Title */}
           <h1
             id="hero-title"
             style={{
-              fontSize: 'var(--text-4xl)',
+              fontSize: 'clamp(3.2rem, 8.5vw, 6.4rem)',
               fontWeight: 800,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.05,
-              marginBottom: 'var(--space-md)',
+              letterSpacing: '-0.035em',
+              lineHeight: 0.98,
+              marginBottom: 'var(--space-lg)',
+              color: 'var(--color-ink)',
             }}
           >
-            Adventure Log.
+            Adventure Log<span style={{ color: 'var(--color-olive)' }}>.</span>
           </h1>
+
+          {/* Role Positioning & Manifesto Excerpt */}
           <p
             style={{
-              fontSize: 'var(--text-lg)',
-              maxWidth: '680px',
-              margin: '0 auto',
+              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+              lineHeight: 1.6,
+              maxWidth: '660px',
+              margin: '0 auto var(--space-xl)',
               color: 'var(--color-ink-muted)',
+              fontFamily: 'var(--font-sans)',
             }}
           >
-            A digital field journal by Selvagant (Taki) — Creative Developer & Mobile Architect.
-            Crafting tactile digital systems, robust mobile architectures, and immersive web experiences.
+            A digital field journal by Syafiq Abiyyu Taqi — <strong>Creative Developer & Mobile Architect</strong> based in Central Java.
+            Bridging analytical software engineering with tactile digital systems and organic exploration.
           </p>
+
+          {/* Field Waypoint Jump Links */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 'var(--space-md)',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+          >
+            <a
+              href="#expeditions"
+              className="tag-badge"
+              style={{
+                padding: '8px 16px',
+                fontSize: 'var(--text-xs)',
+                fontWeight: 600,
+                color: 'var(--color-ink)',
+                borderColor: 'var(--color-ink)',
+                backgroundColor: 'var(--color-canvas)',
+                textDecoration: 'none',
+              }}
+            >
+              [ 01. EXPEDITIONS ↓ ]
+            </a>
+            <a
+              href="#about"
+              className="tag-badge"
+              style={{
+                padding: '8px 16px',
+                fontSize: 'var(--text-xs)',
+                color: 'var(--color-ink-muted)',
+                backgroundColor: 'transparent',
+                textDecoration: 'none',
+              }}
+            >
+              [ 02. DOSSIER & MANIFESTO ]
+            </a>
+          </div>
         </div>
 
-        {/* Tactical Coordinates Grid */}
+        {/* Tactical Coordinates Grid from Dossier */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
             gap: 'var(--space-md)',
             marginTop: 'var(--space-3xl)',
             paddingTop: 'var(--space-lg)',
@@ -121,37 +190,37 @@ export const Hero: React.FC = () => {
         >
           <div className="hairline-box" style={{ padding: 'var(--space-md)', background: 'var(--color-canvas-subtle)' }}>
             <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-              COORD. 01
+              COORD. 01 // MOBILE ARCHITECTURE
             </span>
             <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', marginTop: '4px' }}>
-              Creative Web & Shaders
+              Mobile Engineer @ UPPTI Undip
             </div>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px' }}>
-              Canvas 2D, Three.js, WebGL
+            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px', lineHeight: 1.5 }}>
+              Flutter, Native Android (Kotlin), Clean Architecture, offline-first client sync.
             </p>
           </div>
 
           <div className="hairline-box" style={{ padding: 'var(--space-md)', background: 'var(--color-canvas-subtle)' }}>
             <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-              COORD. 02
+              COORD. 02 // CREATIVE WEB CRAFT
             </span>
             <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', marginTop: '4px' }}>
-              Mobile Architecture
+              Tactile Systems & Shaders
             </div>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px' }}>
-              Flutter, Native Bridges, Offline Sync
+            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px', lineHeight: 1.5 }}>
+              TypeScript, React 18, Canvas 2D telemetry, responsive editorial typography design tokens.
             </p>
           </div>
 
           <div className="hairline-box" style={{ padding: 'var(--space-md)', background: 'var(--color-canvas-subtle)' }}>
             <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)' }}>
-              COORD. 03
+              COORD. 03 // LEADERSHIP & PEOPLE
             </span>
             <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', marginTop: '4px' }}>
-              Editorial Design Systems
+              Mas'ul DIGIT & MADANI · PSDM HMIF
             </div>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px' }}>
-              Design Tokens, WCAG AA, Typography
+            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', marginTop: '2px', lineHeight: 1.5 }}>
+              Strategic organization direction, student human capital development & laboratory mentoring.
             </p>
           </div>
         </div>
