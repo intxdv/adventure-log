@@ -265,58 +265,99 @@
   text-align: right;
 }
 
-/* Moniker Origin Aside */
-.about-moniker {
-  padding: var(--space-md) var(--space-lg);
-  background-color: var(--color-olive-tint);
-  border: 1px solid var(--color-olive-border);
-  position: relative;
-  margin-top: var(--space-xs);
+/* --------------------------------------------------------------------------
+   Interactive SELVAGANT Display Dock (Left Column Below Card)
+   -------------------------------------------------------------------------- */
+.selvagant-reveal-dock {
+  background-color: #FFFFFF;
+  border: 1px solid var(--hairline-base);
+  padding: clamp(0.75rem, 1.5vw, 1rem) clamp(0.875rem, 1.75vw, 1.25rem);
+  box-shadow: 0 4px 16px -2px rgba(24, 26, 24, 0.04);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
-.about-moniker-title {
+.selvagant-reveal-dock:hover,
+.selvagant-reveal-dock:focus-visible,
+.selvagant-reveal-dock:focus-within {
+  border-color: var(--color-olive-border);
+  box-shadow: 0 8px 24px -4px rgba(74, 88, 68, 0.12);
+  background-color: var(--color-canvas-subtle);
+}
+
+.selvagant-trigger-row {
   display: flex;
+  justifyContent: space-between;
   align-items: baseline;
-  gap: var(--space-sm);
   flex-wrap: wrap;
+  gap: 8px;
 }
 
-.about-moniker-word {
+.selvagant-hero-word {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
-  letter-spacing: -0.02em;
+  font-size: clamp(1.75rem, 3.25vw, 2.35rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
   color: var(--color-ink);
 }
 
-.about-moniker-selv {
+.selvagant-selv-accent {
   font-style: italic;
-  font-weight: 800;
   color: var(--color-olive);
-  border-bottom: 2px solid var(--color-olive);
-  padding-bottom: 1px;
   margin-right: 1px;
 }
 
-.about-moniker-rest {
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: var(--color-ink);
-}
-
-.about-moniker-selv-accent {
-  font-style: italic;
-  font-weight: 700;
+.selvagant-cue-tag {
+  font-size: 0.65rem;
   color: var(--color-olive);
+  letter-spacing: 0.05em;
+  transition: transform 0.25s ease, color 0.25s ease;
 }
 
-.about-moniker-subtitle {
-  font-size: var(--text-sm);
-  color: var(--color-ink-muted);
+.selvagant-reveal-dock:hover .selvagant-cue-tag,
+.selvagant-reveal-dock:focus-within .selvagant-cue-tag {
+  color: var(--color-ink);
+  transform: translateY(2px);
 }
 
-.about-moniker-desc {
-  font-size: var(--text-xs);
-  color: var(--color-ink-muted);
+/* Revealed Meaning Drawer on Hover/Focus */
+.selvagant-drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  transition: grid-template-rows 0.4s var(--ease-out-expo), opacity 0.3s ease;
+}
+
+.selvagant-reveal-dock:hover .selvagant-drawer,
+.selvagant-reveal-dock:focus-within .selvagant-drawer {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.selvagant-drawer-inner {
+  min-height: 0;
+  padding-top: var(--space-sm);
   margin-top: 8px;
-  line-height: 1.65;
+  border-top: 1px solid var(--hairline-subtle);
+}
+
+.selvagant-drawer-header {
+  display: flex;
+  justifyContent: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--color-olive);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.selvagant-drawer-body {
+  font-size: 0.725rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  margin: 0;
 }

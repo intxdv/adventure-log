@@ -45,6 +45,36 @@ export const About: React.FC = () => {
               </div>
             </figcaption>
           </figure>
+
+          {/* Interactive SELVAGANT Display Dock with Hover Meaning Disclosure */}
+          <div
+            className="selvagant-reveal-dock hairline-box"
+            tabIndex={0}
+            role="region"
+            aria-label="Selvagant Moniker Etymology & Meaning"
+          >
+            <div className="selvagant-trigger-row">
+              <div className="selvagant-hero-word font-display">
+                <span className="selvagant-selv-accent">SELV</span>AGANT
+              </div>
+              <span className="selvagant-cue-tag font-mono">
+                [ HOVER FOR MEANING ↘ ]
+              </span>
+            </div>
+
+            {/* Revealed Meaning Drawer */}
+            <div className="selvagant-drawer">
+              <div className="selvagant-drawer-inner">
+                <div className="selvagant-drawer-header font-mono">
+                  <span>THE WANDERING SELV</span>
+                  <span style={{ color: 'var(--color-ink-faint)' }}>// ETYMOLOGY</span>
+                </div>
+                <p className="selvagant-drawer-body font-mono">
+                  Rooted in <strong>Solivagant</strong> (one who wanders alone) and <strong>Selva</strong> (the untamed forest) + Self-determination. An ongoing exploration of software systems, mobile architectures, and digital craft as conscious self-discovery.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Editorial Storytelling & Manifesto */}
