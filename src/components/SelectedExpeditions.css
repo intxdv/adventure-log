@@ -146,40 +146,10 @@
   letter-spacing: 0.06em;
 }
 
-.exp-card-status-badge {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  padding: 2px 8px;
-  border-radius: 2px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.exp-card-status-badge.status-deployed {
-  background-color: rgba(74, 88, 68, 0.1);
-  color: var(--color-olive);
-  border: 1px solid rgba(74, 88, 68, 0.25);
-}
-
-.exp-card-status-badge.status-active {
-  background-color: rgba(184, 134, 11, 0.1);
-  color: #8C6D05;
-  border: 1px solid rgba(184, 134, 11, 0.25);
-}
-
-.exp-card-status-badge.status-concluded {
-  background-color: rgba(24, 26, 24, 0.06);
-  color: var(--color-ink-muted);
-  border: 1px solid var(--hairline-base);
-}
-
-.status-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: currentColor;
+.exp-card-year {
+  font-size: 0.725rem;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.04em;
 }
 
 /* Card Visual Blueprint / Thumbnail Frame */

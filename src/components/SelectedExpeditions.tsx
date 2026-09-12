@@ -135,23 +135,13 @@ interface ExpeditionCardProps {
 }
 
 const ExpeditionCard: React.FC<ExpeditionCardProps> = ({ expedition }) => {
-  const statusClass =
-    expedition.status === 'Deployed'
-      ? 'status-deployed'
-      : expedition.status === 'Active'
-      ? 'status-active'
-      : 'status-concluded';
-
   return (
     <article className="expedition-card hairline-box" aria-label={`Project: ${expedition.title}`}>
       <div>
         {/* Card Header Metadata */}
         <div className="exp-card-header font-mono">
           <span className="exp-card-index">{expedition.indexNumber}</span>
-          <span className={`exp-card-status-badge ${statusClass}`}>
-            <span className="status-dot" aria-hidden="true" />
-            <span>{expedition.status.toUpperCase()}</span>
-          </span>
+          <span className="exp-card-year">{expedition.year}</span>
         </div>
 
         {/* Card Visual Blueprint / Thumbnail Frame */}
