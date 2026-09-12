@@ -6,6 +6,7 @@
   padding: var(--space-4xl) 0;
   position: relative;
   background-color: var(--color-canvas);
+  scroll-margin-top: 100px;
 }
 
 .about-grid {

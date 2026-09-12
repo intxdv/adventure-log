@@ -81,56 +81,37 @@ export const About: React.FC = () => {
         <article className="about-article">
           <header>
             <div className="about-kicker">
-              <span className="tag-badge">FIELD BRIEF // 01 · ABOUT SELVAGANT</span>
+              <span className="tag-badge">FIELD BRIEF // 01 · PROFILE</span>
             </div>
             
             <h2 id="about-heading" className="about-headline font-display">
-              The Digital Cartographer<span style={{ color: 'var(--color-olive)' }}>.</span>
+              Creative Developer &amp; Mobile Architect<span style={{ color: 'var(--color-olive)' }}>.</span>
             </h2>
 
             <p className="about-subhead font-mono">
-              Syafiq Abiyyu Taqi // Creative Developer & Mobile Architect
+              SYAFIQ ABIYYU TAQI // INFORMATIKA UNDIP '23
             </p>
           </header>
 
           <p className="about-lead">
-            Operating at the intersection of deep systems logic and organic visual taste.
-            I engineer resilient mobile architectures and tactile web environments designed to feel grounded, deliberate, and calm.
+            Undergraduate Computer Science student at Universitas Diponegoro specializing in Software Engineering.
+            I build resilient mobile architectures and tactile web environments where engineering rigor meets calm editorial aesthetics.
           </p>
 
           <p className="about-body">
-            Rooted in Computer Science at Universitas Diponegoro (Software Engineering focus) and honed through hands-on leadership at UPPTI Undip, DIGIT, and MADANI. Every interface is treated like an expedition map: discarding unnecessary noise, prioritizing structural clarity, and celebrating thoughtful micro-craftsmanship.
+            From architecting mobile solutions at UPPTI Undip to leading community initiatives at DIGIT and MADANI, every interface is approached as a deliberate expedition: eliminating unnecessary noise, establishing structural clarity, and honoring the craft.
           </p>
 
           {/* Authentic Manifesto Blockquote from taki-bio-dossier.md */}
           <blockquote className="about-manifesto" cite="resource/specs/taki-bio-dossier.md">
-            <span className="about-manifesto-kicker font-mono">[ EXPEDITION MANIFESTO // THE WANDERING SELV ]</span>
+            <span className="about-manifesto-kicker font-mono">[ EXPEDITION MANIFESTO // FIELD LOG ]</span>
             <p className="about-manifesto-quote font-display">
-              “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman. Sebagian waktu berusaha, sebagian waktu menyesali keputusan—yang kemudian tersadar sia-sia saja menyesali toh sudah sejauh ini—dan sebagian waktu bersyukur: aku bisa membawa pulang sesuatu dari wilayah eksplorasi sambil berpikir, <em>‘Ternyata tak seburuk itu.’</em>
-            </p>
-            <p className="about-manifesto-quote font-display" style={{ marginTop: 'var(--space-xs)', fontSize: 'var(--text-sm)', color: 'var(--color-ink-muted)', fontStyle: 'normal' }}>
-              Terus berjalan, terus melangkah, karena ‘kita terlalu berharga untuk disia-siakan’.”
+              “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman. Sebagian waktu berusaha, sebagian waktu menyesali keputusan—hingga tersadar bahwa penyesalan itu sia-sia sambil mengingat alasan berjuang—dan membawa pulang sesuatu dari wilayah eksplorasi sambil berpikir, <em>‘Ternyata tak seburuk itu.’</em>”
             </p>
             <cite className="about-manifesto-cite font-mono">
-              — Syafiq Abiyyu Taqi (Taki / Selvagant) · Field Log Reflection
+              — Syafiq Abiyyu Taqi · Catatan Refleksi Eksplorasi
             </cite>
           </blockquote>
-
-          {/* Moniker Etymology & Typography Citation */}
-          <aside className="about-moniker" aria-label="Moniker Origin">
-            <div className="about-moniker-title">
-              <span className="about-moniker-word">
-                <span className="about-moniker-selv">Selv</span>
-                <span className="about-moniker-rest">agant</span>
-              </span>
-              <span className="about-moniker-subtitle font-mono">
-                — The Wandering <span className="about-moniker-selv-accent">Selv</span>
-              </span>
-            </div>
-            <p className="about-moniker-desc font-mono">
-              Rooted in <strong>Solivagant</strong> (one who wanders alone) and <strong>Selva</strong> (the untamed forest) + Self-determination. An ongoing exploration of software engineering, mobile systems, and digital cartography as conscious self-discovery.
-            </p>
-          </aside>
         </article>
 
       </div>
