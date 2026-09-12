@@ -1,0 +1,280 @@
+﻿/* ==========================================================================
+   Field Arsenal & Technical Gear Section (Field Inventory & Capabilities)
+   ========================================================================== */
+
+.arsenal-section {
+  padding: var(--space-4xl) 0;
+  position: relative;
+  background-color: var(--color-canvas);
+  scroll-margin-top: 80px;
+}
+
+/* Section Header */
+.arsenal-header {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--hairline-base);
+}
+
+.arsenal-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+@media (max-width: 640px) {
+  .arsenal-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+}
+
+.arsenal-headline {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-top: var(--space-xs);
+  margin-bottom: 0;
+}
+
+.arsenal-telemetry-meta {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.arsenal-header-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-ink-muted);
+  margin-top: var(--space-xs);
+  margin-bottom: 0;
+}
+
+/* 3 Pillars Grid */
+.arsenal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+@media (max-width: 1024px) {
+  .arsenal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Individual Pillar Card */
+.arsenal-pillar {
+  background-color: #FFFFFF;
+  border: 1px solid var(--hairline-base);
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(24, 26, 24, 0.03);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease;
+}
+
+.arsenal-pillar:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-olive);
+  box-shadow: 0 12px 30px -6px rgba(24, 26, 24, 0.08), 0 2px 8px rgba(24, 26, 24, 0.04);
+}
+
+/* Pillar Header */
+.arsenal-pillar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--hairline-subtle);
+}
+
+.arsenal-pillar-index {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: var(--color-olive);
+  letter-spacing: 0.06em;
+}
+
+.arsenal-pillar-status {
+  font-size: 0.68rem;
+  color: var(--color-ink-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.04em;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-olive);
+  box-shadow: 0 0 0 2px rgba(74, 88, 68, 0.2);
+}
+
+/* Pillar Body */
+.arsenal-pillar-body {
+  margin-bottom: var(--space-lg);
+}
+
+.arsenal-pillar-code {
+  font-size: 0.65rem;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.arsenal-pillar-title {
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--color-ink);
+  margin: 0 0 6px 0;
+}
+
+.arsenal-pillar-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.arsenal-pillar-desc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  margin-bottom: var(--space-lg);
+}
+
+/* Capability Inventory List */
+.arsenal-skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.arsenal-skill-item {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--hairline-base);
+  border-radius: 2px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: all 0.2s ease;
+}
+
+.arsenal-skill-item:hover {
+  border-color: var(--color-olive);
+  background-color: #FFFFFF;
+}
+
+.arsenal-skill-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arsenal-skill-bullet {
+  color: var(--color-olive);
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+.arsenal-skill-name {
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.02em;
+}
+
+.arsenal-skill-spec {
+  font-size: 0.68rem;
+  color: var(--color-ink-muted);
+  padding-left: 14px;
+  line-height: 1.4;
+}
+
+/* Primary Toolchain Tray (Pillar Footer) */
+.arsenal-pillar-footer {
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--hairline-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.arsenal-tools-heading {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-faint);
+}
+
+.arsenal-tools-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.arsenal-tool-pill {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--hairline-base);
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 0.68rem;
+  color: var(--color-ink-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  .arsenal-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .arsenal-pillar {
+    padding: 1.15rem;
+  }
+
+  .arsenal-pillar-title {
+    font-size: 1.35rem;
+  }
+
+  .arsenal-pillar-tagline {
+    font-size: 0.85rem;
+  }
+
+  .arsenal-skill-item {
+    padding: 7px 10px;
+  }
+
+  .arsenal-skill-name {
+    font-size: 0.75rem;
+  }
+
+  .arsenal-skill-spec {
+    font-size: 0.65rem;
+  }
+}
