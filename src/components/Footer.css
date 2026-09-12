@@ -399,10 +399,10 @@
 /* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout (Centered Bleed Parallax Anti-Bolong) */
 .footer-landscape-fg {
   position: absolute;
-  top: -4%;
+  top: -6.5%;
   left: -6%;
   width: 112%;
-  height: 114%;
+  height: 117%;
   max-width: none !important;
   max-height: none !important;
   object-fit: fill;
@@ -410,12 +410,15 @@
   pointer-events: none;
 }
 
-/* Layer 4: Frosted White Glass Copyright Plaque on the Hill Slope */
+/* Layer 4: Frosted White Glass Copyright Plaque on the Hill Slope (Margin Auto Centered) */
 .footer-stage-copyright {
   position: absolute;
-  left: 50%;
-  top: 80.5%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  top: 84.5%;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -470,9 +473,12 @@
   }
 
   .footer-stage-copyright {
-    left: 50%;
-    top: 79%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    top: 83%;
     font-size: 0.58rem;
     padding: 4px 10px;
     letter-spacing: 0.04em;

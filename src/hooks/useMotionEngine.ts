@@ -102,41 +102,42 @@ export const useMotionEngine = () => {
           1.28
         );
 
-        // Frame kotak manifesto muncul tepat sebelum teksnya mengalir
-        portalTimeline.fromTo(
-          '.about-manifesto',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          1.46
-        );
-
-        // Stagger per-kata pada kutipan manifesto
-        portalTimeline.fromTo(
-          '.about-manifesto .about-manifesto-kicker',
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.52
-        );
-
-        portalTimeline.fromTo(
-          '.about-manifesto .about-word, .about-manifesto-cite',
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, stagger: 0.012, duration: 0.25, ease: 'power2.out' },
-          1.56
-        );
-
+        // Selvagant reveal dock
         portalTimeline.fromTo(
           '.selvagant-reveal-dock',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          1.72
+          1.44
         );
 
         portalTimeline.fromTo(
           '.about-tags-row .tag-badge',
           { opacity: 0, y: 10, scale: 0.92 },
           { opacity: 1, y: 0, scale: 1, stagger: 0.05, duration: 0.3, ease: 'power2.out' },
-          1.80
+          1.54
+        );
+
+        // TERAKHIR: Frame kotak manifesto & kutipan muncul setelah semua elemen Section 2 selesai
+        portalTimeline.fromTo(
+          '.about-manifesto',
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
+          1.66
+        );
+
+        // Kicker kutipan manifesto
+        portalTimeline.fromTo(
+          '.about-manifesto .about-manifesto-kicker',
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
+          1.72
+        );
+
+        portalTimeline.fromTo(
+          '.about-manifesto .about-word, .about-manifesto-cite',
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, stagger: 0.012, duration: 0.25, ease: 'power2.out' },
+          1.76
         );
       }
 
@@ -272,12 +273,10 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 4: Frosted glass copyright badge (Rise straight up from bottom, strictly centered)
+          // Layer 4: Frosted glass copyright badge (Rise straight up from bottom, strictly centered via margin-auto)
           gsap.fromTo(
             '.footer-stage-copyright',
             {
-              xPercent: -50,
-              yPercent: -50,
               y: 45,
               opacity: 0,
             },
@@ -287,8 +286,6 @@ export const useMotionEngine = () => {
                 start: 'top 76%',
                 toggleActions: 'play none none reverse',
               },
-              xPercent: -50,
-              yPercent: -50,
               y: 0,
               opacity: 1,
               delay: 0.25,
