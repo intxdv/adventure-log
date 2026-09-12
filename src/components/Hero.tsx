@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useWibTime } from '../hooks/useWibTime';
 import './Hero.css';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 interface FontConfig {
   text: string;
@@ -180,11 +183,15 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
       return;
     }
 
-    // Jika sudah mulai, klik memicu transisi halus menuju Section About
-    const aboutEl = document.getElementById('about');
-    if (aboutEl) {
-      aboutEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // Jika sudah mulai, klik memicu transisi halus menuju Section About (1.4s tenang & sinematik)
+    const stageWrapper = document.getElementById('hero-stage-wrapper');
+    const targetScroll = stageWrapper ? stageWrapper.offsetTop + window.innerHeight : window.innerHeight;
+
+    gsap.to(window, {
+      duration: 1.4,
+      scrollTo: { y: targetScroll, autoKill: false },
+      ease: 'power2.inOut',
+    });
   };
 
   // Animasi 1: Typewriter & Multi-Font Morphing Loop

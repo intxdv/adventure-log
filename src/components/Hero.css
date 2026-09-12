@@ -1,12 +1,23 @@
 /* Scroll Stage for Seamless Portal Transition */
 .hero-stage-wrapper {
   position: relative;
-  height: 100vh;
+  width: 100%;
+  height: 250vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: start;
 }
 
 .hero-section {
-  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
   height: 100vh;
+  width: 100%;
+  z-index: 1;
+  align-self: start;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

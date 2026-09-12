@@ -3,9 +3,16 @@
    ========================================================================== */
 
 .about-section {
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   min-height: 100vh;
+  width: 100%;
+  z-index: 2;
+  align-self: start;
   padding: clamp(2rem, 4vh, 4rem) 0;
-  position: relative;
   background-color: #121512;
   color: #F7F6F2;
   scroll-margin-top: 0;
@@ -15,6 +22,13 @@
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
+  clip-path: circle(0% at 50% 50%);
+  will-change: clip-path;
+  pointer-events: none;
+}
+
+.about-section.is-active {
+  pointer-events: auto;
 }
 
 /* Nocturnal Canvas (Always Solid #121512) */

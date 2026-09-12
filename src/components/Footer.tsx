@@ -145,7 +145,7 @@ export const Footer: React.FC = () => {
       >
         {/* Layer 1: Background Landscape Sky & Mountains */}
         <img
-          src="/images/footer-landscape-bg.png"
+          src="/images/footer-landscape-bg-v2.png"
           alt="Mountain Landscape Background"
           className="footer-landscape-bg"
           loading="lazy"

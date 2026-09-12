@@ -11,47 +11,25 @@ export const useMotionEngine = () => {
 
     const ctx = gsap.context(() => {
       // ======================================================================
-      // 1. HERO PINNING & CENTER SOLID CIRCLE PORTAL TO ABOUT
+      // 1. HERO -> ABOUT CENTER CIRCLE PORTAL TRANSITION (CLIP-PATH BLOOM)
       // ======================================================================
-      const stageWrapper = document.getElementById('hero-stage-wrapper') || document.getElementById('hero');
+      const stageWrapper = document.getElementById('hero-stage-wrapper');
       const aboutSection = document.getElementById('about');
       const notchHeader = document.getElementById('top-notch-header');
 
-      if (stageWrapper && !prefersReducedMotion) {
-        // Create solid nocturnal expanding circle anchored at EXACT center of viewport
-        let centerPortal = document.getElementById('hero-center-portal');
-        if (!centerPortal) {
-          centerPortal = document.createElement('div');
-          centerPortal.id = 'hero-center-portal';
-          centerPortal.style.cssText = `
-            position: fixed;
-            top: 50vh;
-            left: 50vw;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #121512;
-            pointer-events: none;
-            z-index: 95;
-            transform: translate(-50%, -50%) scale(0);
-            will-change: transform, opacity;
-            opacity: 0;
-          `;
-          document.body.appendChild(centerPortal);
-        }
-
-        const heroTimeline = gsap.timeline({
+      if (stageWrapper && aboutSection && !prefersReducedMotion) {
+        // Scrub the clip-path of Section 2 from circle(0%) to circle(150%)
+        // directly from center of screen as user scrolls through the stage
+        const portalTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: stageWrapper,
             start: 'top top',
             end: '+=100%',
-            pin: true,
             scrub: 0.6,
-            anticipatePin: 1,
             onUpdate: (self) => {
               // Coordinate Notch Dock appearance
               if (notchHeader) {
-                if (self.progress > 0.8) {
+                if (self.progress > 0.6) {
                   notchHeader.classList.add('is-visible');
                   notchHeader.classList.remove('is-hidden');
                 } else if (self.progress < 0.25) {
@@ -59,25 +37,30 @@ export const useMotionEngine = () => {
                   notchHeader.classList.add('is-hidden');
                 }
               }
+              // Coordinate About section pointer-events interactivity
+              if (self.progress > 0.5) {
+                aboutSection.classList.add('is-active');
+              } else {
+                aboutSection.classList.remove('is-active');
+              }
             },
           },
         });
 
-        // Step 1: Lingkaran solid nocturnal (#121512) muncul dari tengah layar dan membesar
-        // Mengembang menutupi seluruh layar pada progress 0.0 -> 0.80 (scale 350)
-        heroTimeline.to(
-          centerPortal,
+        // 1a. Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero
+        portalTimeline.fromTo(
+          aboutSection,
+          { clipPath: 'circle(0% at 50% 50%)' },
           {
-            opacity: 1,
-            scale: 350,
-            duration: 0.80,
-            ease: 'power2.in',
+            clipPath: 'circle(150% at 50% 50%)',
+            duration: 1,
+            ease: 'power2.inOut',
           },
           0
         );
 
-        // Step 2: Konten Hero meredup lembut di awal ekspansi portal
-        heroTimeline.to(
+        // 1b. Konten Hero meredup lembut di balik lingkaran nokturnal
+        portalTimeline.to(
           '.hero-body-container, .hero-top-bar',
           {
             opacity: 0,
@@ -87,35 +70,22 @@ export const useMotionEngine = () => {
           0.05
         );
 
-        // Step 3: Di progress 0.90 - 1.0 (saat portal sudah 100% solid gelap dan unpin terjadi),
-        // portal memudar halus mengungkap Section About yang berlatar identik #121512
-        heroTimeline.to(
-          centerPortal,
+        // 1c. Elemen internal About mekar masuk saat lingkaran terbuka (tidak muncul duluan!)
+        portalTimeline.fromTo(
+          '.field-zine-card, .about-content-col',
           {
+            y: 35,
             opacity: 0,
-            duration: 0.1,
-            ease: 'power1.out',
           },
-          0.9
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 0.45,
+            ease: 'power2.out',
+          },
+          0.35
         );
-      }
-
-      // ======================================================================
-      // 2. ABOUT SECTION ENTRANCE & CHOREOGRAPHY
-      // ======================================================================
-      if (aboutSection) {
-        gsap.from('.field-zine-card, .about-content-col', {
-          scrollTrigger: {
-            trigger: aboutSection,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse',
-          },
-          y: 35,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: 'power2.out',
-        });
       }
 
       // ======================================================================
@@ -322,10 +292,6 @@ export const useMotionEngine = () => {
       ctx.revert();
       if (footerMouseMoveHandler) {
         window.removeEventListener('mousemove', footerMouseMoveHandler);
-      }
-      const portal = document.getElementById('hero-center-portal');
-      if (portal && portal.parentNode) {
-        portal.parentNode.removeChild(portal);
       }
     };
   }, []);
