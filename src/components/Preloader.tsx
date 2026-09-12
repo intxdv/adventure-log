@@ -10,12 +10,25 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isDismissed, setIsDismissed] = useState(false);
 
+  // Force viewport to top on initial mount & disable browser scrollRestoration caching
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   // Lock body scroll while preloader is active to prevent scroll leak
   useEffect(() => {
     if (!isDismissed) {
       document.body.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
     } else {
       document.body.style.overflow = '';
+      window.scrollTo(0, 0);
     }
     return () => {
       document.body.style.overflow = '';
@@ -59,6 +72,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         setProgress(100);
         setTimeout(() => {
           setIsDismissed(true);
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
           onComplete?.();
         }, 340);
       }
@@ -71,6 +85,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       setProgress(100);
       setTimeout(() => {
         setIsDismissed(true);
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
         onComplete?.();
       }, 200);
     }, 1800);
