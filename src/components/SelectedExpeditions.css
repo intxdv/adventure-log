@@ -525,13 +525,6 @@
   border-radius: 2px;
 }
 
-@media (max-width: 600px) {
-  .dossier-meta-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-}
-
 .dossier-meta-cell {
   display: flex;
   flex-direction: column;
@@ -741,6 +734,140 @@
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Mobile Dossier Modal Optimization (Sleek & Spacious Header/Meta)
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .dossier-modal-backdrop {
+    padding: 8px;
+  }
+
+  .dossier-modal-container {
+    max-height: 94vh;
+    border-radius: 4px;
+  }
+
+  /* Compact & Uncluttered Mobile Top Bar */
+  .dossier-modal-top {
+    padding: 10px 14px;
+  }
+
+  .dossier-modal-header-meta {
+    gap: 6px;
+  }
+
+  .dossier-meta-sep,
+  .dossier-meta-tag {
+    display: none;
+  }
+
+  .dossier-index-badge {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .dossier-close-btn {
+    padding: 4px 8px;
+    min-width: 28px;
+    height: 28px;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .dossier-close-text {
+    display: none;
+  }
+
+  .dossier-close-icon {
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* Compact Scrollable Body */
+  .dossier-modal-body {
+    padding: 1.1rem 1.15rem;
+  }
+
+  .dossier-title-block {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+  }
+
+  .dossier-title {
+    font-size: 1.65rem;
+    margin-bottom: 2px;
+  }
+
+  .dossier-tagline {
+    font-size: 0.88rem;
+  }
+
+  /* 2-Column Compact Grid (Reduces Height by ~45%) */
+  .dossier-meta-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+    padding: 10px 12px;
+    margin-bottom: var(--space-lg);
+  }
+
+  .dossier-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+  }
+
+  .dossier-nature-badge,
+  .dossier-role-value,
+  .dossier-timeline-value {
+    font-size: 0.68rem;
+  }
+
+  .dossier-team-badge {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+  }
+
+  /* Compact Sections for Faster Reading */
+  .dossier-section {
+    margin-bottom: var(--space-lg);
+  }
+
+  .dossier-section-title {
+    font-size: 0.68rem;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+
+  .dossier-narrative-summary {
+    font-size: 0.925rem;
+    line-height: 1.55;
+  }
+
+  .dossier-bullet-list {
+    gap: 8px;
+  }
+
+  .dossier-bullet-item {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    gap: 8px;
+  }
+
+  .dossier-bullet-marker {
+    font-size: 0.625rem;
+  }
+
+  .dossier-modal-footer {
+    padding: 12px 14px;
+  }
+
+  .dossier-action-btn {
+    padding: 8px 18px;
+    font-size: 0.72rem;
   }
 }
 

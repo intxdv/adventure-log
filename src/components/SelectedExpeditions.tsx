@@ -333,8 +333,8 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedit
             aria-label="Close dossier modal"
             title="Close dossier (Esc)"
           >
-            <span>CLOSE [ESC]</span>
-            <span aria-hidden="true">✕</span>
+            <span className="dossier-close-text">CLOSE [ESC]</span>
+            <span className="dossier-close-icon" aria-hidden="true">✕</span>
           </button>
         </div>
 
