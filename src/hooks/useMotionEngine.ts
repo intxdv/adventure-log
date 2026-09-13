@@ -210,13 +210,6 @@ export const useMotionEngine = () => {
         // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
         portalTimeline.set('#about', { opacity: 0 }, 4.10);
 
-        // Telemetry bar muncul di pojok kanan atas di atas kanvas putih
-        portalTimeline.to(
-          '.perspective-telemetry-bar',
-          { opacity: 1, duration: 0.4, ease: 'power2.out' },
-          4.10
-        );
-
         // ----------------------------------------------------------------------
         // 1e. 3D Project Cards Traversal di Kanvas Putih (t = 4.30 -> 10.35)
         // Sesuai sketsa user: Kartu bertumpu dan meluncur di sepanjang bidang dinding kanan
@@ -314,7 +307,7 @@ export const useMotionEngine = () => {
         // yang langsung menyambung tanpa jeda ke Section 4 (Field Arsenal)
         // ----------------------------------------------------------------------
         portalTimeline.to(
-          '.expeditions-perspective-grid-svg, .perspective-telemetry-bar',
+          '.expeditions-perspective-grid-svg',
           {
             opacity: 0,
             duration: 0.50,

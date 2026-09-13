@@ -41,21 +41,14 @@ export const SelectedExpeditions: React.FC = () => {
       {/* 0. Expanding White Card Canvas (Transforms into Full Pure White Background for Section 3) */}
       <div id="expeditions-white-canvas" className="expeditions-white-canvas" aria-hidden="true" />
 
-      {/* 1. Tactical SVG Perspective Wireframe Grid (Connecting Card to Viewport Corners) */}
+      {/* 1. Right Wall Perspective Wireframe (Minimal — dinding kanan saja) */}
       <svg
         className="expeditions-perspective-grid-svg"
         viewBox="0 0 1920 1080"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <defs>
-          <linearGradient id="grid-ray-fade" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(74, 88, 68, 0.75)" />
-            <stop offset="100%" stopColor="rgba(18, 21, 18, 0.20)" />
-          </linearGradient>
-        </defs>
-
-        {/* Expanding Card Frame Polygon in SVG for perfect corner ray alignment */}
+        {/* Expanding Card Frame Polygon */}
         <polygon
           id="expanding-card-poly"
           points="360,230 680,230 680,820 360,820"
@@ -63,81 +56,27 @@ export const SelectedExpeditions: React.FC = () => {
           opacity="0"
         />
 
-        {/* 4 Corner Rays shooting from Photo Card (~20% X, 25% to 75% Y) to Viewport Corners */}
-        {/* Top-Left Ray */}
+        {/* Top-Right Ray: dari sudut kanan-atas kartu ke sudut kanan-atas viewport */}
         <line
-          id="ray-top-left"
-          className="perspective-ray"
-          x1="360"
-          y1="230"
-          x2="0"
-          y2="0"
-          stroke="url(#grid-ray-fade)"
-          strokeWidth="1.5"
-          strokeDasharray="6 4"
+          x1="680" y1="230" x2="1920" y2="0"
+          stroke="rgba(18, 21, 18, 0.10)" strokeWidth="1"
         />
-        {/* Bottom-Left Ray */}
+        {/* Bottom-Right Ray: dari sudut kanan-bawah kartu ke sudut kanan-bawah viewport */}
         <line
-          id="ray-bottom-left"
-          className="perspective-ray"
-          x1="360"
-          y1="820"
-          x2="0"
-          y2="1080"
-          stroke="url(#grid-ray-fade)"
-          strokeWidth="1.5"
-          strokeDasharray="6 4"
-        />
-        {/* Top-Right Ray */}
-        <line
-          id="ray-top-right"
-          className="perspective-ray"
-          x1="680"
-          y1="230"
-          x2="1920"
-          y2="0"
-          stroke="url(#grid-ray-fade)"
-          strokeWidth="1.5"
-        />
-        {/* Bottom-Right Ray */}
-        <line
-          id="ray-bottom-right"
-          className="perspective-ray"
-          x1="680"
-          y1="820"
-          x2="1920"
-          y2="1080"
-          stroke="url(#grid-ray-fade)"
-          strokeWidth="1.5"
+          x1="680" y1="820" x2="1920" y2="1080"
+          stroke="rgba(18, 21, 18, 0.10)" strokeWidth="1"
         />
 
-        {/* Right Wall Perspective Horizontal Grid Lines (Converging toward Left Vanishing Anchor) */}
-        <line x1="680" y1="360" x2="1920" y2="240" stroke="rgba(18, 21, 18, 0.12)" strokeWidth="1" />
-        <line x1="680" y1="520" x2="1920" y2="520" stroke="rgba(74, 88, 68, 0.24)" strokeWidth="1" strokeDasharray="3 6" />
-        <line x1="680" y1="680" x2="1920" y2="800" stroke="rgba(18, 21, 18, 0.12)" strokeWidth="1" />
+        {/* Right Wall — Horizontal perspective lines */}
+        <line x1="680" y1="380" x2="1920" y2="260" stroke="rgba(18, 21, 18, 0.06)" strokeWidth="1" strokeDasharray="4 8" />
+        <line x1="680" y1="525" x2="1920" y2="525" stroke="rgba(18, 21, 18, 0.08)" strokeWidth="1" strokeDasharray="3 6" />
+        <line x1="680" y1="670" x2="1920" y2="790" stroke="rgba(18, 21, 18, 0.06)" strokeWidth="1" strokeDasharray="4 8" />
 
-        {/* Right Wall Vertical Division Lines in Perspective Depth */}
-        <line x1="900" y1="180" x2="900" y2="870" stroke="rgba(18, 21, 18, 0.08)" strokeWidth="1" />
-        <line x1="1180" y1="120" x2="1180" y2="930" stroke="rgba(18, 21, 18, 0.10)" strokeWidth="1" strokeDasharray="4 4" />
-        <line x1="1520" y1="60" x2="1520" y2="990" stroke="rgba(18, 21, 18, 0.12)" strokeWidth="1" />
-
-        {/* Tactical Telemetry Text Inscriptions on the Grid */}
-        <text x="710" y="220" fill="rgba(74, 88, 68, 0.85)" fontSize="12" fontFamily="monospace" letterSpacing="0.1em">
-          [ 3D PROJECTION // CORRIDOR ELEVATION +1640M ]
-        </text>
-        <text x="1600" y="80" fill="rgba(18, 21, 18, 0.45)" fontSize="11" fontFamily="monospace" letterSpacing="0.08em">
-          Z-AXIS // FLY-THROUGH WALL
-        </text>
+        {/* Right Wall — Vertical depth divisions */}
+        <line x1="1000" y1="160" x2="1000" y2="890" stroke="rgba(18, 21, 18, 0.05)" strokeWidth="1" strokeDasharray="3 6" />
+        <line x1="1350" y1="90" x2="1350" y2="960" stroke="rgba(18, 21, 18, 0.06)" strokeWidth="1" strokeDasharray="3 6" />
+        <line x1="1700" y1="30" x2="1700" y2="1020" stroke="rgba(18, 21, 18, 0.05)" strokeWidth="1" strokeDasharray="3 6" />
       </svg>
-
-      {/* 2. Tactical Stage Horizon Telemetry */}
-      <div className="perspective-telemetry-bar font-mono" aria-hidden="true">
-        <span className="telemetry-item">[ SECTION 02 // SELECTED EXPEDITIONS ]</span>
-        <span className="telemetry-sep">✦</span>
-        <span className="telemetry-item">PERSPECTIVE: 1200PX // AXIS: Z-FORWARD</span>
-        <span className="telemetry-sep">✦</span>
-        <span className="telemetry-item">STATUS: TRAVERSING</span>
-      </div>
 
       {/* 3. 3D Perspective Right-Wall Corridor Track */}
       <div className="perspective-corridor-track" role="region" aria-label="Featured Expedition Projects 3D Corridor">
