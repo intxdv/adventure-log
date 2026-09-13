@@ -272,7 +272,6 @@ export const AccordionGallery = ({
             <div className="ag-panel__top font-mono" aria-hidden="true">
               <span className="ag-panel__badge">0{i + 1}</span>
               {item.code && <span className="ag-panel__code">{item.code}</span>}
-              {isActive && <span className="ag-panel__active-indicator font-mono">● EXPEDITION ACTIVE</span>}
             </div>
 
             {/* Background Photographic Frame & Film */}

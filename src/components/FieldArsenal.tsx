@@ -21,38 +21,27 @@ export const FieldArsenal: React.FC = () => {
     alt: `${pillar.title} - ${pillar.code}`,
   }));
 
-  // Handlers for manual pillar cycling
-  const handlePrev = () => {
-    setActivePillarIndex((prev) => (prev === 0 ? initialArsenal.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setActivePillarIndex((prev) => (prev === initialArsenal.length - 1 ? 0 : prev + 1));
-  };
-
   return (
     <section id="arsenal" className="arsenal-section hairline-b" aria-labelledby="arsenal-heading">
       <div className="arsenal-container">
         
-        {/* Section Header */}
+        {/* Section Header (Centered Editorial Composition) */}
         <header className="arsenal-header">
-          <div className="arsenal-header-top">
-            <div>
-              <span className="tag-badge">FIELD GEAR // 03 · ARSENAL</span>
-              <h2 id="arsenal-heading" className="arsenal-headline font-display">
-                Technical Arsenal<span style={{ color: 'var(--color-olive)' }}>.</span>
-              </h2>
-            </div>
-            <div className="arsenal-telemetry-meta font-mono">
-              CORE INVENTORY: 03 PILLARS // 18 VERIFIED CAPABILITIES
-            </div>
+          <div className="arsenal-header-badge">
+            <span className="tag-badge">FIELD GEAR // 03 · ARSENAL</span>
           </div>
+          <h2 id="arsenal-heading" className="arsenal-headline font-display">
+            Technical Arsenal<span style={{ color: 'var(--color-olive)' }}>.</span>
+          </h2>
           <p className="arsenal-header-tagline">
             “Tactical toolchains & craft disciplines forged through production expeditions.”
           </p>
+          <div className="arsenal-telemetry-meta font-mono">
+            CORE INVENTORY: 03 PILLARS // 18 VERIFIED CAPABILITIES
+          </div>
         </header>
 
-        {/* Tactical Pillar Selector Navigation Bar */}
+        {/* Tactical Pillar Selector Navigation Bar (Centered) */}
         <div className="arsenal-control-bar font-mono" role="toolbar" aria-label="Arsenal Pillar Navigation">
           <div className="arsenal-nav-tabs">
             {initialArsenal.map((pillar, idx) => {
@@ -73,28 +62,6 @@ export const FieldArsenal: React.FC = () => {
                 </button>
               );
             })}
-          </div>
-
-          <div className="arsenal-nav-arrows">
-            <button
-              type="button"
-              className="arsenal-arrow-btn"
-              onClick={handlePrev}
-              aria-label="Previous technical pillar"
-            >
-              ← PREV
-            </button>
-            <span className="arsenal-counter">
-              0{activePillarIndex + 1} / 0{initialArsenal.length}
-            </span>
-            <button
-              type="button"
-              className="arsenal-arrow-btn"
-              onClick={handleNext}
-              aria-label="Next technical pillar"
-            >
-              NEXT →
-            </button>
           </div>
         </div>
 
