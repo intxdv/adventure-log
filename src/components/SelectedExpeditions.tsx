@@ -75,184 +75,63 @@ export const SelectedExpeditions: React.FC = () => {
 
   const currentExpedition = FEATURED_EXPEDITIONS[activeIndex] || FEATURED_EXPEDITIONS[0];
 
-  // Render bespoke high-fidelity UI Mockups for each featured expedition
+  // Render clean, high-end editorial display placeholder (ready for user's screenshot images)
   const renderProjectMockup = (index: number) => {
+    const exp = FEATURED_EXPEDITIONS[index] || FEATURED_EXPEDITIONS[0];
+    const imageSrc = exp.image;
 
-    switch (index) {
-      // 01: Lapor FSM (Civic Tech · Mobile Architecture)
-      case 0:
-        return (
-          <div className="swiss-mockup-frame mockup-lapor">
-            <div className="mockup-top-bar font-mono">
-              <span className="mockup-dot-indicator active" />
-              <span className="mockup-system-id">LAPOR_FSM // MOBILE CLIENT V1.4.0</span>
-              <span className="mockup-badge-live">[ CIVIC ARCHITECTURE ]</span>
+    return (
+      <div className="swiss-display-placeholder-frame" key={exp.id}>
+        {imageSrc ? (
+          <img
+            src={imageSrc}
+            alt={`${exp.title} exhibition display`}
+            className="swiss-display-img"
+          />
+        ) : (
+          <div className="swiss-placeholder-screen font-mono">
+            {/* Minimal Bezel Header */}
+            <div className="placeholder-screen-top">
+              <span className="placeholder-status-dot" />
+              <span className="placeholder-asset-id">
+                {exp.indexNumber} // {exp.title.toUpperCase()}
+              </span>
+              <span className="placeholder-ratio-tag">[ 16:10 ARCHIVE DISPLAY ]</span>
             </div>
-            <div className="mockup-viewport">
-              <div className="lapor-card hairline-box">
-                <div className="lapor-card-header font-mono">
-                  <span className="lapor-ticket-id">INCIDENT #FSM-2026-089</span>
-                  <span className="lapor-status-badge is-investigating">UNDER REVIEW</span>
-                </div>
-                <h4 className="lapor-incident-title font-display">
-                  AC Malfunction & Circuit Overload in Lab E-104
-                </h4>
-                <p className="lapor-incident-desc font-mono">
-                  Reported by anonymous civitas. Automated dispatch routed to Department Facility Directorate.
+
+            {/* Blueprint Grid Watermark Canvas */}
+            <div className="placeholder-screen-center">
+              <div className="placeholder-crosshair ch-center" aria-hidden="true">+</div>
+              <div className="placeholder-crosshair ch-top-left" aria-hidden="true">+</div>
+              <div className="placeholder-crosshair ch-top-right" aria-hidden="true">+</div>
+              <div className="placeholder-crosshair ch-bottom-left" aria-hidden="true">+</div>
+              <div className="placeholder-crosshair ch-bottom-right" aria-hidden="true">+</div>
+
+              <div className="placeholder-notice-block">
+                <span className="placeholder-kicker font-mono">[ SCREENSHOT ASSET PENDING ]</span>
+                <h4 className="placeholder-title font-display">{exp.title}</h4>
+                <p className="placeholder-sub font-mono">
+                  {exp.categoryLabel.toUpperCase()}
                 </p>
-                <div className="lapor-telemetry-row font-mono">
-                  <span className="lapor-tele-chip">DRIFT SQLITE: PERSISTED</span>
-                  <span className="lapor-tele-chip">ELYSIA BUN: 0.8ms</span>
-                  <span className="lapor-tele-chip">BLOC: SYNCED</span>
+                <div className="placeholder-specs font-mono">
+                  <span>RES: 1920×1200</span>
+                  <span className="sep">//</span>
+                  <span>ASPECT: 16:10</span>
+                  <span className="sep">//</span>
+                  <span>PIXELSWAP READY</span>
                 </div>
               </div>
-              <div className="lapor-bottom-actions font-mono">
-                <span className="lapor-btn-mock primary">SUBMIT EVIDENCE ↗</span>
-                <span className="lapor-btn-mock secondary">TRACK REPORT #089</span>
-              </div>
             </div>
-          </div>
-        );
 
-      // 02: Dipofeed (Agro-Tech · Cattle Feed Nutrition Calculator)
-      case 1:
-        return (
-          <div className="swiss-mockup-frame mockup-dipofeed">
-            <div className="mockup-top-bar font-mono">
-              <span className="mockup-dot-indicator active" />
-              <span className="mockup-system-id">DIPOFEED // RATION FORMULATION HUD</span>
-              <span className="mockup-badge-live">[ AGRO-TECH ]</span>
-            </div>
-            <div className="mockup-viewport">
-              <div className="dipofeed-metrics-grid font-mono">
-                <div className="dipofeed-metric-box">
-                  <span className="metric-label">DRY MATTER (DM)</span>
-                  <span className="metric-val font-display">14.8 KG</span>
-                  <div className="metric-bar-wrap">
-                    <div className="metric-bar-fill" style={{ width: '85%' }} />
-                  </div>
-                </div>
-                <div className="dipofeed-metric-box highlight">
-                  <span className="metric-label">CRUDE PROTEIN (CP)</span>
-                  <span className="metric-val font-display">16.2%</span>
-                  <span className="metric-target-tag">TARGET MET ◆</span>
-                </div>
-                <div className="dipofeed-metric-box">
-                  <span className="metric-label">TDN METRIC</span>
-                  <span className="metric-val font-display">68.5%</span>
-                  <div className="metric-bar-wrap">
-                    <div className="metric-bar-fill" style={{ width: '78%' }} />
-                  </div>
-                </div>
-              </div>
-              <div className="dipofeed-ration-table font-mono">
-                <div className="ration-row header">
-                  <span>FORAGE INGREDIENT</span>
-                  <span>QTY</span>
-                  <span>EST. COST</span>
-                </div>
-                <div className="ration-row">
-                  <span>Pennisetum purpureum (Gajah)</span>
-                  <span>35.0 KG</span>
-                  <span>IDR 17,500</span>
-                </div>
-                <div className="ration-row">
-                  <span>Commercial Dairy Concentrate</span>
-                  <span>6.5 KG</span>
-                  <span>IDR 32,500</span>
-                </div>
-                <div className="ration-row highlight">
-                  <span>Soybean Meal (Bungkil Kedelai)</span>
-                  <span>1.2 KG</span>
-                  <span>IDR 9,600</span>
-                </div>
-              </div>
+            {/* Bottom Status Bar */}
+            <div className="placeholder-screen-bottom">
+              <span className="placeholder-coord">X: 00.12 // Y: 04.88</span>
+              <span className="placeholder-engine font-mono">AWAITING IMAGE ASSET ◆</span>
             </div>
           </div>
-        );
-
-      // 03: Aware (Computer Vision · Occupational Safety Screening)
-      case 2:
-        return (
-          <div className="swiss-mockup-frame mockup-aware">
-            <div className="mockup-top-bar font-mono">
-              <span className="mockup-dot-indicator alert" />
-              <span className="mockup-system-id">AWARE // OCCUPATIONAL VISION TELEMETRY</span>
-              <span className="mockup-badge-live">[ MEDIAPIPE CV ]</span>
-            </div>
-            <div className="mockup-viewport aware-hud-viewport">
-              <div className="aware-reticle-box">
-                <div className="aware-crosshair tl" />
-                <div className="aware-crosshair tr" />
-                <div className="aware-crosshair bl" />
-                <div className="aware-crosshair br" />
-                <div className="aware-face-mesh-simulation">
-                  <span className="font-mono mesh-label">468 FACIAL LANDMARKS DETECTED</span>
-                </div>
-              </div>
-              <div className="aware-telemetry-rail font-mono">
-                <div className="aware-readout">
-                  <span className="readout-tag">EYE ASPECT RATIO (EAR)</span>
-                  <span className="readout-num font-display">0.28</span>
-                  <span className="readout-status pass">NORMAL &gt; 0.22</span>
-                </div>
-                <div className="aware-readout">
-                  <span className="readout-tag">MOUTH ASPECT RATIO (MAR)</span>
-                  <span className="readout-num font-display">0.14</span>
-                  <span className="readout-status pass">NO YAWN &lt; 0.50</span>
-                </div>
-                <div className="aware-readout verdict-card">
-                  <span className="verdict-lead">SCREENING VERDICT</span>
-                  <span className="verdict-main">FIT-TO-WORK: PASSED</span>
-                  <span className="verdict-time">TIME: 18.4s / 30.0s MAX</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      // 04: Kagu (Voice AI Browser Extension · Speech-to-Canvas)
-      case 3:
-      default:
-        return (
-          <div className="swiss-mockup-frame mockup-kagu">
-            <div className="mockup-top-bar font-mono">
-              <span className="mockup-dot-indicator pulse" />
-              <span className="mockup-system-id">KAGU EXTENSION // VOICE-TO-CANVAS</span>
-              <span className="mockup-badge-live">[ SPEECH RECOGNITION ]</span>
-            </div>
-            <div className="mockup-viewport kagu-viewport">
-              <div className="kagu-audio-wave-visualizer">
-                <span className="wave-bar b1" />
-                <span className="wave-bar b2" />
-                <span className="wave-bar b3" />
-                <span className="wave-bar b4" />
-                <span className="wave-bar b5" />
-                <span className="wave-bar b6" />
-                <span className="wave-bar b7" />
-                <span className="wave-bar b8" />
-                <span className="wave-bar b9" />
-              </div>
-              <div className="kagu-transcript-bubble font-serif">
-                “Synthesize this technical architecture into actionable sprint tasks and map onto canvas...”
-              </div>
-              <div className="kagu-canvas-preview font-mono">
-                <div className="kagu-chip">
-                  <span className="kagu-chip-marker">◆</span>
-                  <span>CARD #01: REFACTOR REPOSITORY CONTRACTS</span>
-                </div>
-                <div className="kagu-chip">
-                  <span className="kagu-chip-marker">◆</span>
-                  <span>CARD #02: BENCHMARK ELYSIA WEBSOCKET LATENCY</span>
-                </div>
-              </div>
-              <div className="kagu-status-footer font-mono">
-                <span className="kagu-live-tag">● LISTENING // 120ms ENGINE LATENCY</span>
-              </div>
-            </div>
-          </div>
-        );
-    }
+        )}
+      </div>
+    );
   };
 
   return (
@@ -291,9 +170,9 @@ export const SelectedExpeditions: React.FC = () => {
 
         {/* 2. Three-Panel Swiss Layout Grid */}
         <div className="swiss-grid">
-          {/* LEFT PANEL (~22%): Massive Vertical Rolling Counter & Dossier Trigger */}
+          {/* LEFT PANEL: Rolling Counter + Project Title & Domain Metadata + Dossier Trigger */}
           <div className="swiss-col-left">
-            <div className="swiss-counter-wrapper">
+            <div className="swiss-left-top">
               <div className="swiss-counter-reel">
                 <div
                   className="swiss-counter-track font-display"
@@ -311,6 +190,23 @@ export const SelectedExpeditions: React.FC = () => {
               </div>
             </div>
 
+            {/* Project Title & Metadata (Moved to Left Panel as indicated by user annotation) */}
+            <div className="swiss-left-project-info font-mono">
+              <h3 className="swiss-project-title font-display">
+                {currentExpedition.title}
+              </h3>
+              <div className="swiss-project-cat">
+                {currentExpedition.categoryLabel.toUpperCase()}
+              </div>
+              <div className="swiss-project-role">
+                ROLE: {currentExpedition.role.toUpperCase()}
+              </div>
+              <div className="swiss-project-status">
+                <span className="status-dot">●</span>
+                <span>{currentExpedition.year} // {currentExpedition.status.toUpperCase()}</span>
+              </div>
+            </div>
+
             <div className="swiss-left-bottom">
               <button
                 type="button"
@@ -324,13 +220,13 @@ export const SelectedExpeditions: React.FC = () => {
             </div>
           </div>
 
-          {/* CENTER PANEL (~52%): High-Fidelity Project Showcase Frame with PixelSwap */}
+          {/* CENTER PANEL: Project Showcase Display with PixelSwap Transition */}
           <div className="swiss-col-center">
             <div className="swiss-showcase-frame hairline-box">
               <PixelSwap
                 firstContent={renderProjectMockup(contentAIndex)}
                 secondContent={renderProjectMockup(contentBIndex)}
-                pixelSize={40}
+                pixelSize={44}
                 gap={1}
                 pixelRadius={0}
                 pixelSpin={0}
@@ -363,21 +259,14 @@ export const SelectedExpeditions: React.FC = () => {
             </div>
           </div>
 
-          {/* RIGHT PANEL (~26%): Technical Domain, Editorial Narrative & Repository Actions */}
+          {/* RIGHT PANEL: Specification, Editorial Narrative & Repository Actions (Shifted Up) */}
           <div className="swiss-col-right font-mono">
-            <div className="swiss-right-top">
-              <div className="swiss-project-title font-display">
-                {currentExpedition.title}
+            <div className="swiss-right-dossier-box">
+              <div className="swiss-box-header font-mono">
+                <span className="swiss-box-kicker">[ EXPEDITION SPECIFICATION ]</span>
+                <span className="swiss-box-idx">{currentExpedition.indexNumber}</span>
               </div>
-              <div className="swiss-project-cat">
-                {currentExpedition.categoryLabel.toUpperCase()}
-              </div>
-              <div className="swiss-project-role">
-                ROLE: {currentExpedition.role.toUpperCase()}
-              </div>
-            </div>
 
-            <div className="swiss-right-bottom">
               <p className="swiss-editorial-summary">
                 {(currentExpedition.dossier?.englishSummary || currentExpedition.summary).toUpperCase()}
               </p>
@@ -391,12 +280,15 @@ export const SelectedExpeditions: React.FC = () => {
                 </div>
               )}
 
-              <div className="swiss-stack-pills">
-                {currentExpedition.stack.slice(0, 5).map((tech) => (
-                  <span key={tech} className="swiss-tech-pill">
-                    {tech}
-                  </span>
-                ))}
+              <div className="swiss-stack-section">
+                <span className="swiss-stack-label">[ ARSENAL TELEMETRY ]</span>
+                <div className="swiss-stack-pills">
+                  {currentExpedition.stack.slice(0, 5).map((tech) => (
+                    <span key={tech} className="swiss-tech-pill">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
 
               {currentExpedition.repoUrl && (
@@ -422,7 +314,7 @@ export const SelectedExpeditions: React.FC = () => {
                         d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
                       />
                     </svg>
-                    <span>SOURCE ↗</span>
+                    <span>SOURCE REPOSITORY ↗</span>
                   </a>
                 </div>
               )}
