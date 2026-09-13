@@ -259,7 +259,7 @@
 }
 
 /* ==========================================================================
-   CENTER PANEL: Project Showcase Display with PixelSwap Transition
+   CENTER PANEL: Depth Carousel Showcase (3D GSAP Stack)
    ========================================================================== */
 
 .swiss-col-center {
@@ -267,7 +267,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: clamp(0.8rem, 1.8vw, 1.8rem);
+  padding: clamp(0.6rem, 1.5vw, 1.4rem);
   position: relative;
   background: rgba(255, 255, 255, 0.35);
   border-right: 1px solid rgba(18, 21, 18, 0.2);
@@ -275,172 +275,16 @@
   box-sizing: border-box;
 }
 
-.swiss-showcase-frame {
+.swiss-depth-carousel-wrapper {
   width: 100%;
-  max-width: 680px;
-  aspect-ratio: 16 / 9;
-  background: #121512;
-  border: 1px solid rgba(18, 21, 18, 0.25);
-  border-radius: 3px;
-  box-shadow: 0 24px 50px -12px rgba(18, 21, 18, 0.22), 0 4px 12px rgba(18, 21, 18, 0.08);
-  overflow: hidden;
+  max-width: 660px;
+  height: clamp(300px, 45vh, 400px);
   position: relative;
-  display: flex;
-}
-
-.swiss-pixelswap-host {
-  width: 100%;
-  height: 100%;
-  pointer-events: auto;
-}
-
-/* Showcase Display Image & Placeholder Frame */
-.swiss-display-placeholder-frame {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: #121512;
-  display: flex;
-  align-items: stretch;
-  overflow: hidden;
-}
-
-.swiss-display-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Technical Blueprint Placeholder Screen */
-.swiss-placeholder-screen {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px 20px;
-  box-sizing: border-box;
-  background: radial-gradient(circle at center, #1a1e1a 0%, #0d100d 100%);
-  color: #ecebe8;
-  position: relative;
-  user-select: none;
-}
-
-.placeholder-screen-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.placeholder-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
-}
-
-.placeholder-asset-id {
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 600;
-}
-
-.placeholder-ratio-tag {
-  margin-left: auto;
-  color: #9cd3a2;
-  font-size: 0.6rem;
-}
-
-.placeholder-screen-center {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  margin: 12px 0;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.015);
-}
-
-.placeholder-crosshair {
-  position: absolute;
-  color: rgba(255, 255, 255, 0.25);
-  font-size: 14px;
-  line-height: 1;
-  font-family: var(--font-mono);
-}
-
-.ch-center { top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(74, 222, 128, 0.4); font-size: 20px; }
-.ch-top-left { top: 8px; left: 8px; }
-.ch-top-right { top: 8px; right: 8px; }
-.ch-bottom-left { bottom: 8px; left: 8px; }
-.ch-bottom-right { bottom: 8px; right: 8px; }
-
-.placeholder-notice-block {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 12px;
-}
-
-.placeholder-kicker {
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: #9cd3a2;
-}
-
-.placeholder-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  margin: 2px 0;
-}
-
-.placeholder-sub {
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0 0 8px 0;
-}
-
-.placeholder-specs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.58rem;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.04);
-  padding: 4px 10px;
-  border-radius: 2px;
-}
-
-.placeholder-specs .sep {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-.placeholder-screen-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.4);
-  padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.placeholder-engine {
-  color: #4ade80;
+  border: none;
+  background: transparent;
 }
 
 /* Tactical Step Navigation below frame (Botanical Olive & Alpine Ink Theme) */
@@ -859,9 +703,9 @@
 .dossier-visual-banner {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 2px;
+  border-radius: 4px;
   overflow: hidden;
-  border: 1px solid var(--hairline-subtle);
+  border: none;
   margin-bottom: var(--space-xl);
   background: #121512;
 }

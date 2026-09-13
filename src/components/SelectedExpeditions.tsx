@@ -1,39 +1,26 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { initialExpeditions } from '../data/expeditions';
 import type { Expedition } from '../types';
-import PixelSwap from './ui/PixelSwap';
+import DepthCarousel from './ui/DepthCarousel';
 import './SelectedExpeditions.css';
 
 // 4 Top Featured Expeditions matching Robert Aperios editorial showcase
 const FEATURED_EXPEDITIONS = initialExpeditions.filter((exp) => exp.featured).slice(0, 4);
 
+const CAROUSEL_ITEMS = FEATURED_EXPEDITIONS.map((exp) => ({
+  image: exp.image || '',
+  alt: `${exp.title} exhibition display`,
+}));
+
 export const SelectedExpeditions: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [isPixelSwapped, setIsPixelSwapped] = useState<boolean>(false);
-  const [contentAIndex, setContentAIndex] = useState<number>(0);
-  const [contentBIndex, setContentBIndex] = useState<number>(1);
   const [activeDossier, setActiveDossier] = useState<Expedition | null>(null);
   const [isRepoModalOpen, setIsRepoModalOpen] = useState<boolean>(false);
 
-  const prevIndexRef = useRef<number>(0);
-
-  // Smooth project navigation with PixelSwap trigger
+  // Smooth project navigation
   const goToProject = useCallback((newIndex: number) => {
     if (newIndex < 0 || newIndex >= FEATURED_EXPEDITIONS.length) return;
-    if (newIndex === prevIndexRef.current) return;
-
-    prevIndexRef.current = newIndex;
     setActiveIndex(newIndex);
-
-    setIsPixelSwapped((prevSwapped) => {
-      if (!prevSwapped) {
-        setContentBIndex(newIndex);
-        return true;
-      } else {
-        setContentAIndex(newIndex);
-        return false;
-      }
-    });
   }, []);
 
   // Listen for scroll synchronization events from GSAP motion engine
@@ -74,65 +61,6 @@ export const SelectedExpeditions: React.FC = () => {
   }, [activeDossier, isRepoModalOpen]);
 
   const currentExpedition = FEATURED_EXPEDITIONS[activeIndex] || FEATURED_EXPEDITIONS[0];
-
-  // Render clean, high-end editorial display placeholder (ready for user's screenshot images)
-  const renderProjectMockup = (index: number) => {
-    const exp = FEATURED_EXPEDITIONS[index] || FEATURED_EXPEDITIONS[0];
-    const imageSrc = exp.image;
-
-    return (
-      <div className="swiss-display-placeholder-frame" key={exp.id}>
-        {imageSrc ? (
-          <img
-            src={imageSrc}
-            alt={`${exp.title} exhibition display`}
-            className="swiss-display-img"
-          />
-        ) : (
-          <div className="swiss-placeholder-screen font-mono">
-            {/* Minimal Bezel Header */}
-            <div className="placeholder-screen-top">
-              <span className="placeholder-status-dot" />
-              <span className="placeholder-asset-id">
-                {exp.indexNumber} // {exp.title.toUpperCase()}
-              </span>
-              <span className="placeholder-ratio-tag">[ 16:10 ARCHIVE DISPLAY ]</span>
-            </div>
-
-            {/* Blueprint Grid Watermark Canvas */}
-            <div className="placeholder-screen-center">
-              <div className="placeholder-crosshair ch-center" aria-hidden="true">+</div>
-              <div className="placeholder-crosshair ch-top-left" aria-hidden="true">+</div>
-              <div className="placeholder-crosshair ch-top-right" aria-hidden="true">+</div>
-              <div className="placeholder-crosshair ch-bottom-left" aria-hidden="true">+</div>
-              <div className="placeholder-crosshair ch-bottom-right" aria-hidden="true">+</div>
-
-              <div className="placeholder-notice-block">
-                <span className="placeholder-kicker font-mono">[ SCREENSHOT ASSET PENDING ]</span>
-                <h4 className="placeholder-title font-display">{exp.title}</h4>
-                <p className="placeholder-sub font-mono">
-                  {exp.categoryLabel.toUpperCase()}
-                </p>
-                <div className="placeholder-specs font-mono">
-                  <span>RES: 1920×1200</span>
-                  <span className="sep">//</span>
-                  <span>ASPECT: 16:10</span>
-                  <span className="sep">//</span>
-                  <span>PIXELSWAP READY</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Status Bar */}
-            <div className="placeholder-screen-bottom">
-              <span className="placeholder-coord">X: 00.12 // Y: 04.88</span>
-              <span className="placeholder-engine font-mono">AWAITING IMAGE ASSET ◆</span>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
 
   return (
     <section
@@ -220,24 +148,30 @@ export const SelectedExpeditions: React.FC = () => {
             </div>
           </div>
 
-          {/* CENTER PANEL: Project Showcase Display with PixelSwap Transition */}
+          {/* CENTER PANEL: Project Showcase with DepthCarousel (3D GSAP hardware-accelerated stack) */}
           <div className="swiss-col-center">
-            <div className="swiss-showcase-frame hairline-box">
-              <PixelSwap
-                firstContent={renderProjectMockup(contentAIndex)}
-                secondContent={renderProjectMockup(contentBIndex)}
-                pixelSize={44}
-                gap={1}
-                pixelRadius={0}
-                pixelSpin={0}
-                pixelScale={0.85}
-                duration={900}
-                pixelDuration={320}
-                pattern="random"
-                fade
-                trigger="manual"
-                active={isPixelSwapped}
-                className="swiss-pixelswap-host"
+            <div className="swiss-depth-carousel-wrapper">
+              <DepthCarousel
+                items={CAROUSEL_ITEMS}
+                cardWidth={500}
+                cardHeight={281}
+                radius={6}
+                tint="#121512"
+                depth={130}
+                spread={55}
+                tilt={14}
+                tiltDirection="right"
+                perspective={1200}
+                visibleCards={3}
+                falloff={0.25}
+                blur={3}
+                duration={600}
+                ease="power3.out"
+                loop={false}
+                showControls={true}
+                showIndicators={false}
+                activeIndex={activeIndex}
+                onChange={(idx) => setActiveIndex(idx)}
               />
             </div>
 
