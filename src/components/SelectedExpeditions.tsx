@@ -48,13 +48,6 @@ export const SelectedExpeditions: React.FC = () => {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {/* Expanding Card Frame Polygon */}
-        <polygon
-          id="expanding-card-poly"
-          points="360,230 680,230 680,820 360,820"
-          fill="var(--color-canvas, #F7F6F2)"
-          opacity="0"
-        />
 
         {/* Top-Right Ray: dari sudut kanan-atas kartu ke sudut kanan-atas viewport */}
         <line
@@ -94,11 +87,6 @@ export const SelectedExpeditions: React.FC = () => {
                 <span className="index-tag">{exp.indexNumber}</span>
                 <span className="index-bullet">●</span>
                 <span className="category-tag">{exp.categoryLabel}</span>
-              </div>
-              <div className="perspective-card-status">
-                <span className={`status-pill ${exp.status.toLowerCase()}`}>
-                  {exp.status.toUpperCase()}
-                </span>
               </div>
             </header>
 

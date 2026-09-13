@@ -123,12 +123,11 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-canvas);
+  background-color: #FFFFFF;
   z-index: 0;
   opacity: 0;
-  clip-path: polygon(18.75% 21.3%, 35.4% 21.3%, 35.4% 75.9%, 18.75% 75.9%);
   pointer-events: none;
-  will-change: clip-path, opacity;
+  will-change: opacity;
 }
 
 /* 1. Tactical SVG Perspective Wireframe Grid */
@@ -143,8 +142,6 @@
   will-change: opacity, transform;
 }
 
-
-
 /* 3. 3D Perspective Corridor Track */
 .perspective-corridor-track {
   position: absolute;
@@ -152,25 +149,25 @@
   width: 100%;
   height: 100%;
   perspective: 1200px;
-  perspective-origin: 35% 50%;
+  perspective-origin: 50% 50%;
   transform-style: preserve-3d;
   pointer-events: none;
   z-index: 4;
+  overflow: hidden;
 }
 
-/* 4. Featured Project 3D Cards (Light-themed tactile cards on right perspective wall) */
+/* 4. Featured Project 3D Cards (Light-themed tactile cards on right wall) */
 .perspective-project-card {
   position: absolute;
   top: 50%;
-  left: clamp(52%, 58vw, 68%);
-  width: clamp(340px, 28vw, 420px);
-  transform: translateY(-50%) rotateY(-16deg);
-  transform-style: preserve-3d;
-  transform-origin: center center;
+  left: 60%;
+  width: clamp(520px, 46vw, 680px);
+  max-width: 90vw;
+  transform: translate(-50%, -50%);
   background: #FFFFFF;
   border: 1px solid var(--hairline-base);
-  box-shadow: 0 20px 50px -10px rgba(18, 21, 18, 0.12), 0 4px 14px rgba(18, 21, 18, 0.04);
-  padding: clamp(1.2rem, 1.8vw, 1.6rem);
+  box-shadow: 0 24px 60px -12px rgba(18, 21, 18, 0.12), 0 4px 16px rgba(18, 21, 18, 0.04);
+  padding: clamp(2rem, 2.5vw, 2.8rem);
   border-radius: 4px;
   opacity: 0;
   visibility: hidden;
@@ -194,16 +191,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--hairline-subtle);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .perspective-card-index {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.7rem;
+  gap: 10px;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
 }
 
@@ -221,65 +218,33 @@
   color: var(--color-ink-muted);
 }
 
-.perspective-card-status {
-  display: flex;
-  align-items: center;
-}
-
-.status-pill {
-  padding: 3px 8px;
-  border-radius: 2px;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  border: 1px solid currentColor;
-}
-
-.status-pill.deployed {
-  color: #2F5930;
-  background-color: rgba(47, 89, 48, 0.08);
-  border-color: rgba(47, 89, 48, 0.25);
-}
-
-.status-pill.active {
-  color: #8C5F1C;
-  background-color: rgba(140, 95, 28, 0.08);
-  border-color: rgba(140, 95, 28, 0.25);
-}
-
-.status-pill.concluded {
-  color: rgba(18, 21, 18, 0.6);
-  background-color: rgba(18, 21, 18, 0.05);
-  border-color: rgba(18, 21, 18, 0.15);
-}
-
 /* Card Body */
 .perspective-card-body {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .perspective-card-title {
-  font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+  font-size: clamp(2rem, 3vw, 2.75rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: var(--color-ink);
   margin: 0;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .perspective-card-tagline {
-  font-size: 0.92rem;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
   font-style: italic;
   color: var(--color-olive);
-  margin: 0 0 6px 0;
+  margin: 0 0 4px 0;
   line-height: 1.4;
 }
 
 .perspective-card-summary {
-  font-size: 0.85rem;
-  line-height: 1.6;
+  font-size: clamp(0.92rem, 1.05vw, 1.1rem);
+  line-height: 1.65;
   color: var(--color-ink-muted);
   margin: 0;
 }
@@ -287,24 +252,24 @@
 /* Key Impact Box */
 .perspective-card-impact {
   background: rgba(74, 88, 68, 0.07);
-  border-left: 2.5px solid var(--color-olive);
-  padding: 8px 12px;
-  margin: 10px 0 6px;
-  border-radius: 0 2px 2px 0;
+  border-left: 3px solid var(--color-olive);
+  padding: 12px 18px;
+  margin: 10px 0;
+  border-radius: 0 3px 3px 0;
 }
 
 .impact-lead {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--color-olive);
   letter-spacing: 0.08em;
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .impact-text {
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.85rem;
+  line-height: 1.55;
   color: var(--color-ink);
   margin: 0;
   font-family: inherit;
@@ -314,14 +279,14 @@
 .perspective-card-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .perspective-stack-pill {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
-  padding: 3px 8px;
+  padding: 4px 10px;
   background: rgba(18, 21, 18, 0.04);
   border: 1px solid var(--hairline-base);
   color: var(--color-olive);
@@ -333,20 +298,20 @@
 .perspective-card-footer {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 16px;
-  padding-top: 14px;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 16px;
   border-top: 1px solid var(--hairline-subtle);
 }
 
 .perspective-action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.72rem;
+  gap: 8px;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 8px 16px;
+  padding: 10px 22px;
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
@@ -389,18 +354,17 @@
 .perspective-archive-cta {
   position: absolute;
   top: 50%;
-  left: clamp(52%, 58vw, 68%);
-  width: clamp(340px, 28vw, 420px);
-  transform: translateY(-50%) rotateY(-16deg);
-  transform-style: preserve-3d;
-  transform-origin: center center;
+  left: 60%;
+  width: clamp(520px, 46vw, 680px);
+  max-width: 90vw;
+  transform: translate(-50%, -50%);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   background: #FFFFFF;
   border: 1px solid var(--color-olive-tint);
   box-shadow: 0 24px 60px -10px rgba(18, 21, 18, 0.14);
-  padding: clamp(1.4rem, 2vw, 1.8rem);
+  padding: clamp(2rem, 2.5vw, 2.8rem);
   border-radius: 4px;
   color: var(--color-ink);
 }
@@ -548,16 +512,11 @@
     perspective-origin: 50% 50%;
   }
 
-  .perspective-project-card {
-    right: 50%;
-    transform: translate(50%, -50%) translate3d(0, 0, -800px);
-    width: 90%;
-  }
-
+  .perspective-project-card,
   .perspective-archive-cta {
-    right: 50%;
-    transform: translate(50%, -50%) translate3d(0, 0, -800px);
-    width: 90%;
+    left: 50%;
+    width: 92vw;
+    padding: 1.5rem;
   }
 }
 
