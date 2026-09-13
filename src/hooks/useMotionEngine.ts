@@ -222,15 +222,15 @@ export const useMotionEngine = () => {
         portalTimeline.set('#expedition-3d-card-1', { visibility: 'visible' }, 4.20);
         portalTimeline.fromTo(
           '#expedition-3d-card-1',
-          { x: '-38vw', yPercent: -50, scale: 0.90, rotationY: -16, opacity: 0 },
-          { x: '0vw', yPercent: -50, scale: 1.0, rotationY: -12, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          { x: -550, yPercent: -50, scale: 0.94, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, opacity: 1, duration: 0.45, ease: 'power2.out' },
           4.20
         );
         portalTimeline.set('#expedition-3d-card-1', { pointerEvents: 'auto', className: '+=is-in-focus' }, 4.65);
         portalTimeline.set('#expedition-3d-card-1', { pointerEvents: 'none', className: '-=is-in-focus' }, 5.10);
         portalTimeline.to(
           '#expedition-3d-card-1',
-          { x: '40vw', yPercent: -50, scale: 1.05, rotationY: -6, opacity: 0, duration: 0.40, ease: 'power2.in' },
+          { x: 550, yPercent: -50, scale: 1.02, opacity: 0, duration: 0.40, ease: 'power2.in' },
           5.10
         );
         portalTimeline.set('#expedition-3d-card-1', { visibility: 'hidden', opacity: 0 }, 5.50);
@@ -239,15 +239,15 @@ export const useMotionEngine = () => {
         portalTimeline.set('#expedition-3d-card-2', { visibility: 'visible' }, 5.50);
         portalTimeline.fromTo(
           '#expedition-3d-card-2',
-          { x: '-38vw', yPercent: -50, scale: 0.90, rotationY: -16, opacity: 0 },
-          { x: '0vw', yPercent: -50, scale: 1.0, rotationY: -12, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          { x: -550, yPercent: -50, scale: 0.94, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, opacity: 1, duration: 0.45, ease: 'power2.out' },
           5.50
         );
         portalTimeline.set('#expedition-3d-card-2', { pointerEvents: 'auto', className: '+=is-in-focus' }, 5.95);
         portalTimeline.set('#expedition-3d-card-2', { pointerEvents: 'none', className: '-=is-in-focus' }, 6.40);
         portalTimeline.to(
           '#expedition-3d-card-2',
-          { x: '40vw', yPercent: -50, scale: 1.05, rotationY: -6, opacity: 0, duration: 0.40, ease: 'power2.in' },
+          { x: 550, yPercent: -50, scale: 1.02, opacity: 0, duration: 0.40, ease: 'power2.in' },
           6.40
         );
         portalTimeline.set('#expedition-3d-card-2', { visibility: 'hidden', opacity: 0 }, 6.80);
@@ -256,15 +256,15 @@ export const useMotionEngine = () => {
         portalTimeline.set('#expedition-3d-card-3', { visibility: 'visible' }, 6.80);
         portalTimeline.fromTo(
           '#expedition-3d-card-3',
-          { x: '-38vw', yPercent: -50, scale: 0.90, rotationY: -16, opacity: 0 },
-          { x: '0vw', yPercent: -50, scale: 1.0, rotationY: -12, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          { x: -550, yPercent: -50, scale: 0.94, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, opacity: 1, duration: 0.45, ease: 'power2.out' },
           6.80
         );
         portalTimeline.set('#expedition-3d-card-3', { pointerEvents: 'auto', className: '+=is-in-focus' }, 7.25);
         portalTimeline.set('#expedition-3d-card-3', { pointerEvents: 'none', className: '-=is-in-focus' }, 7.70);
         portalTimeline.to(
           '#expedition-3d-card-3',
-          { x: '40vw', yPercent: -50, scale: 1.05, rotationY: -6, opacity: 0, duration: 0.40, ease: 'power2.in' },
+          { x: 550, yPercent: -50, scale: 1.02, opacity: 0, duration: 0.40, ease: 'power2.in' },
           7.70
         );
         portalTimeline.set('#expedition-3d-card-3', { visibility: 'hidden', opacity: 0 }, 8.10);
@@ -273,15 +273,15 @@ export const useMotionEngine = () => {
         portalTimeline.set('#expedition-3d-card-4', { visibility: 'visible' }, 8.10);
         portalTimeline.fromTo(
           '#expedition-3d-card-4',
-          { x: '-38vw', yPercent: -50, scale: 0.90, rotationY: -16, opacity: 0 },
-          { x: '0vw', yPercent: -50, scale: 1.0, rotationY: -12, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          { x: -550, yPercent: -50, scale: 0.94, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, opacity: 1, duration: 0.45, ease: 'power2.out' },
           8.10
         );
         portalTimeline.set('#expedition-3d-card-4', { pointerEvents: 'auto', className: '+=is-in-focus' }, 8.55);
         portalTimeline.set('#expedition-3d-card-4', { pointerEvents: 'none', className: '-=is-in-focus' }, 9.00);
         portalTimeline.to(
           '#expedition-3d-card-4',
-          { x: '40vw', yPercent: -50, scale: 1.05, rotationY: -6, opacity: 0, duration: 0.40, ease: 'power2.in' },
+          { x: 550, yPercent: -50, scale: 1.02, opacity: 0, duration: 0.40, ease: 'power2.in' },
           9.00
         );
         portalTimeline.set('#expedition-3d-card-4', { visibility: 'hidden', opacity: 0 }, 9.40);
@@ -290,15 +290,15 @@ export const useMotionEngine = () => {
         portalTimeline.set('#perspective-archive-cta', { visibility: 'visible' }, 9.40);
         portalTimeline.fromTo(
           '#perspective-archive-cta',
-          { x: '-38vw', yPercent: -50, scale: 0.90, rotationY: -16, opacity: 0 },
-          { x: '0vw', yPercent: -50, scale: 1.0, rotationY: -12, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          { x: -550, yPercent: -50, scale: 0.94, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, opacity: 1, duration: 0.45, ease: 'power2.out' },
           9.40
         );
         portalTimeline.set('#perspective-archive-cta', { pointerEvents: 'auto', className: '+=is-in-focus' }, 9.85);
         portalTimeline.set('#perspective-archive-cta', { pointerEvents: 'none', className: '-=is-in-focus' }, 10.25);
         portalTimeline.to(
           '#perspective-archive-cta',
-          { x: '40vw', yPercent: -50, scale: 1.05, rotationY: -6, opacity: 0, duration: 0.35, ease: 'power2.in' },
+          { x: 550, yPercent: -50, scale: 1.02, opacity: 0, duration: 0.35, ease: 'power2.in' },
           10.25
         );
         portalTimeline.set('#perspective-archive-cta', { visibility: 'hidden', opacity: 0 }, 10.60);

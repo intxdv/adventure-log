@@ -142,15 +142,12 @@
   will-change: opacity, transform;
 }
 
-/* 3. 3D Perspective Corridor Track */
+/* 3. Linear Corridor Track */
 .perspective-corridor-track {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  perspective: 1200px;
-  perspective-origin: 50% 50%;
-  transform-style: preserve-3d;
   pointer-events: none;
   z-index: 4;
   overflow: hidden;
