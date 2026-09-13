@@ -442,42 +442,55 @@
   color: #4ade80;
 }
 
-/* Pagination Dots below frame */
-.swiss-dots-nav {
+/* Tactical Step Navigation below frame (Botanical Olive & Alpine Ink Theme) */
+.swiss-step-nav {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: clamp(0.8rem, 1.5vh, 1.4rem);
+  margin-top: clamp(0.8rem, 1.4vh, 1.2rem);
   pointer-events: auto;
+  user-select: none;
 }
 
-.swiss-dot-btn {
+.swiss-step-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swiss-step-btn {
   background: transparent;
   border: none;
-  padding: 6px;
+  padding: 6px 2px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.swiss-dot-inner {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(18, 21, 18, 0.25);
+.swiss-step-dash {
+  width: 14px;
+  height: 2px;
+  background: rgba(18, 21, 18, 0.22);
+  border-radius: 1px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.swiss-dot-btn:hover .swiss-dot-inner {
-  background: rgba(18, 21, 18, 0.6);
-  transform: scale(1.2);
+.swiss-step-btn:hover .swiss-step-dash {
+  background: rgba(74, 88, 68, 0.6);
+  width: 18px;
 }
 
-.swiss-dot-btn.is-active .swiss-dot-inner {
-  background: #0055ff;
-  box-shadow: 0 0 10px rgba(0, 85, 255, 0.5);
-  transform: scale(1.4);
+.swiss-step-btn.is-active .swiss-step-dash {
+  width: 32px;
+  height: 2.5px;
+  background: var(--color-olive);
+}
+
+.swiss-step-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-olive);
 }
 
 /* ==========================================================================

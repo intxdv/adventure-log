@@ -241,21 +241,26 @@ export const SelectedExpeditions: React.FC = () => {
               />
             </div>
 
-            {/* Pagination Dot Indicator beneath Center Frame */}
-            <div className="swiss-dots-nav" role="tablist" aria-label="Expedition showcase pagination">
-              {FEATURED_EXPEDITIONS.map((exp, idx) => (
-                <button
-                  key={exp.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeIndex === idx}
-                  aria-label={`Jump to expedition 0${idx + 1}: ${exp.title}`}
-                  className={`swiss-dot-btn ${activeIndex === idx ? 'is-active' : ''}`}
-                  onClick={() => goToProject(idx)}
-                >
-                  <span className="swiss-dot-inner" />
-                </button>
-              ))}
+            {/* Tactical Step Indicator beneath Center Frame (Matching Botanical Olive Theme) */}
+            <div className="swiss-step-nav" role="tablist" aria-label="Expedition showcase navigation">
+              <div className="swiss-step-track">
+                {FEATURED_EXPEDITIONS.map((exp, idx) => (
+                  <button
+                    key={exp.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeIndex === idx}
+                    aria-label={`Jump to expedition 0${idx + 1}: ${exp.title}`}
+                    className={`swiss-step-btn ${activeIndex === idx ? 'is-active' : ''}`}
+                    onClick={() => goToProject(idx)}
+                  >
+                    <span className="swiss-step-dash" />
+                  </button>
+                ))}
+              </div>
+              <span className="swiss-step-label font-mono">
+                0{activeIndex + 1} / 0{FEATURED_EXPEDITIONS.length}
+              </span>
             </div>
           </div>
 
