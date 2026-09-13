@@ -14,63 +14,63 @@ interface FontConfig {
   letterSpacing?: string;
 }
 
-// 8 Variasi Font & Casing terkalibrasi secara optik dengan skala berwibawa & megah
+// 8 Variasi Font & Casing terkalibrasi secara presisi agar selalu berada di dalam frame
 const FONT_SEQUENCE: FontConfig[] = [
   {
     text: 'Adventure Log.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(3.4rem, 6.8vw, 5.8rem)',
-    letterSpacing: '0.02em',
+    fontSize: 'clamp(2.5rem, 4.4vw, 3.8rem)',
+    letterSpacing: '0.01em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(3.1rem, 6.2vw, 5.2rem)',
+    fontSize: 'clamp(2.3rem, 3.8vw, 3.3rem)',
     letterSpacing: '-0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Daydream',
     fontWeight: 400,
-    fontSize: 'clamp(2.3rem, 4.6vw, 3.8rem)',
-    letterSpacing: '0.04em',
+    fontSize: 'clamp(1.6rem, 2.6vw, 2.35rem)',
+    letterSpacing: '0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(3.1rem, 6.2vw, 5.2rem)',
-    letterSpacing: '0.03em',
+    fontSize: 'clamp(2.3rem, 3.8vw, 3.3rem)',
+    letterSpacing: '0.02em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Printvetica',
     fontWeight: 400,
-    fontSize: 'clamp(3.3rem, 6.5vw, 5.4rem)',
+    fontSize: 'clamp(2.4rem, 4.2vw, 3.6rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 400,
-    fontSize: 'clamp(2.8rem, 5.6vw, 4.6rem)',
-    letterSpacing: '0.02em',
+    fontSize: 'clamp(2.2rem, 3.6vw, 3.1rem)',
+    letterSpacing: '0.01em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(3.4rem, 6.8vw, 5.8rem)',
+    fontSize: 'clamp(2.5rem, 4.4vw, 3.8rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 700,
-    fontSize: 'clamp(2.7rem, 5.4vw, 4.4rem)',
-    letterSpacing: '0.04em',
+    fontSize: 'clamp(2.1rem, 3.4vw, 2.95rem)',
+    letterSpacing: '0.03em',
   },
 ];
 
@@ -352,10 +352,9 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             <span className="viewfinder-node bottom-left" aria-hidden="true" />
             <span className="viewfinder-node bottom-right" aria-hidden="true" />
 
-            {/* Viewfinder Telemetry Header */}
+            {/* Viewfinder Header (Kicker Only) */}
             <div className="viewfinder-header font-mono" aria-hidden="true">
               <span className="viewfinder-tag">[ 00 // FIELD ARCHIVE &amp; EXPEDITIONS ]</span>
-              <span className="viewfinder-spec">FRAME: 01 // 780 × 410 PX</span>
             </div>
 
             {/* Dynamic Title Wrapper */}
@@ -410,12 +409,6 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
               <span className="hero-bio-word">organic</span>{' '}
               <span className="hero-bio-word">exploration.</span>
             </p>
-
-            {/* Viewfinder Telemetry Footer */}
-            <div className="viewfinder-footer font-mono" aria-hidden="true">
-              <span className="viewfinder-coords">COORD: 7.05°S · 110.44°E</span>
-              <span className="viewfinder-status">STATUS: CALIBRATED</span>
-            </div>
           </div>
         </div>
 
