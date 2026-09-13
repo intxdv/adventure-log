@@ -10,6 +10,16 @@
   scroll-margin-top: 80px;
 }
 
+/* Wide Container matching Header and Footer */
+.arsenal-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-left: clamp(24px, 5vw, 80px);
+  padding-right: clamp(24px, 5vw, 80px);
+  box-sizing: border-box;
+}
+
 /* Section Header */
 .arsenal-header {
   margin-bottom: var(--space-xl);

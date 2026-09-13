@@ -29,7 +29,7 @@ export const FieldArsenal: React.FC = () => {
 
   return (
     <section id="arsenal" className="arsenal-section hairline-b" aria-labelledby="arsenal-heading">
-      <div className="container">
+      <div className="arsenal-container">
         
         {/* Section Header */}
         <header className="arsenal-header">
@@ -103,7 +103,7 @@ export const FieldArsenal: React.FC = () => {
             onActiveChange={setActivePillarIndex}
             defaultIndex={0}
             expandRatio={0.52}
-            height={420}
+            height={460}
             radius={4}
             accentColor="var(--color-olive)"
             overlayColor="#181A18"
