@@ -31,10 +31,11 @@ export const About: React.FC = () => {
         
         {/* Left Column: Zine-Style Card Frame (Reference-Inspired) */}
         <div className="field-card-wrapper">
-          <figure className="field-zine-card" aria-label="Portrait: Syafiq Abiyyu Taqi">
+          <figure id="field-zine-card-elem" className="field-zine-card" aria-label="Portrait: Syafiq Abiyyu Taqi">
             <div className="field-zine-frame">
               {!hasImageError ? (
                 <img
+                  id="field-zine-portrait-img"
                   src="/images/taki-portrait.jpg"
                   alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
                   className="field-zine-img"

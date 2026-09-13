@@ -30,8 +30,8 @@ export const App: React.FC = () => {
         <div id="hero-stage-wrapper" className="hero-stage-wrapper">
           <Hero isAppLoaded={isAppLoaded} />
           <About />
+          <SelectedExpeditions />
         </div>
-        <SelectedExpeditions />
         <FieldArsenal />
       </main>
       <Footer />
