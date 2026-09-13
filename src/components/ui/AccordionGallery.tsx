@@ -1,20 +1,26 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import type { CSSProperties, KeyboardEvent, MouseEvent } from 'react';
 import { gsap } from 'gsap';
+import type { ArsenalSkill } from '../../types';
 
 import './AccordionGallery.css';
 
 export interface AccordionGalleryItem {
+  id?: string;
   image: string;
-  label?: string;
-  link?: string;
-  alt?: string;
+  label: string; // Title
   code?: string;
   tagline?: string;
+  pillarIndex?: string;
+  description?: string;
+  skills?: ArsenalSkill[];
+  tools?: string[];
+  link?: string;
+  alt?: string;
 }
 
 export interface AccordionGalleryProps {
-  items?: AccordionGalleryItem[];
+  items: AccordionGalleryItem[];
   defaultIndex?: number;
   activeIndex?: number;
   onActiveChange?: (index: number) => void;
@@ -32,48 +38,39 @@ export interface AccordionGalleryProps {
   tilt?: number;
   stagger?: number;
   trigger?: 'hover' | 'click';
-  showLabels?: boolean;
   grayscale?: boolean;
   className?: string;
 }
 
-const DEFAULT_ITEMS: AccordionGalleryItem[] = [
-  { image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop', label: 'Creative Web & Spatial', code: 'GEAR.WEB // 01' },
-  { image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop', label: 'Mobile Architecture', code: 'GEAR.MOBILE // 02' },
-  { image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop', label: 'Interface Systems', code: 'GEAR.DESIGN // 03' }
-];
-
 export const AccordionGallery = ({
-  items = DEFAULT_ITEMS,
+  items,
   defaultIndex = 0,
   activeIndex,
   onActiveChange,
   accentColor = '#4A5844',
-  overlayColor = '#181A18',
+  overlayColor = '#141714',
   textColor = '#F7F6F2',
-  height = 440,
-  gap = 12,
+  height = 700,
+  gap = 14,
   radius = 4,
-  expandRatio = 0.54,
+  expandRatio = 0.65,
   orientation = 'horizontal',
   duration = 0.6,
   ease = 'power3.out',
-  parallax = 0.45,
-  tilt = 6,
-  stagger = 0.05,
+  parallax = 0.4,
+  tilt = 5,
   trigger = 'hover',
-  showLabels = true,
   grayscale = true,
   className = ''
 }: AccordionGalleryProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<(HTMLElement | null)[]>([]);
   const mediaRefs = useRef<(HTMLElement | null)[]>([]);
-  const barRefs = useRef<(HTMLElement | null)[]>([]);
-  const textRefs = useRef<(HTMLElement | null)[]>([]);
+  const spineRefs = useRef<(HTMLElement | null)[]>([]);
+  const dossierRefs = useRef<(HTMLElement | null)[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const firstRunRef = useRef(true);
-  const mediaSizeRef = useRef(320);
+  const mediaSizeRef = useRef(400);
 
   const vertical = orientation === 'vertical';
   const count = items.length;
@@ -115,14 +112,16 @@ export const AccordionGallery = ({
         if (!panel) return;
         const isActive = i === active;
         const media = mediaRefs.current[i];
-        const bar = barRefs.current[i];
-        const text = textRefs.current[i];
+        const spine = spineRefs.current[i];
+        const dossier = dossierRefs.current[i];
 
         const rot = isActive ? 0 : i < active ? tilt : -tilt;
         const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
 
+        // Expand/Collapse panel width and 3D tilt
         tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, duration: dur, ease }, 0);
 
+        // Parallax image drift & dimming
         if (media) {
           const drift = Math.max(-1.5, Math.min(1.5, active - i));
           const shift = drift * parallax * mediaSize * 0.06;
@@ -135,7 +134,7 @@ export const AccordionGallery = ({
               x: vertical ? 0 : isActive ? 0 : shift,
               y: vertical ? (isActive ? 0 : shift) : 0,
               '--ag-gray': gray,
-              '--ag-dim': isActive ? 0.15 : 0.45,
+              '--ag-dim': isActive ? 0.08 : 0.45,
               duration: dur,
               ease
             },
@@ -143,11 +142,21 @@ export const AccordionGallery = ({
           );
         }
 
-        if (showLabels && bar && text) {
+        // Vertical Spine Title transition (Visible when collapsed)
+        if (spine) {
           if (isActive) {
-            tl.to([bar, text], { opacity: 1, x: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
+            tl.to(spine, { opacity: 0, scale: 0.95, duration: dur * 0.4, ease }, 0);
           } else {
-            tl.to([bar, text], { opacity: 0, x: -14, duration: dur * 0.6, ease }, 0);
+            tl.to(spine, { opacity: 1, scale: 1, duration: dur, ease, delay: prefersReduced ? 0 : 0.1 }, 0);
+          }
+        }
+
+        // Detailed Dossier Content transition (Visible when expanded)
+        if (dossier) {
+          if (isActive) {
+            tl.to(dossier, { opacity: 1, y: 0, pointerEvents: 'auto', duration: dur, ease, delay: prefersReduced ? 0 : 0.08 }, 0);
+          } else {
+            tl.to(dossier, { opacity: 0, y: 14, pointerEvents: 'none', duration: dur * 0.35, ease }, 0);
           }
         }
       });
@@ -164,8 +173,6 @@ export const AccordionGallery = ({
       tilt,
       parallax,
       grayscale,
-      showLabels,
-      stagger,
       prefersReduced
     ]
   );
@@ -178,7 +185,7 @@ export const AccordionGallery = ({
       const rect = el.getBoundingClientRect();
       const total = vertical ? rect.height : rect.width;
       const usable = Math.max(total - gap * (count - 1), 120);
-      const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.22);
+      const size = Math.max(160, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.25);
       mediaSizeRef.current = size;
       el.style.setProperty('--ag-media-size', `${size}px`);
       applyLayout(!firstRunRef.current);
@@ -229,7 +236,7 @@ export const AccordionGallery = ({
     '--ag-text': textColor,
     '--ag-gap': `${gap}px`,
     '--ag-radius': `${radius}px`,
-    height: vertical ? `${Math.round(height * 1.6)}px` : `${height}px`
+    height: vertical ? 'auto' : `${height}px`
   } as CSSProperties;
 
   return (
@@ -238,18 +245,18 @@ export const AccordionGallery = ({
       className={`accordion-gallery${vertical ? ' accordion-gallery--vertical' : ''}${className ? ` ${className}` : ''}`}
       style={rootStyle}
       role="list"
-      aria-label="Image accordion gallery"
+      aria-label="Technical Arsenal Accordion Gallery"
     >
       {items.map((item, i) => {
         const isActive = i === active;
         const Tag = (item.link ? 'a' : 'div') as 'a';
         return (
           <Tag
-            key={i}
+            key={item.id || i}
             ref={(el: HTMLElement | null) => {
               panelRefs.current[i] = el;
             }}
-            className={`ag-panel${isActive ? ' ag-panel--active' : ''}`}
+            className={`ag-panel${isActive ? ' ag-panel--active' : ' ag-panel--collapsed'}`}
             style={{ borderRadius: `${radius}px` }}
             href={item.link || undefined}
             onClick={e => handleClick(i, e)}
@@ -265,9 +272,11 @@ export const AccordionGallery = ({
             <div className="ag-panel__top font-mono" aria-hidden="true">
               <span className="ag-panel__badge">0{i + 1}</span>
               {item.code && <span className="ag-panel__code">{item.code}</span>}
+              {isActive && <span className="ag-panel__active-indicator font-mono">● EXPEDITION ACTIVE</span>}
             </div>
 
-            <span className="ag-panel__frame">
+            {/* Background Photographic Frame & Film */}
+            <span className="ag-panel__frame" aria-hidden="true">
               <span
                 className="ag-panel__media"
                 ref={(el: HTMLElement | null) => {
@@ -276,34 +285,105 @@ export const AccordionGallery = ({
               >
                 <img src={item.image} alt={item.alt || item.label || ''} draggable={false} />
               </span>
-              <span className="ag-panel__overlay" aria-hidden="true" />
+              <span className="ag-panel__overlay" />
             </span>
 
-            {showLabels && (
-              <span className="ag-panel__label" aria-hidden="true">
-                <span
-                  className="ag-panel__bar"
-                  ref={(el: HTMLElement | null) => {
-                    barRefs.current[i] = el;
-                  }}
-                />
-                <div className="ag-panel__content">
-                  <span
-                    className="ag-panel__text font-display"
-                    ref={(el: HTMLElement | null) => {
-                      textRefs.current[i] = el;
-                    }}
-                  >
-                    {item.label}
+            {/* Collapsed View: Vertical Spine Title (Shown when inactive) */}
+            <div
+              className="ag-panel__spine"
+              ref={(el: HTMLElement | null) => {
+                spineRefs.current[i] = el;
+              }}
+              aria-hidden={isActive}
+            >
+              <div className="ag-panel__spine-content">
+                <span className="ag-panel__spine-idx font-mono">
+                  0{i + 1} //
+                </span>
+                <h3 className="ag-panel__spine-title font-display">
+                  {item.label}
+                </h3>
+                {item.code && (
+                  <span className="ag-panel__spine-code font-mono">
+                    [{item.code.replace('GEAR.', '')}]
                   </span>
-                  {item.tagline && (
-                    <span className="ag-panel__tagline font-mono">
-                      {item.tagline}
-                    </span>
-                  )}
+                )}
+              </div>
+            </div>
+
+            {/* Expanded View: Full Technical Dossier Content (Shown when active) */}
+            <div
+              className="ag-panel__dossier"
+              ref={(el: HTMLElement | null) => {
+                dossierRefs.current[i] = el;
+              }}
+              aria-hidden={!isActive}
+            >
+              {/* Dossier Header Info */}
+              <div className="ag-dossier__header">
+                <div className="ag-dossier__meta font-mono">
+                  <span className="ag-dossier__pillar-idx">{item.pillarIndex || `PILLAR // 0${i + 1}`}</span>
+                  <span className="ag-dossier__sep">/</span>
+                  <span className="ag-dossier__pillar-code">{item.code}</span>
                 </div>
-              </span>
-            )}
+                <h3 className="ag-dossier__title font-display">
+                  {item.label}
+                </h3>
+                {item.tagline && (
+                  <p className="ag-dossier__tagline font-mono">
+                    “{item.tagline}”
+                  </p>
+                )}
+                {item.description && (
+                  <p className="ag-dossier__desc">
+                    {item.description}
+                  </p>
+                )}
+              </div>
+
+              {/* Verified Capabilities (6 Specs) */}
+              {item.skills && item.skills.length > 0 && (
+                <div className="ag-dossier__skills">
+                  <div className="ag-dossier__skills-label font-mono">
+                    <span>VERIFIED CAPABILITIES (0{item.skills.length} SPECS) //</span>
+                    <span className="ag-dossier__skills-status font-mono">PRODUCTION TESTED</span>
+                  </div>
+                  <ul className="ag-dossier__skills-grid" role="list">
+                    {item.skills.map((skill) => (
+                      <li key={skill.name} className="ag-skill-card">
+                        <div className="ag-skill-card__header">
+                          <span className="ag-skill-card__bullet font-mono" aria-hidden="true">
+                            ▸
+                          </span>
+                          <span className="ag-skill-card__name font-mono">
+                            {skill.name}
+                          </span>
+                        </div>
+                        {skill.spec && (
+                          <span className="ag-skill-card__spec font-mono">
+                            {skill.spec}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Primary Production Toolchain Tray */}
+              {item.tools && item.tools.length > 0 && (
+                <div className="ag-dossier__tools font-mono">
+                  <span className="ag-dossier__tools-heading">PRIMARY PRODUCTION TOOLCHAIN //</span>
+                  <div className="ag-dossier__tools-pills">
+                    {item.tools.map((tool) => (
+                      <span key={tool} className="ag-tool-pill">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </Tag>
         );
       })}

@@ -1,15 +1,15 @@
 /* ==========================================================================
    AccordionGallery Component Styles
-   Enhanced for "The Digital Cartographer" (Tactile Swiss Editorial Aesthetic)
+   Embedded Technical Dossiers with Vertical Book-Spine Titles (Swiss Editorial)
    ========================================================================== */
 
 .accordion-gallery {
   --ag-accent: #4A5844;
-  --ag-overlay: #181A18;
+  --ag-overlay: #121512;
   --ag-text: #F7F6F2;
-  --ag-gap: 12px;
+  --ag-gap: 14px;
   --ag-radius: 4px;
-  --ag-media-size: 320px;
+  --ag-media-size: 400px;
 
   display: flex;
   flex-direction: row;
@@ -25,6 +25,7 @@
   flex-direction: column;
 }
 
+/* Individual Accordion Panel */
 .ag-panel {
   position: relative;
   flex: 1 1 0;
@@ -39,20 +40,21 @@
   outline: none;
   transform-style: preserve-3d;
   transform-origin: center center;
-  background: #121412;
-  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.35);
+  background: #101210;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.4);
   will-change: flex-grow, transform;
   -webkit-tap-highlight-color: transparent;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ag-panel:hover {
-  border-color: rgba(74, 88, 68, 0.45);
+  border-color: rgba(74, 88, 68, 0.55);
 }
 
 .ag-panel--active {
   border-color: var(--ag-accent);
-  box-shadow: 0 14px 34px -12px rgba(24, 26, 24, 0.5), 0 0 0 1px rgba(74, 88, 68, 0.3);
+  box-shadow: 0 16px 40px -12px rgba(24, 26, 24, 0.6), 0 0 0 1px rgba(74, 88, 68, 0.35);
+  cursor: default;
 }
 
 .ag-panel:focus-visible {
@@ -63,12 +65,13 @@
     0 12px 30px -14px rgba(0, 0, 0, 0.6);
 }
 
-/* Panel Frame & Media */
+/* Background Photographic Frame & Film */
 .ag-panel__frame {
   position: absolute;
   inset: 0;
   overflow: hidden;
   border-radius: inherit;
+  pointer-events: none;
 }
 
 .ag-panel__media {
@@ -82,11 +85,6 @@
   filter: grayscale(var(--ag-gray));
   will-change: transform, filter;
   transform: translate(-50%, -50%);
-}
-
-.accordion-gallery--vertical .ag-panel__media {
-  width: 100%;
-  height: var(--ag-media-size);
 }
 
 .ag-panel__media img {
@@ -103,145 +101,410 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(24, 26, 24, 0.4) 0%, rgba(24, 26, 24, 0.15) 35%, rgba(24, 26, 24, 0.85) 100%),
-    rgba(24, 26, 24, var(--ag-dim, 0.45));
+    linear-gradient(180deg, rgba(18, 21, 18, 0.55) 0%, rgba(18, 21, 18, 0.3) 30%, rgba(18, 21, 18, 0.92) 100%),
+    rgba(18, 21, 18, var(--ag-dim, 0.45));
+  transition: background 0.4s ease;
+}
+
+.ag-panel--active .ag-panel__overlay {
+  background:
+    linear-gradient(180deg, rgba(14, 17, 14, 0.88) 0%, rgba(14, 17, 14, 0.94) 100%),
+    rgba(14, 17, 14, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* Top Tactical Telemetry Badge */
 .ag-panel__top {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  right: 14px;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   pointer-events: none;
-  z-index: 3;
+  z-index: 7;
 }
 
 .ag-panel__badge {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #F7F6F2;
-  background: rgba(24, 26, 24, 0.72);
+  background: rgba(24, 26, 24, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(247, 246, 242, 0.16);
-  padding: 3px 7px;
+  border: 1px solid rgba(247, 246, 242, 0.18);
+  padding: 3px 8px;
   border-radius: 2px;
 }
 
 .ag-panel--active .ag-panel__badge {
   background: var(--ag-accent);
   color: #F7F6F2;
-  border-color: rgba(247, 246, 242, 0.3);
+  border-color: rgba(247, 246, 242, 0.35);
 }
 
 .ag-panel__code {
   font-size: 0.65rem;
   letter-spacing: 0.06em;
   color: rgba(247, 246, 242, 0.75);
-  background: rgba(24, 26, 24, 0.6);
+  background: rgba(24, 26, 24, 0.65);
   backdrop-filter: blur(6px);
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 2px;
   white-space: nowrap;
 }
 
-/* Bottom Caption & Label */
-.ag-panel__label {
-  position: absolute;
-  left: 18px;
-  bottom: 18px;
-  right: 18px;
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.ag-panel__bar {
-  flex: 0 0 auto;
-  width: 3px;
-  height: 32px;
+.ag-panel__active-indicator {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: #A3BA99;
+  background: rgba(74, 88, 68, 0.25);
+  border: 1px solid rgba(74, 88, 68, 0.45);
+  padding: 2px 8px;
   border-radius: 2px;
-  background: var(--ag-accent);
-  opacity: 0;
-  box-shadow: 0 0 10px rgba(74, 88, 68, 0.7);
-  margin-bottom: 4px;
+  white-space: nowrap;
 }
 
-.ag-panel__content {
+/* ==========================================================================
+   Collapsed View: Vertical Spine Title (Book-Spine / Field Dossier Style)
+   ========================================================================== */
+
+.ag-panel__spine {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+  padding: 60px 10px 30px;
+}
+
+.ag-panel__spine-content {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.ag-panel__spine-idx {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #A3B59D;
+}
+
+.ag-panel__spine-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #F7F6F2;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+  transition: color 0.25s ease;
+  margin: 0;
+}
+
+.ag-panel:hover .ag-panel__spine-title {
+  color: #C2D4BC;
+}
+
+.ag-panel__spine-code {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: rgba(247, 246, 242, 0.55);
+}
+
+/* ==========================================================================
+   Expanded View: Embedded Full Technical Dossier Panel
+   ========================================================================== */
+
+.ag-panel__dossier {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  padding: clamp(3.2rem, 3.8vw, 4rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(74, 88, 68, 0.5) transparent;
+}
+
+.ag-panel__dossier::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ag-panel__dossier::-webkit-scrollbar-thumb {
+  background-color: rgba(74, 88, 68, 0.5);
+  border-radius: 2px;
+}
+
+/* Dossier Header */
+.ag-dossier__header {
+  border-bottom: 1px solid rgba(247, 246, 242, 0.1);
+  padding-bottom: var(--space-md);
+}
+
+.ag-dossier__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  margin-bottom: 6px;
+}
+
+.ag-dossier__pillar-idx {
+  color: #A3B59D;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.ag-dossier__sep {
+  color: rgba(247, 246, 242, 0.25);
+}
+
+.ag-dossier__pillar-code {
+  color: rgba(247, 246, 242, 0.6);
+  letter-spacing: 0.06em;
+}
+
+.ag-dossier__title {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #F7F6F2;
+  margin: 0 0 6px 0;
+}
+
+.ag-dossier__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(247, 246, 242, 0.75);
+  margin-bottom: 8px;
+}
+
+.ag-dossier__desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(247, 246, 242, 0.88);
+  max-width: 900px;
+  margin: 0;
+}
+
+/* Verified Capabilities Section */
+.ag-dossier__skills {
+  margin-top: 4px;
+}
+
+.ag-dossier__skills-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(247, 246, 242, 0.55);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(247, 246, 242, 0.08);
+}
+
+.ag-dossier__skills-status {
+  color: #A3B59D;
+}
+
+.ag-dossier__skills-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 1024px) {
+  .ag-dossier__skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ag-skill-card {
+  background: rgba(24, 28, 24, 0.75);
+  border: 1px solid rgba(247, 246, 242, 0.12);
+  border-radius: 2px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  min-width: 0;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.ag-panel__text {
-  color: var(--ag-text);
-  font-weight: 800;
-  font-size: clamp(1.15rem, 1.5vw, 1.5rem);
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  opacity: 0;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+.ag-skill-card:hover {
+  border-color: rgba(163, 181, 157, 0.5);
+  background: rgba(28, 34, 28, 0.85);
 }
 
-.ag-panel__tagline {
-  font-size: 0.725rem;
-  letter-spacing: 0.03em;
-  color: rgba(247, 246, 242, 0.75);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  opacity: 0.9;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+.ag-skill-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Responsive Handling */
+.ag-skill-card__bullet {
+  color: #A3B59D;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+.ag-skill-card__name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #F7F6F2;
+  letter-spacing: 0.02em;
+}
+
+.ag-skill-card__spec {
+  font-size: 0.7rem;
+  color: rgba(247, 246, 242, 0.65);
+  padding-left: 14px;
+  line-height: 1.4;
+}
+
+/* Primary Toolchain Tray */
+.ag-dossier__tools {
+  padding-top: var(--space-xs);
+  border-top: 1px solid rgba(247, 246, 242, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ag-dossier__tools-heading {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(247, 246, 242, 0.5);
+}
+
+.ag-dossier__tools-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ag-tool-pill {
+  background: rgba(247, 246, 242, 0.08);
+  border: 1px solid rgba(247, 246, 242, 0.14);
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 0.7rem;
+  color: #F7F6F2;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+
+.ag-tool-pill:hover {
+  border-color: #A3B59D;
+  color: #A3B59D;
+  background: rgba(74, 88, 68, 0.2);
+}
+
+/* ==========================================================================
+   Mobile Responsive Breakdown (<= 768px)
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .accordion-gallery {
     flex-direction: column;
     perspective: none;
     height: auto !important;
-    gap: 10px;
+    gap: 12px;
   }
 
   .ag-panel {
-    min-height: 96px;
-    height: 96px;
+    min-height: 72px;
+    height: auto;
     transform: none !important;
   }
 
-  .ag-panel--active {
-    min-height: 140px;
-    height: 140px;
+  .ag-panel--collapsed {
+    min-height: 72px;
+    height: 72px;
   }
 
-  .accordion-gallery .ag-panel__media {
+  .ag-panel--active {
+    min-height: 580px;
+  }
+
+  .ag-panel__media {
     width: 100%;
     height: var(--ag-media-size);
+  }
+
+  /* In mobile collapsed view, spine is horizontal */
+  .ag-panel__spine {
+    padding: 0 16px;
+    justify-content: flex-start;
+  }
+
+  .ag-panel__spine-content {
+    writing-mode: horizontal-tb;
+    transform: none;
+    gap: 10px;
+    padding-left: 42px; /* clearance for badge */
+  }
+
+  .ag-panel__spine-title {
+    font-size: 1.05rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+  }
+
+  .ag-panel__spine-code {
+    display: none;
   }
 
   .ag-panel__code {
     display: none;
   }
 
-  .ag-panel__text {
-    font-size: 1.15rem;
+  .ag-panel__dossier {
+    position: relative;
+    padding: 48px 16px 20px;
+    height: auto;
+  }
+
+  .ag-dossier__title {
+    font-size: 1.35rem;
+  }
+
+  .ag-dossier__skills-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ag-panel,
-  .ag-panel__media {
+  .ag-panel__media,
+  .ag-panel__spine,
+  .ag-panel__dossier {
     will-change: auto;
   }
 }

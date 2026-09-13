@@ -7,14 +7,17 @@ import './FieldArsenal.css';
 export const FieldArsenal: React.FC = () => {
   const [activePillarIndex, setActivePillarIndex] = useState<number>(0);
 
-  const activePillar = initialArsenal[activePillarIndex] || initialArsenal[0];
-
-  // Map arsenal pillars to AccordionGalleryItems
+  // Map arsenal pillars directly with complete dossier specs
   const galleryItems: AccordionGalleryItem[] = initialArsenal.map((pillar) => ({
+    id: pillar.id,
     image: pillar.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
     label: pillar.title,
     code: pillar.code,
     tagline: pillar.tagline,
+    pillarIndex: pillar.pillarIndex,
+    description: pillar.description,
+    skills: pillar.skills,
+    tools: pillar.tools,
     alt: `${pillar.title} - ${pillar.code}`,
   }));
 
@@ -95,93 +98,24 @@ export const FieldArsenal: React.FC = () => {
           </div>
         </div>
 
-        {/* Interactive GSAP 3D Accordion Gallery Showcase */}
+        {/* Unified GSAP 3D Accordion Gallery with Embedded Dossiers & Vertical Spine Titles */}
         <div className="arsenal-gallery-wrapper">
           <AccordionGallery
             items={galleryItems}
             activeIndex={activePillarIndex}
             onActiveChange={setActivePillarIndex}
             defaultIndex={0}
-            expandRatio={0.52}
-            height={460}
+            expandRatio={0.65}
+            height={700}
             radius={4}
             accentColor="var(--color-olive)"
-            overlayColor="#181A18"
+            overlayColor="#121512"
             textColor="#F7F6F2"
             trigger="hover"
-            parallax={0.45}
-            tilt={6}
+            parallax={0.4}
+            tilt={5}
             className="arsenal-accordion-gallery"
           />
-        </div>
-
-        {/* Synchronized Telemetry Dossier (Master-Detail Capability Inspector) */}
-        <div
-          key={activePillar.id}
-          className="arsenal-dossier-panel hairline-box"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {/* Dossier Header Meta */}
-          <div className="arsenal-dossier-header">
-            <div className="arsenal-dossier-meta font-mono">
-              <span className="dossier-pillar-idx">{activePillar.pillarIndex}</span>
-              <span className="dossier-pillar-sep">/</span>
-              <span className="dossier-pillar-code">{activePillar.code}</span>
-              <span className="dossier-pillar-badge font-mono">INSPECTION ACTIVE</span>
-            </div>
-
-            <div className="arsenal-dossier-title-group">
-              <h3 className="arsenal-dossier-title font-display">
-                {activePillar.title}
-              </h3>
-              <p className="arsenal-dossier-tagline">
-                “{activePillar.tagline}”
-              </p>
-              <p className="arsenal-dossier-desc">
-                {activePillar.description}
-              </p>
-            </div>
-          </div>
-
-          {/* Capabilities Inventory Grid */}
-          <div className="arsenal-dossier-skills-section">
-            <div className="arsenal-skills-label font-mono">
-              <span>VERIFIED CAPABILITIES (06 SPECS) //</span>
-              <span className="skills-sublabel font-mono">PRODUCTION TESTED</span>
-            </div>
-            <ul className="arsenal-skills-grid" role="list">
-              {activePillar.skills.map((skill) => (
-                <li key={skill.name} className="arsenal-skill-item">
-                  <div className="arsenal-skill-header">
-                    <span className="arsenal-skill-bullet font-mono" aria-hidden="true">
-                      ▸
-                    </span>
-                    <span className="arsenal-skill-name font-mono">
-                      {skill.name}
-                    </span>
-                  </div>
-                  {skill.spec && (
-                    <span className="arsenal-skill-spec font-mono">
-                      {skill.spec}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Primary Toolchain Tray */}
-          <footer className="arsenal-dossier-footer font-mono">
-            <span className="arsenal-tools-heading">PRIMARY PRODUCTION TOOLCHAIN //</span>
-            <div className="arsenal-tools-pills">
-              {activePillar.tools.map((tool) => (
-                <span key={tool} className="arsenal-tool-pill">
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </footer>
         </div>
 
       </div>
