@@ -256,37 +256,78 @@ export const useMotionEngine = () => {
           9.05
         );
 
-        // Smooth handoff into Section 4 (Field Arsenal) (t = 10.65 -> 11.05)
+        // Project 04 stays settled and calm on screen (no blank screen fadeout)
+        // Subtle settled breathing room before curtain overlap
         portalTimeline.to(
           '#expeditions-swiss-container',
           {
-            opacity: 0,
-            y: -20,
-            duration: 0.40,
-            ease: 'power2.in',
+            y: -8,
+            duration: 0.50,
+            ease: 'power1.out',
           },
-          10.65
+          10.55
         );
-        portalTimeline.set('#expeditions', { pointerEvents: 'none' }, 11.05);
       }
 
       // ======================================================================
-      // 4. SELECTED EXPEDITIONS -> FIELD ARSENAL TRANSITION
+      // 4. SELECTED EXPEDITIONS -> FIELD ARSENAL TRANSITION (CURTAIN SHEET OVERLAP)
       // ======================================================================
       const arsenalSection = document.getElementById('arsenal') || document.getElementById('field-arsenal');
-      if (arsenalSection) {
-        gsap.from('.arsenal-category-card', {
-          scrollTrigger: {
-            trigger: arsenalSection,
-            start: 'top 78%',
-            toggleActions: 'play none none reverse',
-          },
-          y: 30,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.65,
-          ease: 'power2.out',
-        });
+      if (arsenalSection && !prefersReducedMotion) {
+        // 4a. Header & Tagline Stagger Entrance
+        gsap.fromTo(
+          '.arsenal-header > *',
+          { opacity: 0, y: 26 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.08,
+            duration: 0.75,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: arsenalSection,
+              start: 'top 82%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+
+        // 4b. Pillar Tab Buttons Entrance
+        gsap.fromTo(
+          '.arsenal-tab-btn',
+          { opacity: 0, y: 16 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.06,
+            duration: 0.55,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: '.arsenal-control-bar',
+              start: 'top 86%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+
+        // 4c. Accordion Gallery Panels 3D Stagger Reveal (Curtain Sheet Unfold)
+        gsap.fromTo(
+          '.ag-panel',
+          { opacity: 0, y: 44, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.12,
+            duration: 0.85,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: '.arsenal-gallery-wrapper',
+              start: 'top 84%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
       }
 
       // ======================================================================
