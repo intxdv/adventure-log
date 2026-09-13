@@ -20,56 +20,56 @@ const FONT_SEQUENCE: FontConfig[] = [
     text: 'Adventure Log.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.4rem, 6.0vw, 5.2rem)',
+    fontSize: 'clamp(2.8rem, 6.8vw, 5.8rem)',
     letterSpacing: '0.01em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.1rem, 5.2vw, 4.5rem)',
+    fontSize: 'clamp(2.5rem, 5.8vw, 5.0rem)',
     letterSpacing: '-0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Daydream',
     fontWeight: 400,
-    fontSize: 'clamp(1.65rem, 3.8vw, 3.2rem)',
+    fontSize: 'clamp(1.85rem, 4.4vw, 3.6rem)',
     letterSpacing: '0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.1rem, 5.2vw, 4.5rem)',
+    fontSize: 'clamp(2.5rem, 5.8vw, 5.0rem)',
     letterSpacing: '0.02em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Printvetica',
     fontWeight: 400,
-    fontSize: 'clamp(2.3rem, 5.6vw, 4.9rem)',
+    fontSize: 'clamp(2.7rem, 6.4vw, 5.4rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 400,
-    fontSize: 'clamp(2.1rem, 5.0vw, 4.4rem)',
+    fontSize: 'clamp(2.4rem, 5.6vw, 4.8rem)',
     letterSpacing: '0.01em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.4rem, 6.0vw, 5.2rem)',
+    fontSize: 'clamp(2.8rem, 6.8vw, 5.8rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 700,
-    fontSize: 'clamp(2.0rem, 4.8vw, 4.1rem)',
+    fontSize: 'clamp(2.3rem, 5.2vw, 4.5rem)',
     letterSpacing: '0.03em',
   },
 ];
@@ -341,74 +341,97 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         </div>
       </div>
 
-      {/* 2. Hero Body Full-Width Container (1600px Max-Width) */}
+      {/* 2. Hero Body Full-Bleed Architectural Drafting Grid (Tailwind v4 × Olha Lazarieva) */}
       <div className="hero-body-container">
-        {/* Kolom Kiri: Digital Viewfinder Frame (Option A) */}
-        <div className="hero-left-col">
-          <div className={`hero-viewfinder-frame ${hasStartedLoop ? 'is-visible' : ''}`} id="hero-viewfinder-frame">
-            {/* 4 Corner Selection Handle Nodes (Gambar 4 Style) */}
-            <span className="viewfinder-node top-left" aria-hidden="true" />
-            <span className="viewfinder-node top-right" aria-hidden="true" />
-            <span className="viewfinder-node bottom-left" aria-hidden="true" />
-            <span className="viewfinder-node bottom-right" aria-hidden="true" />
+        {/* Full-Bleed Wireframe Stage Frame */}
+        <div className={`hero-viewfinder-frame ${hasStartedLoop ? 'is-visible' : ''}`} id="hero-viewfinder-frame">
+          {/* 4 Corner Selection Handle Nodes (Gambar 4 Style) */}
+          <span className="viewfinder-node top-left" aria-hidden="true" />
+          <span className="viewfinder-node top-right" aria-hidden="true" />
+          <span className="viewfinder-node bottom-left" aria-hidden="true" />
+          <span className="viewfinder-node bottom-right" aria-hidden="true" />
 
-            {/* Viewfinder Header (Kicker Only) */}
-            <div className="viewfinder-header font-mono" aria-hidden="true">
+          {/* 4 Corner Diagonal Hatching Blocks (Tailwind v4 CAD Blueprint) */}
+          <div className="hero-grid-hatch top-left" aria-hidden="true" />
+          <div className="hero-grid-hatch top-right" aria-hidden="true" />
+          <div className="hero-grid-hatch bottom-left" aria-hidden="true" />
+          <div className="hero-grid-hatch bottom-right" aria-hidden="true" />
+
+          {/* Drafting Wireframe Header Bar (Tactile Kicker + Olha Lazarieva 1,618 phi) */}
+          <div className="viewfinder-header font-mono" aria-hidden="true">
+            <div className="viewfinder-header-left">
+              <span className="viewfinder-datum-phi">1,618</span>
               <span className="viewfinder-tag">[ 00 // FIELD ARCHIVE &amp; EXPEDITIONS ]</span>
             </div>
-
-            {/* Dynamic Title Wrapper */}
-            <div className="hero-title-wrapper">
-              <h1
-                className="hero-dynamic-title"
-                style={{
-                  fontFamily: `'${currentFont.fontFamily}', sans-serif`,
-                  fontWeight: currentFont.fontWeight,
-                  fontSize: currentFont.fontSize,
-                  letterSpacing: currentFont.letterSpacing || 'normal',
-                }}
-              >
-                {baseText}
-                {hasDot && (
-                  <span id="hero-portal-dot" className="hero-portal-dot">
-                    .
-                  </span>
-                )}
-                {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
-              </h1>
+            <div className="viewfinder-header-right">
+              <span className="viewfinder-coords">COORD: 7.05°S · 110.44°E // WGS-84</span>
+              <span className="viewfinder-status">● ACTIVE</span>
             </div>
+          </div>
 
-            {/* Editorial Bio Paragraph */}
-            <p className="hero-bio-paragraph font-serif">
-              <span className="hero-bio-word">A</span>{' '}
-              <span className="hero-bio-word">digital</span>{' '}
-              <span className="hero-bio-word">field</span>{' '}
-              <span className="hero-bio-word">journal</span>{' '}
-              <span className="hero-bio-word">by</span>{' '}
-              <span className="hero-bio-word"><strong>Selvagant</strong></span>{' '}
-              <span className="hero-bio-word"><strong>(Taki)</strong></span>{' '}
-              <span className="hero-bio-word">—</span>{' '}
-              <span className="hero-bio-word"><strong>Creative</strong></span>{' '}
-              <span className="hero-bio-word"><strong>Developer</strong></span>{' '}
-              <span className="hero-bio-word"><strong>&amp;</strong></span>{' '}
-              <span className="hero-bio-word"><strong>Mobile</strong></span>{' '}
-              <span className="hero-bio-word"><strong>Architect</strong></span>{' '}
-              <span className="hero-bio-word">based</span>{' '}
-              <span className="hero-bio-word">in</span>{' '}
-              <span className="hero-bio-word">Central</span>{' '}
-              <span className="hero-bio-word">Java.</span>{' '}
-              <span className="hero-bio-word">Bridging</span>{' '}
-              <span className="hero-bio-word">analytical</span>{' '}
-              <span className="hero-bio-word">software</span>{' '}
-              <span className="hero-bio-word">engineering</span>{' '}
-              <span className="hero-bio-word">with</span>{' '}
-              <span className="hero-bio-word">tactile</span>{' '}
-              <span className="hero-bio-word">digital</span>{' '}
-              <span className="hero-bio-word">systems</span>{' '}
-              <span className="hero-bio-word">and</span>{' '}
-              <span className="hero-bio-word">organic</span>{' '}
-              <span className="hero-bio-word">exploration.</span>
-            </p>
+          {/* Dynamic Title Wrapper (Full-Bleed Scale) */}
+          <div className="hero-title-wrapper">
+            <h1
+              className="hero-dynamic-title"
+              style={{
+                fontFamily: `'${currentFont.fontFamily}', sans-serif`,
+                fontWeight: currentFont.fontWeight,
+                fontSize: currentFont.fontSize,
+                letterSpacing: currentFont.letterSpacing || 'normal',
+              }}
+            >
+              {baseText}
+              {hasDot && (
+                <span id="hero-portal-dot" className="hero-portal-dot">
+                  .
+                </span>
+              )}
+              {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
+            </h1>
+          </div>
+
+          {/* Editorial Bio Paragraph */}
+          <p className="hero-bio-paragraph font-serif">
+            <span className="hero-bio-word">A</span>{' '}
+            <span className="hero-bio-word">digital</span>{' '}
+            <span className="hero-bio-word">field</span>{' '}
+            <span className="hero-bio-word">journal</span>{' '}
+            <span className="hero-bio-word">by</span>{' '}
+            <span className="hero-bio-word"><strong>Selvagant</strong></span>{' '}
+            <span className="hero-bio-word"><strong>(Taki)</strong></span>{' '}
+            <span className="hero-bio-word">—</span>{' '}
+            <span className="hero-bio-word"><strong>Creative</strong></span>{' '}
+            <span className="hero-bio-word"><strong>Developer</strong></span>{' '}
+            <span className="hero-bio-word"><strong>&amp;</strong></span>{' '}
+            <span className="hero-bio-word"><strong>Mobile</strong></span>{' '}
+            <span className="hero-bio-word"><strong>Architect</strong></span>{' '}
+            <span className="hero-bio-word">based</span>{' '}
+            <span className="hero-bio-word">in</span>{' '}
+            <span className="hero-bio-word">Central</span>{' '}
+            <span className="hero-bio-word">Java.</span>{' '}
+            <span className="hero-bio-word">Bridging</span>{' '}
+            <span className="hero-bio-word">analytical</span>{' '}
+            <span className="hero-bio-word">software</span>{' '}
+            <span className="hero-bio-word">engineering</span>{' '}
+            <span className="hero-bio-word">with</span>{' '}
+            <span className="hero-bio-word">tactile</span>{' '}
+            <span className="hero-bio-word">digital</span>{' '}
+            <span className="hero-bio-word">systems</span>{' '}
+            <span className="hero-bio-word">and</span>{' '}
+            <span className="hero-bio-word">organic</span>{' '}
+            <span className="hero-bio-word">exploration.</span>
+          </p>
+
+          {/* Drafting Wireframe Bottom Rail */}
+          <div className="viewfinder-footer font-mono" aria-hidden="true">
+            <div className="viewfinder-footer-left">
+              <span className="viewfinder-rail-item">[ SCROLL TO EXPLORE ↘ ]</span>
+              <span className="viewfinder-rail-divider">/</span>
+              <span className="viewfinder-rail-item">SELECTED EXPEDITIONS (04)</span>
+            </div>
+            <div className="viewfinder-footer-right">
+              <span className="viewfinder-rail-spec">SCALE: 1:1 // FULL-BLEED WIREFRAME</span>
+            </div>
           </div>
         </div>
 

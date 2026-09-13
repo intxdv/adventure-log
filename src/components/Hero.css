@@ -77,12 +77,12 @@
 
 .hero-top-bar-inner {
   width: 100%;
-  max-width: 1600px;
+  max-width: 100%;
   margin: 0 auto;
   padding-top: var(--space-md);
   padding-bottom: var(--space-md);
-  padding-left: clamp(24px, 5vw, 80px);
-  padding-right: clamp(24px, 5vw, 80px);
+  padding-left: clamp(20px, 3.5vw, 64px);
+  padding-right: clamp(20px, 3.5vw, 64px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -158,47 +158,37 @@
   user-select: none;
 }
 
-/* 2. Hero Body Full-Width Container (Matching Footer 1600px) */
+/* 2. Hero Body Full-Width Container (Edge-to-Edge Drafting Grid) */
 .hero-body-container {
   width: 100%;
-  max-width: 1600px;
-  margin: auto auto;
-  padding-top: clamp(2.5rem, 5vw, 5rem);
-  padding-bottom: clamp(2.5rem, 5vw, 5rem);
-  padding-left: clamp(24px, 5vw, 80px);
-  padding-right: clamp(24px, 5vw, 80px);
+  max-width: 100%;
+  margin: 0 auto;
+  padding-top: clamp(1.2rem, 2.5vw, 2.8rem);
+  padding-bottom: clamp(2.0rem, 4vw, 4.0rem);
+  padding-left: clamp(20px, 3.5vw, 64px);
+  padding-right: clamp(20px, 3.5vw, 64px);
   position: relative;
   z-index: 10;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Sisi Kiri: Judul Dinamis & Bio Editorial (Gedein & Lapang) */
-.hero-left-col {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 2;
-  max-width: 980px;
+  box-sizing: border-box;
 }
 
 /* ==========================================================================
-   Option A: Digital Viewfinder Bounding Box Frame (Tactile Tool & Zero-Jitter)
+   Full-Bleed Architectural Drafting Stage Frame (Tailwind v4 × Olha Lazarieva)
    ========================================================================== */
 .hero-viewfinder-frame {
   position: relative;
   width: 100%;
-  max-width: 980px;
+  max-width: 100%;
   box-sizing: border-box;
-  padding: clamp(1.4rem, 2.2vw, 2.2rem) clamp(1.6rem, 2.6vw, 2.6rem);
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-  border: 1.5px solid rgba(18, 21, 18, 0.36);
+  padding: clamp(2.0rem, 3.5vw, 3.6rem) clamp(2.0rem, 4.0vw, 4.6rem);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1.5px solid rgba(18, 21, 18, 0.22);
   border-radius: 2px;
-  box-shadow: 0 16px 44px rgba(18, 21, 18, 0.05);
+  box-shadow: 0 16px 48px rgba(18, 21, 18, 0.06);
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -211,8 +201,8 @@
 }
 
 .hero-viewfinder-frame:hover {
-  border-color: rgba(18, 21, 18, 0.58);
-  box-shadow: 0 20px 48px rgba(18, 21, 18, 0.08);
+  border-color: rgba(18, 21, 18, 0.46);
+  box-shadow: 0 20px 52px rgba(18, 21, 18, 0.09);
 }
 
 /* 4 Corner Selection Handle Nodes (Gambar 4 Style) */
@@ -223,7 +213,7 @@
   background-color: var(--color-ink);
   border: 1.5px solid #FFFFFF;
   box-shadow: 0 1px 4px rgba(18, 21, 18, 0.28);
-  z-index: 5;
+  z-index: 6;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
@@ -256,16 +246,79 @@
   cursor: nwse-resize;
 }
 
-/* Viewfinder Header (Clean Top Kicker) */
+/* 4 Corner Diagonal Hatching Blocks (Tailwind v4 Blueprint Hatch) */
+.hero-grid-hatch {
+  position: absolute;
+  width: clamp(28px, 3.2vw, 44px);
+  height: clamp(28px, 3.2vw, 44px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(18, 21, 18, 0.12),
+    rgba(18, 21, 18, 0.12) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+  border: 1px solid rgba(18, 21, 18, 0.14);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.hero-grid-hatch.top-left {
+  top: 0;
+  left: 0;
+  border-top: none;
+  border-left: none;
+}
+
+.hero-grid-hatch.top-right {
+  top: 0;
+  right: 0;
+  border-top: none;
+  border-right: none;
+}
+
+.hero-grid-hatch.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: none;
+  border-left: none;
+}
+
+.hero-grid-hatch.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: none;
+  border-right: none;
+}
+
+/* Drafting Wireframe Header Bar (Tactile Metadata + Golden Ratio Datum) */
 .viewfinder-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px dashed rgba(18, 21, 18, 0.16);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   color: var(--color-olive);
   user-select: none;
+}
+
+.viewfinder-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.viewfinder-datum-phi {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--color-ink);
+  letter-spacing: 0.08em;
+  padding-right: var(--space-xs);
+  border-right: 1.5px solid rgba(18, 21, 18, 0.22);
 }
 
 .viewfinder-tag {
@@ -273,13 +326,26 @@
   font-weight: 600;
 }
 
+.viewfinder-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 0.68rem;
+  color: var(--color-ink-muted);
+}
+
+.viewfinder-status {
+  color: var(--color-olive);
+  font-weight: 600;
+}
+
 /* Title Wrapper Inside Frame (Stable Height & Zero Jitter) */
 .hero-title-wrapper {
-  min-height: clamp(6.8rem, 11vw, 9.6rem);
+  min-height: clamp(7.0rem, 11vw, 10.5rem);
   display: flex;
   align-items: center;
   position: relative;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-md);
   width: 100%;
 }
 
@@ -319,10 +385,10 @@
 
 /* Bio Editorial - Scaled Up & Stagger Phrase */
 .hero-bio-paragraph {
-  font-size: clamp(1.15rem, 1.55vw, 1.45rem);
-  line-height: 1.68;
+  font-size: clamp(1.18rem, 1.6vw, 1.48rem);
+  line-height: 1.74;
   color: var(--color-ink-muted);
-  max-width: 100%;
+  max-width: 82ch;
   margin: 0;
   font-family: var(--font-serif);
 }
@@ -337,6 +403,43 @@
   opacity: 0;
   transform: translateY(12px);
   will-change: opacity, transform;
+}
+
+/* Drafting Wireframe Bottom Rail */
+.viewfinder-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: clamp(1.8rem, 3.0vw, 3.4rem);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed rgba(18, 21, 18, 0.16);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+  user-select: none;
+}
+
+.viewfinder-footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.viewfinder-rail-divider {
+  color: var(--color-olive);
+  opacity: 0.6;
+}
+
+.viewfinder-rail-item {
+  font-weight: 500;
+}
+
+.viewfinder-rail-spec {
+  color: var(--color-olive);
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
 }
 
 .hero-meta-kicker {
@@ -508,6 +611,22 @@
 
   .hero-top-clock {
     font-size: 0.75rem;
+  }
+
+  .hero-viewfinder-frame {
+    padding: 1.6rem 1.25rem;
+  }
+
+  .viewfinder-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .viewfinder-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
   .hero-title-wrapper {
