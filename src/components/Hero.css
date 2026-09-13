@@ -181,7 +181,7 @@
   justify-content: center;
   position: relative;
   z-index: 2;
-  max-width: 930px;
+  max-width: 980px;
 }
 
 /* ==========================================================================
@@ -190,7 +190,7 @@
 .hero-viewfinder-frame {
   position: relative;
   width: 100%;
-  max-width: 930px;
+  max-width: 980px;
   box-sizing: border-box;
   padding: clamp(1.4rem, 2.2vw, 2.2rem) clamp(1.6rem, 2.6vw, 2.6rem);
   background: rgba(255, 255, 255, 0.35);
@@ -275,7 +275,7 @@
 
 /* Title Wrapper Inside Frame (Stable Height & Zero Jitter) */
 .hero-title-wrapper {
-  min-height: clamp(6.0rem, 10vw, 8.6rem);
+  min-height: clamp(6.8rem, 11vw, 9.6rem);
   display: flex;
   align-items: center;
   position: relative;
@@ -511,7 +511,7 @@
   }
 
   .hero-title-wrapper {
-    min-height: 4.8rem;
+    min-height: 5.6rem;
   }
 
   .hero-dynamic-title {
