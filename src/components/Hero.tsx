@@ -310,16 +310,6 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         <div className="hero-desk-tint" />
       </div>
 
-      {/* 0b. Ink Droplet Splatter & Center Portal Transition Element */}
-      <div className="hero-ink-splatter-wrapper" aria-hidden="true">
-        <img
-          src="/images/hero-ink-splatter.png"
-          alt=""
-          className="hero-ink-splatter-img"
-          id="hero-ink-splatter"
-        />
-      </div>
-
       {/* 1. Minimalist Top Bar (Khusus Hero, full bleed edge-to-edge) */}
       <div className={`hero-top-bar ${!hasStartedLoop ? 'is-initial-hidden' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="hero-top-bar-inner">
@@ -373,36 +363,38 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             </h1>
           </div>
 
-          <p className="hero-bio-paragraph font-serif">
-            <span className="hero-bio-word">A</span>{' '}
-            <span className="hero-bio-word">digital</span>{' '}
-            <span className="hero-bio-word">field</span>{' '}
-            <span className="hero-bio-word">journal</span>{' '}
-            <span className="hero-bio-word">by</span>{' '}
-            <span className="hero-bio-word"><strong>Selvagant</strong></span>{' '}
-            <span className="hero-bio-word"><strong>(Taki)</strong></span>{' '}
-            <span className="hero-bio-word">—</span>{' '}
-            <span className="hero-bio-word"><strong>Creative</strong></span>{' '}
-            <span className="hero-bio-word"><strong>Developer</strong></span>{' '}
-            <span className="hero-bio-word"><strong>&amp;</strong></span>{' '}
-            <span className="hero-bio-word"><strong>Mobile</strong></span>{' '}
-            <span className="hero-bio-word"><strong>Architect</strong></span>{' '}
-            <span className="hero-bio-word">based</span>{' '}
-            <span className="hero-bio-word">in</span>{' '}
-            <span className="hero-bio-word">Central</span>{' '}
-            <span className="hero-bio-word">Java.</span>{' '}
-            <span className="hero-bio-word">Bridging</span>{' '}
-            <span className="hero-bio-word">analytical</span>{' '}
-            <span className="hero-bio-word">software</span>{' '}
-            <span className="hero-bio-word">engineering</span>{' '}
-            <span className="hero-bio-word">with</span>{' '}
-            <span className="hero-bio-word">tactile</span>{' '}
-            <span className="hero-bio-word">digital</span>{' '}
-            <span className="hero-bio-word">systems</span>{' '}
-            <span className="hero-bio-word">and</span>{' '}
-            <span className="hero-bio-word">organic</span>{' '}
-            <span className="hero-bio-word">exploration.</span>
-          </p>
+          <div className="hero-bio-box">
+            <p className="hero-bio-paragraph font-serif">
+              <span className="hero-bio-word">A</span>{' '}
+              <span className="hero-bio-word">digital</span>{' '}
+              <span className="hero-bio-word">field</span>{' '}
+              <span className="hero-bio-word">journal</span>{' '}
+              <span className="hero-bio-word">by</span>{' '}
+              <span className="hero-bio-word"><strong>Selvagant</strong></span>{' '}
+              <span className="hero-bio-word"><strong>(Taki)</strong></span>{' '}
+              <span className="hero-bio-word">—</span>{' '}
+              <span className="hero-bio-word"><strong>Creative</strong></span>{' '}
+              <span className="hero-bio-word"><strong>Developer</strong></span>{' '}
+              <span className="hero-bio-word"><strong>&amp;</strong></span>{' '}
+              <span className="hero-bio-word"><strong>Mobile</strong></span>{' '}
+              <span className="hero-bio-word"><strong>Architect</strong></span>{' '}
+              <span className="hero-bio-word">based</span>{' '}
+              <span className="hero-bio-word">in</span>{' '}
+              <span className="hero-bio-word">Central</span>{' '}
+              <span className="hero-bio-word">Java.</span>{' '}
+              <span className="hero-bio-word">Bridging</span>{' '}
+              <span className="hero-bio-word">analytical</span>{' '}
+              <span className="hero-bio-word">software</span>{' '}
+              <span className="hero-bio-word">engineering</span>{' '}
+              <span className="hero-bio-word">with</span>{' '}
+              <span className="hero-bio-word">tactile</span>{' '}
+              <span className="hero-bio-word">digital</span>{' '}
+              <span className="hero-bio-word">systems</span>{' '}
+              <span className="hero-bio-word">and</span>{' '}
+              <span className="hero-bio-word">organic</span>{' '}
+              <span className="hero-bio-word">exploration.</span>
+            </p>
+          </div>
         </div>
 
         {/* 3. Atmospheric Background Compass Dial (Fixed Position di Layer Belakang) */}

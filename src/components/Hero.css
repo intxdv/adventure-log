@@ -63,40 +63,14 @@
   pointer-events: none;
 }
 
-/* 0b. Ink Droplet Splatter & Center Portal Transition Element (Aligned to Figma node 86:19) */
-.hero-ink-splatter-wrapper {
-  position: absolute;
-  top: 51.5%;
-  left: 51.3%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 0;
-  height: 0;
-  overflow: visible;
-}
-
-.hero-ink-splatter-img {
-  width: clamp(160px, 11vw, 250px);
-  height: auto;
-  max-width: none;
-  display: block;
-  opacity: 0;
-  will-change: opacity;
-  filter: drop-shadow(0 4px 14px rgba(18, 21, 18, 0.22));
-}
-
 /* 1. Minimalist Hero Top Bar with Full-Bleed Tactical Editorial Datum Line */
 .hero-top-bar {
   width: 100%;
   position: relative;
   border-bottom: 2.5px solid rgba(18, 21, 18, 0.28);
-  background: rgba(247, 246, 242, 0.45);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(247, 246, 242, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 20;
 }
@@ -211,11 +185,20 @@
 }
 
 .hero-title-wrapper {
-  min-height: clamp(8.5rem, 15vw, 13rem);
-  display: flex;
+  min-height: clamp(6.2rem, 11vw, 9.2rem);
+  display: inline-flex;
   align-items: center;
   position: relative;
   margin-bottom: var(--space-md);
+  padding: clamp(0.85rem, 1.8vw, 1.4rem) clamp(1.4rem, 2.6vw, 2.4rem);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(18, 21, 18, 0.14);
+  border-radius: 2px;
+  box-shadow: 0 10px 32px rgba(18, 21, 18, 0.05);
+  width: fit-content;
+  max-width: 100%;
 }
 
 .hero-dynamic-title {
@@ -252,12 +235,24 @@
   50% { opacity: 0; }
 }
 
+/* Kotak Bio Editorial Semi-Transparan Khas Swiss Editorial */
+.hero-bio-box {
+  padding: clamp(1.2rem, 2vw, 1.8rem) clamp(1.4rem, 2.5vw, 2.2rem);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(18, 21, 18, 0.14);
+  border-radius: 2px;
+  box-shadow: 0 10px 32px rgba(18, 21, 18, 0.05);
+  max-width: 780px;
+}
+
 /* Bio Editorial - Scaled Up & Stagger Phrase */
 .hero-bio-paragraph {
   font-size: clamp(1.2rem, 1.65vw, 1.55rem);
   line-height: 1.68;
   color: var(--color-ink-muted);
-  max-width: 760px;
+  max-width: 100%;
   margin: 0;
   font-family: var(--font-serif);
 }
