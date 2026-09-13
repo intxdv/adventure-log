@@ -351,46 +351,54 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           <span className="viewfinder-node bottom-left" aria-hidden="true" />
           <span className="viewfinder-node bottom-right" aria-hidden="true" />
 
-          {/* 4 Corner Diagonal Hatching Blocks (Tailwind v4 CAD Blueprint) */}
-          <div className="hero-grid-hatch top-left" aria-hidden="true" />
-          <div className="hero-grid-hatch top-right" aria-hidden="true" />
-          <div className="hero-grid-hatch bottom-left" aria-hidden="true" />
-          <div className="hero-grid-hatch bottom-right" aria-hidden="true" />
+          {/* Top Row: Title Column (Left) & Compass Dial Sensor (Right) as per sketch */}
+          <div className="hero-grid-top-row">
+            <div className="hero-title-col">
+              {/* Clean Kicker */}
+              <div className="viewfinder-header font-mono" aria-hidden="true">
+                <span className="viewfinder-tag">[ 00 // FIELD ARCHIVE &amp; EXPEDITIONS ]</span>
+              </div>
 
-          {/* Drafting Wireframe Header Bar (Tactile Kicker + Olha Lazarieva 1,618 phi) */}
-          <div className="viewfinder-header font-mono" aria-hidden="true">
-            <div className="viewfinder-header-left">
-              <span className="viewfinder-datum-phi">1,618</span>
-              <span className="viewfinder-tag">[ 00 // FIELD ARCHIVE &amp; EXPEDITIONS ]</span>
+              {/* Dynamic Title Wrapper */}
+              <div className="hero-title-wrapper">
+                <h1
+                  className="hero-dynamic-title"
+                  style={{
+                    fontFamily: `'${currentFont.fontFamily}', sans-serif`,
+                    fontWeight: currentFont.fontWeight,
+                    fontSize: currentFont.fontSize,
+                    letterSpacing: currentFont.letterSpacing || 'normal',
+                  }}
+                >
+                  {baseText}
+                  {hasDot && (
+                    <span id="hero-portal-dot" className="hero-portal-dot">
+                      .
+                    </span>
+                  )}
+                  {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
+                </h1>
+              </div>
             </div>
-            <div className="viewfinder-header-right">
-              <span className="viewfinder-coords">COORD: 7.05°S · 110.44°E // WGS-84</span>
-              <span className="viewfinder-status">● ACTIVE</span>
+
+            {/* Compass Dial (Top-Right Circle as per sketch) */}
+            <div className={`hero-compass-backdrop ${hasStartedLoop ? 'is-visible' : ''}`} aria-hidden="true">
+              <div className="hero-compass-dial" id="hero-compass-dial">
+                <span className="hero-compass-cardinal n">N</span>
+                <span className="hero-compass-cardinal e">E</span>
+                <span className="hero-compass-cardinal s">S</span>
+                <span className="hero-compass-cardinal w">W</span>
+
+                <div className="hero-compass-hub">
+                  <div className="hero-compass-needle-ring" />
+                  <span className="hero-compass-label font-mono">COMPASS SENSOR</span>
+                  <span className="hero-compass-coords font-mono">7.05°S // 110.44°E</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Dynamic Title Wrapper (Full-Bleed Scale) */}
-          <div className="hero-title-wrapper">
-            <h1
-              className="hero-dynamic-title"
-              style={{
-                fontFamily: `'${currentFont.fontFamily}', sans-serif`,
-                fontWeight: currentFont.fontWeight,
-                fontSize: currentFont.fontSize,
-                letterSpacing: currentFont.letterSpacing || 'normal',
-              }}
-            >
-              {baseText}
-              {hasDot && (
-                <span id="hero-portal-dot" className="hero-portal-dot">
-                  .
-                </span>
-              )}
-              {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
-            </h1>
-          </div>
-
-          {/* Editorial Bio Paragraph */}
+          {/* Bottom Row: Editorial Bio Paragraph */}
           <p className="hero-bio-paragraph font-serif">
             <span className="hero-bio-word">A</span>{' '}
             <span className="hero-bio-word">digital</span>{' '}
@@ -421,34 +429,6 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             <span className="hero-bio-word">organic</span>{' '}
             <span className="hero-bio-word">exploration.</span>
           </p>
-
-          {/* Drafting Wireframe Bottom Rail */}
-          <div className="viewfinder-footer font-mono" aria-hidden="true">
-            <div className="viewfinder-footer-left">
-              <span className="viewfinder-rail-item">[ SCROLL TO EXPLORE ↘ ]</span>
-              <span className="viewfinder-rail-divider">/</span>
-              <span className="viewfinder-rail-item">SELECTED EXPEDITIONS (04)</span>
-            </div>
-            <div className="viewfinder-footer-right">
-              <span className="viewfinder-rail-spec">SCALE: 1:1 // FULL-BLEED WIREFRAME</span>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. Atmospheric Background Compass Dial (Fixed Position di Layer Belakang) */}
-        <div className={`hero-compass-backdrop ${hasStartedLoop ? 'is-visible' : ''}`} aria-hidden="true">
-          <div className="hero-compass-dial" id="hero-compass-dial">
-            <span className="hero-compass-cardinal n">N</span>
-            <span className="hero-compass-cardinal e">E</span>
-            <span className="hero-compass-cardinal s">S</span>
-            <span className="hero-compass-cardinal w">W</span>
-
-            <div className="hero-compass-hub">
-              <div className="hero-compass-needle-ring" />
-              <span className="hero-compass-label font-mono">COMPASS SENSOR</span>
-              <span className="hero-compass-coords font-mono">7.05°S // 110.44°E</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>

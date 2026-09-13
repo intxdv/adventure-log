@@ -20,8 +20,8 @@
   align-self: start;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 0 0 clamp(2rem, 4vw, 4rem);
+  justify-content: flex-start;
+  padding: 0 0 clamp(1.5rem, 2.5vw, 2.5rem);
   background-color: var(--color-canvas);
   overflow: hidden;
   cursor: pointer;
@@ -160,17 +160,19 @@
 
 /* 2. Hero Body Full-Width Container (Edge-to-Edge Drafting Grid) */
 .hero-body-container {
+  flex: 1;
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding-top: clamp(1.2rem, 2.5vw, 2.8rem);
-  padding-bottom: clamp(2.0rem, 4vw, 4.0rem);
+  padding-top: clamp(1.0rem, 2vw, 2.0rem);
+  padding-bottom: clamp(1.5rem, 3vw, 3.0rem);
   padding-left: clamp(20px, 3.5vw, 64px);
   padding-right: clamp(20px, 3.5vw, 64px);
   position: relative;
   z-index: 10;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   box-sizing: border-box;
 }
 
@@ -182,7 +184,7 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: clamp(2.0rem, 3.5vw, 3.6rem) clamp(2.0rem, 4.0vw, 4.6rem);
+  padding: clamp(1.8rem, 3.0vw, 3.2rem) clamp(2.0rem, 3.8vw, 4.2rem);
   background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
@@ -193,6 +195,9 @@
   transform: translateY(12px);
   transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   will-change: opacity, transform;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.2rem, 2.0vw, 2.4rem);
 }
 
 .hero-viewfinder-frame.is-visible {
@@ -246,79 +251,32 @@
   cursor: nwse-resize;
 }
 
-/* 4 Corner Diagonal Hatching Blocks (Tailwind v4 Blueprint Hatch) */
-.hero-grid-hatch {
-  position: absolute;
-  width: clamp(28px, 3.2vw, 44px);
-  height: clamp(28px, 3.2vw, 44px);
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgba(18, 21, 18, 0.12),
-    rgba(18, 21, 18, 0.12) 1px,
-    transparent 1px,
-    transparent 6px
-  );
-  border: 1px solid rgba(18, 21, 18, 0.14);
-  pointer-events: none;
-  z-index: 4;
-}
-
-.hero-grid-hatch.top-left {
-  top: 0;
-  left: 0;
-  border-top: none;
-  border-left: none;
-}
-
-.hero-grid-hatch.top-right {
-  top: 0;
-  right: 0;
-  border-top: none;
-  border-right: none;
-}
-
-.hero-grid-hatch.bottom-left {
-  bottom: 0;
-  left: 0;
-  border-bottom: none;
-  border-left: none;
-}
-
-.hero-grid-hatch.bottom-right {
-  bottom: 0;
-  right: 0;
-  border-bottom: none;
-  border-right: none;
-}
-
-/* Drafting Wireframe Header Bar (Tactile Metadata + Golden Ratio Datum) */
-.viewfinder-header {
+/* Top Row: Title Section (Left) & Compass Dial (Right) as per sketch */
+.hero-grid-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 3.5rem);
   width: 100%;
-  margin-bottom: var(--space-md);
-  padding-bottom: var(--space-xs);
-  border-bottom: 1px dashed rgba(18, 21, 18, 0.16);
+}
+
+.hero-title-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Viewfinder Header (Clean Top Kicker Only) */
+.viewfinder-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: var(--space-xs);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   color: var(--color-olive);
   user-select: none;
-}
-
-.viewfinder-header-left {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.viewfinder-datum-phi {
-  font-weight: 700;
-  font-size: 0.82rem;
-  color: var(--color-ink);
-  letter-spacing: 0.08em;
-  padding-right: var(--space-xs);
-  border-right: 1.5px solid rgba(18, 21, 18, 0.22);
 }
 
 .viewfinder-tag {
@@ -326,26 +284,13 @@
   font-weight: 600;
 }
 
-.viewfinder-header-right {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  font-size: 0.68rem;
-  color: var(--color-ink-muted);
-}
-
-.viewfinder-status {
-  color: var(--color-olive);
-  font-weight: 600;
-}
-
 /* Title Wrapper Inside Frame (Stable Height & Zero Jitter) */
 .hero-title-wrapper {
-  min-height: clamp(7.0rem, 11vw, 10.5rem);
+  min-height: clamp(6.6rem, 10vw, 9.6rem);
   display: flex;
   align-items: center;
   position: relative;
-  margin-bottom: var(--space-md);
+  margin-bottom: 0;
   width: 100%;
 }
 
@@ -405,43 +350,6 @@
   will-change: opacity, transform;
 }
 
-/* Drafting Wireframe Bottom Rail */
-.viewfinder-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: clamp(1.8rem, 3.0vw, 3.4rem);
-  padding-top: var(--space-sm);
-  border-top: 1px dashed rgba(18, 21, 18, 0.16);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  color: var(--color-ink-muted);
-  user-select: none;
-}
-
-.viewfinder-footer-left {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.viewfinder-rail-divider {
-  color: var(--color-olive);
-  opacity: 0.6;
-}
-
-.viewfinder-rail-item {
-  font-weight: 500;
-}
-
-.viewfinder-rail-spec {
-  color: var(--color-olive);
-  font-weight: 600;
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-}
-
 .hero-meta-kicker {
   display: inline-flex;
   align-items: center;
@@ -462,14 +370,12 @@
   transform: translateY(0);
 }
 
-/* 3. Atmospheric Background Compass (Fixed on Page / Layer Belakang) */
+/* 3. Compass Dial (Top-Right Circle beside Dynamic Title as per sketch) */
 .hero-compass-backdrop {
-  position: absolute;
-  right: clamp(24px, 7vw, 120px);
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  flex-shrink: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
   transition: opacity 0.85s ease;
   user-select: none;
@@ -477,20 +383,20 @@
 }
 
 .hero-compass-backdrop.is-visible {
-  opacity: 0.55;
+  opacity: 0.85;
 }
 
 .hero-compass-dial {
-  width: clamp(280px, 32vw, 440px);
-  height: clamp(280px, 32vw, 440px);
+  width: clamp(170px, 17vw, 250px);
+  height: clamp(170px, 17vw, 250px);
   border-radius: 50%;
   border: 1px solid var(--hairline-base);
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.7) 0%, rgba(247, 246, 242, 0.3) 70%, transparent 100%);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.75) 0%, rgba(247, 246, 242, 0.35) 70%, transparent 100%);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 12px 40px rgba(24, 26, 24, 0.04);
+  box-shadow: 0 12px 36px rgba(24, 26, 24, 0.05);
 }
 
 /* Concentric Inner Ring */
@@ -578,18 +484,14 @@
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
-  .hero-body-container {
+  .hero-grid-top-row {
     flex-direction: column;
     align-items: flex-start;
+    gap: var(--space-md);
   }
 
   .hero-compass-backdrop {
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    margin-top: var(--space-2xl);
-    opacity: 0.45;
+    display: none;
   }
 }
 
@@ -615,18 +517,7 @@
 
   .hero-viewfinder-frame {
     padding: 1.6rem 1.25rem;
-  }
-
-  .viewfinder-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-
-  .viewfinder-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    gap: 1.2rem;
   }
 
   .hero-title-wrapper {
@@ -635,10 +526,5 @@
 
   .hero-dynamic-title {
     white-space: normal;
-  }
-
-  .hero-compass-dial {
-    width: 220px;
-    height: 220px;
   }
 }
