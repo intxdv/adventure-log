@@ -67,10 +67,10 @@
 .hero-top-bar {
   width: 100%;
   position: relative;
-  border-bottom: 2.5px solid rgba(18, 21, 18, 0.28);
-  background: rgba(247, 246, 242, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1.5px solid rgba(18, 21, 18, 0.20);
+  background: rgba(247, 246, 242, 0.55);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
   transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 20;
 }
