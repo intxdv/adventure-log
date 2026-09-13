@@ -61,31 +61,21 @@ export const useMotionEngine = () => {
           0.30
         );
 
-        // 1b. State 3: Scroll lagi -> Tinta membesar masif & lingkaran portal nokturnal mekar menembus kanvas Hero (t = 1.05 -> 2.10)
-        portalTimeline.to(
-          '#hero-ink-splatter',
-          {
-            scale: 48,
-            duration: 1.05,
-            ease: 'power2.inOut',
-          },
-          1.05
-        );
-
+        // 1b. State 3: Scroll lagi -> Lingkaran portal nokturnal mekar dari titik noda tinta menembus kanvas Hero (t = 1.05 -> 2.10)
         portalTimeline.fromTo(
           aboutSection,
-          { clipPath: 'circle(0% at 50% 50%)' },
+          { clipPath: 'circle(0% at 51.3% 51.5%)' },
           {
-            clipPath: 'circle(150% at 50% 50%)',
+            clipPath: 'circle(150% at 51.3% 51.5%)',
             duration: 1.05,
             ease: 'power2.inOut',
           },
           1.05
         );
 
-        // 1c. Konten Hero meredup lembut di balik cipratan tinta & lingkaran nokturnal
+        // 1c. Konten Hero & noda tinta meredup lembut di balik mekarnya lingkaran portal nokturnal
         portalTimeline.to(
-          '.hero-body-container, .hero-top-bar',
+          '.hero-body-container, .hero-top-bar, .hero-ink-splatter-wrapper',
           {
             opacity: 0,
             duration: 0.45,

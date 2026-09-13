@@ -50,24 +50,24 @@
   will-change: transform;
 }
 
-/* Subtle parchment tint overlay to preserve high-contrast deep ink typography */
+/* Subtle parchment tint overlay with low opacity so the desk remains rich, crisp, and vibrant */
 .hero-desk-tint {
   position: absolute;
   inset: 0;
   background: radial-gradient(
     ellipse at 38% 50%,
-    rgba(247, 246, 242, 0.40) 0%,
-    rgba(247, 246, 242, 0.58) 55%,
-    rgba(240, 238, 230, 0.76) 100%
+    rgba(247, 246, 242, 0.04) 0%,
+    rgba(247, 246, 242, 0.10) 60%,
+    rgba(240, 238, 230, 0.18) 100%
   );
   pointer-events: none;
 }
 
-/* 0b. Ink Droplet Splatter & Center Portal Transition Element */
+/* 0b. Ink Droplet Splatter & Center Portal Transition Element (Aligned to Figma node 86:19) */
 .hero-ink-splatter-wrapper {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 51.5%;
+  left: 51.3%;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 5;
@@ -80,15 +80,15 @@
 }
 
 .hero-ink-splatter-img {
-  width: clamp(240px, 28vw, 380px);
+  width: clamp(160px, 11vw, 250px);
   height: auto;
   max-width: none;
   display: block;
   transform-origin: 50% 50%;
   opacity: 0;
-  transform: scale(0) rotate(-18deg);
+  transform: scale(0) rotate(-14deg);
   will-change: transform, opacity;
-  filter: drop-shadow(0 6px 20px rgba(18, 21, 18, 0.28));
+  filter: drop-shadow(0 4px 14px rgba(18, 21, 18, 0.22));
 }
 
 /* 1. Minimalist Hero Top Bar with Full-Bleed Tactical Editorial Datum Line */

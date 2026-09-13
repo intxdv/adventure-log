@@ -22,7 +22,7 @@
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  clip-path: circle(0% at 50% 50%);
+  clip-path: circle(0% at 51.3% 51.5%);
   will-change: clip-path;
   pointer-events: none;
 }
