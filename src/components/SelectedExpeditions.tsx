@@ -170,9 +170,9 @@ export const SelectedExpeditions: React.FC = () => {
 
         {/* 2. Three-Panel Swiss Layout Grid */}
         <div className="swiss-grid">
-          {/* LEFT PANEL: Rolling Counter + Project Title & Domain Metadata + Dossier Trigger */}
+          {/* LEFT PANEL: Rolling Counter directly above Project Title (Centered) + Dossier Trigger */}
           <div className="swiss-col-left">
-            <div className="swiss-left-top">
+            <div className="swiss-left-center-group">
               <div className="swiss-counter-reel">
                 <div
                   className="swiss-counter-track font-display"
@@ -188,22 +188,22 @@ export const SelectedExpeditions: React.FC = () => {
                   <div className="swiss-counter-num">04</div>
                 </div>
               </div>
-            </div>
 
-            {/* Project Title & Metadata (Moved to Left Panel as indicated by user annotation) */}
-            <div className="swiss-left-project-info font-mono">
-              <h3 className="swiss-project-title font-display">
-                {currentExpedition.title}
-              </h3>
-              <div className="swiss-project-cat">
-                {currentExpedition.categoryLabel.toUpperCase()}
-              </div>
-              <div className="swiss-project-role">
-                ROLE: {currentExpedition.role.toUpperCase()}
-              </div>
-              <div className="swiss-project-status">
-                <span className="status-dot">●</span>
-                <span>{currentExpedition.year} // {currentExpedition.status.toUpperCase()}</span>
+              {/* Project Title & Metadata (Directly below counter number) */}
+              <div className="swiss-left-project-info font-mono">
+                <h3 className="swiss-project-title font-display">
+                  {currentExpedition.title}
+                </h3>
+                <div className="swiss-project-cat">
+                  {currentExpedition.categoryLabel.toUpperCase()}
+                </div>
+                <div className="swiss-project-role">
+                  ROLE: {currentExpedition.role.toUpperCase()}
+                </div>
+                <div className="swiss-project-status">
+                  <span className="status-dot">●</span>
+                  <span>{currentExpedition.year} // {currentExpedition.status.toUpperCase()}</span>
+                </div>
               </div>
             </div>
 
@@ -264,7 +264,7 @@ export const SelectedExpeditions: React.FC = () => {
             </div>
           </div>
 
-          {/* RIGHT PANEL: Specification, Editorial Narrative & Repository Actions (Shifted Up) */}
+          {/* RIGHT PANEL: Specification, Editorial Narrative & Repository Actions (Centered) */}
           <div className="swiss-col-right font-mono">
             <div className="swiss-right-dossier-box">
               <div className="swiss-box-header font-mono">
@@ -323,21 +323,26 @@ export const SelectedExpeditions: React.FC = () => {
                   </a>
                 </div>
               )}
+
+              {/* Grand Archive CTA - Placed strictly on the final project (04) */}
+              {activeIndex === FEATURED_EXPEDITIONS.length - 1 && (
+                <div className="swiss-final-archive-cta font-mono">
+                  <button
+                    type="button"
+                    className="swiss-archive-highlight-btn"
+                    onClick={() => setIsRepoModalOpen(true)}
+                  >
+                    <span className="cta-kicker">[ FIELD REPOSITORY ARCHIVE ]</span>
+                    <span className="cta-title">
+                      <span>EXPLORE ALL 07 EXPEDITIONS</span>
+                      <span className="cta-arrow" aria-hidden="true">↗</span>
+                    </span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
-
-        {/* Bottom Bar: Complete Archive Modal Trigger */}
-        <footer className="swiss-footer-row font-mono">
-          <button
-            type="button"
-            className="swiss-all-logs-btn"
-            onClick={() => setIsRepoModalOpen(true)}
-          >
-            <span>[ EXPLORE ALL 07 EXPEDITIONS ]</span>
-            <span className="btn-arrow" aria-hidden="true">↗</span>
-          </button>
-        </footer>
       </div>
 
       {/* Detailed Architectural Dossier Modal (Esc to close) */}

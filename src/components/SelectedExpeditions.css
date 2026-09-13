@@ -143,15 +143,19 @@
   box-sizing: border-box;
 }
 
-.swiss-left-top {
-  padding-top: 0.2rem;
+.swiss-left-center-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 0;
 }
 
 /* Odometer Reel Animation */
 .swiss-counter-reel {
-  height: clamp(4.5rem, 7.5vw, 6.8rem);
+  height: clamp(4.2rem, 7vw, 6.5rem);
   overflow: hidden;
   position: relative;
+  margin-bottom: 0.4rem;
 }
 
 .swiss-counter-track {
@@ -162,25 +166,22 @@
 }
 
 .swiss-counter-num {
-  height: clamp(4.5rem, 7.5vw, 6.8rem);
+  height: clamp(4.2rem, 7vw, 6.5rem);
   display: flex;
   align-items: center;
-  font-size: clamp(4.5rem, 7.5vw, 6.8rem);
+  font-size: clamp(4.2rem, 7vw, 6.5rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.05em;
   color: #121512;
 }
 
-/* Project Title & Metadata placed directly in Left Panel */
+/* Project Title & Metadata placed directly below counter number */
 .swiss-left-project-info {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin: 1.2rem 0;
-  padding: 0.8rem 0;
-  border-top: 1px solid rgba(18, 21, 18, 0.12);
-  border-bottom: 1px solid rgba(18, 21, 18, 0.12);
+  padding-top: 0.4rem;
 }
 
 .swiss-project-title {
@@ -500,7 +501,7 @@
 .swiss-col-right {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   padding: clamp(1.2rem, 2vw, 2.2rem) clamp(1rem, 1.8vw, 1.8rem);
   font-size: 0.72rem;
   color: #121512;
@@ -514,6 +515,7 @@
   flex-direction: column;
   gap: 14px;
   width: 100%;
+  margin: auto 0;
 }
 
 .swiss-box-header {
@@ -621,40 +623,74 @@
   opacity: 0.7;
 }
 
-/* Bottom Bar: Complete Archive Button */
-.swiss-footer-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: clamp(0.4rem, 1vh, 0.8rem);
-  margin-bottom: 8px;
+/* Final Project Grand Archive CTA (Tactical Callout on Expedition 04) */
+.swiss-final-archive-cta {
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(18, 21, 18, 0.2);
+  animation: fadeInSwissCTA 0.35s ease-out;
 }
 
-.swiss-all-logs-btn {
-  background: transparent;
-  border: none;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  color: rgba(18, 21, 18, 0.8);
+.swiss-archive-highlight-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  background: var(--color-olive, #4A5844);
+  color: #ECEBE8;
+  border: 1.5px solid #141714;
+  padding: 10px 14px;
+  border-radius: 2px;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.2s ease;
+  text-align: left;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(74, 88, 68, 0.22);
   pointer-events: auto;
 }
 
-.swiss-all-logs-btn:hover {
-  color: var(--color-olive);
+.swiss-archive-highlight-btn:hover {
+  background: #141714;
+  color: #ECEBE8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(18, 21, 18, 0.3);
 }
 
-.swiss-all-logs-btn .btn-arrow {
+.swiss-archive-highlight-btn .cta-kicker {
+  font-size: 0.58rem;
+  letter-spacing: 0.09em;
+  color: rgba(236, 235, 232, 0.75);
+  font-weight: 600;
+}
+
+.swiss-archive-highlight-btn .cta-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.swiss-archive-highlight-btn .cta-arrow {
   transition: transform 0.2s ease;
+  font-size: 0.85rem;
 }
 
-.swiss-all-logs-btn:hover .btn-arrow {
-  transform: translate(2px, -2px);
+.swiss-archive-highlight-btn:hover .cta-arrow {
+  transform: translate(3px, -3px);
+}
+
+@keyframes fadeInSwissCTA {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
