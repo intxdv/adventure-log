@@ -14,63 +14,63 @@ interface FontConfig {
   letterSpacing?: string;
 }
 
-// 8 Variasi Font & Casing terkalibrasi secara presisi agar selalu berada di dalam frame
+// 8 Variasi Font & Casing terkalibrasi secara optik dengan skala berwibawa & megah
 const FONT_SEQUENCE: FontConfig[] = [
   {
     text: 'Adventure Log.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.8rem, 6.8vw, 5.8rem)',
-    letterSpacing: '0.01em',
+    fontSize: 'clamp(3.4rem, 6.8vw, 5.8rem)',
+    letterSpacing: '0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.5rem, 5.8vw, 5.0rem)',
+    fontSize: 'clamp(3.1rem, 6.2vw, 5.2rem)',
     letterSpacing: '-0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Daydream',
     fontWeight: 400,
-    fontSize: 'clamp(1.85rem, 4.4vw, 3.6rem)',
-    letterSpacing: '0.02em',
+    fontSize: 'clamp(2.3rem, 4.6vw, 3.8rem)',
+    letterSpacing: '0.04em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.5rem, 5.8vw, 5.0rem)',
-    letterSpacing: '0.02em',
+    fontSize: 'clamp(3.1rem, 6.2vw, 5.2rem)',
+    letterSpacing: '0.03em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Printvetica',
     fontWeight: 400,
-    fontSize: 'clamp(2.7rem, 6.4vw, 5.4rem)',
+    fontSize: 'clamp(3.3rem, 6.5vw, 5.4rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 400,
-    fontSize: 'clamp(2.4rem, 5.6vw, 4.8rem)',
-    letterSpacing: '0.01em',
+    fontSize: 'clamp(2.8rem, 5.6vw, 4.6rem)',
+    letterSpacing: '0.02em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.8rem, 6.8vw, 5.8rem)',
+    fontSize: 'clamp(3.4rem, 6.8vw, 5.8rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 700,
-    fontSize: 'clamp(2.3rem, 5.2vw, 4.5rem)',
-    letterSpacing: '0.03em',
+    fontSize: 'clamp(2.7rem, 5.4vw, 4.4rem)',
+    letterSpacing: '0.04em',
   },
 ];
 
@@ -98,7 +98,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         startupTimerRef.current = null;
       }
 
-      // Tampilkan Top Bar, Viewfinder Frame, Compass, dan Phrase Bio secara serempak
+      // Tampilkan Top Bar, Kicker, Compass, dan Phrase Bio secara serempak
       gsap.to('.hero-top-bar', {
         opacity: 1,
         y: 0,
@@ -106,18 +106,12 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         ease: 'power2.out',
       });
 
-      gsap.to('.hero-viewfinder-frame', {
+      gsap.to('.hero-meta-kicker', {
         opacity: 1,
         y: 0,
-        duration: 0.7,
+        duration: 0.65,
         ease: 'power2.out',
       });
-
-      gsap.fromTo(
-        '.viewfinder-node',
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, stagger: 0.05, duration: 0.45, ease: 'back.out(2)', delay: 0.15 }
-      );
 
       gsap.to('.hero-compass-backdrop', {
         opacity: 0.55,
@@ -204,37 +198,6 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     };
   }, [isAppLoaded, startHeroImmediately]);
 
-  // Mouse / Cursor Parallax pada Cartographer Desk Background
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const deskImg = document.getElementById('hero-desk-img');
-    if (!deskImg) return;
-
-    const quickX = gsap.quickTo(deskImg, 'x', { duration: 0.85, ease: 'power2.out' });
-    const quickY = gsap.quickTo(deskImg, 'y', { duration: 0.85, ease: 'power2.out' });
-    const quickRotX = gsap.quickTo(deskImg, 'rotationX', { duration: 0.95, ease: 'power2.out' });
-    const quickRotY = gsap.quickTo(deskImg, 'rotationY', { duration: 0.95, ease: 'power2.out' });
-
-    const handleMouseMove = (e: MouseEvent) => {
-      // Hanya aktif saat Hero berada di viewport
-      if (window.scrollY > window.innerHeight * 1.1) return;
-
-      const normX = (e.clientX / window.innerWidth - 0.5) * 2; // -1 hingga +1
-      const normY = (e.clientY / window.innerHeight - 0.5) * 2; // -1 hingga +1
-
-      // Efek pergeseran lembut dan tilt 3D mikro
-      quickX(normX * -15);
-      quickY(normY * -12);
-      quickRotX(normY * 1.6);
-      quickRotY(normX * -1.6);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   const handleHeroClick = (e: React.MouseEvent<HTMLElement>) => {
     // Jangan picu transisi jika user mengklik link, tombol, atau navigasi top bar
     if ((e.target as HTMLElement).closest('a, button, .hero-top-bar')) return;
@@ -247,7 +210,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
 
     // Jika sudah mulai, klik memicu transisi halus menuju Section About (1.4s tenang & sinematik)
     const stageWrapper = document.getElementById('hero-stage-wrapper');
-    const targetScroll = stageWrapper ? stageWrapper.offsetTop + window.innerHeight * 1.8 : window.innerHeight * 1.8;
+    const targetScroll = stageWrapper ? stageWrapper.offsetTop + window.innerHeight * 1.6 : window.innerHeight * 1.6;
 
     gsap.to(window, {
       duration: 1.4,
@@ -305,17 +268,6 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
       aria-label="Expedition Hero & Field Entry"
       onClick={handleHeroClick}
     >
-      {/* 0a. Cartographer Desk Background with Cursor Parallax */}
-      <div className="hero-desk-backdrop" aria-hidden="true">
-        <img
-          src="/images/hero-cartographer-desk.jpg"
-          alt=""
-          className="hero-desk-img"
-          id="hero-desk-img"
-        />
-        <div className="hero-desk-tint" />
-      </div>
-
       {/* 1. Minimalist Top Bar (Khusus Hero, full bleed edge-to-edge) */}
       <div className={`hero-top-bar ${!hasStartedLoop ? 'is-initial-hidden' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="hero-top-bar-inner">
@@ -341,64 +293,34 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         </div>
       </div>
 
-      {/* 2. Hero Body Full-Bleed Architectural Drafting Grid (Tailwind v4 × Olha Lazarieva) */}
+      {/* 2. Hero Body Full-Width Container (1600px Max-Width) */}
       <div className="hero-body-container">
-        {/* Full-Bleed Wireframe Stage Frame */}
-        <div className={`hero-viewfinder-frame ${hasStartedLoop ? 'is-visible' : ''}`} id="hero-viewfinder-frame">
-          {/* 4 Corner Selection Handle Nodes (Gambar 4 Style) */}
-          <span className="viewfinder-node top-left" aria-hidden="true" />
-          <span className="viewfinder-node top-right" aria-hidden="true" />
-          <span className="viewfinder-node bottom-left" aria-hidden="true" />
-          <span className="viewfinder-node bottom-right" aria-hidden="true" />
-
-          {/* Top Row: Title Column (Left) & Compass Dial Sensor (Right) as per sketch */}
-          <div className="hero-grid-top-row">
-            <div className="hero-title-col">
-              {/* Clean Kicker */}
-              <div className="viewfinder-header font-mono" aria-hidden="true">
-                <span className="viewfinder-tag">[ 00 // FIELD ARCHIVE &amp; EXPEDITIONS ]</span>
-              </div>
-
-              {/* Dynamic Title Wrapper */}
-              <div className="hero-title-wrapper">
-                <h1
-                  className="hero-dynamic-title"
-                  style={{
-                    fontFamily: `'${currentFont.fontFamily}', sans-serif`,
-                    fontWeight: currentFont.fontWeight,
-                    fontSize: currentFont.fontSize,
-                    letterSpacing: currentFont.letterSpacing || 'normal',
-                  }}
-                >
-                  {baseText}
-                  {hasDot && (
-                    <span id="hero-portal-dot" className="hero-portal-dot">
-                      .
-                    </span>
-                  )}
-                  {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
-                </h1>
-              </div>
-            </div>
-
-            {/* Compass Dial (Top-Right Circle as per sketch) */}
-            <div className={`hero-compass-backdrop ${hasStartedLoop ? 'is-visible' : ''}`} aria-hidden="true">
-              <div className="hero-compass-dial" id="hero-compass-dial">
-                <span className="hero-compass-cardinal n">N</span>
-                <span className="hero-compass-cardinal e">E</span>
-                <span className="hero-compass-cardinal s">S</span>
-                <span className="hero-compass-cardinal w">W</span>
-
-                <div className="hero-compass-hub">
-                  <div className="hero-compass-needle-ring" />
-                  <span className="hero-compass-label font-mono">COMPASS SENSOR</span>
-                  <span className="hero-compass-coords font-mono">7.05°S // 110.44°E</span>
-                </div>
-              </div>
-            </div>
+        {/* Kolom Kiri: Judul Dinamis & Bio Editorial */}
+        <div className="hero-left-col">
+          <div className={`hero-meta-kicker font-mono ${hasStartedLoop ? 'is-visible' : ''}`}>
+            <span>[ 00 // FIELD ARCHIVE & EXPEDITIONS ]</span>
           </div>
 
-          {/* Bottom Row: Editorial Bio Paragraph */}
+          <div className="hero-title-wrapper">
+            <h1
+              className="hero-dynamic-title"
+              style={{
+                fontFamily: `'${currentFont.fontFamily}', sans-serif`,
+                fontWeight: currentFont.fontWeight,
+                fontSize: currentFont.fontSize,
+                letterSpacing: currentFont.letterSpacing || 'normal',
+              }}
+            >
+              {baseText}
+              {hasDot && (
+                <span id="hero-portal-dot" className="hero-portal-dot">
+                  .
+                </span>
+              )}
+              {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
+            </h1>
+          </div>
+
           <p className="hero-bio-paragraph font-serif">
             <span className="hero-bio-word">A</span>{' '}
             <span className="hero-bio-word">digital</span>{' '}
@@ -429,6 +351,22 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             <span className="hero-bio-word">organic</span>{' '}
             <span className="hero-bio-word">exploration.</span>
           </p>
+        </div>
+
+        {/* 3. Atmospheric Background Compass Dial (Fixed Position di Layer Belakang) */}
+        <div className={`hero-compass-backdrop ${hasStartedLoop ? 'is-visible' : ''}`} aria-hidden="true">
+          <div className="hero-compass-dial" id="hero-compass-dial">
+            <span className="hero-compass-cardinal n">N</span>
+            <span className="hero-compass-cardinal e">E</span>
+            <span className="hero-compass-cardinal s">S</span>
+            <span className="hero-compass-cardinal w">W</span>
+
+            <div className="hero-compass-hub">
+              <div className="hero-compass-needle-ring" />
+              <span className="hero-compass-label font-mono">COMPASS SENSOR</span>
+              <span className="hero-compass-coords font-mono">7.05°S // 110.44°E</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

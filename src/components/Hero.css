@@ -20,69 +20,30 @@
   align-self: start;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 0 0 clamp(1.5rem, 2.5vw, 2.5rem);
+  justify-content: space-between;
+  padding: 0 0 clamp(2rem, 4vw, 4rem);
   background-color: var(--color-canvas);
   overflow: hidden;
   cursor: pointer;
-}
-
-/* 0a. Cartographer Desk Background & Cursor Parallax */
-.hero-desk-backdrop {
-  position: absolute;
-  top: -4%;
-  left: -4%;
-  width: 108%;
-  height: 108%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-  perspective: 1200px;
-}
-
-.hero-desk-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 38%;
-  display: block;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-/* Subtle parchment tint overlay with low opacity so the desk remains rich, crisp, and vibrant */
-.hero-desk-tint {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at 38% 50%,
-    rgba(247, 246, 242, 0.04) 0%,
-    rgba(247, 246, 242, 0.10) 60%,
-    rgba(240, 238, 230, 0.18) 100%
-  );
-  pointer-events: none;
 }
 
 /* 1. Minimalist Hero Top Bar with Full-Bleed Tactical Editorial Datum Line */
 .hero-top-bar {
   width: 100%;
   position: relative;
-  border-bottom: 1.5px solid rgba(18, 21, 18, 0.20);
-  background: rgba(247, 246, 242, 0.55);
-  backdrop-filter: blur(12px) saturate(120%);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border-bottom: 2.5px solid rgba(18, 21, 18, 0.28);
   transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 20;
 }
 
 .hero-top-bar-inner {
   width: 100%;
-  max-width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
   padding-top: var(--space-md);
   padding-bottom: var(--space-md);
-  padding-left: clamp(20px, 3.5vw, 64px);
-  padding-right: clamp(20px, 3.5vw, 64px);
+  padding-left: clamp(24px, 5vw, 80px);
+  padding-right: clamp(24px, 5vw, 80px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -158,140 +119,38 @@
   user-select: none;
 }
 
-/* 2. Hero Body Full-Width Container (Edge-to-Edge Drafting Grid) */
+/* 2. Hero Body Full-Width Container (Matching Footer 1600px) */
 .hero-body-container {
-  flex: 1;
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding-top: clamp(1.0rem, 2vw, 2.0rem);
-  padding-bottom: clamp(1.5rem, 3vw, 3.0rem);
-  padding-left: clamp(20px, 3.5vw, 64px);
-  padding-right: clamp(20px, 3.5vw, 64px);
+  max-width: 1600px;
+  margin: auto auto;
+  padding-top: clamp(2.5rem, 5vw, 5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 5rem);
+  padding-left: clamp(24px, 5vw, 80px);
+  padding-right: clamp(24px, 5vw, 80px);
   position: relative;
   z-index: 10;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-/* ==========================================================================
-   Full-Bleed Architectural Drafting Stage Frame (Tailwind v4 × Olha Lazarieva)
-   ========================================================================== */
-.hero-viewfinder-frame {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: clamp(1.8rem, 3.0vw, 3.2rem) clamp(2.0rem, 3.8vw, 4.2rem);
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(16px) saturate(120%);
-  -webkit-backdrop-filter: blur(16px) saturate(120%);
-  border: 1.5px solid rgba(18, 21, 18, 0.22);
-  border-radius: 2px;
-  box-shadow: 0 16px 48px rgba(18, 21, 18, 0.06);
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  will-change: opacity, transform;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.2rem, 2.0vw, 2.4rem);
-}
-
-.hero-viewfinder-frame.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero-viewfinder-frame:hover {
-  border-color: rgba(18, 21, 18, 0.46);
-  box-shadow: 0 20px 52px rgba(18, 21, 18, 0.09);
-}
-
-/* 4 Corner Selection Handle Nodes (Gambar 4 Style) */
-.viewfinder-node {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  background-color: var(--color-ink);
-  border: 1.5px solid #FFFFFF;
-  box-shadow: 0 1px 4px rgba(18, 21, 18, 0.28);
-  z-index: 6;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.hero-viewfinder-frame:hover .viewfinder-node {
-  transform: scale(1.25);
-  background-color: var(--color-olive);
-}
-
-.viewfinder-node.top-left {
-  top: -5px;
-  left: -5px;
-  cursor: nwse-resize;
-}
-
-.viewfinder-node.top-right {
-  top: -5px;
-  right: -5px;
-  cursor: nesw-resize;
-}
-
-.viewfinder-node.bottom-left {
-  bottom: -5px;
-  left: -5px;
-  cursor: nesw-resize;
-}
-
-.viewfinder-node.bottom-right {
-  bottom: -5px;
-  right: -5px;
-  cursor: nwse-resize;
-}
-
-/* Top Row: Title Section (Left) & Compass Dial (Right) as per sketch */
-.hero-grid-top-row {
-  display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(1.5rem, 3vw, 3.5rem);
-  width: 100%;
 }
 
-.hero-title-col {
-  flex: 1;
-  min-width: 0;
+/* Sisi Kiri: Judul Dinamis & Bio Editorial (Gedein & Lapang) */
+.hero-left-col {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
 }
 
-/* Viewfinder Header (Clean Top Kicker Only) */
-.viewfinder-header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: var(--space-xs);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: var(--color-olive);
-  user-select: none;
-}
-
-.viewfinder-tag {
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-/* Title Wrapper Inside Frame (Stable Height & Zero Jitter) */
 .hero-title-wrapper {
-  min-height: clamp(6.6rem, 10vw, 9.6rem);
+  min-height: clamp(8.5rem, 15vw, 13rem);
   display: flex;
   align-items: center;
   position: relative;
-  margin-bottom: 0;
-  width: 100%;
+  margin-bottom: var(--space-md);
 }
 
 .hero-dynamic-title {
@@ -330,10 +189,10 @@
 
 /* Bio Editorial - Scaled Up & Stagger Phrase */
 .hero-bio-paragraph {
-  font-size: clamp(1.18rem, 1.6vw, 1.48rem);
-  line-height: 1.74;
+  font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+  line-height: 1.68;
   color: var(--color-ink-muted);
-  max-width: 82ch;
+  max-width: 760px;
   margin: 0;
   font-family: var(--font-serif);
 }
@@ -370,12 +229,14 @@
   transform: translateY(0);
 }
 
-/* 3. Compass Dial (Top-Right Circle beside Dynamic Title as per sketch) */
+/* 3. Atmospheric Background Compass (Fixed on Page / Layer Belakang) */
 .hero-compass-backdrop {
-  position: relative;
-  flex-shrink: 0;
+  position: absolute;
+  right: clamp(24px, 7vw, 120px);
+  top: 50%;
+  transform: translateY(-50%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
   opacity: 0;
   transition: opacity 0.85s ease;
   user-select: none;
@@ -383,20 +244,20 @@
 }
 
 .hero-compass-backdrop.is-visible {
-  opacity: 0.85;
+  opacity: 0.55;
 }
 
 .hero-compass-dial {
-  width: clamp(170px, 17vw, 250px);
-  height: clamp(170px, 17vw, 250px);
+  width: clamp(280px, 32vw, 440px);
+  height: clamp(280px, 32vw, 440px);
   border-radius: 50%;
   border: 1px solid var(--hairline-base);
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.75) 0%, rgba(247, 246, 242, 0.35) 70%, transparent 100%);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.7) 0%, rgba(247, 246, 242, 0.3) 70%, transparent 100%);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 12px 36px rgba(24, 26, 24, 0.05);
+  box-shadow: 0 12px 40px rgba(24, 26, 24, 0.04);
 }
 
 /* Concentric Inner Ring */
@@ -484,14 +345,18 @@
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
-  .hero-grid-top-row {
+  .hero-body-container {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-md);
   }
 
   .hero-compass-backdrop {
-    display: none;
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin-top: var(--space-2xl);
+    opacity: 0.45;
   }
 }
 
@@ -515,16 +380,16 @@
     font-size: 0.75rem;
   }
 
-  .hero-viewfinder-frame {
-    padding: 1.6rem 1.25rem;
-    gap: 1.2rem;
-  }
-
   .hero-title-wrapper {
-    min-height: 5.6rem;
+    min-height: 4.8rem;
   }
 
   .hero-dynamic-title {
     white-space: normal;
+  }
+
+  .hero-compass-dial {
+    width: 220px;
+    height: 220px;
   }
 }
