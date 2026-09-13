@@ -218,87 +218,98 @@ export const useMotionEngine = () => {
         );
 
         // ----------------------------------------------------------------------
-        // 1e. 3D Project Cards Traversal di Kanvas Putih (t = 4.30 -> 8.60)
-        // Tiap item proyek (light-theme tactile card) meluncur di sepanjang dinding kanan,
-        // fokus di depan mata user, lalu menembus layar user ke arah kamera!
+        // 1e. 3D Project Cards Traversal di Kanvas Putih (t = 4.30 -> 10.35)
+        // Sesuai sketsa user: Kartu bertumpu dan meluncur di sepanjang bidang dinding kanan
+        // Masuk dari kedalaman (kecil di kiri dinding), maju ke titik fokus baca,
+        // lalu membesar dan keluar ke arah depan-kanan (menembus layar ke kanan)
         // ----------------------------------------------------------------------
 
         // Card 1: lapor fsm.
+        portalTimeline.set('#expedition-3d-card-1', { visibility: 'visible' }, 4.30);
         portalTimeline.fromTo(
           '#expedition-3d-card-1',
-          { transform: 'translateY(-50%) translate3d(0, 0, -800px) rotateY(-22deg)', opacity: 0 },
-          { transform: 'translateY(-50%) translate3d(0, 0, 0px) rotateY(-12deg)', opacity: 1, duration: 0.50, ease: 'power2.out' },
+          { x: -220, yPercent: -50, scale: 0.72, rotationY: -26, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, rotationY: -16, opacity: 1, duration: 0.45, ease: 'power2.out' },
           4.30
         );
-        portalTimeline.set('#expedition-3d-card-1', { pointerEvents: 'auto', className: '+=is-in-focus' }, 4.60);
-        portalTimeline.set('#expedition-3d-card-1', { pointerEvents: 'none', className: '-=is-in-focus' }, 5.05);
+        portalTimeline.set('#expedition-3d-card-1', { pointerEvents: 'auto', className: '+=is-in-focus' }, 4.70);
+        portalTimeline.set('#expedition-3d-card-1', { pointerEvents: 'none', className: '-=is-in-focus' }, 5.15);
         portalTimeline.to(
           '#expedition-3d-card-1',
-          { transform: 'translateY(-50%) translate3d(140px, 0, 800px) rotateY(-6deg)', opacity: 0, duration: 0.50, ease: 'power2.in' },
-          5.05
+          { x: 280, yPercent: -50, scale: 1.40, rotationY: -6, opacity: 0, duration: 0.45, ease: 'power2.in' },
+          5.15
         );
+        portalTimeline.set('#expedition-3d-card-1', { visibility: 'hidden' }, 5.60);
 
         // Card 2: dipofeed.
+        portalTimeline.set('#expedition-3d-card-2', { visibility: 'visible' }, 5.50);
         portalTimeline.fromTo(
           '#expedition-3d-card-2',
-          { transform: 'translateY(-50%) translate3d(0, 0, -800px) rotateY(-22deg)', opacity: 0 },
-          { transform: 'translateY(-50%) translate3d(0, 0, 0px) rotateY(-12deg)', opacity: 1, duration: 0.50, ease: 'power2.out' },
-          5.25
+          { x: -220, yPercent: -50, scale: 0.72, rotationY: -26, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, rotationY: -16, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          5.50
         );
-        portalTimeline.set('#expedition-3d-card-2', { pointerEvents: 'auto', className: '+=is-in-focus' }, 5.55);
-        portalTimeline.set('#expedition-3d-card-2', { pointerEvents: 'none', className: '-=is-in-focus' }, 6.00);
+        portalTimeline.set('#expedition-3d-card-2', { pointerEvents: 'auto', className: '+=is-in-focus' }, 5.90);
+        portalTimeline.set('#expedition-3d-card-2', { pointerEvents: 'none', className: '-=is-in-focus' }, 6.35);
         portalTimeline.to(
           '#expedition-3d-card-2',
-          { transform: 'translateY(-50%) translate3d(140px, 0, 800px) rotateY(-6deg)', opacity: 0, duration: 0.50, ease: 'power2.in' },
-          6.00
+          { x: 280, yPercent: -50, scale: 1.40, rotationY: -6, opacity: 0, duration: 0.45, ease: 'power2.in' },
+          6.35
         );
+        portalTimeline.set('#expedition-3d-card-2', { visibility: 'hidden' }, 6.80);
 
         // Card 3: aware.
+        portalTimeline.set('#expedition-3d-card-3', { visibility: 'visible' }, 6.70);
         portalTimeline.fromTo(
           '#expedition-3d-card-3',
-          { transform: 'translateY(-50%) translate3d(0, 0, -800px) rotateY(-22deg)', opacity: 0 },
-          { transform: 'translateY(-50%) translate3d(0, 0, 0px) rotateY(-12deg)', opacity: 1, duration: 0.50, ease: 'power2.out' },
-          6.20
+          { x: -220, yPercent: -50, scale: 0.72, rotationY: -26, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, rotationY: -16, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          6.70
         );
-        portalTimeline.set('#expedition-3d-card-3', { pointerEvents: 'auto', className: '+=is-in-focus' }, 6.50);
-        portalTimeline.set('#expedition-3d-card-3', { pointerEvents: 'none', className: '-=is-in-focus' }, 6.95);
+        portalTimeline.set('#expedition-3d-card-3', { pointerEvents: 'auto', className: '+=is-in-focus' }, 7.10);
+        portalTimeline.set('#expedition-3d-card-3', { pointerEvents: 'none', className: '-=is-in-focus' }, 7.55);
         portalTimeline.to(
           '#expedition-3d-card-3',
-          { transform: 'translateY(-50%) translate3d(140px, 0, 800px) rotateY(-6deg)', opacity: 0, duration: 0.50, ease: 'power2.in' },
-          6.95
+          { x: 280, yPercent: -50, scale: 1.40, rotationY: -6, opacity: 0, duration: 0.45, ease: 'power2.in' },
+          7.55
         );
+        portalTimeline.set('#expedition-3d-card-3', { visibility: 'hidden' }, 8.00);
 
         // Card 4: kagu.
+        portalTimeline.set('#expedition-3d-card-4', { visibility: 'visible' }, 7.90);
         portalTimeline.fromTo(
           '#expedition-3d-card-4',
-          { transform: 'translateY(-50%) translate3d(0, 0, -800px) rotateY(-22deg)', opacity: 0 },
-          { transform: 'translateY(-50%) translate3d(0, 0, 0px) rotateY(-12deg)', opacity: 1, duration: 0.50, ease: 'power2.out' },
-          7.15
-        );
-        portalTimeline.set('#expedition-3d-card-4', { pointerEvents: 'auto', className: '+=is-in-focus' }, 7.45);
-        portalTimeline.set('#expedition-3d-card-4', { pointerEvents: 'none', className: '-=is-in-focus' }, 7.90);
-        portalTimeline.to(
-          '#expedition-3d-card-4',
-          { transform: 'translateY(-50%) translate3d(140px, 0, 800px) rotateY(-6deg)', opacity: 0, duration: 0.50, ease: 'power2.in' },
+          { x: -220, yPercent: -50, scale: 0.72, rotationY: -26, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, rotationY: -16, opacity: 1, duration: 0.45, ease: 'power2.out' },
           7.90
         );
+        portalTimeline.set('#expedition-3d-card-4', { pointerEvents: 'auto', className: '+=is-in-focus' }, 8.30);
+        portalTimeline.set('#expedition-3d-card-4', { pointerEvents: 'none', className: '-=is-in-focus' }, 8.75);
+        portalTimeline.to(
+          '#expedition-3d-card-4',
+          { x: 280, yPercent: -50, scale: 1.40, rotationY: -6, opacity: 0, duration: 0.45, ease: 'power2.in' },
+          8.75
+        );
+        portalTimeline.set('#expedition-3d-card-4', { visibility: 'hidden' }, 9.20);
 
         // Complete Repository CTA Card
+        portalTimeline.set('#perspective-archive-cta', { visibility: 'visible' }, 9.10);
         portalTimeline.fromTo(
           '#perspective-archive-cta',
-          { transform: 'translateY(-50%) translate3d(0, 0, -600px) rotateY(-16deg)', opacity: 0 },
-          { transform: 'translateY(-50%) translate3d(0, 0, 0px) rotateY(-8deg)', opacity: 1, duration: 0.50, ease: 'power2.out' },
-          8.10
+          { x: -200, yPercent: -50, scale: 0.75, rotationY: -22, opacity: 0 },
+          { x: 0, yPercent: -50, scale: 1.0, rotationY: -16, opacity: 1, duration: 0.45, ease: 'power2.out' },
+          9.10
         );
-        portalTimeline.set('#perspective-archive-cta', { pointerEvents: 'auto', className: '+=is-in-focus' }, 8.40);
+        portalTimeline.set('#perspective-archive-cta', { pointerEvents: 'auto', className: '+=is-in-focus' }, 9.50);
         portalTimeline.to(
           '#perspective-archive-cta',
-          { opacity: 0, y: -20, duration: 0.4, ease: 'power2.in' },
-          8.85
+          { x: 240, yPercent: -50, scale: 1.30, opacity: 0, duration: 0.40, ease: 'power2.in' },
+          9.95
         );
+        portalTimeline.set('#perspective-archive-cta', { visibility: 'hidden' }, 10.35);
 
         // ----------------------------------------------------------------------
-        // 1f. Wireframe Grid Dissolve & Pure White Stage Flow into Section 4 (t = 8.85 -> 9.60)
+        // 1f. Wireframe Grid Dissolve & Pure White Stage Flow into Section 4 (t = 10.00 -> 10.50)
         // Garis grid memudar perlahan, menyisakan layar full putih bersih
         // yang langsung menyambung tanpa jeda ke Section 4 (Field Arsenal)
         // ----------------------------------------------------------------------
@@ -306,10 +317,10 @@ export const useMotionEngine = () => {
           '.expeditions-perspective-grid-svg, .perspective-telemetry-bar',
           {
             opacity: 0,
-            duration: 0.60,
+            duration: 0.50,
             ease: 'power2.inOut',
           },
-          8.85
+          10.00
         );
       }
 
