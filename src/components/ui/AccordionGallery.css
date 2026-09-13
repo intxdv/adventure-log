@@ -1,0 +1,247 @@
+/* ==========================================================================
+   AccordionGallery Component Styles
+   Enhanced for "The Digital Cartographer" (Tactile Swiss Editorial Aesthetic)
+   ========================================================================== */
+
+.accordion-gallery {
+  --ag-accent: #4A5844;
+  --ag-overlay: #181A18;
+  --ag-text: #F7F6F2;
+  --ag-gap: 12px;
+  --ag-radius: 4px;
+  --ag-media-size: 320px;
+
+  display: flex;
+  flex-direction: row;
+  gap: var(--ag-gap);
+  width: 100%;
+  max-width: 100%;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  user-select: none;
+}
+
+.accordion-gallery--vertical {
+  flex-direction: column;
+}
+
+.ag-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--ag-radius);
+  border: 1px solid var(--hairline-base, rgba(24, 26, 24, 0.12));
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  outline: none;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  background: #121412;
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.35);
+  will-change: flex-grow, transform;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ag-panel:hover {
+  border-color: rgba(74, 88, 68, 0.45);
+}
+
+.ag-panel--active {
+  border-color: var(--ag-accent);
+  box-shadow: 0 14px 34px -12px rgba(24, 26, 24, 0.5), 0 0 0 1px rgba(74, 88, 68, 0.3);
+}
+
+.ag-panel:focus-visible {
+  outline: none;
+  border-color: var(--ag-accent);
+  box-shadow:
+    0 0 0 2px var(--ag-accent),
+    0 12px 30px -14px rgba(0, 0, 0, 0.6);
+}
+
+/* Panel Frame & Media */
+.ag-panel__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.ag-panel__media {
+  --ag-gray: 0.85;
+  --ag-dim: 0.45;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ag-media-size);
+  height: 100%;
+  filter: grayscale(var(--ag-gray));
+  will-change: transform, filter;
+  transform: translate(-50%, -50%);
+}
+
+.accordion-gallery--vertical .ag-panel__media {
+  width: 100%;
+  height: var(--ag-media-size);
+}
+
+.ag-panel__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.ag-panel__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(24, 26, 24, 0.4) 0%, rgba(24, 26, 24, 0.15) 35%, rgba(24, 26, 24, 0.85) 100%),
+    rgba(24, 26, 24, var(--ag-dim, 0.45));
+}
+
+/* Top Tactical Telemetry Badge */
+.ag-panel__top {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ag-panel__badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #F7F6F2;
+  background: rgba(24, 26, 24, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(247, 246, 242, 0.16);
+  padding: 3px 7px;
+  border-radius: 2px;
+}
+
+.ag-panel--active .ag-panel__badge {
+  background: var(--ag-accent);
+  color: #F7F6F2;
+  border-color: rgba(247, 246, 242, 0.3);
+}
+
+.ag-panel__code {
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: rgba(247, 246, 242, 0.75);
+  background: rgba(24, 26, 24, 0.6);
+  backdrop-filter: blur(6px);
+  padding: 2px 6px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* Bottom Caption & Label */
+.ag-panel__label {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ag-panel__bar {
+  flex: 0 0 auto;
+  width: 3px;
+  height: 32px;
+  border-radius: 2px;
+  background: var(--ag-accent);
+  opacity: 0;
+  box-shadow: 0 0 10px rgba(74, 88, 68, 0.7);
+  margin-bottom: 4px;
+}
+
+.ag-panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ag-panel__text {
+  color: var(--ag-text);
+  font-weight: 800;
+  font-size: clamp(1.15rem, 1.5vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+}
+
+.ag-panel__tagline {
+  font-size: 0.725rem;
+  letter-spacing: 0.03em;
+  color: rgba(247, 246, 242, 0.75);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.9;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive Handling */
+@media (max-width: 768px) {
+  .accordion-gallery {
+    flex-direction: column;
+    perspective: none;
+    height: auto !important;
+    gap: 10px;
+  }
+
+  .ag-panel {
+    min-height: 96px;
+    height: 96px;
+    transform: none !important;
+  }
+
+  .ag-panel--active {
+    min-height: 140px;
+    height: 140px;
+  }
+
+  .accordion-gallery .ag-panel__media {
+    width: 100%;
+    height: var(--ag-media-size);
+  }
+
+  .ag-panel__code {
+    display: none;
+  }
+
+  .ag-panel__text {
+    font-size: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ag-panel,
+  .ag-panel__media {
+    will-change: auto;
+  }
+}

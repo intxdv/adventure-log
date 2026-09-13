@@ -45,4 +45,5 @@ export interface ArsenalPillar {
   description: string;
   skills: ArsenalSkill[];
   tools: string[];
+  image?: string;
 }
