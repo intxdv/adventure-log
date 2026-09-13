@@ -84,10 +84,8 @@
   height: auto;
   max-width: none;
   display: block;
-  transform-origin: 50% 50%;
   opacity: 0;
-  transform: scale(0) rotate(-14deg);
-  will-change: transform, opacity;
+  will-change: opacity;
   filter: drop-shadow(0 4px 14px rgba(18, 21, 18, 0.22));
 }
 

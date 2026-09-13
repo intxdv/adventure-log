@@ -47,18 +47,11 @@ export const useMotionEngine = () => {
           },
         });
 
-        // 1a. State 2: Scroll dikit -> Tinta jatuh dan memercik di atas meja kartografer (t = 0.30 -> 0.75)
-        portalTimeline.fromTo(
+        // 1a. State 2: Scroll dikit -> Noda tinta muncul langsung spontan tanpa animasi di atas meja kartografer (t = 0.25)
+        portalTimeline.set(
           '#hero-ink-splatter',
-          { scale: 0, opacity: 0, rotation: -20 },
-          {
-            scale: 1,
-            opacity: 1,
-            rotation: 0,
-            duration: 0.45,
-            ease: 'back.out(1.8)',
-          },
-          0.30
+          { opacity: 1 },
+          0.25
         );
 
         // 1b. State 3: Scroll lagi -> Lingkaran portal nokturnal mekar dari titik noda tinta menembus kanvas Hero (t = 1.05 -> 2.10)
