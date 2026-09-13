@@ -184,21 +184,112 @@
   max-width: 820px;
 }
 
+/* ==========================================================================
+   Option A: Digital Viewfinder Bounding Box Frame (Tactile Tool & Zero-Jitter)
+   ========================================================================== */
+.hero-viewfinder-frame {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  box-sizing: border-box;
+  padding: clamp(1.4rem, 2.4vw, 2.2rem) clamp(1.6rem, 2.8vw, 2.6rem);
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border: 1.5px solid rgba(18, 21, 18, 0.36);
+  border-radius: 2px;
+  box-shadow: 0 16px 44px rgba(18, 21, 18, 0.05);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: opacity, transform;
+}
+
+.hero-viewfinder-frame.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-viewfinder-frame:hover {
+  border-color: rgba(18, 21, 18, 0.58);
+  box-shadow: 0 20px 48px rgba(18, 21, 18, 0.08);
+}
+
+/* 4 Corner Selection Handle Nodes (Gambar 4 Style) */
+.viewfinder-node {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background-color: var(--color-ink);
+  border: 1.5px solid #FFFFFF;
+  box-shadow: 0 1px 4px rgba(18, 21, 18, 0.28);
+  z-index: 5;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.hero-viewfinder-frame:hover .viewfinder-node {
+  transform: scale(1.25);
+  background-color: var(--color-olive);
+}
+
+.viewfinder-node.top-left {
+  top: -5px;
+  left: -5px;
+  cursor: nwse-resize;
+}
+
+.viewfinder-node.top-right {
+  top: -5px;
+  right: -5px;
+  cursor: nesw-resize;
+}
+
+.viewfinder-node.bottom-left {
+  bottom: -5px;
+  left: -5px;
+  cursor: nesw-resize;
+}
+
+.viewfinder-node.bottom-right {
+  bottom: -5px;
+  right: -5px;
+  cursor: nwse-resize;
+}
+
+/* Viewfinder Telemetry Header */
+.viewfinder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px dashed rgba(18, 21, 18, 0.16);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--color-olive);
+  user-select: none;
+}
+
+.viewfinder-tag {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.viewfinder-spec {
+  color: var(--color-ink-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+/* Title Wrapper Inside Frame (Stable Height & Zero Jitter) */
 .hero-title-wrapper {
-  min-height: clamp(6.2rem, 11vw, 9.2rem);
-  display: inline-flex;
+  min-height: clamp(6.2rem, 11vw, 9.4rem);
+  display: flex;
   align-items: center;
   position: relative;
-  margin-bottom: var(--space-md);
-  padding: clamp(0.85rem, 1.8vw, 1.4rem) clamp(1.4rem, 2.6vw, 2.4rem);
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(18, 21, 18, 0.14);
-  border-radius: 2px;
-  box-shadow: 0 10px 32px rgba(18, 21, 18, 0.05);
-  width: fit-content;
-  max-width: 100%;
+  margin-bottom: var(--space-sm);
+  width: 100%;
 }
 
 .hero-dynamic-title {
@@ -235,25 +326,13 @@
   50% { opacity: 0; }
 }
 
-/* Kotak Bio Editorial Semi-Transparan Khas Swiss Editorial */
-.hero-bio-box {
-  padding: clamp(1.2rem, 2vw, 1.8rem) clamp(1.4rem, 2.5vw, 2.2rem);
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(18, 21, 18, 0.14);
-  border-radius: 2px;
-  box-shadow: 0 10px 32px rgba(18, 21, 18, 0.05);
-  max-width: 780px;
-}
-
 /* Bio Editorial - Scaled Up & Stagger Phrase */
 .hero-bio-paragraph {
-  font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+  font-size: clamp(1.15rem, 1.55vw, 1.45rem);
   line-height: 1.68;
   color: var(--color-ink-muted);
   max-width: 100%;
-  margin: 0;
+  margin: 0 0 var(--space-md) 0;
   font-family: var(--font-serif);
 }
 
@@ -267,6 +346,25 @@
   opacity: 0;
   transform: translateY(12px);
   will-change: opacity, transform;
+}
+
+/* Viewfinder Telemetry Footer */
+.viewfinder-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: var(--space-xs);
+  border-top: 1px dashed rgba(18, 21, 18, 0.14);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-faint);
+  user-select: none;
+}
+
+.viewfinder-status {
+  color: var(--color-olive);
+  font-weight: 600;
 }
 
 .hero-meta-kicker {

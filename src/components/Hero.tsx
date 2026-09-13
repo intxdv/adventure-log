@@ -98,7 +98,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         startupTimerRef.current = null;
       }
 
-      // Tampilkan Top Bar, Kicker, Compass, dan Phrase Bio secara serempak
+      // Tampilkan Top Bar, Viewfinder Frame, Compass, dan Phrase Bio secara serempak
       gsap.to('.hero-top-bar', {
         opacity: 1,
         y: 0,
@@ -106,12 +106,18 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         ease: 'power2.out',
       });
 
-      gsap.to('.hero-meta-kicker', {
+      gsap.to('.hero-viewfinder-frame', {
         opacity: 1,
         y: 0,
-        duration: 0.65,
+        duration: 0.7,
         ease: 'power2.out',
       });
+
+      gsap.fromTo(
+        '.viewfinder-node',
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, stagger: 0.05, duration: 0.45, ease: 'back.out(2)', delay: 0.15 }
+      );
 
       gsap.to('.hero-compass-backdrop', {
         opacity: 0.55,
@@ -337,33 +343,43 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
 
       {/* 2. Hero Body Full-Width Container (1600px Max-Width) */}
       <div className="hero-body-container">
-        {/* Kolom Kiri: Judul Dinamis & Bio Editorial */}
+        {/* Kolom Kiri: Digital Viewfinder Frame (Option A) */}
         <div className="hero-left-col">
-          <div className={`hero-meta-kicker font-mono ${hasStartedLoop ? 'is-visible' : ''}`}>
-            <span>[ 00 // FIELD ARCHIVE & EXPEDITIONS ]</span>
-          </div>
+          <div className={`hero-viewfinder-frame ${hasStartedLoop ? 'is-visible' : ''}`} id="hero-viewfinder-frame">
+            {/* 4 Corner Selection Handle Nodes (Gambar 4 Style) */}
+            <span className="viewfinder-node top-left" aria-hidden="true" />
+            <span className="viewfinder-node top-right" aria-hidden="true" />
+            <span className="viewfinder-node bottom-left" aria-hidden="true" />
+            <span className="viewfinder-node bottom-right" aria-hidden="true" />
 
-          <div className="hero-title-wrapper">
-            <h1
-              className="hero-dynamic-title"
-              style={{
-                fontFamily: `'${currentFont.fontFamily}', sans-serif`,
-                fontWeight: currentFont.fontWeight,
-                fontSize: currentFont.fontSize,
-                letterSpacing: currentFont.letterSpacing || 'normal',
-              }}
-            >
-              {baseText}
-              {hasDot && (
-                <span id="hero-portal-dot" className="hero-portal-dot">
-                  .
-                </span>
-              )}
-              {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
-            </h1>
-          </div>
+            {/* Viewfinder Telemetry Header */}
+            <div className="viewfinder-header font-mono" aria-hidden="true">
+              <span className="viewfinder-tag">[ 00 // FIELD ARCHIVE &amp; EXPEDITIONS ]</span>
+              <span className="viewfinder-spec">FRAME: 01 // 780 × 410 PX</span>
+            </div>
 
-          <div className="hero-bio-box">
+            {/* Dynamic Title Wrapper */}
+            <div className="hero-title-wrapper">
+              <h1
+                className="hero-dynamic-title"
+                style={{
+                  fontFamily: `'${currentFont.fontFamily}', sans-serif`,
+                  fontWeight: currentFont.fontWeight,
+                  fontSize: currentFont.fontSize,
+                  letterSpacing: currentFont.letterSpacing || 'normal',
+                }}
+              >
+                {baseText}
+                {hasDot && (
+                  <span id="hero-portal-dot" className="hero-portal-dot">
+                    .
+                  </span>
+                )}
+                {hasStartedLoop && <span className="hero-typewriter-cursor" aria-hidden="true" />}
+              </h1>
+            </div>
+
+            {/* Editorial Bio Paragraph */}
             <p className="hero-bio-paragraph font-serif">
               <span className="hero-bio-word">A</span>{' '}
               <span className="hero-bio-word">digital</span>{' '}
@@ -394,6 +410,12 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
               <span className="hero-bio-word">organic</span>{' '}
               <span className="hero-bio-word">exploration.</span>
             </p>
+
+            {/* Viewfinder Telemetry Footer */}
+            <div className="viewfinder-footer font-mono" aria-hidden="true">
+              <span className="viewfinder-coords">COORD: 7.05°S · 110.44°E</span>
+              <span className="viewfinder-status">STATUS: CALIBRATED</span>
+            </div>
           </div>
         </div>
 
