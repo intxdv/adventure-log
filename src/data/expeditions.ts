@@ -17,6 +17,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/laporfsm/lapor-fsm',
     link: 'https://github.com/laporfsm/lapor-fsm',
+    image: '/images/expeditions/lapor-fsm.png',
     dossier: {
       englishSummary:
         'A centralized digital reporting and incident management mobile application developed to streamline grievance resolution and campus facility maintenance for the FSM Undip academic community.',
@@ -53,6 +54,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/leanderarya/dipo-feed',
     link: 'https://github.com/leanderarya/dipo-feed',
+    image: '/images/expeditions/dipofeed.png',
     dossier: {
       englishSummary:
         'A specialized agricultural mobile application engineered to assist Indonesian dairy cattle farmers in formulating and evaluating nutritionally balanced feed rations using local forage databases.',
@@ -89,6 +91,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/sekarwidhastri/AWARE',
     link: 'https://github.com/sekarwidhastri/AWARE',
+    image: '/images/expeditions/aware.png',
     dossier: {
       englishSummary:
         'An occupational safety screening platform that detects worker fatigue in under 30 seconds by combining real-time computer vision facial landmark tracking with daily health self-assessments.',
@@ -125,6 +128,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/intxdv/Speech-to-Text-Workspace',
     link: 'https://github.com/intxdv/Speech-to-Text-Workspace',
+    image: '/images/expeditions/kagu.png',
     dossier: {
       englishSummary:
         'A modern, privacy-focused browser extension that transforms spoken ideas into formatted text directly inside any active web input field using Google Gemini and Whisper API with a Bring-Your-Own-Key model.',

@@ -446,6 +446,17 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedit
             </div>
           </div>
 
+          {/* Visual Showcase Banner */}
+          {expedition.image && (
+            <div className="dossier-visual-banner">
+              <img
+                src={expedition.image}
+                alt={`${expedition.title} visual showcase`}
+                className="dossier-visual-banner-img"
+              />
+            </div>
+          )}
+
           {/* Section 1: Executive Summary */}
           <div className="dossier-section">
             <h4 className="dossier-section-title font-mono">
