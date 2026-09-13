@@ -277,8 +277,8 @@
 
 .swiss-depth-carousel-wrapper {
   width: 100%;
-  max-width: 660px;
-  height: clamp(300px, 45vh, 400px);
+  max-width: 680px;
+  height: clamp(340px, 48vh, 420px);
   position: relative;
   display: flex;
   align-items: center;

@@ -33,7 +33,7 @@
 
 .depth-carousel__card {
   position: absolute;
-  top: 50%;
+  top: 53%;
   left: 50%;
   transform-origin: center center;
   overflow: hidden;
@@ -41,6 +41,7 @@
   border: none;
   outline: none;
   box-shadow:
+    0 -3px 12px -2px rgba(0, 0, 0, 0.22),
     0 24px 48px -12px rgba(18, 21, 18, 0.45),
     0 6px 16px -6px rgba(18, 21, 18, 0.3);
   will-change: transform, opacity, filter;

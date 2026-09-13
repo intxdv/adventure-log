@@ -13,6 +13,8 @@ import './DepthCarousel.css';
 
 export type DepthCarouselItem = string | { image: string; alt?: string };
 type TiltDirection = 'left' | 'right';
+export type CarouselOrientation = 'horizontal' | 'vertical';
+export type VerticalStackDirection = 'up' | 'down';
 
 export interface DepthCarouselProps {
   items?: DepthCarouselItem[];
@@ -24,6 +26,8 @@ export interface DepthCarouselProps {
   spread?: number;
   tilt?: number;
   tiltDirection?: TiltDirection;
+  orientation?: CarouselOrientation;
+  verticalDirection?: VerticalStackDirection;
   perspective?: number;
   visibleCards?: number;
   falloff?: number;
@@ -46,6 +50,8 @@ interface CarouselConfig {
   spread: number;
   tilt: number;
   tiltDirection: TiltDirection;
+  orientation: CarouselOrientation;
+  verticalDirection: VerticalStackDirection;
   visibleCards: number;
   falloff: number;
   blur: number;
@@ -53,13 +59,16 @@ interface CarouselConfig {
   ease: string;
   loop: boolean;
   cardWidth: number;
+  cardHeight: number;
   autoplayDelay: number;
 }
 
 interface DragState {
   x: number;
+  y: number;
   startPos: number;
   lastX: number;
+  lastY: number;
   lastT: number;
   v: number;
   moved: boolean;
@@ -88,6 +97,8 @@ export const DepthCarousel = ({
   spread = 90,
   tilt = 22,
   tiltDirection = 'right',
+  orientation = 'vertical',
+  verticalDirection = 'up',
   perspective = 1400,
   visibleCards = 4,
   falloff = 0.2,
@@ -132,6 +143,8 @@ export const DepthCarousel = ({
     spread,
     tilt,
     tiltDirection,
+    orientation,
+    verticalDirection,
     visibleCards,
     falloff,
     blur,
@@ -139,6 +152,7 @@ export const DepthCarousel = ({
     ease,
     loop,
     cardWidth,
+    cardHeight,
     autoplayDelay
   };
 
@@ -146,7 +160,9 @@ export const DepthCarousel = ({
     const cfg = cfgRef.current;
     const n = cfg.count;
     if (!n) return;
-    const dir = cfg.tiltDirection === 'left' ? -1 : 1;
+    const isVert = cfg.orientation === 'vertical';
+    const vDir = cfg.verticalDirection === 'down' ? 1 : -1;
+    const hDir = cfg.tiltDirection === 'left' ? -1 : 1;
     const sc = scaleRef.current;
 
     for (let i = 0; i < n; i++) {
@@ -163,25 +179,49 @@ export const DepthCarousel = ({
       const az = Math.abs(d);
       const shown = az <= cfg.visibleCards + 0.5;
 
-      const tz = -cfg.depth * d;
-      const tx = dir * cfg.spread * d;
-      const ry = dir * cfg.tilt * clamp(d, 0, 1);
+      const tz = -cfg.depth * back;
+      let tx = 0;
+      let ty = 0;
+      let rx = 0;
+      let ry = 0;
+      let scale = sc;
 
-      let opacity = d < 0 ? Math.max(0, 1 + d) : 1;
+      if (isVert) {
+        if (d >= 0) {
+          // Upcoming cards stacked vertically upwards/behind
+          ty = vDir * cfg.spread * d;
+          rx = vDir * cfg.tilt * clamp(d, 0, 1.5);
+          scale = sc * Math.max(0.78, 1 - back * 0.035);
+        } else {
+          // Passed cards (d < 0): slide downwards smoothly and fade
+          ty = -vDir * (cfg.spread * 2.2) * Math.abs(d);
+          rx = -vDir * cfg.tilt * clamp(Math.abs(d), 0, 1);
+          scale = sc * Math.max(0.85, 1 - Math.abs(d) * 0.05);
+        }
+      } else {
+        tx = hDir * cfg.spread * d;
+        ry = hDir * cfg.tilt * clamp(d, 0, 1);
+      }
+
+      let opacity = d < 0 ? Math.max(0, 1 + d * 1.3) : 1;
       if (!shown) opacity = 0;
 
-      const brightness = Math.max(0.15, 1 - back * cfg.falloff);
+      const brightness = Math.max(0.2, 1 - back * cfg.falloff);
       const blurPx = cfg.blur > 0 ? Math.min(cfg.blur, (back / Math.max(1, cfg.visibleCards)) * cfg.blur) : 0;
-      const zi = Math.round(2000 - d * 20);
+      const zi = Math.round(2000 - d * 25);
 
-      el.style.transform = `translate(-50%, -50%) scale(${sc}) translateX(${tx.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) rotateY(${ry.toFixed(3)}deg)`;
+      const rotTransform = isVert
+        ? `rotateX(${rx.toFixed(3)}deg)`
+        : `rotateY(${ry.toFixed(3)}deg)`;
+
+      el.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(4)}) translateX(${tx.toFixed(2)}px) translateY(${ty.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) ${rotTransform}`;
       el.style.opacity = opacity.toFixed(3);
       el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
       el.style.zIndex = String(zi);
       el.style.pointerEvents = shown && opacity > 0.05 ? 'auto' : 'none';
 
       const ov = overlayRefs.current[i];
-      if (ov) ov.style.opacity = clamp(back * cfg.falloff * 1.25, 0, 0.86).toFixed(3);
+      if (ov) ov.style.opacity = clamp(back * cfg.falloff * 1.3, 0, 0.88).toFixed(3);
     }
   }, []);
 
@@ -254,8 +294,11 @@ export const DepthCarousel = ({
     const ro = new ResizeObserver(entries => {
       const w = entries[0].contentRect.width;
       const cfg = cfgRef.current;
-      const needed = cfg.cardWidth + Math.abs(cfg.spread) * 2 + 120;
-      scaleRef.current = clamp(w / needed, 0.4, 1);
+      const isVert = cfg.orientation === 'vertical';
+      const needed = isVert
+        ? cfg.cardWidth + 40
+        : cfg.cardWidth + Math.abs(cfg.spread) * 2 + 120;
+      scaleRef.current = clamp(w / needed, 0.45, 1);
       layout(posRef.current);
     });
     ro.observe(root);
@@ -270,9 +313,11 @@ export const DepthCarousel = ({
       if (cfg.count < 2) return;
       e.preventDefault();
       tweenRef.current?.kill();
-      const raw = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      const isVert = cfg.orientation === 'vertical';
+      const raw = isVert ? e.deltaY : (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY);
       const delta = e.deltaMode === 1 ? raw * 24 : raw;
-      const step = clamp(delta / (cfg.cardWidth * 0.9), -0.6, 0.6);
+      const stepBase = isVert ? cfg.cardHeight * 0.75 : cfg.cardWidth * 0.9;
+      const step = clamp(delta / stepBase, -0.6, 0.6);
       posRef.current += step;
       layout(posRef.current);
       if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
@@ -291,8 +336,10 @@ export const DepthCarousel = ({
     tweenRef.current?.kill();
     dragRef.current = {
       x: e.clientX,
+      y: e.clientY,
       startPos: posRef.current,
       lastX: e.clientX,
+      lastY: e.clientY,
       lastT: performance.now(),
       v: 0,
       moved: false,
@@ -305,19 +352,28 @@ export const DepthCarousel = ({
       const drag = dragRef.current;
       if (!drag) return;
       const cfg = cfgRef.current;
-      const stepPx = Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40);
+      const isVert = cfg.orientation === 'vertical';
+      const stepPx = isVert
+        ? Math.max(cfg.cardHeight * 0.45 * scaleRef.current, 35)
+        : Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40);
+
       const dx = e.clientX - drag.x;
-      if (!drag.moved && Math.abs(dx) > 4) {
+      const dy = e.clientY - drag.y;
+      const vDir = cfg.verticalDirection === 'down' ? 1 : -1;
+      const delta = isVert ? -vDir * dy : dx;
+
+      if (!drag.moved && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
         drag.moved = true;
         rootRef.current?.setPointerCapture(drag.id);
       }
       if (!drag.moved) return;
       const now = performance.now();
       const dt = Math.max(now - drag.lastT, 1);
-      drag.v = (e.clientX - drag.lastX) / dt;
+      drag.v = (isVert ? -vDir * dy : dx) / dt;
       drag.lastX = e.clientX;
+      drag.lastY = e.clientY;
       drag.lastT = now;
-      posRef.current = drag.startPos - dx / stepPx;
+      posRef.current = drag.startPos - delta / stepPx;
       layout(posRef.current);
     },
     [layout]
@@ -329,17 +385,20 @@ export const DepthCarousel = ({
     dragRef.current = null;
     if (!drag.moved) return;
     const cfg = cfgRef.current;
-    const stepPx = Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40);
+    const isVert = cfg.orientation === 'vertical';
+    const stepPx = isVert
+      ? Math.max(cfg.cardHeight * 0.45 * scaleRef.current, 35)
+      : Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40);
     const projected = posRef.current - (drag.v * 180) / stepPx;
     setFocus(Math.round(projected), true);
   }, [setFocus]);
 
   const onKeyDown = useCallback(
     (e: ReactKeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
         navigateBy(-1);
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
         navigateBy(1);
       }
