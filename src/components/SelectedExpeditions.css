@@ -117,6 +117,20 @@
   box-sizing: border-box;
 }
 
+/* 0. Expanding White Card Canvas (Base for Section 3 Perspective Stage) */
+.expeditions-white-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-canvas);
+  z-index: 0;
+  opacity: 0;
+  clip-path: polygon(18.75% 21.3%, 35.4% 21.3%, 35.4% 75.9%, 18.75% 75.9%);
+  pointer-events: none;
+  will-change: clip-path, opacity;
+}
+
 /* 1. Tactical SVG Perspective Wireframe Grid */
 .expeditions-perspective-grid-svg {
   position: absolute;
@@ -144,14 +158,14 @@
   gap: 12px;
   font-size: 0.68rem;
   letter-spacing: 0.08em;
-  color: rgba(163, 186, 153, 0.75);
+  color: var(--color-olive);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease;
 }
 
 .telemetry-sep {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(18, 21, 18, 0.25);
   font-size: 0.6rem;
 }
 
@@ -168,7 +182,7 @@
   z-index: 4;
 }
 
-/* 4. Featured Project 3D Cards (Slates flying along the right wall) */
+/* 4. Featured Project 3D Cards (Light-themed tactile cards on white background) */
 .perspective-project-card {
   position: absolute;
   top: 50%;
@@ -176,17 +190,15 @@
   width: clamp(420px, 42vw, 620px);
   transform: translateY(-50%) translate3d(0, 0, -800px) rotateY(-22deg);
   transform-style: preserve-3d;
-  background: rgba(18, 22, 18, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 30px 80px -10px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  background: #FFFFFF;
+  border: 1px solid var(--hairline-base);
+  box-shadow: 0 24px 60px -12px rgba(18, 21, 18, 0.12), 0 4px 16px rgba(18, 21, 18, 0.05);
   padding: clamp(1.25rem, 2.2vw, 2rem);
   border-radius: 4px;
   opacity: 0;
   pointer-events: none;
   will-change: transform, opacity;
-  color: #F7F6F2;
+  color: var(--color-ink);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -195,8 +207,8 @@
 }
 
 .perspective-project-card:hover {
-  border-color: rgba(163, 186, 153, 0.45);
-  box-shadow: 0 35px 90px -10px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(163, 186, 153, 0.25);
+  border-color: var(--color-olive);
+  box-shadow: 0 32px 75px -12px rgba(18, 21, 18, 0.18), 0 6px 20px rgba(18, 21, 18, 0.08);
 }
 
 /* Card Header */
@@ -205,7 +217,7 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--hairline-subtle);
   margin-bottom: 14px;
 }
 
@@ -218,17 +230,17 @@
 }
 
 .index-tag {
-  color: #A3BA99;
+  color: var(--color-olive);
   font-weight: 700;
 }
 
 .index-bullet {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(18, 21, 18, 0.25);
   font-size: 0.5rem;
 }
 
 .category-tag {
-  color: rgba(247, 246, 242, 0.7);
+  color: var(--color-ink-muted);
 }
 
 .perspective-card-status {
@@ -246,21 +258,21 @@
 }
 
 .status-pill.deployed {
-  color: #A3BA99;
-  background-color: rgba(163, 186, 153, 0.12);
-  border-color: rgba(163, 186, 153, 0.3);
+  color: #2F5930;
+  background-color: rgba(47, 89, 48, 0.08);
+  border-color: rgba(47, 89, 48, 0.25);
 }
 
 .status-pill.active {
-  color: #D4B483;
-  background-color: rgba(212, 180, 131, 0.12);
-  border-color: rgba(212, 180, 131, 0.3);
+  color: #8C5F1C;
+  background-color: rgba(140, 95, 28, 0.08);
+  border-color: rgba(140, 95, 28, 0.25);
 }
 
 .status-pill.concluded {
-  color: rgba(247, 246, 242, 0.6);
-  background-color: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(18, 21, 18, 0.6);
+  background-color: rgba(18, 21, 18, 0.05);
+  border-color: rgba(18, 21, 18, 0.15);
 }
 
 /* Card Body */
@@ -274,7 +286,7 @@
   font-size: clamp(1.65rem, 2.5vw, 2.25rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: var(--color-ink);
   margin: 0;
   line-height: 1.15;
 }
@@ -282,7 +294,7 @@
 .perspective-card-tagline {
   font-size: 0.92rem;
   font-style: italic;
-  color: #A3BA99;
+  color: var(--color-olive);
   margin: 0 0 6px 0;
   line-height: 1.4;
 }
@@ -290,14 +302,14 @@
 .perspective-card-summary {
   font-size: 0.85rem;
   line-height: 1.6;
-  color: rgba(247, 246, 242, 0.82);
+  color: var(--color-ink-muted);
   margin: 0;
 }
 
 /* Key Impact Box */
 .perspective-card-impact {
-  background: rgba(163, 186, 153, 0.08);
-  border-left: 2.5px solid #A3BA99;
+  background: rgba(74, 88, 68, 0.07);
+  border-left: 2.5px solid var(--color-olive);
   padding: 8px 12px;
   margin: 10px 0 6px;
   border-radius: 0 2px 2px 0;
@@ -306,7 +318,7 @@
 .impact-lead {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #A3BA99;
+  color: var(--color-olive);
   letter-spacing: 0.08em;
   display: block;
   margin-bottom: 3px;
@@ -315,7 +327,7 @@
 .impact-text {
   font-size: 0.78rem;
   line-height: 1.5;
-  color: rgba(247, 246, 242, 0.9);
+  color: var(--color-ink);
   margin: 0;
   font-family: inherit;
 }
@@ -332,9 +344,9 @@
   font-size: 0.65rem;
   letter-spacing: 0.04em;
   padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #A3BA99;
+  background: rgba(18, 21, 18, 0.04);
+  border: 1px solid var(--hairline-base);
+  color: var(--color-olive);
   border-radius: 2px;
   white-space: nowrap;
 }
@@ -346,7 +358,7 @@
   gap: 12px;
   margin-top: 16px;
   padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--hairline-subtle);
 }
 
 .perspective-action-btn {
@@ -365,25 +377,25 @@
 }
 
 .perspective-action-btn.primary {
-  background-color: #F7F6F2;
-  color: #121512;
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
 }
 
 .perspective-action-btn.primary:hover {
-  background-color: #A3BA99;
-  color: #121512;
+  background-color: var(--color-olive);
+  color: #FFFFFF;
   transform: translateY(-2px);
 }
 
 .perspective-action-btn.secondary {
   background: transparent;
-  color: #F7F6F2;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--color-ink);
+  border: 1px solid var(--hairline-base);
 }
 
 .perspective-action-btn.secondary:hover {
-  border-color: #F7F6F2;
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-ink);
+  background: rgba(18, 21, 18, 0.05);
   transform: translateY(-2px);
 }
 
@@ -404,13 +416,12 @@
   transform: translateY(-50%) translate3d(0, 0, -800px) rotateY(-18deg);
   opacity: 0;
   pointer-events: none;
-  background: rgba(18, 22, 18, 0.94);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(163, 186, 153, 0.35);
-  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.8);
+  background: #FFFFFF;
+  border: 1px solid var(--color-olive-tint);
+  box-shadow: 0 28px 70px -10px rgba(18, 21, 18, 0.15);
   padding: clamp(1.5rem, 2.5vw, 2.25rem);
   border-radius: 4px;
-  color: #F7F6F2;
+  color: var(--color-ink);
 }
 
 .perspective-archive-cta.is-in-focus {
@@ -426,14 +437,14 @@
 .archive-cta-kicker {
   font-size: 0.68rem;
   font-weight: 700;
-  color: #A3BA99;
+  color: var(--color-olive);
   letter-spacing: 0.1em;
 }
 
 .archive-cta-title {
   font-size: clamp(1.5rem, 2.2vw, 2rem);
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--color-ink);
   margin: 0;
   line-height: 1.15;
 }
@@ -441,7 +452,7 @@
 .archive-cta-desc {
   font-size: 0.85rem;
   line-height: 1.6;
-  color: rgba(247, 246, 242, 0.8);
+  color: var(--color-ink-muted);
   margin: 0 0 10px 0;
 }
 
@@ -450,8 +461,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #A3BA99;
-  color: #121512;
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
   font-size: 0.725rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -464,7 +475,8 @@
 }
 
 .archive-cta-btn:hover {
-  background-color: #FFFFFF;
+  background-color: var(--color-olive);
+  color: #FFFFFF;
   transform: translateY(-2px);
 }
 

@@ -38,6 +38,9 @@ export const SelectedExpeditions: React.FC = () => {
       className="expeditions-perspective-stage"
       aria-label="Selected Expeditions: 3D Camera Obscura Room & Corridor"
     >
+      {/* 0. Expanding White Card Canvas (Transforms into Full Pure White Background for Section 3) */}
+      <div id="expeditions-white-canvas" className="expeditions-white-canvas" aria-hidden="true" />
+
       {/* 1. Tactical SVG Perspective Wireframe Grid (Connecting Card to Viewport Corners) */}
       <svg
         className="expeditions-perspective-grid-svg"
@@ -47,10 +50,18 @@ export const SelectedExpeditions: React.FC = () => {
       >
         <defs>
           <linearGradient id="grid-ray-fade" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(163, 186, 153, 0.45)" />
-            <stop offset="100%" stopColor="rgba(255, 255, 255, 0.08)" />
+            <stop offset="0%" stopColor="rgba(74, 88, 68, 0.75)" />
+            <stop offset="100%" stopColor="rgba(18, 21, 18, 0.20)" />
           </linearGradient>
         </defs>
+
+        {/* Expanding Card Frame Polygon in SVG for perfect corner ray alignment */}
+        <polygon
+          id="expanding-card-poly"
+          points="360,230 680,230 680,820 360,820"
+          fill="var(--color-canvas, #F7F6F2)"
+          opacity="0"
+        />
 
         {/* 4 Corner Rays shooting from Photo Card (~20% X, 25% to 75% Y) to Viewport Corners */}
         {/* Top-Left Ray */}
@@ -101,20 +112,20 @@ export const SelectedExpeditions: React.FC = () => {
         />
 
         {/* Right Wall Perspective Horizontal Grid Lines (Converging toward Left Vanishing Anchor) */}
-        <line x1="680" y1="360" x2="1920" y2="240" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="1" />
-        <line x1="680" y1="520" x2="1920" y2="520" stroke="rgba(163, 186, 153, 0.16)" strokeWidth="1" strokeDasharray="3 6" />
-        <line x1="680" y1="680" x2="1920" y2="800" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="1" />
+        <line x1="680" y1="360" x2="1920" y2="240" stroke="rgba(18, 21, 18, 0.12)" strokeWidth="1" />
+        <line x1="680" y1="520" x2="1920" y2="520" stroke="rgba(74, 88, 68, 0.24)" strokeWidth="1" strokeDasharray="3 6" />
+        <line x1="680" y1="680" x2="1920" y2="800" stroke="rgba(18, 21, 18, 0.12)" strokeWidth="1" />
 
         {/* Right Wall Vertical Division Lines in Perspective Depth */}
-        <line x1="900" y1="180" x2="900" y2="870" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" />
-        <line x1="1180" y1="120" x2="1180" y2="930" stroke="rgba(255, 255, 255, 0.07)" strokeWidth="1" strokeDasharray="4 4" />
-        <line x1="1520" y1="60" x2="1520" y2="990" stroke="rgba(255, 255, 255, 0.09)" strokeWidth="1" />
+        <line x1="900" y1="180" x2="900" y2="870" stroke="rgba(18, 21, 18, 0.08)" strokeWidth="1" />
+        <line x1="1180" y1="120" x2="1180" y2="930" stroke="rgba(18, 21, 18, 0.10)" strokeWidth="1" strokeDasharray="4 4" />
+        <line x1="1520" y1="60" x2="1520" y2="990" stroke="rgba(18, 21, 18, 0.12)" strokeWidth="1" />
 
         {/* Tactical Telemetry Text Inscriptions on the Grid */}
-        <text x="710" y="220" fill="rgba(163, 186, 153, 0.65)" fontSize="12" fontFamily="monospace" letterSpacing="0.1em">
+        <text x="710" y="220" fill="rgba(74, 88, 68, 0.85)" fontSize="12" fontFamily="monospace" letterSpacing="0.1em">
           [ 3D PROJECTION // CORRIDOR ELEVATION +1640M ]
         </text>
-        <text x="1600" y="80" fill="rgba(255, 255, 255, 0.35)" fontSize="11" fontFamily="monospace" letterSpacing="0.08em">
+        <text x="1600" y="80" fill="rgba(18, 21, 18, 0.45)" fontSize="11" fontFamily="monospace" letterSpacing="0.08em">
           Z-AXIS // FLY-THROUGH WALL
         </text>
       </svg>
