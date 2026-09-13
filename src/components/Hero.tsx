@@ -198,6 +198,37 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     };
   }, [isAppLoaded, startHeroImmediately]);
 
+  // Mouse / Cursor Parallax pada Cartographer Desk Background
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const deskImg = document.getElementById('hero-desk-img');
+    if (!deskImg) return;
+
+    const quickX = gsap.quickTo(deskImg, 'x', { duration: 0.85, ease: 'power2.out' });
+    const quickY = gsap.quickTo(deskImg, 'y', { duration: 0.85, ease: 'power2.out' });
+    const quickRotX = gsap.quickTo(deskImg, 'rotationX', { duration: 0.95, ease: 'power2.out' });
+    const quickRotY = gsap.quickTo(deskImg, 'rotationY', { duration: 0.95, ease: 'power2.out' });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Hanya aktif saat Hero berada di viewport
+      if (window.scrollY > window.innerHeight * 1.1) return;
+
+      const normX = (e.clientX / window.innerWidth - 0.5) * 2; // -1 hingga +1
+      const normY = (e.clientY / window.innerHeight - 0.5) * 2; // -1 hingga +1
+
+      // Efek pergeseran lembut dan tilt 3D mikro
+      quickX(normX * -15);
+      quickY(normY * -12);
+      quickRotX(normY * 1.6);
+      quickRotY(normX * -1.6);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const handleHeroClick = (e: React.MouseEvent<HTMLElement>) => {
     // Jangan picu transisi jika user mengklik link, tombol, atau navigasi top bar
     if ((e.target as HTMLElement).closest('a, button, .hero-top-bar')) return;
@@ -210,7 +241,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
 
     // Jika sudah mulai, klik memicu transisi halus menuju Section About (1.4s tenang & sinematik)
     const stageWrapper = document.getElementById('hero-stage-wrapper');
-    const targetScroll = stageWrapper ? stageWrapper.offsetTop + window.innerHeight * 1.6 : window.innerHeight * 1.6;
+    const targetScroll = stageWrapper ? stageWrapper.offsetTop + window.innerHeight * 1.8 : window.innerHeight * 1.8;
 
     gsap.to(window, {
       duration: 1.4,
@@ -268,6 +299,27 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
       aria-label="Expedition Hero & Field Entry"
       onClick={handleHeroClick}
     >
+      {/* 0a. Cartographer Desk Background with Cursor Parallax */}
+      <div className="hero-desk-backdrop" aria-hidden="true">
+        <img
+          src="/images/hero-cartographer-desk.jpg"
+          alt=""
+          className="hero-desk-img"
+          id="hero-desk-img"
+        />
+        <div className="hero-desk-tint" />
+      </div>
+
+      {/* 0b. Ink Droplet Splatter & Center Portal Transition Element */}
+      <div className="hero-ink-splatter-wrapper" aria-hidden="true">
+        <img
+          src="/images/hero-ink-splatter.png"
+          alt=""
+          className="hero-ink-splatter-img"
+          id="hero-ink-splatter"
+        />
+      </div>
+
       {/* 1. Minimalist Top Bar (Khusus Hero, full bleed edge-to-edge) */}
       <div className={`hero-top-bar ${!hasStartedLoop ? 'is-initial-hidden' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="hero-top-bar-inner">

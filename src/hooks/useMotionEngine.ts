@@ -18,27 +18,27 @@ export const useMotionEngine = () => {
       const notchHeader = document.getElementById('top-notch-header');
 
       if (stageWrapper && aboutSection && !prefersReducedMotion) {
-        // Scrub the clip-path of Section 2 from circle(0%) to circle(150%)
-        // Ada jeda jarak scroll (42vh) di mana Hero tetap diam & tenang sebelum lingkaran mekar
+        // Scrub the ink splatter & clip-path of Section 2 from circle(0%) to circle(150%)
+        // Flow: Clean hero pinned -> scroll dikit: muncul tinta -> scroll lagi: mekar lingkaran hitam ke Bio
         const portalTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: stageWrapper,
-            start: 'top -42vh',
+            start: 'top top',
             end: 'bottom bottom',
             scrub: 0.6,
             onUpdate: (self) => {
               // Coordinate Notch Dock appearance
               if (notchHeader) {
-                if (self.progress > 0.12) {
+                if (self.progress > 0.16) {
                   notchHeader.classList.add('is-visible');
                   notchHeader.classList.remove('is-hidden');
-                } else if (self.progress < 0.05) {
+                } else if (self.progress < 0.08) {
                   notchHeader.classList.remove('is-visible');
                   notchHeader.classList.add('is-hidden');
                 }
               }
               // Coordinate About section pointer-events interactivity (hanya aktif saat bio tampil)
-              if (self.progress > 0.10 && self.progress < 0.33) {
+              if (self.progress > 0.16 && self.progress < 0.38) {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
@@ -47,43 +47,67 @@ export const useMotionEngine = () => {
           },
         });
 
-        // 1a. Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero
+        // 1a. State 2: Scroll dikit -> Tinta jatuh dan memercik di atas meja kartografer (t = 0.30 -> 0.75)
+        portalTimeline.fromTo(
+          '#hero-ink-splatter',
+          { scale: 0, opacity: 0, rotation: -20 },
+          {
+            scale: 1,
+            opacity: 1,
+            rotation: 0,
+            duration: 0.45,
+            ease: 'back.out(1.8)',
+          },
+          0.30
+        );
+
+        // 1b. State 3: Scroll lagi -> Tinta membesar masif & lingkaran portal nokturnal mekar menembus kanvas Hero (t = 1.05 -> 2.10)
+        portalTimeline.to(
+          '#hero-ink-splatter',
+          {
+            scale: 48,
+            duration: 1.05,
+            ease: 'power2.inOut',
+          },
+          1.05
+        );
+
         portalTimeline.fromTo(
           aboutSection,
           { clipPath: 'circle(0% at 50% 50%)' },
           {
             clipPath: 'circle(150% at 50% 50%)',
-            duration: 1.0,
+            duration: 1.05,
             ease: 'power2.inOut',
           },
-          0
+          1.05
         );
 
-        // 1b. Konten Hero meredup lembut di balik lingkaran nokturnal
+        // 1c. Konten Hero meredup lembut di balik cipratan tinta & lingkaran nokturnal
         portalTimeline.to(
           '.hero-body-container, .hero-top-bar',
           {
             opacity: 0,
-            duration: 0.4,
+            duration: 0.45,
             ease: 'power1.out',
           },
-          0.05
+          1.10
         );
 
-        // 1c. Entrance Tiap Elemen Section 2 (Muncul SETELAH seluruh screen tertutup hijau/gelap)
-        // Dimulai pada t = 1.05 setelah lingkaran mekar 100% penuh!
+        // 1d. Entrance Tiap Elemen Section 2 (Muncul SETELAH seluruh screen tertutup hijau/gelap)
+        // Dimulai pada t = 2.15 setelah lingkaran mekar 100% penuh!
         portalTimeline.fromTo(
           '.about-kicker, .about-subhead',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.05
+          2.15
         );
 
         portalTimeline.fromTo(
           '.field-zine-card',
           { opacity: 0, y: 28, scale: 0.94 },
           { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(1.2)' },
-          1.10
+          2.20
         );
 
         // Stagger per-kata pada headline Section 2
@@ -91,15 +115,15 @@ export const useMotionEngine = () => {
           '.about-headline .about-word',
           { opacity: 0, y: 18 },
           { opacity: 1, y: 0, stagger: 0.035, duration: 0.25, ease: 'power2.out' },
-          1.15
+          2.25
         );
 
-        // Stagger per-kata pada bio editorial Section 2 (Selesai sebelum t = 1.76)
+        // Stagger per-kata pada bio editorial Section 2
         portalTimeline.fromTo(
           '.about-lead .about-word, .about-body .about-word',
           { opacity: 0, y: 12 },
           { opacity: 1, y: 0, stagger: 0.006, duration: 0.18, ease: 'power2.out' },
-          1.22
+          2.32
         );
 
         // Selvagant reveal dock
@@ -107,23 +131,22 @@ export const useMotionEngine = () => {
           '.selvagant-reveal-dock',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.36
+          2.46
         );
 
         portalTimeline.fromTo(
           '.about-tags-row .tag-badge',
           { opacity: 0, y: 10, scale: 0.92 },
           { opacity: 1, y: 0, scale: 1, stagger: 0.04, duration: 0.25, ease: 'power2.out' },
-          1.42
+          2.52
         );
 
-        // TERAKHIR BANGET: Kotak manifesto baru mulai muncul setelah SEMUA elemen lain di Section 2 SELESAI TOTAL
-        // Pada t = 1.90 (semua teks bio, card, dock, dan tags sudah 100% diam dan selesai)
+        // Kotak manifesto baru mulai muncul setelah SEMUA elemen lain di Section 2 SELESAI TOTAL
         portalTimeline.fromTo(
           '.about-manifesto',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          1.90
+          3.00
         );
 
         // Kicker kutipan manifesto
@@ -131,21 +154,18 @@ export const useMotionEngine = () => {
           '.about-manifesto .about-manifesto-kicker',
           { opacity: 0, y: 10 },
           { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          2.26
+          3.36
         );
 
         portalTimeline.fromTo(
           '.about-manifesto .about-word, .about-manifesto-cite',
           { opacity: 0, y: 10 },
           { opacity: 1, y: 0, stagger: 0.012, duration: 0.25, ease: 'power2.out' },
-          2.52
+          3.62
         );
+
         // ----------------------------------------------------------------------
-        // 1d. White Card Transformation & Viewport Expansion (t = 3.10 -> 4.10)
-        // 1. Foto Taki dan tulisan di frame kartu menghilang (menjadi putih solid)
-        // 2. Teks editorial & manifesto About meredup keluar
-        // 3. Kotak kartu foto membesar mengikuti direksi panah hingga memenuhi layar
-        // 4. Latar Section 3 menjadi full putih bersih
+        // 1e. White Card Transformation & Viewport Expansion (t = 4.20 -> 5.20)
         // ----------------------------------------------------------------------
 
         // 1. Foto dan teks dalam frame kartu menghilang (menjadi solid white)
@@ -156,7 +176,7 @@ export const useMotionEngine = () => {
             duration: 0.35,
             ease: 'power2.inOut',
           },
-          3.10
+          4.20
         );
 
         // Bio editorial, headline, tag, dan manifesto meredup keluar
@@ -168,7 +188,7 @@ export const useMotionEngine = () => {
             duration: 0.35,
             ease: 'power2.in',
           },
-          3.10
+          4.20
         );
 
         // 2. Kotak kartu putih membesar memenuhi layar sesuai 4 direksi sudut
@@ -179,7 +199,7 @@ export const useMotionEngine = () => {
             duration: 0.70,
             ease: 'power2.inOut',
           },
-          3.40
+          4.50
         );
 
         // Background putih kanvas Section 3 menyala penuh
@@ -190,7 +210,7 @@ export const useMotionEngine = () => {
             duration: 0.50,
             ease: 'power2.inOut',
           },
-          3.50
+          4.60
         );
 
         // Swiss Editorial Showcase Container Fade-In
@@ -203,21 +223,20 @@ export const useMotionEngine = () => {
             duration: 0.45,
             ease: 'power2.out',
           },
-          3.70
+          4.80
         );
 
         // Enable pointer events on expeditions stage
-        portalTimeline.set('#expeditions', { pointerEvents: 'auto' }, 3.90);
+        portalTimeline.set('#expeditions', { pointerEvents: 'auto' }, 5.00);
 
         // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
-        portalTimeline.set('#about', { opacity: 0 }, 4.10);
+        portalTimeline.set('#about', { opacity: 0 }, 5.20);
 
         // ----------------------------------------------------------------------
-        // 1e. Swiss Editorial Showcase: Synchronize 4 Featured Expeditions (t = 4.10 -> 10.50)
-        // Dispatches custom event to trigger PixelSwap and odometer counter roll
+        // 1f. Swiss Editorial Showcase: Synchronize 4 Featured Expeditions (t = 5.20 -> 11.30)
         // ----------------------------------------------------------------------
 
-        // Project 01: lapor fsm. (t = 4.10 -> 5.60)
+        // Project 01: lapor fsm. (t = 5.20 -> 6.70)
         portalTimeline.call(
           () => {
             window.dispatchEvent(
@@ -225,10 +244,10 @@ export const useMotionEngine = () => {
             );
           },
           [],
-          4.10
+          5.20
         );
 
-        // Project 02: dipofeed. (t = 5.60 -> 7.10)
+        // Project 02: dipofeed. (t = 6.70 -> 8.20)
         portalTimeline.call(
           () => {
             window.dispatchEvent(
@@ -236,10 +255,10 @@ export const useMotionEngine = () => {
             );
           },
           [],
-          5.60
+          6.70
         );
 
-        // Project 03: aware. (t = 7.10 -> 8.60)
+        // Project 03: aware. (t = 8.20 -> 9.70)
         portalTimeline.call(
           () => {
             window.dispatchEvent(
@@ -247,10 +266,10 @@ export const useMotionEngine = () => {
             );
           },
           [],
-          7.10
+          8.20
         );
 
-        // Project 04: kagu. (t = 8.60 -> 10.20)
+        // Project 04: kagu. (t = 9.70 -> 11.30)
         portalTimeline.call(
           () => {
             window.dispatchEvent(
@@ -258,10 +277,10 @@ export const useMotionEngine = () => {
             );
           },
           [],
-          8.60
+          9.70
         );
 
-        // Smooth handoff into Section 4 (Field Arsenal) (t = 10.20 -> 10.60)
+        // Smooth handoff into Section 4 (Field Arsenal) (t = 11.30 -> 11.70)
         portalTimeline.to(
           '#expeditions-swiss-container',
           {
@@ -270,9 +289,9 @@ export const useMotionEngine = () => {
             duration: 0.40,
             ease: 'power2.in',
           },
-          10.20
+          11.30
         );
-        portalTimeline.set('#expeditions', { pointerEvents: 'none' }, 10.60);
+        portalTimeline.set('#expeditions', { pointerEvents: 'none' }, 11.70);
       }
 
       // ======================================================================

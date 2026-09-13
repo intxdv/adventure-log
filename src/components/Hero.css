@@ -27,11 +27,78 @@
   cursor: pointer;
 }
 
+/* 0a. Cartographer Desk Background & Cursor Parallax */
+.hero-desk-backdrop {
+  position: absolute;
+  top: -4%;
+  left: -4%;
+  width: 108%;
+  height: 108%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.hero-desk-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Subtle parchment tint overlay to preserve high-contrast deep ink typography */
+.hero-desk-tint {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 38% 50%,
+    rgba(247, 246, 242, 0.40) 0%,
+    rgba(247, 246, 242, 0.58) 55%,
+    rgba(240, 238, 230, 0.76) 100%
+  );
+  pointer-events: none;
+}
+
+/* 0b. Ink Droplet Splatter & Center Portal Transition Element */
+.hero-ink-splatter-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 0;
+  overflow: visible;
+}
+
+.hero-ink-splatter-img {
+  width: clamp(240px, 28vw, 380px);
+  height: auto;
+  max-width: none;
+  display: block;
+  transform-origin: 50% 50%;
+  opacity: 0;
+  transform: scale(0) rotate(-18deg);
+  will-change: transform, opacity;
+  filter: drop-shadow(0 6px 20px rgba(18, 21, 18, 0.28));
+}
+
 /* 1. Minimalist Hero Top Bar with Full-Bleed Tactical Editorial Datum Line */
 .hero-top-bar {
   width: 100%;
   position: relative;
   border-bottom: 2.5px solid rgba(18, 21, 18, 0.28);
+  background: rgba(247, 246, 242, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 20;
 }
