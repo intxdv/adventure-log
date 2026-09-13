@@ -18,6 +18,7 @@ export const initialArsenal: ArsenalPillar[] = [
       { name: 'Web Performance & Core Web Vitals', spec: 'CLS < 0.05, sub-second LCP & bundle budget' },
     ],
     tools: ['React 19', 'TypeScript', 'Vite', 'Next.js', 'GSAP', 'Tailwind', 'Canvas 2D'],
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 'mobile-craft',
@@ -36,6 +37,7 @@ export const initialArsenal: ArsenalPillar[] = [
       { name: 'Cross-Platform Build Pipelines', spec: 'Hermetic release builds & mobile optimization' },
     ],
     tools: ['Flutter', 'Dart', 'Elysia', 'Bun', 'Riverpod', 'SQLite', 'REST API'],
+    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 'interface-systems',
@@ -54,5 +56,6 @@ export const initialArsenal: ArsenalPillar[] = [
       { name: 'User Research & Civic Workflows', spec: 'Heuristic evaluation & empathy for non-digital natives' },
     ],
     tools: ['Figma', 'Design Tokens', 'Editorial Type', 'WCAG AA', 'UI/UX Audit', 'SVG Blueprint'],
+    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop',
   },
 ];

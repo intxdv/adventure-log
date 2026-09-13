@@ -1,5 +1,6 @@
 /* ==========================================================================
    Field Arsenal & Technical Gear Section (Field Inventory & Capabilities)
+   Enhanced with React Bits AccordionGallery + Master-Detail Telemetry Dossier
    ========================================================================== */
 
 .arsenal-section {
@@ -11,8 +12,8 @@
 
 /* Section Header */
 .arsenal-header {
-  margin-bottom: var(--space-2xl);
-  padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
   border-bottom: 1px solid var(--hairline-base);
 }
 
@@ -58,82 +59,170 @@
   margin-bottom: 0;
 }
 
-/* 3 Pillars Viewport & Track System */
-.arsenal-viewport {
-  width: 100%;
-  position: relative;
-}
+/* ==========================================================================
+   Tactical Navigation & Pillar Selector Control Bar
+   ========================================================================== */
 
-/* Desktop: 3 Columns Grid */
-@media (min-width: 769px) {
-  .arsenal-mobile-tabs,
-  .arsenal-rotary-nav {
-    display: none !important;
-  }
-
-  .arsenal-viewport {
-    overflow: visible;
-  }
-
-  .arsenal-track {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1.25rem, 2vw, 1.75rem);
-    transform: none !important;
-  }
-}
-
-/* Individual Pillar Card */
-.arsenal-pillar {
-  background-color: #FFFFFF;
-  border: 1px solid var(--hairline-base);
-  padding: clamp(1.25rem, 2vw, 1.75rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 2px;
-  box-shadow: 0 4px 16px rgba(24, 26, 24, 0.03);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease;
-}
-
-.arsenal-pillar:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-olive);
-  box-shadow: 0 12px 30px -6px rgba(24, 26, 24, 0.08), 0 2px 8px rgba(24, 26, 24, 0.04);
-}
-
-/* Pillar Header */
-.arsenal-pillar-header {
+.arsenal-control-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-md);
-  padding-bottom: var(--space-xs);
-  border-bottom: 1px solid var(--hairline-subtle);
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
 }
 
-.arsenal-pillar-index {
+.arsenal-nav-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.arsenal-tab-btn {
+  background: #FFFFFF;
+  border: 1px solid var(--hairline-base);
+  padding: 8px 14px;
   font-size: 0.725rem;
-  font-weight: 700;
+  border-radius: 2px;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+}
+
+.arsenal-tab-btn:hover {
+  border-color: var(--color-olive);
+  color: var(--color-ink);
+}
+
+.arsenal-tab-btn .tab-idx {
   color: var(--color-olive);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.arsenal-tab-btn.active {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+  border-color: var(--color-ink);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(24, 26, 24, 0.15);
+}
+
+.arsenal-tab-btn.active .tab-idx {
+  color: #A3B59D;
+}
+
+.arsenal-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.arsenal-arrow-btn {
+  background: transparent;
+  border: 1px solid var(--hairline-base);
+  padding: 6px 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.arsenal-arrow-btn:hover {
+  border-color: var(--color-olive);
+  color: var(--color-ink);
+  background: #FFFFFF;
+}
+
+.arsenal-counter {
+  font-size: 0.72rem;
+  color: var(--color-ink-muted);
   letter-spacing: 0.06em;
 }
 
-.arsenal-pillar-code {
-  font-size: 0.68rem;
+/* ==========================================================================
+   Accordion Gallery Showcase Container
+   ========================================================================== */
+
+.arsenal-gallery-wrapper {
+  margin-bottom: var(--space-xl);
+  width: 100%;
+}
+
+/* ==========================================================================
+   Synchronized Telemetry Dossier (Master-Detail Capability Inspector)
+   ========================================================================== */
+
+.arsenal-dossier-panel {
+  background-color: #FFFFFF;
+  border: 1px solid var(--hairline-base);
+  border-radius: 2px;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  box-shadow: 0 6px 24px rgba(24, 26, 24, 0.03);
+  animation: dossierFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dossierFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.arsenal-dossier-header {
+  border-bottom: 1px solid var(--hairline-subtle);
+  padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.arsenal-dossier-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.dossier-pillar-idx {
+  color: var(--color-olive);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.dossier-pillar-sep {
+  color: var(--hairline-strong);
+}
+
+.dossier-pillar-code {
   color: var(--color-ink-faint);
   letter-spacing: 0.06em;
 }
 
-/* Pillar Body */
-.arsenal-pillar-body {
-  margin-bottom: var(--space-lg);
+.dossier-pillar-badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  background: var(--color-olive-tint);
+  border: 1px solid var(--color-olive-border);
+  color: var(--color-olive);
+  border-radius: 2px;
+  margin-left: auto;
 }
 
-.arsenal-pillar-title {
-  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+.arsenal-dossier-title {
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -141,47 +230,81 @@
   margin: 0 0 6px 0;
 }
 
-.arsenal-pillar-tagline {
+.arsenal-dossier-tagline {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 0.88rem;
-  line-height: 1.45;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: var(--color-ink-muted);
-  margin-bottom: var(--space-md);
-  display: block;
+  margin-bottom: var(--space-sm);
 }
 
-.arsenal-pillar-desc {
-  font-size: 0.85rem;
-  line-height: 1.6;
+.arsenal-dossier-desc {
+  font-size: 0.88rem;
+  line-height: 1.65;
   color: var(--color-ink);
-  margin-bottom: var(--space-lg);
+  max-width: 860px;
+  margin: 0;
 }
 
-/* Capability Inventory List */
-.arsenal-skills-list {
+/* Capabilities Inventory Section */
+.arsenal-dossier-skills-section {
+  margin-bottom: var(--space-xl);
+}
+
+.arsenal-skills-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-faint);
+  margin-bottom: var(--space-md);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--hairline-subtle);
+}
+
+.skills-sublabel {
+  color: var(--color-olive);
+}
+
+.arsenal-skills-grid {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 992px) {
+  .arsenal-skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .arsenal-skills-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .arsenal-skill-item {
   background-color: var(--color-canvas);
   border: 1px solid var(--hairline-base);
   border-radius: 2px;
-  padding: 8px 12px;
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   transition: all 0.2s ease;
 }
 
 .arsenal-skill-item:hover {
   border-color: var(--color-olive);
   background-color: #FFFFFF;
+  transform: translateY(-1px);
 }
 
 .arsenal-skill-header {
@@ -192,7 +315,7 @@
 
 .arsenal-skill-bullet {
   color: var(--color-olive);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   flex-shrink: 0;
 }
 
@@ -204,23 +327,23 @@
 }
 
 .arsenal-skill-spec {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   color: var(--color-ink-muted);
   padding-left: 14px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
-/* Primary Toolchain Tray (Pillar Footer) */
-.arsenal-pillar-footer {
+/* Primary Toolchain Tray */
+.arsenal-dossier-footer {
   padding-top: var(--space-md);
   border-top: 1px solid var(--hairline-subtle);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .arsenal-tools-heading {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--color-ink-faint);
@@ -229,109 +352,61 @@
 .arsenal-tools-pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .arsenal-tool-pill {
   background-color: var(--color-canvas);
   border: 1px solid var(--hairline-base);
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 2px;
-  font-size: 0.68rem;
-  color: var(--color-ink-muted);
+  font-size: 0.72rem;
+  color: var(--color-ink);
   letter-spacing: 0.02em;
+  transition: all 0.2s ease;
 }
 
-/* ==========================================================================
-   Mobile Rotary Swipe Carousel Optimization (<= 768px)
-   ========================================================================== */
+.arsenal-tool-pill:hover {
+  border-color: var(--color-olive);
+  background-color: #FFFFFF;
+  color: var(--color-olive);
+}
 
+/* Mobile Adjustments (<= 768px) */
 @media (max-width: 768px) {
   .arsenal-section {
     padding: var(--space-3xl) 0;
   }
 
-  /* Quick Pillar Selector Tabs */
-  .arsenal-mobile-tabs {
+  .arsenal-control-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .arsenal-nav-tabs {
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: var(--space-md);
+    width: 100%;
+    justify-content: space-between;
   }
 
   .arsenal-tab-btn {
-    background: transparent;
-    border: 1px solid var(--hairline-base);
-    padding: 6px 12px;
-    font-size: 0.72rem;
-    border-radius: 2px;
-    color: var(--color-ink-muted);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
+    flex: 1;
+    justify-content: center;
+    padding: 8px 6px;
+    font-size: 0.68rem;
   }
 
-  .arsenal-tab-btn .tab-idx {
-    color: var(--color-olive);
-    font-size: 0.65rem;
-    font-weight: 700;
-  }
-
-  .arsenal-tab-btn.active {
-    background-color: var(--color-ink);
-    color: var(--color-canvas);
-    border-color: var(--color-ink);
-    font-weight: 700;
-  }
-
-  .arsenal-tab-btn.active .tab-idx {
-    color: #A3B59D;
-  }
-
-  /* Carousel Viewport & Sliding Track */
-  .arsenal-viewport {
-    overflow: hidden;
+  .arsenal-nav-arrows {
+    justify-content: space-between;
     width: 100%;
-    position: relative;
-    touch-action: pan-y;
   }
 
-  .arsenal-track {
-    display: flex;
-    width: 100%;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    transform: translateX(calc(-100% * var(--active-index)));
-    will-change: transform;
+  .arsenal-dossier-panel {
+    padding: 1.25rem 1rem;
   }
 
-  .arsenal-pillar {
-    min-width: 100%;
-    max-width: 100%;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    padding: 1.25rem 1.15rem;
-  }
-
-  .arsenal-pillar-title {
-    font-size: 1.45rem;
-  }
-
-  .arsenal-pillar-tagline {
-    font-size: 0.88rem;
-  }
-
-  .arsenal-skill-item {
-    padding: 7px 10px;
-  }
-
-  .arsenal-skill-name {
-    font-size: 0.75rem;
-  }
-
-  .arsenal-skill-spec {
-    font-size: 0.65rem;
+  .dossier-pillar-badge {
+    margin-left: 0;
   }
 }
-
