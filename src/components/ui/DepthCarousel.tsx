@@ -41,6 +41,7 @@ export interface DepthCarouselProps {
   showIndicators?: boolean;
   activeIndex?: number;
   onChange?: (index: number, item: { image: string; alt?: string }) => void;
+  onBoundaryCross?: (direction: 'up' | 'down') => void;
   className?: string;
 }
 
@@ -112,6 +113,7 @@ export const DepthCarousel = ({
   showIndicators = true,
   activeIndex,
   onChange,
+  onBoundaryCross,
   className = ''
 }: DepthCarouselProps) => {
   const data = useMemo(() => (Array.isArray(items) ? items : []).map(normalizeItem), [items]);
@@ -327,14 +329,34 @@ export const DepthCarousel = ({
 
       const currentIdx = typeof activeIndexRef.current === 'number' ? activeIndexRef.current : focusRef.current;
 
-      // 1. Boundary pass-through:
-      // - Mentok di mock terakhir dan scroll ke bawah: izinkan native scroll ke section berikutnya (Field Arsenal)
+      // 1. Boundary transition with light, natural effort:
+      // - Mentok di mock terakhir dan scroll ke bawah: langsung pemicu transisi ringan ke section berikutnya (Field Arsenal)
       if (delta > 0 && currentIdx >= cfg.count - 1 && !cfg.loop) {
+        if (onBoundaryCross) {
+          e.preventDefault();
+          if (wheelLockRef.current) return;
+          wheelLockRef.current = true;
+          onBoundaryCross('down');
+          if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+          wheelLockTimerRef.current = setTimeout(() => {
+            wheelLockRef.current = false;
+          }, 800);
+        }
         return;
       }
 
-      // - Mentok di mock pertama dan scroll ke atas: izinkan native scroll ke section sebelumnya (About)
+      // - Mentok di mock pertama dan scroll ke atas: langsung pemicu transisi ringan ke section sebelumnya (About)
       if (delta < 0 && currentIdx <= 0 && !cfg.loop) {
+        if (onBoundaryCross) {
+          e.preventDefault();
+          if (wheelLockRef.current) return;
+          wheelLockRef.current = true;
+          onBoundaryCross('up');
+          if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+          wheelLockTimerRef.current = setTimeout(() => {
+            wheelLockRef.current = false;
+          }, 800);
+        }
         return;
       }
 
