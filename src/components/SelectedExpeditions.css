@@ -1046,7 +1046,7 @@
   }
 
   .swiss-col-left {
-    padding: 0.6rem 0.75rem;
+    padding: 0.5rem 0.75rem 0.6rem;
     max-height: none;
     overflow: visible;
     border-bottom: 1px dashed rgba(18, 21, 18, 0.18);
@@ -1054,10 +1054,9 @@
 
   .swiss-left-content {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
     height: auto;
   }
 
@@ -1066,8 +1065,7 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    flex: 1;
-    min-width: 0;
+    width: 100%;
   }
 
   .swiss-counter-reel {
@@ -1091,11 +1089,11 @@
   }
 
   .swiss-project-title {
-    font-size: clamp(1.1rem, 4.5vw, 1.45rem);
+    font-size: clamp(1.15rem, 4.8vw, 1.45rem);
     margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.15;
+    word-break: break-word;
   }
 
   /* Hide long specifications and secondary metadata on mobile */
@@ -1108,13 +1106,15 @@
 
   .swiss-left-bottom {
     margin-top: 0;
-    flex-shrink: 0;
+    width: 100%;
   }
 
   .swiss-dossier-btn {
+    width: 100%;
+    justify-content: center;
     padding: 8px 14px;
-    font-size: 0.68rem;
-    white-space: nowrap;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
   }
 
   .swiss-col-stage {
