@@ -14,6 +14,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const hitAreaRef = useRef<SVGCircleElement>(null);
+  const promptRef = useRef<HTMLButtonElement>(null);
 
   // SVG Callout Refs
   const calloutLensRef = useRef<SVGGElement>(null);
@@ -132,6 +133,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
     // Interactive Exploded State (Click-to-explode toggle)
     let isManualExploded = false;
+    let isPointerOverCompass = false;
     const manualExplodeState = { progress: 0.0 };
     let manualTween: gsap.core.Tween | null = null;
 
@@ -148,6 +150,17 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       }
 
       isManualExploded = !isManualExploded;
+
+      // Update dynamic action label text on cursor and prompt
+      const cursorAction = isManualExploded ? 'CLICK // ASSEMBLE' : 'CLICK // EXPLODE';
+      const promptLabel = isManualExploded ? '[ ⌖ CLICK // ASSEMBLE COMPASS ]' : '[ ⌖ CLICK // EXPLODE SCHEMATIC ]';
+
+      hitAreaRef.current?.setAttribute('data-cursor-text', cursorAction);
+      if (promptRef.current) {
+        promptRef.current.setAttribute('data-cursor-text', cursorAction);
+        const span = promptRef.current.querySelector('.prompt-text');
+        if (span) span.textContent = promptLabel;
+      }
 
       manualTween?.kill();
       manualTween = gsap.to(manualExplodeState, {
@@ -388,6 +401,14 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
             duration: 0.32,
             ease: 'power2.out',
           });
+
+          // Reset cursor and prompt text
+          hitAreaRef.current?.setAttribute('data-cursor-text', 'CLICK // EXPLODE');
+          if (promptRef.current) {
+            promptRef.current.setAttribute('data-cursor-text', 'CLICK // EXPLODE');
+            const span = promptRef.current.querySelector('.prompt-text');
+            if (span) span.textContent = '[ ⌖ CLICK // EXPLODE SCHEMATIC ]';
+          }
         }
       }
     };
@@ -404,6 +425,14 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           duration: 0.32,
           ease: 'power2.out',
         });
+
+        // Reset cursor and prompt text
+        hitAreaRef.current?.setAttribute('data-cursor-text', 'CLICK // EXPLODE');
+        if (promptRef.current) {
+          promptRef.current.setAttribute('data-cursor-text', 'CLICK // EXPLODE');
+          const span = promptRef.current.querySelector('.prompt-text');
+          if (span) span.textContent = '[ ⌖ CLICK // EXPLODE SCHEMATIC ]';
+        }
       }
     };
     window.addEventListener('wheel', handleScrollClose, { passive: true });
@@ -454,9 +483,32 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       mouseVelocity = Math.sqrt(vx * vx + vy * vy);
       prevMouseX = mouseX;
       prevMouseY = mouseY;
+
+      // Check hover state for prompt badge
+      const hitsCompass = checkCompassHit(e.clientX, e.clientY);
+      if (hitsCompass !== isPointerOverCompass) {
+        isPointerOverCompass = hitsCompass;
+        if (promptRef.current) {
+          promptRef.current.classList.toggle('is-visible', isPointerOverCompass);
+        }
+      }
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
+
+    // SVG Hit Area hover listener
+    const onHitAreaEnter = () => {
+      isPointerOverCompass = true;
+      promptRef.current?.classList.add('is-visible');
+    };
+    const onHitAreaLeave = () => {
+      isPointerOverCompass = false;
+      promptRef.current?.classList.remove('is-visible');
+    };
+
+    const hitEl = hitAreaRef.current;
+    hitEl?.addEventListener('pointerenter', onHitAreaEnter);
+    hitEl?.addEventListener('pointerleave', onHitAreaLeave);
 
     // Helper to update SVG callout leader line & text
     const updateCallout = (
@@ -563,6 +615,14 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         hitAreaRef.current.setAttribute('cy', String(cy));
         hitAreaRef.current.setAttribute('r', String(radius * 1.15));
         hitAreaRef.current.style.pointerEvents = currentWarp > 0.02 ? 'none' : 'auto';
+      }
+
+      // Update Tactical Floating Hover Prompt Position
+      if (promptRef.current) {
+        promptRef.current.style.left = `${cx}px`;
+        promptRef.current.style.top = `${cy + radius + 28}px`;
+        const canShowPrompt = currentWarp < 0.02 && (animState.assembleProgress > 0.85 || isManualExploded);
+        promptRef.current.style.display = canShowPrompt ? 'inline-flex' : 'none';
       }
 
       // Update Drafting Compass Circle & Arm in SVG
@@ -796,6 +856,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       window.removeEventListener('touchmove', handleScrollClose);
       window.removeEventListener('click', handleWindowCaptureClick, { capture: true });
       window.removeEventListener('pointermove', handlePointerMove);
+      hitEl?.removeEventListener('pointerenter', onHitAreaEnter);
+      hitEl?.removeEventListener('pointerleave', onHitAreaLeave);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
 
@@ -829,6 +891,19 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     >
       <canvas ref={canvasRef} className="hero-compass-3d-canvas" />
 
+      {/* Floating Tactical Hover Prompt Pill */}
+      <button
+        ref={promptRef}
+        type="button"
+        className="compass-hover-prompt cursor-target"
+        onClick={handleHitAreaClick}
+        data-cursor-text="CLICK // EXPLODE"
+        aria-label="Toggle 3D Compass Exploded View"
+      >
+        <span className="prompt-dot" aria-hidden="true" />
+        <span className="prompt-text">[ ⌖ CLICK // EXPLODE SCHEMATIC ]</span>
+      </button>
+
       {/* Blueprint Exploded Schematic & Drafting Compass Overlay */}
       <svg ref={svgRef} className="hero-compass-exploded-svg" aria-hidden="true">
         {/* Interactive Click Hit Area Circle */}
@@ -836,6 +911,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           ref={hitAreaRef}
           className="compass-interactive-hit-area cursor-target"
           onClick={handleHitAreaClick}
+          data-cursor-text="CLICK // EXPLODE"
           aria-label="Toggle Exploded Compass View"
         />
 

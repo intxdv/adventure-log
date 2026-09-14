@@ -85,3 +85,25 @@ html.target-cursor-active *::after {
   border-width: 0 0 2px 2px;
   transform: translate(-150%, 50%);
 }
+
+/* 5. Dynamic Monospace Action Label on Target Hover */
+.target-cursor-label {
+  position: absolute;
+  left: 20px;
+  top: 14px;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #ffffff;
+  padding: 2px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: top left;
+  will-change: transform, opacity;
+}

@@ -60,6 +60,7 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
   const ringRef = useRef<SVGSVGElement | null>(null);
   const dotRef = useRef<HTMLDivElement | null>(null);
   const cornersRef = useRef<NodeListOf<HTMLDivElement> | null>(null);
+  const labelRef = useRef<HTMLDivElement | null>(null);
   const spinTl = useRef<gsap.core.Timeline | null>(null);
   const containingBlockRef = useRef<HTMLElement | null>(null);
 
@@ -275,6 +276,22 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
       // Tampilkan 4 sudut penarget
       gsap.to(corners, { opacity: 1, duration: 0.2, ease: 'power2.out' });
 
+      // Tampilkan label aksi dinamis jika elemen target memiliki data-cursor-text / data-cursor-label
+      const cursorText = target.getAttribute('data-cursor-text') || target.getAttribute('data-cursor-label');
+      if (labelRef.current) {
+        if (cursorText) {
+          labelRef.current.textContent = cursorText;
+          gsap.to(labelRef.current, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.2,
+            ease: 'power2.out'
+          });
+        } else {
+          gsap.to(labelRef.current, { opacity: 0, scale: 0.85, duration: 0.15 });
+        }
+      }
+
       if (cursorColorOnTarget) {
         gsap.to(corners, {
           borderColor: cursorColorOnTarget,
@@ -381,6 +398,11 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
             duration: 0.25,
             ease: 'power2.out'
           });
+        }
+
+        // Sembunyikan label aksi dinamis
+        if (labelRef.current) {
+          gsap.to(labelRef.current, { opacity: 0, scale: 0.85, duration: 0.15 });
         }
 
         resumeTimeout = setTimeout(() => {
@@ -500,6 +522,9 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
       <div className="target-cursor-corner corner-tr" style={{ borderColor: cursorColor }} />
       <div className="target-cursor-corner corner-br" style={{ borderColor: cursorColor }} />
       <div className="target-cursor-corner corner-bl" style={{ borderColor: cursorColor }} />
+
+      {/* 4. Label Aksi Dinamis (.target-cursor-label) */}
+      <div ref={labelRef} className="target-cursor-label font-mono" />
     </div>,
     document.body
   );
