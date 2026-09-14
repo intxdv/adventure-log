@@ -198,25 +198,13 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
   }, [isAppLoaded, startHeroImmediately]);
 
   const handleHeroClick = (e: React.MouseEvent<HTMLElement>) => {
-    // Jangan picu transisi jika user mengklik link, tombol, navigasi top bar, atau kompas 3D
+    // Abaikan jika klik berasal dari link, tombol, navigasi top bar, atau kompas 3D
     if ((e.target as HTMLElement).closest('a, button, .hero-top-bar, .hero-compass-3d-wrapper, .compass-interactive-hit-area')) return;
 
-    // Jika animasi belum mulai, klik pertama langsung paksa mulai animasinya
+    // Jika animasi typewriter belum mulai, klik pertama hanya memulai siklus animasi teks tanpa scroll
     if (!hasStartedLoop) {
       startHeroImmediately();
-      return;
     }
-
-    // Jika sudah mulai, klik memicu transisi halus menuju Section About (1.4s tenang & sinematik)
-    const stageWrapper = document.getElementById('hero-stage-wrapper');
-    const maxScroll = stageWrapper ? stageWrapper.offsetHeight - window.innerHeight : window.innerHeight * 4.8;
-    const targetScroll = stageWrapper ? stageWrapper.offsetTop + maxScroll * 0.25 : window.innerHeight * 1.35;
-
-    gsap.to(window, {
-      duration: 1.4,
-      scrollTo: { y: targetScroll, autoKill: false },
-      ease: 'power2.inOut',
-    });
   };
 
   // Navigasi langsung ke section bio (#about) saat tulisan "The Wandering Selv." diklik
