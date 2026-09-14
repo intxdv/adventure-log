@@ -328,7 +328,10 @@
 .footer-landscape-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 2752 / 1515;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin-top: 0;
   margin-bottom: 0;
   overflow: hidden;
@@ -364,7 +367,7 @@
   height: 114%;
   max-width: none !important;
   max-height: none !important;
-  object-fit: fill;
+  object-fit: cover;
   z-index: 1;
   pointer-events: none;
 }
@@ -405,7 +408,7 @@
   height: 117%;
   max-width: none !important;
   max-height: none !important;
-  object-fit: fill;
+  object-fit: cover;
   z-index: 3;
   pointer-events: none;
 }
@@ -468,7 +471,10 @@
   }
 
   .footer-landscape-stage {
-    aspect-ratio: 2752 / 1515;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
     margin-top: 0;
   }
 
