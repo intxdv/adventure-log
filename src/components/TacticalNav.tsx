@@ -32,32 +32,90 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
       const currentAlt = Math.round(280 + (pct / 100) * (3142 - 280));
       setAltimeter(currentAlt);
 
-      // Detect active section based on proximity to viewport center
-      const viewportMid = scrollY + window.innerHeight * 0.4;
-      let closestSection = sections[0].id;
+      const stageWrapper = document.getElementById('hero-stage-wrapper');
+      const footerEl = document.getElementById('footer');
 
-      for (const section of sections) {
-        const el = document.getElementById(section.id);
-        if (el) {
-          const top = el.offsetTop;
-          if (top <= viewportMid) {
-            closestSection = section.id;
-          }
+      // 1. Footer check (bottom of document or footer scrolled well into view)
+      if (docHeight > 0 && scrollY >= docHeight - 120) {
+        setActiveId('footer');
+        return;
+      }
+      if (footerEl) {
+        const footerRect = footerEl.getBoundingClientRect();
+        if (footerRect.top <= window.innerHeight * 0.55) {
+          setActiveId('footer');
+          return;
         }
       }
 
-      setActiveId(closestSection);
+      // 2. Stage wrapper check (Hero, About, Expeditions inside pinned stage)
+      if (stageWrapper) {
+        const stageTop = stageWrapper.offsetTop;
+        const stageHeight = stageWrapper.offsetHeight;
+        const maxScroll = stageHeight - window.innerHeight;
+
+        // Passed stageWrapper: entered Section 03 (Field Arsenal)
+        if (scrollY >= stageTop + maxScroll + window.innerHeight * 0.2) {
+          setActiveId('arsenal');
+          return;
+        }
+
+        // Inside stageWrapper: evaluate timeline progress
+        const stageProgress = maxScroll > 0 ? (scrollY - stageTop) / maxScroll : 0;
+
+        if (stageProgress < 0.12) {
+          setActiveId('hero');
+        } else if (stageProgress < 0.44) {
+          setActiveId('about');
+        } else if (stageProgress <= 0.98) {
+          setActiveId('expeditions');
+        } else {
+          setActiveId('arsenal');
+        }
+        return;
+      }
+
+      setActiveId(sections[0]?.id || 'hero');
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
   }, [sections]);
 
   const handleNavClick = (id: string) => {
+    const stageWrapper = document.getElementById('hero-stage-wrapper');
+
+    if (stageWrapper) {
+      const stageTop = stageWrapper.offsetTop;
+      const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+
+      if (id === 'hero') {
+        window.scrollTo({ top: stageTop, behavior: 'smooth' });
+        return;
+      }
+      if (id === 'about') {
+        // Scroll to About resting/reading zone (progress 0.28)
+        window.scrollTo({ top: stageTop + maxScroll * 0.28, behavior: 'smooth' });
+        return;
+      }
+      if (id === 'expeditions') {
+        // Scroll to Selected Expeditions stage (progress 0.52 - Mock 1)
+        window.scrollTo({ top: stageTop + maxScroll * 0.52, behavior: 'smooth' });
+        return;
+      }
+      if (id === 'arsenal') {
+        const targetScroll = stageTop + stageWrapper.offsetHeight + 4;
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        return;
+      }
+    }
+
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
