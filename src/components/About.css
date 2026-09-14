@@ -105,10 +105,10 @@
 
 @media (max-width: 960px) {
   .about-section {
-    padding-top: calc(var(--space-lg) + 8px);
+    padding-top: calc(44px + 18px);
     padding-bottom: 76px;
     overflow: hidden;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .about-container {
@@ -117,7 +117,6 @@
     padding-left: clamp(1.2rem, 4vw, 2rem);
     padding-right: clamp(1.2rem, 4vw, 2rem);
     padding-bottom: 0;
-    margin-top: 4px;
   }
 
   .about-grid {
@@ -133,7 +132,7 @@
     align-items: center;
     text-align: center;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: 10px;
   }
 
   .about-kicker {
@@ -167,9 +166,9 @@
 
 @media (max-width: 480px) {
   .about-section {
-    padding-top: calc(var(--space-lg) + 4px);
+    padding-top: calc(44px + 16px);
     padding-bottom: 76px;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .about-container {
@@ -177,16 +176,16 @@
   }
 
   .field-card-wrapper {
-    max-width: min(280px, 85vw);
+    max-width: min(275px, 84vw);
   }
 
   .about-headline {
-    font-size: clamp(1.2rem, 4.8vw, 1.45rem) !important;
+    font-size: clamp(1.15rem, 4.6vw, 1.4rem) !important;
     line-height: 1.15;
   }
 
   .about-article {
-    margin-top: 10px;
+    margin-top: 8px;
     gap: 6px;
   }
 
