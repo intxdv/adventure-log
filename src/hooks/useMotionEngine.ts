@@ -255,7 +255,7 @@ export const useMotionEngine = () => {
         );
 
         // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
-        portalTimeline.set('#about', { opacity: 0 }, 6.20);
+        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden' }, 6.20);
 
         // ----------------------------------------------------------------------
         // 1e. Swiss Editorial Showcase: Timeline pacing (t = 6.20 -> 12.20)

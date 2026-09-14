@@ -179,7 +179,7 @@ export const DepthCarousel = ({
       const az = Math.abs(d);
       const shown = az <= cfg.visibleCards + 0.5;
 
-      const tz = -cfg.depth * back;
+      let tz = 0;
       let tx = 0;
       let ty = 0;
       let rx = 0;
@@ -189,16 +189,20 @@ export const DepthCarousel = ({
       if (isVert) {
         if (d >= 0) {
           // Upcoming cards stacked vertically upwards/behind
+          tz = -cfg.depth * back;
           ty = vDir * cfg.spread * d;
           rx = vDir * cfg.tilt * clamp(d, 0, 1.5);
           scale = sc * Math.max(0.78, 1 - back * 0.035);
         } else {
-          // Passed cards (d < 0): slide downwards smoothly and fade
+          // Passed cards (d < 0): push strictly behind active card in Z space
+          // so it NEVER intersects or slices across the front plane in 3D
+          tz = -cfg.depth * (0.8 + Math.abs(d) * 1.2);
           ty = -vDir * (cfg.spread * 2.2) * Math.abs(d);
-          rx = -vDir * cfg.tilt * clamp(Math.abs(d), 0, 1);
+          rx = 0; // Neutralize tilt to prevent X-axis geometric plane collision
           scale = sc * Math.max(0.85, 1 - Math.abs(d) * 0.05);
         }
       } else {
+        tz = -cfg.depth * back;
         tx = hDir * cfg.spread * d;
         ry = hDir * cfg.tilt * clamp(d, 0, 1);
       }
@@ -207,16 +211,17 @@ export const DepthCarousel = ({
       let zi = 2000;
 
       if (d < 0) {
-        // Outgoing card fades rapidly and cleanly. Completely 0 when d <= -0.7
-        opacity = Math.max(0, 1 + d * 1.5);
-        // Once faded halfway, drop zIndex behind active card to prevent any ghost layering
-        zi = d <= -0.5 ? Math.round(1000 + d * 25) : Math.round(2000 + Math.abs(d) * 5);
+        // Outgoing card fades rapidly and cleanly
+        opacity = Math.max(0, 1 + d * 2.0);
+        // Immediately drop zIndex below active card to guarantee clean layering
+        zi = Math.round(1000 - Math.abs(d) * 50);
       } else {
         // Upcoming cards stacked behind with decreasing zIndex
         zi = Math.round(2000 - d * 25);
       }
 
-      if (!shown || d <= -0.7) {
+      const isHidden = !shown || d <= -0.5 || opacity <= 0.005;
+      if (isHidden) {
         opacity = 0;
       }
 
@@ -229,7 +234,8 @@ export const DepthCarousel = ({
 
       el.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(4)}) translateX(${tx.toFixed(2)}px) translateY(${ty.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) ${rotTransform}`;
       el.style.opacity = opacity.toFixed(3);
-      el.style.visibility = opacity > 0.005 ? 'visible' : 'hidden';
+      el.style.display = isHidden ? 'none' : 'block';
+      el.style.visibility = isHidden ? 'hidden' : 'visible';
       el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
       el.style.zIndex = String(zi);
       el.style.pointerEvents = shown && opacity > 0.5 ? 'auto' : 'none';
