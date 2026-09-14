@@ -171,7 +171,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 /* Sisi Kiri: Judul Dinamis & Bio Editorial (Gedein & Lapang, Rapi di Paruh Kiri) */
@@ -182,6 +182,7 @@
   position: relative;
   z-index: 2;
   max-width: min(640px, 44vw);
+  pointer-events: auto;
 }
 
 .hero-title-wrapper {
