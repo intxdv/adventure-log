@@ -669,10 +669,15 @@
 }
 
 .dossier-modal-body {
-  padding: clamp(1.2rem, 3vw, 2.2rem);
+  padding: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   overscroll-behavior: contain;
   flex: 1;
+}
+
+.dossier-modal-content {
+  padding: clamp(1.2rem, 3vw, 2.2rem);
 }
 
 .dossier-title-block {
@@ -743,10 +748,11 @@
 .dossier-visual-banner {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 4px;
+  border-radius: 0;
   overflow: hidden;
   border: none;
-  margin-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--hairline-base);
+  margin: 0;
   background: #121512;
 }
 

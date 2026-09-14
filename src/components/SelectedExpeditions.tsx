@@ -431,7 +431,7 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedit
 
         {/* Modal Scrollable Content */}
         <div className="dossier-modal-body">
-          {/* Visual Showcase Banner - Positioned above title */}
+          {/* Visual Showcase Banner - Full Bleed Top, Left, and Right */}
           {expedition.image && (
             <div className="dossier-visual-banner">
               <img
@@ -442,97 +442,99 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedit
             </div>
           )}
 
-          <div className="dossier-title-block">
-            <h3 id="dossier-modal-title" className="dossier-title font-display">
-              {expedition.title}
-            </h3>
-            <p className="dossier-tagline">“{expedition.tagline}”</p>
-          </div>
-
-          {/* Classification & Ownership Matrix */}
-          <div className="dossier-meta-grid font-mono">
-            <div className="dossier-meta-cell">
-              <span className="dossier-label">PROJECT NATURE</span>
-              <span className="dossier-nature-badge">{expedition.dossier.nature.toUpperCase()}</span>
+          <div className="dossier-modal-content">
+            <div className="dossier-title-block">
+              <h3 id="dossier-modal-title" className="dossier-title font-display">
+                {expedition.title}
+              </h3>
+              <p className="dossier-tagline">“{expedition.tagline}”</p>
             </div>
 
-            <div className="dossier-meta-cell">
-              <span className="dossier-label">TEAM STRUCTURE</span>
-              <span
-                className={`dossier-team-badge ${
-                  expedition.dossier.isGroupProject ? 'is-group' : 'is-individual'
-                }`}
-              >
-                {expedition.dossier.isGroupProject ? 'GROUP PROJECT' : 'INDIVIDUAL PROJECT'}
-              </span>
-            </div>
+            {/* Classification & Ownership Matrix */}
+            <div className="dossier-meta-grid font-mono">
+              <div className="dossier-meta-cell">
+                <span className="dossier-label">PROJECT NATURE</span>
+                <span className="dossier-nature-badge">{expedition.dossier.nature.toUpperCase()}</span>
+              </div>
 
-            <div className="dossier-meta-cell">
-              <span className="dossier-label">ROLE IN PROJECT</span>
-              <span className="dossier-role-value">
-                {expedition.dossier.groupRole || expedition.role}
-              </span>
-            </div>
-
-            <div className="dossier-meta-cell">
-              <span className="dossier-label">TIMELINE</span>
-              <span className="dossier-timeline-value">
-                {expedition.period || expedition.year}
-              </span>
-            </div>
-          </div>
-
-          {/* Section 1: Executive Summary */}
-          <div className="dossier-section">
-            <h4 className="dossier-section-title font-mono">
-              <span className="dossier-sec-num">[01]</span> PROJECT SUMMARY
-            </h4>
-            <p className="dossier-narrative-summary font-serif">
-              {expedition.dossier.englishSummary}
-            </p>
-          </div>
-
-          {/* Section 2: Demonstrated Impact & Value Delivered */}
-          <div className="dossier-section">
-            <h4 className="dossier-section-title font-mono">
-              <span className="dossier-sec-num">[02]</span> KEY IMPACT & VALUE DELIVERED
-            </h4>
-            <ul className="dossier-bullet-list">
-              {expedition.dossier.impact.map((item, idx) => (
-                <li key={idx} className="dossier-bullet-item">
-                  <span className="dossier-bullet-marker font-mono" aria-hidden="true">◆</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Section 3: Lessons Learned & Architectural Mastery */}
-          <div className="dossier-section">
-            <h4 className="dossier-section-title font-mono">
-              <span className="dossier-sec-num">[03]</span> LESSONS LEARNED & ARCHITECTURAL INSIGHTS
-            </h4>
-            <ul className="dossier-bullet-list">
-              {expedition.dossier.learnings.map((item, idx) => (
-                <li key={idx} className="dossier-bullet-item">
-                  <span className="dossier-bullet-marker font-mono" aria-hidden="true">→</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Section 4: System Stack & Telemetry */}
-          <div className="dossier-section">
-            <h4 className="dossier-section-title font-mono">
-              <span className="dossier-sec-num">[04]</span> TECHNICAL ARSENAL & TELEMETRY
-            </h4>
-            <div className="dossier-stack-tags font-mono">
-              {expedition.stack.map((tech) => (
-                <span key={tech} className="dossier-stack-tag">
-                  {tech}
+              <div className="dossier-meta-cell">
+                <span className="dossier-label">TEAM STRUCTURE</span>
+                <span
+                  className={`dossier-team-badge ${
+                    expedition.dossier.isGroupProject ? 'is-group' : 'is-individual'
+                  }`}
+                >
+                  {expedition.dossier.isGroupProject ? 'GROUP PROJECT' : 'INDIVIDUAL PROJECT'}
                 </span>
-              ))}
+              </div>
+
+              <div className="dossier-meta-cell">
+                <span className="dossier-label">ROLE IN PROJECT</span>
+                <span className="dossier-role-value">
+                  {expedition.dossier.groupRole || expedition.role}
+                </span>
+              </div>
+
+              <div className="dossier-meta-cell">
+                <span className="dossier-label">TIMELINE</span>
+                <span className="dossier-timeline-value">
+                  {expedition.period || expedition.year}
+                </span>
+              </div>
+            </div>
+
+            {/* Section 1: Executive Summary */}
+            <div className="dossier-section">
+              <h4 className="dossier-section-title font-mono">
+                <span className="dossier-sec-num">[01]</span> PROJECT SUMMARY
+              </h4>
+              <p className="dossier-narrative-summary font-serif">
+                {expedition.dossier.englishSummary}
+              </p>
+            </div>
+
+            {/* Section 2: Demonstrated Impact & Value Delivered */}
+            <div className="dossier-section">
+              <h4 className="dossier-section-title font-mono">
+                <span className="dossier-sec-num">[02]</span> KEY IMPACT & VALUE DELIVERED
+              </h4>
+              <ul className="dossier-bullet-list">
+                {expedition.dossier.impact.map((item, idx) => (
+                  <li key={idx} className="dossier-bullet-item">
+                    <span className="dossier-bullet-marker font-mono" aria-hidden="true">◆</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Section 3: Lessons Learned & Architectural Mastery */}
+            <div className="dossier-section">
+              <h4 className="dossier-section-title font-mono">
+                <span className="dossier-sec-num">[03]</span> LESSONS LEARNED & ARCHITECTURAL INSIGHTS
+              </h4>
+              <ul className="dossier-bullet-list">
+                {expedition.dossier.learnings.map((item, idx) => (
+                  <li key={idx} className="dossier-bullet-item">
+                    <span className="dossier-bullet-marker font-mono" aria-hidden="true">→</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Section 4: System Stack & Telemetry */}
+            <div className="dossier-section">
+              <h4 className="dossier-section-title font-mono">
+                <span className="dossier-sec-num">[04]</span> TECHNICAL ARSENAL & TELEMETRY
+              </h4>
+              <div className="dossier-stack-tags font-mono">
+                {expedition.stack.map((tech) => (
+                  <span key={tech} className="dossier-stack-tag">
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -624,32 +626,34 @@ const CompleteArchiveModal: React.FC<CompleteArchiveModalProps> = ({
         </div>
 
         <div className="dossier-modal-body">
-          <div className="dossier-title-block">
-            <h3 id="archive-modal-title" className="dossier-title font-display">
-              Field Repository & Expeditions.
-            </h3>
-            <p className="dossier-tagline">“Complete catalog of software engineering archives.”</p>
-          </div>
+          <div className="dossier-modal-content">
+            <div className="dossier-title-block">
+              <h3 id="archive-modal-title" className="dossier-title font-display">
+                Field Repository & Expeditions.
+              </h3>
+              <p className="dossier-tagline">“Complete catalog of software engineering archives.”</p>
+            </div>
 
-          <div className="archive-cards-list font-mono">
-            {expeditions.map((exp) => (
-              <div key={exp.id} className="archive-row-card">
-                <div className="archive-row-left">
-                  <span className="archive-row-idx">{exp.indexNumber}</span>
-                  <span className="archive-row-title font-display">{exp.title}</span>
-                  <span className="archive-row-cat font-mono">{exp.categoryLabel}</span>
+            <div className="archive-cards-list font-mono">
+              {expeditions.map((exp) => (
+                <div key={exp.id} className="archive-row-card">
+                  <div className="archive-row-left">
+                    <span className="archive-row-idx">{exp.indexNumber}</span>
+                    <span className="archive-row-title font-display">{exp.title}</span>
+                    <span className="archive-row-cat font-mono">{exp.categoryLabel}</span>
+                  </div>
+                  <div className="archive-row-right">
+                    <button
+                      type="button"
+                      className="archive-row-btn font-mono"
+                      onClick={() => onSelectDossier(exp)}
+                    >
+                      DOSSIER ↗
+                    </button>
+                  </div>
                 </div>
-                <div className="archive-row-right">
-                  <button
-                    type="button"
-                    className="archive-row-btn font-mono"
-                    onClick={() => onSelectDossier(exp)}
-                  >
-                    DOSSIER ↗
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
