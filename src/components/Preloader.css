@@ -16,7 +16,7 @@
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
-  cursor: pointer;
+  cursor: default;
   user-select: none;
 }
 
@@ -46,10 +46,6 @@
   margin-bottom: var(--space-md);
   position: relative;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.preloader-curtain:hover .preloader-emblem-wrap {
-  transform: scale(1.04);
 }
 
 .preloader-emblem-img {
@@ -111,20 +107,3 @@
   line-height: 1;
 }
 
-/* Subtle Skip Indicator */
-.preloader-skip-hint {
-  position: absolute;
-  bottom: clamp(1.25rem, 3vw, 2.25rem);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-ink-faint);
-  opacity: 0.4;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-
-.preloader-curtain:hover .preloader-skip-hint {
-  opacity: 0.75;
-}

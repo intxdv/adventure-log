@@ -7,7 +7,7 @@ interface PreloaderProps {
 }
 
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
-  const isAssetsReady = useAssetReadiness();
+  const { isReady: isAssetsReady, progress: assetProgress } = useAssetReadiness();
   const [progress, setProgress] = useState(0);
   const [isRevealing, setIsRevealing] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
@@ -41,50 +41,25 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     };
   }, [isDismissed]);
 
-  const triggerRevealSequence = useCallback((instant = false) => {
+  const triggerRevealSequence = useCallback(() => {
     if (hasTriggeredRevealRef.current) return;
     hasTriggeredRevealRef.current = true;
 
     setProgress(100);
 
-    if (instant) {
-      setIsRevealing(true);
-      if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
-      dismissTimerRef.current = setTimeout(() => {
-        setIsDismissed(true);
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
-        onComplete?.();
-      }, 350);
-      return;
-    }
-
-    // Zen pacing: hold 100% for 180ms before smooth curtain lift
+    // Zen pacing: hold 100% for 220ms so user registers complete readiness
     pauseTimerRef.current = setTimeout(() => {
       setIsRevealing(true);
-      // Smooth curtain fade transition (650ms)
+      // Smooth curtain fade & lift transition (650ms)
       dismissTimerRef.current = setTimeout(() => {
         setIsDismissed(true);
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
         onComplete?.();
       }, 650);
-    }, 180);
+    }, 220);
   }, [onComplete]);
 
-  // Click or keypress to skip
-  const handleSkip = useCallback(() => {
-    triggerRevealSequence(true);
-  }, [triggerRevealSequence]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
-        handleSkip();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleSkip]);
-
+  // Smooth progress animation strictly bound to real asset readiness
   useEffect(() => {
     if (isDismissed) {
       onComplete?.();
@@ -92,50 +67,37 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     }
 
     let animationFrameId: number;
-    let startTime: number | null = null;
-    const targetDuration = 1050; // Responsive, respectful 1.05s loading curve
+    let currentProgress = progress;
 
-    const animate = (timestamp: number) => {
+    const tick = () => {
       if (hasTriggeredRevealRef.current) return;
 
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const ratio = Math.min(elapsed / targetDuration, 1);
+      // Target progress is capped at 95% until all critical assets (including 6MB footer) are 100% ready
+      const target = isAssetsReady ? 100 : Math.min(Math.max(assetProgress, 12), 95);
 
-      // Smooth cubic curve
-      const easedRatio = ratio < 0.5
-        ? 4 * ratio * ratio * ratio
-        : 1 - Math.pow(-2 * ratio + 2, 3) / 2;
-
-      let calculatedProgress = Math.floor(easedRatio * 100);
-
-      if (isAssetsReady && ratio >= 0.85) {
-        calculatedProgress = 100;
+      if (currentProgress < target) {
+        const diff = target - currentProgress;
+        const step = isAssetsReady ? Math.max(diff * 0.16, 1.2) : Math.max(diff * 0.08, 0.4);
+        currentProgress = Math.min(target, currentProgress + step);
+        setProgress(Math.floor(currentProgress));
       }
 
-      setProgress(Math.min(100, calculatedProgress));
-
-      if (ratio < 1 && calculatedProgress < 100) {
-        animationFrameId = requestAnimationFrame(animate);
+      if (currentProgress >= 100 && isAssetsReady) {
+        setProgress(100);
+        triggerRevealSequence();
       } else {
-        triggerRevealSequence(false);
+        animationFrameId = requestAnimationFrame(tick);
       }
     };
 
-    animationFrameId = requestAnimationFrame(animate);
-
-    // Fallback timer (2.2s max safety)
-    const fallbackTimer = setTimeout(() => {
-      triggerRevealSequence(false);
-    }, 2200);
+    animationFrameId = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      clearTimeout(fallbackTimer);
       if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
       if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
     };
-  }, [isAssetsReady, isDismissed, onComplete, triggerRevealSequence]);
+  }, [isAssetsReady, assetProgress, isDismissed, onComplete, triggerRevealSequence]);
 
   if (isDismissed) return null;
 
@@ -144,7 +106,6 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       id="preloader-curtain"
       className={`preloader-curtain ${isRevealing ? 'is-revealing' : ''}`}
       aria-label="Selvagant Loading Screen"
-      onClick={handleSkip}
       role="status"
     >
       {/* Centered Brand Stage */}
@@ -182,11 +143,6 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           {String(progress).padStart(2, '0')}%
         </span>
       </div>
-
-      {/* Subtle Skip Hint */}
-      <span className="preloader-skip-hint">
-        Click or press any key to skip
-      </span>
     </aside>
   );
 };

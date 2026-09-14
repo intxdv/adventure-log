@@ -52,7 +52,7 @@ export const useMotionEngine = () => {
 
               // Coordinate Expeditions stage visibility & interactivity (hanya aktif saat Section 3 mekar)
               if (expeditionsSection) {
-                if (self.progress >= 0.44) {
+                if (self.progress >= 0.44 && self.progress <= 0.98) {
                   expeditionsSection.classList.add('is-active');
                 } else {
                   expeditionsSection.classList.remove('is-active');
