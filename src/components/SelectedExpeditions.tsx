@@ -44,9 +44,9 @@ export const SelectedExpeditions: React.FC = () => {
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-        // Symmetric step distribution matching useMotionEngine thresholds (midpoints of each 40vh bracket)
-        const progressMap = [0.37, 0.48, 0.58, 0.69];
-        const targetRatio = progressMap[newIndex] ?? (0.37 + newIndex * 0.105);
+        // Symmetric step distribution matching useMotionEngine thresholds (midpoints of each 46vh bracket)
+        const progressMap = [0.38, 0.49, 0.60, 0.71];
+        const targetRatio = progressMap[newIndex] ?? (0.38 + newIndex * 0.11);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }
@@ -108,14 +108,14 @@ export const SelectedExpeditions: React.FC = () => {
           const targetScroll = stageWrapper.offsetTop + maxScroll;
 
           gsap.to(window, {
-            duration: 0.65,
+            duration: 1.05,
             scrollTo: { y: targetScroll, autoKill: false },
-            ease: 'power2.out',
+            ease: 'power2.inOut',
             onComplete: () => {
               if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
               wheelLockTimerRef.current = setTimeout(() => {
                 wheelLockRef.current = false;
-              }, 250);
+              }, 200);
             },
           });
         }
@@ -135,14 +135,14 @@ export const SelectedExpeditions: React.FC = () => {
           const targetScroll = stageWrapper.offsetTop + maxScroll * 0.19;
 
           gsap.to(window, {
-            duration: 0.65,
+            duration: 1.05,
             scrollTo: { y: targetScroll, autoKill: false },
-            ease: 'power2.out',
+            ease: 'power2.inOut',
             onComplete: () => {
               if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
               wheelLockTimerRef.current = setTimeout(() => {
                 wheelLockRef.current = false;
-              }, 250);
+              }, 200);
             },
           });
         }

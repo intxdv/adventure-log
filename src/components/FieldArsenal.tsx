@@ -32,16 +32,16 @@ export const FieldArsenal: React.FC = () => {
         if (isTransitioning) return;
         isTransitioning = true;
 
-        const targetScroll = stageWrapper.offsetTop + maxScroll * 0.69;
+        const targetScroll = stageWrapper.offsetTop + maxScroll * 0.71;
         gsap.to(window, {
-          duration: 0.65,
+          duration: 1.05,
           scrollTo: { y: targetScroll, autoKill: false },
-          ease: 'power2.out',
+          ease: 'power2.inOut',
           onComplete: () => {
             if (timer) clearTimeout(timer);
             timer = setTimeout(() => {
               isTransitioning = false;
-            }, 250);
+            }, 200);
           },
         });
       }
