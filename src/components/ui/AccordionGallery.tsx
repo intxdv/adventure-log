@@ -151,12 +151,63 @@ export const AccordionGallery = ({
           }
         }
 
-        // Detailed Dossier Content transition (Visible when expanded)
+        // Detailed Dossier Content transition (2-step: open frame with title, then stagger reveal inner specs)
         if (dossier) {
+          const titleMeta = dossier.querySelectorAll('.ag-dossier__meta, .ag-dossier__title');
+          const revealItems = dossier.querySelectorAll(
+            '.ag-dossier__tagline, .ag-dossier__desc, .ag-dossier__skills-label, .ag-skill-card, .ag-dossier__tools'
+          );
+
           if (isActive) {
-            tl.to(dossier, { opacity: 1, y: 0, pointerEvents: 'auto', duration: dur, ease, delay: prefersReduced ? 0 : 0.08 }, 0);
+            tl.to(dossier, { opacity: 1, pointerEvents: 'auto', duration: dur * 0.4, ease }, 0);
+
+            // Step 1: Pilar frame kebuka dan menampilkan judul pilar
+            if (titleMeta.length > 0) {
+              if (animate && !prefersReduced) {
+                tl.fromTo(
+                  titleMeta,
+                  { opacity: 0, y: 16 },
+                  {
+                    opacity: 1,
+                    y: 0,
+                    duration: dur * 0.65,
+                    stagger: 0.06,
+                    ease: 'power2.out',
+                  },
+                  dur * 0.15
+                );
+              } else {
+                tl.set(titleMeta, { opacity: 1, y: 0 });
+              }
+            }
+
+            // Step 2: Setelah frame sempurna terbuka, reveal isinya keluar satu per satu
+            if (revealItems.length > 0) {
+              if (animate && !prefersReduced) {
+                tl.fromTo(
+                  revealItems,
+                  { opacity: 0, y: 24 },
+                  {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    stagger: 0.045,
+                    ease: 'power2.out',
+                  },
+                  dur * 0.85
+                );
+              } else {
+                tl.set(revealItems, { opacity: 1, y: 0 });
+              }
+            }
           } else {
-            tl.to(dossier, { opacity: 0, y: 14, pointerEvents: 'none', duration: dur * 0.35, ease }, 0);
+            const allItems = dossier.querySelectorAll(
+              '.ag-dossier__meta, .ag-dossier__title, .ag-dossier__tagline, .ag-dossier__desc, .ag-dossier__skills-label, .ag-skill-card, .ag-dossier__tools'
+            );
+            if (allItems.length > 0) {
+              tl.to(allItems, { opacity: 0, y: 10, duration: dur * 0.25, ease: 'power2.in' }, 0);
+            }
+            tl.to(dossier, { opacity: 0, pointerEvents: 'none', duration: dur * 0.3, ease }, 0);
           }
         }
       });
