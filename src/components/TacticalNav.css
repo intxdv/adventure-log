@@ -324,7 +324,7 @@
 }
 
 .tactical-nav-rail.theme-dark .tactical-nav-item.active .tactical-nav-pip::after {
-  background-color: #121512;
+  background-color: #000000;
 }
 
 .tactical-nav-rail.theme-dark .tactical-nav-reveal {

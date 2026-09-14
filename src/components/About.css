@@ -13,7 +13,7 @@
   z-index: 2;
   align-self: start;
   padding: clamp(2rem, 4vh, 4rem) 0;
-  background-color: #121512;
+  background-color: #000000;
   color: #F7F6F2;
   scroll-margin-top: 0;
   border-top: none;
@@ -31,9 +31,9 @@
   pointer-events: auto;
 }
 
-/* Nocturnal Canvas (Always Solid #121512) */
+/* Nocturnal Canvas (Pure Black #000000) */
 .about-section.is-nocturne {
-  background-color: #121512;
+  background-color: #000000;
   color: #F7F6F2;
   border-top: none;
   border-bottom-color: rgba(255, 255, 255, 0.08);
