@@ -280,25 +280,7 @@ export const useMotionEngine = () => {
       // ======================================================================
       const arsenalSection = document.getElementById('arsenal') || document.getElementById('field-arsenal');
       if (arsenalSection) {
-        // 4a. Spatial Depth Push on previous section (Selected Expeditions)
-        // Recedes and softens slightly as Field Arsenal curtain sheet glides over it
-        const expeditionsContainer = document.getElementById('expeditions-swiss-container');
-        if (expeditionsContainer) {
-          gsap.to(expeditionsContainer, {
-            scale: 0.97,
-            autoAlpha: 0.45,
-            y: -24,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: arsenalSection,
-              start: 'top bottom',
-              end: 'top 35%',
-              scrub: 0.6,
-            },
-          });
-        }
-
-        // 4b. Technical Transition Datum Line (Handoff Reveal)
+        // 4a. Technical Transition Datum Line (Handoff Reveal)
         const datumLine = arsenalSection.querySelector('.datum-ruler-line');
         const datumMarkers = arsenalSection.querySelectorAll('.datum-marker');
         if (datumLine && datumMarkers.length) {
