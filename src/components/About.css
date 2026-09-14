@@ -43,8 +43,8 @@
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding-left: clamp(2rem, 5vw, 6.5rem);
-  padding-right: clamp(2rem, 5vw, 6.5rem);
+  padding-left: clamp(2rem, 4.5vw, 5.5rem);
+  padding-right: clamp(2rem, 4.5vw, 5.5rem);
   box-sizing: border-box;
 }
 
@@ -57,8 +57,8 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: min(clamp(440px, 35vw, 620px), 64vh) 1fr;
-  gap: clamp(3.5rem, 6vw, 7.5rem);
+  grid-template-columns: min(clamp(500px, 40vw, 720px), 76vh) 1fr;
+  gap: clamp(2.5rem, 4.5vw, 5.5rem);
   align-items: center;
   width: 100%;
 }
@@ -106,7 +106,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  max-width: min(clamp(440px, 35vw, 620px), 64vh);
+  max-width: min(clamp(500px, 40vw, 720px), 76vh);
   width: 100%;
   justify-self: start;
 }
