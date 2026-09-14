@@ -52,6 +52,13 @@ body {
   z-index: 999;
 }
 
+@media (max-width: 768px) {
+  /* Nonaktifkan re-rasterisasi SVG feTurbulence berat di GPU mobile */
+  .paper-grain-overlay {
+    display: none !important;
+  }
+}
+
 /* Typography Defaults */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);

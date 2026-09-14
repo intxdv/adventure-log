@@ -118,7 +118,7 @@ export const About: React.FC = () => {
                 {!hasImageError ? (
                   <img
                     id="field-zine-portrait-img"
-                    src="/images/taki-portrait.jpg"
+                    src="/images/taki-portrait.webp"
                     alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
                     className="field-zine-img"
                     width={1080}

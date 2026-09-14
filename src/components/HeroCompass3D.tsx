@@ -93,7 +93,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       powerPreference: 'high-performance',
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const isMobileViewport = width <= 768;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobileViewport ? 1.25 : 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NoToneMapping;
 
@@ -944,6 +945,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           height = newH;
           camera.aspect = newW / newH;
           camera.updateProjectionMatrix();
+          const currentIsMobile = newW <= 768;
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, currentIsMobile ? 1.25 : 2));
           renderer.setSize(newW, newH);
           initialScale = computeInitialScale(camera.aspect);
           xRest = computeRestX(camera.aspect);

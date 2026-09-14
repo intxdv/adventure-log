@@ -17,7 +17,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/laporfsm/lapor-fsm',
     link: 'https://github.com/laporfsm/lapor-fsm',
-    image: '/images/expeditions/lapor-fsm.png',
+    image: '/images/expeditions/lapor-fsm.webp',
     dossier: {
       englishSummary:
         'A centralized digital reporting and incident management mobile application developed to streamline grievance resolution and campus facility maintenance for the FSM Undip academic community.',
@@ -55,7 +55,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/leanderarya/dipo-feed',
     link: 'https://github.com/leanderarya/dipo-feed',
-    image: '/images/expeditions/dipofeed.png',
+    image: '/images/expeditions/dipofeed.webp',
     dossier: {
       englishSummary:
         'A specialized agricultural mobile application engineered to assist Indonesian dairy cattle farmers in formulating and evaluating nutritionally balanced feed rations using local forage databases.',
@@ -92,7 +92,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/sekarwidhastri/AWARE',
     link: 'https://github.com/sekarwidhastri/AWARE',
-    image: '/images/expeditions/aware.png',
+    image: '/images/expeditions/aware.webp',
     dossier: {
       englishSummary:
         'An occupational safety screening platform that detects worker fatigue in under 30 seconds by combining real-time computer vision facial landmark tracking with daily health self-assessments.',
@@ -129,7 +129,7 @@ export const initialExpeditions: Expedition[] = [
     featured: true,
     repoUrl: 'https://github.com/intxdv/Speech-to-Text-Workspace',
     link: 'https://github.com/intxdv/Speech-to-Text-Workspace',
-    image: '/images/expeditions/kagu.png',
+    image: '/images/expeditions/kagu.webp',
     dossier: {
       englishSummary:
         'A modern, privacy-focused browser extension that transforms spoken ideas into formatted text directly inside any active web input field using Google Gemini and Whisper API with a Bring-Your-Own-Key model.',
@@ -166,7 +166,7 @@ export const initialExpeditions: Expedition[] = [
     featured: false,
     repoUrl: 'https://github.com/Note-Craft-Project/note-craft',
     link: 'https://github.com/Note-Craft-Project/note-craft',
-    image: '/images/expeditions/notecraft.png',
+    image: '/images/expeditions/notecraft.webp',
     dossier: {
       englishSummary:
         'An interactive music education mobile platform designed to make fundamental music theory intuitive through gamified rhythm training, interactive pitch canvas, and tactile audio feedback.',
@@ -203,7 +203,7 @@ export const initialExpeditions: Expedition[] = [
     featured: false,
     repoUrl: 'https://github.com/baca-di-teras/baca-di-teras',
     link: 'https://github.com/baca-di-teras/baca-di-teras',
-    image: '/images/expeditions/baca-di-teras.png',
+    image: '/images/expeditions/baca-di-teras.webp',
     dossier: {
       englishSummary:
         'A comprehensive public library automation deployment that digitized book cataloging, member registration, and book loans for rural community reading rooms in Teras District, Boyolali.',
@@ -240,7 +240,7 @@ export const initialExpeditions: Expedition[] = [
     featured: false,
     repoUrl: 'https://github.com/intxdv/orv-id-translation',
     link: 'https://github.com/intxdv/orv-id-translation',
-    image: '/images/expeditions/orv-translation.png',
+    image: '/images/expeditions/orv-translation.webp',
     dossier: {
       englishSummary:
         'A fan-driven digital editorial and typesetting project publishing an Indonesian translation of the webnovel "Omniscient Reader’s Viewpoint" packaged into an elegant, standards-compliant EPUB3 edition.',
