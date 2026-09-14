@@ -143,7 +143,8 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
               <button
                 key={sec.id}
                 onClick={() => handleNavClick(sec.id)}
-                className={`tactical-nav-item ${isActive ? 'active' : ''}`}
+                className={`tactical-nav-item cursor-target ${isActive ? 'active' : ''}`}
+                data-hover-reveal="section-reveal"
                 data-cursor-label={`GOTO ${sec.index}`}
                 aria-label={`Jump to ${sec.label}`}
                 aria-current={isActive ? 'true' : undefined}

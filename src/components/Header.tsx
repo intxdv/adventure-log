@@ -35,10 +35,10 @@ export const Header: React.FC = () => {
     <header
       id="top-notch-header"
       aria-label="Top Notch Identity Dock"
-      className={`notch-header-container ${isNotchVisible ? 'is-visible' : 'is-hidden'}`}
+      className={`notch-header-container no-cursor-target ${isNotchVisible ? 'is-visible' : 'is-hidden'}`}
     >
       {/* Top Center Cutout Notch Dock with Inverted Rounded Corners */}
-      <div id="header-notch-dock" className="notch-dock-body" onClick={handleScrollToTop}>
+      <div id="header-notch-dock" className="notch-dock-body no-cursor-target" onClick={handleScrollToTop}>
         {/* Inverted Concave Ear Left (R=16) */}
         <svg className="notch-ear-left" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M0,0 H16 V16 C16,7.163 8.837,0 0,0 Z" fill="var(--color-canvas)" />
@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
         <a
           href="#hero"
           onClick={handleScrollToTop}
-          className="notch-brand-anchor"
+          className="notch-brand-anchor no-cursor-target"
           title="Click to Return to Expedition Basecamp (Hero)"
         >
           {/* Default View: Editorial Wordmark */}

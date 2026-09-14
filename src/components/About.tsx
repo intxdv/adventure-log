@@ -82,9 +82,10 @@ export const About: React.FC = () => {
 
               {/* Selvagant Emblem Logo in Top-Right Corner (Frameless directly on photo) */}
               <div
-                className={`field-zine-logo-badge ${isNoteOpen ? 'is-expanded' : ''}`}
+                className={`field-zine-logo-badge cursor-target ${isNoteOpen ? 'is-expanded' : ''}`}
                 tabIndex={0}
                 role="button"
+                data-hover-reveal="etymology-popover"
                 aria-label="Selvagant Moniker & Etymology - Hover or tap to view note"
                 aria-expanded={isNoteOpen}
                 onClick={toggleNote}
@@ -145,9 +146,10 @@ export const About: React.FC = () => {
                 <span className="field-zine-fullname">Syafiq Abiyyu Taqi</span>
               </div>
               <div
-                className={`field-zine-quote-trigger ${isManifestoOpen ? 'is-active' : ''}`}
+                className={`field-zine-quote-trigger cursor-target ${isManifestoOpen ? 'is-active' : ''}`}
                 tabIndex={0}
                 role="button"
+                data-hover-reveal="manifesto-popover"
                 aria-label="Refleksi filosofis eksplorasi Taki"
                 aria-expanded={isManifestoOpen}
                 onClick={toggleManifesto}

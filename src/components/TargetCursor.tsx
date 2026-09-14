@@ -5,6 +5,7 @@ import './TargetCursor.css';
 
 export interface TargetCursorProps {
   targetSelector?: string;
+  excludeSelector?: string;
   spinDuration?: number;
   hideDefaultCursor?: boolean;
   hoverDuration?: number;
@@ -43,7 +44,8 @@ const getContainingBlockOffset = (block: HTMLElement | null) => {
 };
 
 export const TargetCursor: React.FC<TargetCursorProps> = ({
-  targetSelector = '.cursor-target',
+  targetSelector = '.cursor-target, [data-hover-reveal], [aria-haspopup], [aria-expanded], a, button',
+  excludeSelector = '#top-notch-header, #top-notch-header *, .notch-header-container, .notch-header-container *, .notch-dock-body, .notch-dock-body *, .notch-brand-anchor, .notch-brand-anchor *, .no-cursor-target, .no-cursor-target *',
   spinDuration = 2,
   hideDefaultCursor = true,
   hoverDuration = 0.2,
@@ -148,9 +150,20 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
 
     // Ticker untuk update posisi bidik & efek parallax dinamis saat hover
     const tickerFn = () => {
-      if (!targetCornerPositionsRef.current || !cursorRef.current || !cornersRef.current) {
+      if (!activeTarget || !cursorRef.current || !cornersRef.current) {
         return;
       }
+
+      // Selalu perbarui posisi target secara dinamis (misal panel akordeon mekar atau popover muncul)
+      const rect = activeTarget.getBoundingClientRect();
+      const { borderWidth, cornerSize } = constants;
+      const { x: offsetX, y: offsetY } = getOffset();
+      targetCornerPositionsRef.current = [
+        { x: rect.left - borderWidth - offsetX, y: rect.top - borderWidth - offsetY },
+        { x: rect.right + borderWidth - cornerSize - offsetX, y: rect.top - borderWidth - offsetY },
+        { x: rect.right + borderWidth - cornerSize - offsetX, y: rect.bottom + borderWidth - cornerSize - offsetY },
+        { x: rect.left - borderWidth - offsetX, y: rect.bottom + borderWidth - cornerSize - offsetY }
+      ];
 
       const strength = activeStrengthRef.current;
       if (strength === 0) return;
@@ -192,8 +205,10 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
       const mouseX = (gsap.getProperty(cursorRef.current, 'x') as number) + offsetX;
       const mouseY = (gsap.getProperty(cursorRef.current, 'y') as number) + offsetY;
       const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+      const isExcluded = elementUnderMouse && excludeSelector && elementUnderMouse.closest(excludeSelector);
       const isStillOverTarget =
         elementUnderMouse &&
+        !isExcluded &&
         (elementUnderMouse === activeTarget || elementUnderMouse.closest(targetSelector) === activeTarget);
       if (!isStillOverTarget) {
         if (currentLeaveHandler) {
@@ -228,9 +243,15 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
     // Handler Hover Masuk ke Elemen Target (.cursor-target)
     const enterHandler = (e: MouseEvent) => {
       const directTarget = e.target as Element | null;
-      const target = directTarget ? directTarget.closest(targetSelector) : null;
+      if (!directTarget) return;
 
+      // Khusus untuk elemen yang dikecualikan (Notch Dock), jangan picu efek target sama sekali
+      if (excludeSelector && directTarget.closest(excludeSelector)) return;
+
+      const target = directTarget.closest(targetSelector);
       if (!target || !cursorRef.current || !cornersRef.current) return;
+      if (excludeSelector && target.closest(excludeSelector)) return;
+
       if (activeTarget === target) return;
 
       if (activeTarget) {
@@ -409,6 +430,7 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
     };
   }, [
     targetSelector,
+    excludeSelector,
     spinDuration,
     moveCursor,
     constants,
