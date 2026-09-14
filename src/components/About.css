@@ -137,7 +137,9 @@
 
   .about-headline {
     order: 1 !important;
-    font-size: clamp(1.2rem, 4.8vw, 1.6rem) !important;
+    font-size: clamp(1.45rem, 5.2vw, 1.95rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.03em !important;
     margin-bottom: 2px !important;
     max-width: 100% !important;
     text-align: center !important;
@@ -185,8 +187,9 @@
   }
 
   .about-headline {
-    font-size: clamp(1.15rem, 4.6vw, 1.4rem) !important;
-    line-height: 1.15;
+    font-size: clamp(1.32rem, 5.4vw, 1.65rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.03em !important;
   }
 
   .field-dossier-header,
