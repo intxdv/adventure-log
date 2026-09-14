@@ -26,7 +26,6 @@
   padding: 0 0 clamp(2rem, 4vw, 4rem);
   background-color: transparent;
   overflow: hidden;
-  cursor: pointer;
   pointer-events: none;
 }
 
@@ -45,8 +44,8 @@
   max-width: 1600px;
   margin: 0 auto;
   position: relative;
-  padding-top: var(--space-md);
-  padding-bottom: var(--space-md);
+  padding-top: clamp(10px, 1.2vh, 12px);
+  padding-bottom: clamp(10px, 1.2vh, 12px);
   padding-left: clamp(24px, 5vw, 80px);
   padding-right: clamp(24px, 5vw, 80px);
   display: flex;
@@ -326,9 +325,9 @@
 }
 
 @media (max-width: 640px) {
-  .hero-top-bar {
-    padding-top: var(--space-sm);
-    padding-bottom: var(--space-sm);
+  .hero-top-bar-inner {
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 
   .hero-top-logo-img {
