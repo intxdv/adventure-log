@@ -319,9 +319,17 @@ export const DepthCarousel = ({
     const el = rootRef.current;
     if (!el) return;
 
+    const stage = (el.closest('.expeditions-perspective-stage') || el.closest('#expeditions')) as HTMLElement | null;
+    const targetElement: HTMLElement = stage || el;
+
     const onWheel = (e: WheelEvent) => {
+      // Guard: do not intercept if user is scrolling inside an open modal dialog
+      const modal = (e.target as HTMLElement | null)?.closest(
+        '.dossier-modal-overlay, .dossier-modal, .archive-modal-overlay, .archive-modal'
+      );
+      if (modal) return;
+
       // Guard: only intercept wheel events if the parent stage is active (visible & interactive)
-      const stage = el.closest('.expeditions-perspective-stage') || el.closest('#expeditions');
       if (stage && !stage.classList.contains('is-active')) {
         return;
       }
@@ -388,12 +396,12 @@ export const DepthCarousel = ({
       }, 200);
     };
 
-    el.addEventListener('wheel', onWheel, { passive: false });
+    targetElement.addEventListener('wheel', onWheel, { passive: false });
     return () => {
-      el.removeEventListener('wheel', onWheel);
+      targetElement.removeEventListener('wheel', onWheel);
       if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
     };
-  }, [data, setFocus]);
+  }, [data, onBoundaryCross, setFocus]);
 
   const onPointerDown = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
     const cfg = cfgRef.current;
