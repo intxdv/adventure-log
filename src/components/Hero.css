@@ -326,8 +326,8 @@
 
 @media (max-width: 640px) {
   .hero-top-bar-inner {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .hero-top-logo-img {
