@@ -266,11 +266,6 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       aria-hidden="true"
     >
       <canvas ref={canvasRef} className="hero-compass-3d-canvas" />
-      {/* Tactical Coordinate Readout Overlay */}
-      <div className="hero-compass-3d-telemetry font-mono">
-        <span className="hero-compass-3d-tag">[ COMPASS // 3D SENSOR ]</span>
-        <span className="hero-compass-3d-fix">7.05°S // 110.44°E</span>
-      </div>
     </div>
   );
 };
