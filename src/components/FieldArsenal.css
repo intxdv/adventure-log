@@ -9,7 +9,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   padding-top: var(--space-4xl);
-  padding-bottom: clamp(6.5rem, 12vh, 11rem);
+  padding-bottom: clamp(14rem, 26vh, 24rem);
   padding-left: 0;
   padding-right: 0;
   position: relative;
@@ -131,7 +131,7 @@
    ========================================================================== */
 
 .arsenal-gallery-wrapper {
-  margin-bottom: var(--space-xl);
+  margin-bottom: 0;
   width: 100%;
 }
 
@@ -139,7 +139,7 @@
 @media (max-width: 768px) {
   .arsenal-section {
     padding-top: var(--space-3xl);
-    padding-bottom: clamp(4rem, 8vh, 6.5rem);
+    padding-bottom: clamp(7rem, 14vh, 11rem);
     padding-left: 0;
     padding-right: 0;
   }
