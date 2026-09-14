@@ -25,19 +25,30 @@ export const FieldArsenal: React.FC = () => {
     <section id="arsenal" className="arsenal-section hairline-b" aria-labelledby="arsenal-heading">
       <div className="arsenal-container">
 
-        {/* Section Header (Centered Editorial Composition) */}
+        {/* Section Header (Swiss Cartography Split Datum Bar with Cleared Center for Notch Dock) */}
         <header className="arsenal-header">
-          <div className="arsenal-header-badge">
-            <span className="tag-badge">FIELD GEAR // 03 · ARSENAL</span>
+          {/* Top Datum Bar: Left Badge, Protected Notch Channel, Right Telemetry */}
+          <div className="arsenal-top-datum font-mono">
+            <div className="arsenal-datum-left">
+              <span className="tag-badge">FIELD GEAR // 03 · ARSENAL</span>
+            </div>
+            {/* Cleared center channel specifically reserved for floating Notch Dock */}
+            <div className="arsenal-datum-center" aria-hidden="true" />
+            <div className="arsenal-datum-right">
+              <span className="arsenal-telemetry-meta font-mono">
+                CORE INVENTORY: 03 PILLARS // 18 SPECS
+              </span>
+            </div>
           </div>
-          <h2 id="arsenal-heading" className="arsenal-headline font-display">
-            Technical Arsenal<span style={{ color: 'var(--color-olive)' }}>.</span>
-          </h2>
-          <p className="arsenal-header-tagline">
-            “Tactical toolchains & craft disciplines forged through production expeditions.”
-          </p>
-          <div className="arsenal-telemetry-meta font-mono">
-            CORE INVENTORY: 03 PILLARS // 18 VERIFIED CAPABILITIES
+
+          {/* Centered Editorial Title & Tagline */}
+          <div className="arsenal-title-group">
+            <h2 id="arsenal-heading" className="arsenal-headline font-display">
+              Technical Arsenal<span style={{ color: 'var(--color-olive)' }}>.</span>
+            </h2>
+            <p className="arsenal-header-tagline font-serif">
+              “Tactical toolchains & craft disciplines forged through production expeditions.”
+            </p>
           </div>
         </header>
 

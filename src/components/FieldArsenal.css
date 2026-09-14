@@ -27,19 +27,61 @@
 }
 
 
-/* Section Header (Centered Editorial Composition) */
+/* Section Header (Swiss Cartography Split Datum Bar with Cleared Center for Notch Dock) */
 .arsenal-header {
   margin-bottom: var(--space-xl);
   padding-bottom: var(--space-lg);
   border-bottom: 1px solid var(--hairline-base);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: stretch;
+  width: 100%;
 }
 
-.arsenal-header-badge {
+/* Top Split Datum Line (Left badge, cleared center for floating Notch Dock, Right telemetry) */
+.arsenal-top-datum {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-md);
   margin-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--hairline-subtle);
+  position: relative;
+}
+
+.arsenal-datum-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.arsenal-datum-center {
+  width: clamp(200px, 25vw, 320px); /* Protected corridor specifically reserved for floating Notch Dock */
+  flex-shrink: 0;
+}
+
+.arsenal-datum-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  text-align: right;
+}
+
+.arsenal-telemetry-meta {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  letter-spacing: 0.08em;
+}
+
+/* Centered Editorial Title Group */
+.arsenal-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: var(--space-xs);
 }
 
 .arsenal-headline {
@@ -56,15 +98,8 @@
   font-style: italic;
   font-size: 1.05rem;
   color: var(--color-ink-muted);
-  margin: 0 0 var(--space-xs) 0;
+  margin: 0;
   max-width: 680px;
-}
-
-.arsenal-telemetry-meta {
-  font-size: var(--text-xs);
-  color: var(--color-ink-muted);
-  letter-spacing: 0.08em;
-  margin-top: 4px;
 }
 
 /* ==========================================================================
@@ -140,6 +175,23 @@
     padding-bottom: clamp(5.5rem, 10vh, 7.5rem);
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .arsenal-top-datum {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: var(--space-sm);
+  }
+
+  .arsenal-datum-center {
+    display: none;
+  }
+
+  .arsenal-datum-left,
+  .arsenal-datum-right {
+    justify-content: center;
+    text-align: center;
   }
 
   .arsenal-control-bar {
