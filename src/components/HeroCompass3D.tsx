@@ -439,16 +439,44 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     const mouseNDC = new THREE.Vector2();
 
     const checkCompassHit = (clientX: number, clientY: number): boolean => {
-      if (!camera || !compassRoot) return false;
+      if (!camera || !compassRoot || !compassRoot.visible) return false;
       mouseNDC.x = (clientX / window.innerWidth) * 2 - 1;
       mouseNDC.y = -(clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouseNDC, camera);
-      const hits = raycaster.intersectObjects(compassRoot.children, true);
+
+      // Only test physical solid 3D meshes (exclude axisLine, helpers, etc.)
+      const meshes: THREE.Object3D[] = [];
+      compassRoot.traverse((obj) => {
+        if ((obj as THREE.Mesh).isMesh && obj.visible) {
+          meshes.push(obj);
+        }
+      });
+
+      const hits = raycaster.intersectObjects(meshes, false);
       return hits.length > 0;
     };
 
     const handleWindowCaptureClick = (e: MouseEvent) => {
       if (currentWarp > 0.02) return;
+
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      // 1. If clicking the SVG hit-area circle, let handleHitAreaClick handle it directly
+      if (target.classList.contains('compass-interactive-hit-area')) {
+        return;
+      }
+
+      // 2. NEVER intercept clicks intended for interactive UI elements (navbars, buttons, links, etc.)
+      if (
+        target.closest(
+          'button, a, nav, header, input, select, textarea, [role="button"], .tactical-nav-mobile, .tactical-nav-container, .notch-header-container, #top-notch-header, .dossier-modal-backdrop, .dossier-modal-container'
+        )
+      ) {
+        return;
+      }
+
+      // 3. Only trigger if physical 3D compass meshes were hit
       if (checkCompassHit(e.clientX, e.clientY)) {
         e.stopPropagation();
         e.preventDefault();
