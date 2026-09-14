@@ -47,6 +47,17 @@
   padding-left: clamp(2rem, 4.5vw, 5.5rem);
   padding-right: clamp(2rem, 4.5vw, 5.5rem);
   box-sizing: border-box;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.about-kicker,
+.field-zine-card,
+.about-headline,
+.about-lead,
+.about-body,
+.field-zine-logo-badge {
+  opacity: 0;
 }
 
 .about-section .tag-badge {

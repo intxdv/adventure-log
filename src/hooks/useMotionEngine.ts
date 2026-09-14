@@ -33,8 +33,8 @@ export const useMotionEngine = () => {
             end: 'bottom bottom',
             scrub: 0.6,
             onUpdate: (self) => {
-              // Coordinate 3D Compass Warp (Hero -> About transition: 0.00 -> 0.22)
-              const compassWarp = Math.min(1.0, Math.max(0.0, self.progress / 0.22));
+              // Coordinate 3D Compass Warp (Hero -> Black Void transition: 0.00 -> 0.11)
+              const compassWarp = Math.min(1.0, Math.max(0.0, self.progress / 0.11));
               window.dispatchEvent(
                 new CustomEvent('adventure:compass-warp', { detail: { progress: compassWarp } })
               );
@@ -50,7 +50,7 @@ export const useMotionEngine = () => {
                 }
               }
               // Coordinate About section pointer-events interactivity (hanya aktif saat bio tampil)
-              if (self.progress > 0.07 && self.progress < 0.31) {
+              if (self.progress >= 0.15 && self.progress < 0.31) {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
@@ -93,20 +93,10 @@ export const useMotionEngine = () => {
           },
         });
 
-        // 1a. Reset display and prepare Section 2
-        portalTimeline.set('#about', { display: 'flex' }, 0);
-
-        // Section 2 memudar masuk lembut di balik kompas 3D yang menembus layar
-        portalTimeline.fromTo(
-          aboutSection,
-          { opacity: 0 },
-          {
-            opacity: 1,
-            duration: 0.55,
-            ease: 'power1.inOut',
-          },
-          0.18
-        );
+        // 1a. Reset display and ensure bio content is 100% hidden initially
+        portalTimeline.set('#about', { display: 'flex', opacity: 0 }, 0);
+        portalTimeline.set('.about-container', { opacity: 0 }, 0);
+        portalTimeline.set('.about-kicker, .field-zine-card, .about-headline, .about-lead, .about-body, .field-zine-logo-badge', { opacity: 0 }, 0);
 
         // Konten kiri Hero (judul & bio) meredup lembut di awal scroll
         portalTimeline.to(
@@ -116,38 +106,67 @@ export const useMotionEngine = () => {
             duration: 0.28,
             ease: 'power1.out',
           },
-          0.06
+          0.04
         );
 
-        // 1c. Entrance Tiap Elemen Section 2 (Muncul berurutan, tenang, dan responsif)
+        // Background hitam pekat Section 01 (#about) memudar masuk
+        // Layar telah 100% solid hitam pekat pada t = 0.85
+        portalTimeline.fromTo(
+          aboutSection,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 0.65,
+            ease: 'power2.inOut',
+          },
+          0.15
+        );
+
+        // ======================================================================
+        // TOTAL BLACK VOID (t = 0.85 -> 1.35): Seluruh layar 100% HITAM PEKAT
+        // Kompas 3D telah menembus layar & larut. Section Bio BELUM MUNCUL.
+        // ======================================================================
+
+        // 1b. Munculkan kontainer bio hanya SETELAH seluruh layar benar-benar hitam (t >= 1.35)
+        portalTimeline.to(
+          '.about-container',
+          {
+            opacity: 1,
+            duration: 0.20,
+            ease: 'power1.out',
+          },
+          1.35
+        );
+
+        // 1c. Entrance Tiap Elemen Section 2 (Muncul tenang dari kegelapan total)
         portalTimeline.fromTo(
           '.about-kicker',
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.20, ease: 'power2.out' },
-          0.95
+          { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' },
+          1.40
         );
 
         portalTimeline.fromTo(
           '.field-zine-card',
-          { opacity: 0, y: 24, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.28, ease: 'back.out(1.2)' },
-          1.00
+          { opacity: 0, y: 24, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.30, ease: 'back.out(1.2)' },
+          1.48
         );
 
         // Stagger per-kata pada headline Section 2
         portalTimeline.fromTo(
           '.about-headline .about-word',
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, stagger: 0.025, duration: 0.20, ease: 'power2.out' },
-          1.05
+          { opacity: 1, y: 0, stagger: 0.025, duration: 0.22, ease: 'power2.out' },
+          1.56
         );
 
         // Stagger per-kata pada bio editorial Section 2
         portalTimeline.fromTo(
           '.about-lead .about-word, .about-body .about-word',
           { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, stagger: 0.005, duration: 0.16, ease: 'power2.out' },
-          1.10
+          { opacity: 1, y: 0, stagger: 0.006, duration: 0.18, ease: 'power2.out' },
+          1.64
         );
 
         // Selvagant emblem logo badge
@@ -155,7 +174,7 @@ export const useMotionEngine = () => {
           '.field-zine-logo-badge',
           { opacity: 0, scale: 0.88, y: -8 },
           { opacity: 1, scale: 1, y: 0, duration: 0.20, ease: 'power2.out' },
-          1.18
+          1.74
         );
 
         // ======================================================================
