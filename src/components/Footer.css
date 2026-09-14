@@ -118,6 +118,7 @@
 }
 
 .footer-wandering-selv {
+  font-family: var(--font-body);
   display: inline-flex;
   align-items: baseline;
   gap: 0.35em;

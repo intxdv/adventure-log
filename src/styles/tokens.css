@@ -30,6 +30,7 @@
   /* Typography Stacks */
   --font-display: 'Lufga', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Lufga', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-printvetica: 'Printvetica', var(--font-display);
 

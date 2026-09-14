@@ -93,6 +93,7 @@
 }
 
 .hero-top-motto {
+  font-family: var(--font-body);
   display: inline-flex;
   align-items: baseline;
   gap: 0.38em;
@@ -105,6 +106,8 @@
 
 .hero-top-motto em {
   font-style: italic;
+  font-family: var(--font-serif, 'Newsreader', serif);
+  font-weight: 600;
   color: var(--color-olive);
 }
 

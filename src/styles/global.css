@@ -97,6 +97,11 @@ code, kbd, samp, pre, .font-mono {
   letter-spacing: -0.01em;
 }
 
+/* Editorial Serif */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
 /* Selection Color */
 ::selection {
   background-color: var(--color-olive);
