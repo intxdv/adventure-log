@@ -47,6 +47,7 @@ export const About: React.FC = () => {
                     width={1080}
                     height={1080}
                     loading="eager"
+                    decoding="async"
                     onError={() => setHasImageError(true)}
                   />
                 ) : (

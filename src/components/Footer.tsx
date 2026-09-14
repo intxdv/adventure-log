@@ -149,6 +149,7 @@ export const Footer: React.FC = () => {
           alt="Mountain Landscape Background"
           className="footer-landscape-bg"
           loading="eager"
+          decoding="async"
         />
 
         {/* Layer 2: Figma Design Accurate SLVGNT Vector Typography */}
@@ -224,6 +225,7 @@ export const Footer: React.FC = () => {
           alt="Landscape Foreground Hill with Retro CRT Monitor"
           className="footer-landscape-fg"
           loading="eager"
+          decoding="async"
         />
 
         {/* Layer 4: Frosted White Glass Copyright Plaque on the Hill */}

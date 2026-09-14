@@ -7,12 +7,13 @@ interface PreloaderProps {
 }
 
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
-  const { isReady: isAssetsReady, progress: assetProgress } = useAssetReadiness();
-  const [progress, setProgress] = useState(0);
+  const { isReady, progress: targetAssetProgress } = useAssetReadiness();
+  const [displayedProgress, setDisplayedProgress] = useState(0);
   const [isRevealing, setIsRevealing] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
   const hasTriggeredRevealRef = useRef(false);
+  const currentProgressRef = useRef(0);
   const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -45,59 +46,61 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     if (hasTriggeredRevealRef.current) return;
     hasTriggeredRevealRef.current = true;
 
-    setProgress(100);
+    setDisplayedProgress(100);
 
-    // Zen pacing: hold 100% for 220ms so user registers complete readiness
+    // Zen pacing: hold 100% for 220ms before smooth curtain lift
     pauseTimerRef.current = setTimeout(() => {
       setIsRevealing(true);
-      // Smooth curtain fade & lift transition (650ms)
+      // Smooth curtain fade transition (700ms)
       dismissTimerRef.current = setTimeout(() => {
         setIsDismissed(true);
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
         onComplete?.();
-      }, 650);
+      }, 700);
     }, 220);
   }, [onComplete]);
 
-  // Smooth progress animation strictly bound to real asset readiness
+  // Smoothly interpolate displayed progress towards true asset download progress
   useEffect(() => {
-    if (isDismissed) {
-      onComplete?.();
-      return;
-    }
+    if (isDismissed) return;
 
     let animationFrameId: number;
-    let currentProgress = progress;
 
-    const tick = () => {
+    const updateProgress = () => {
       if (hasTriggeredRevealRef.current) return;
 
-      // Target progress is capped at 95% until all critical assets (including 6MB footer) are 100% ready
-      const target = isAssetsReady ? 100 : Math.min(Math.max(assetProgress, 12), 95);
+      const target = isReady ? 100 : Math.min(96, targetAssetProgress);
+      const current = currentProgressRef.current;
 
-      if (currentProgress < target) {
-        const diff = target - currentProgress;
-        const step = isAssetsReady ? Math.max(diff * 0.16, 1.2) : Math.max(diff * 0.08, 0.4);
-        currentProgress = Math.min(target, currentProgress + step);
-        setProgress(Math.floor(currentProgress));
+      if (current < target) {
+        // Smooth step increment (faster when further behind, smooth as it approaches)
+        const step = Math.max(1, Math.ceil((target - current) * 0.15));
+        const nextVal = Math.min(target, current + step);
+        currentProgressRef.current = nextVal;
+        setDisplayedProgress(nextVal);
       }
 
-      if (currentProgress >= 100 && isAssetsReady) {
-        setProgress(100);
+      if (isReady && currentProgressRef.current >= 100) {
         triggerRevealSequence();
       } else {
-        animationFrameId = requestAnimationFrame(tick);
+        animationFrameId = requestAnimationFrame(updateProgress);
       }
     };
 
-    animationFrameId = requestAnimationFrame(tick);
+    animationFrameId = requestAnimationFrame(updateProgress);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+    };
+  }, [isReady, targetAssetProgress, isDismissed, triggerRevealSequence]);
+
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
       if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
       if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
     };
-  }, [isAssetsReady, assetProgress, isDismissed, onComplete, triggerRevealSequence]);
+  }, []);
 
   if (isDismissed) return null;
 
@@ -105,20 +108,21 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     <aside
       id="preloader-curtain"
       className={`preloader-curtain ${isRevealing ? 'is-revealing' : ''}`}
-      aria-label="Selvagant Loading Screen"
+      aria-label="Selvagant Archival Preloader"
       role="status"
     >
       {/* Centered Brand Stage */}
       <div className="preloader-stage" aria-hidden={isRevealing}>
-        {/* Official Selvagant Emblem */}
+        {/* Official Selvagant Emblem (88px x 51px) */}
         <div className="preloader-emblem-wrap">
           <img
             src="/logo/Logo SVG/Logo-deep-ink.svg"
             alt="Selvagant Emblem"
             className="preloader-emblem-img"
-            width="68"
-            height="40"
+            width="88"
+            height="51"
             loading="eager"
+            decoding="async"
           />
         </div>
 
@@ -130,17 +134,17 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           ADVENTURE LOG
         </p>
 
-        {/* Minimalist 128px Hairline Progress */}
+        {/* Minimalist 160px Hairline Progress Track */}
         <div className="preloader-progress-track" aria-hidden="true">
           <div
             className="preloader-progress-bar"
-            style={{ transform: `scaleX(${progress / 100})` }}
+            style={{ transform: `scaleX(${displayedProgress / 100})` }}
           />
         </div>
 
-        {/* Quiet Percentage Counter */}
+        {/* Monospaced Percentage Counter */}
         <span className="preloader-counter" aria-live="polite">
-          {String(progress).padStart(2, '0')}%
+          {String(displayedProgress).padStart(2, '0')}%
         </span>
       </div>
     </aside>

@@ -1,6 +1,6 @@
 /* ==========================================================================
    Clean Editorial Preloader (The Digital Cartographer)
-   Minimal, center-staged brand identity with subtle hairline telemetry
+   Enlarged brand presence, true asset readiness, no-skip guarantee
    ========================================================================== */
 
 .preloader-curtain {
@@ -13,8 +13,8 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-xl);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
   cursor: default;
   user-select: none;
@@ -32,20 +32,19 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 380px;
+  max-width: 440px;
   width: 100%;
 }
 
-/* Official Selvagant Emblem */
+/* Official Selvagant Emblem (Scaled up for bold brand presence) */
 .preloader-emblem-wrap {
-  width: 68px;
-  height: 40px;
+  width: 88px;
+  height: 51px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-md);
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .preloader-emblem-img {
@@ -58,34 +57,35 @@
 /* Editorial Brand Label */
 .preloader-brand-title {
   font-family: var(--font-display);
-  font-size: 0.8125rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--color-ink);
   line-height: 1.2;
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
 }
 
 .preloader-brand-sub {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-olive);
-  margin: 0 0 var(--space-lg) 0;
+  margin: 0 0 var(--space-xl) 0;
   line-height: 1.2;
 }
 
-/* Minimalist Hairline Progress Track */
+/* Minimalist Hairline Progress Track (160px width, 2px height) */
 .preloader-progress-track {
-  width: 128px;
-  height: 1.5px;
+  width: 160px;
+  height: 2px;
   background-color: var(--hairline-base);
   position: relative;
   overflow: hidden;
   border-radius: 1px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .preloader-progress-bar {
@@ -93,17 +93,16 @@
   width: 100%;
   background-color: var(--color-olive);
   transform-origin: left;
-  transition: transform 0.08s linear;
+  transition: transform 0.12s linear;
 }
 
 /* Numerical Percentage */
 .preloader-counter {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--color-ink-faint);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.06em;
   line-height: 1;
 }
-
