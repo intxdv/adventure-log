@@ -392,6 +392,14 @@
   user-select: none;
 }
 
+.footer-landscape-wordmark--desktop {
+  display: flex;
+}
+
+.footer-landscape-wordmark--mobile {
+  display: none;
+}
+
 .footer-landscape-wordmark-svg {
   width: 100%;
   height: auto;
@@ -487,11 +495,16 @@
     object-position: 62% bottom;
   }
 
-  .footer-landscape-wordmark {
+  .footer-landscape-wordmark--desktop {
+    display: none !important;
+  }
+
+  .footer-landscape-wordmark--mobile {
+    display: flex !important;
     width: 90%;
     height: auto;
-    left: 50%;
-    top: 54%;
+    left: 49%;
+    top: 50%;
     transform: translate(-50%, -50%);
   }
 

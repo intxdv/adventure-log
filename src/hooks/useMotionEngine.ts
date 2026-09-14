@@ -414,26 +414,31 @@ export const useMotionEngine = () => {
             ease: 'power2.out',
           });
 
-          // Layer 2 & 4: Coordinated Finale Timeline (Aktif saat scroll mentok ke paling bawah)
+          // Layer 2 & 4: Coordinated Finale Timeline (Aktif saat landscape stage terlihat)
           // 1. SLVGNT turun berurutan dari atas ke balik bukit
           // 2. Setelah SLVGNT selesai mendarat, badge ALL RIGHTS RESERVED naik dari bawah di tengah
+          const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
+          const charTarget = isMobileViewport
+            ? '.footer-landscape-wordmark--mobile .slvgnt-char'
+            : '.footer-landscape-wordmark--desktop .slvgnt-char';
+
           const finaleTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: landscapeStage,
-              start: 'bottom-=20 bottom',
+              start: 'top+=20% bottom',
               toggleActions: 'play none none reverse',
             },
           });
 
           // Step 1: SLVGNT vector characters drop down majestically & smoothly from above
           finaleTimeline.fromTo(
-            '.slvgnt-char',
-            { y: -80, opacity: 0 },
+            charTarget,
+            { y: -60, opacity: 0 },
             {
               y: 0,
               opacity: 1,
               stagger: 0.08,
-              duration: 1.15,
+              duration: 1.0,
               ease: 'power3.out',
             },
             0
