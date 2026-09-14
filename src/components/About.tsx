@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import gsap from 'gsap';
 import './About.css';
 
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
+
+  const cardRef = useRef<HTMLElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
 
   const toggleNote = () => {
     setIsNoteOpen((prev) => !prev);
@@ -21,6 +26,65 @@ export const About: React.FC = () => {
     }
   };
 
+  // Interactive Tactile Parallax Depth on Photo & Card
+  useEffect(() => {
+    const card = cardRef.current;
+    const img = imgRef.current;
+    const logo = logoRef.current;
+    if (!card || !img) return;
+
+    if (typeof window === 'undefined') return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+    if (prefersReduced || !canHover) return;
+
+    const quickImgX = gsap.quickTo(img, 'x', { duration: 0.65, ease: 'power2.out' });
+    const quickImgY = gsap.quickTo(img, 'y', { duration: 0.65, ease: 'power2.out' });
+    const quickCardRotX = gsap.quickTo(card, 'rotateX', { duration: 0.75, ease: 'power2.out' });
+    const quickCardRotY = gsap.quickTo(card, 'rotateY', { duration: 0.75, ease: 'power2.out' });
+    const quickLogoX = logo ? gsap.quickTo(logo, 'x', { duration: 0.5, ease: 'power2.out' }) : null;
+    const quickLogoY = logo ? gsap.quickTo(logo, 'y', { duration: 0.5, ease: 'power2.out' }) : null;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+
+      // Photo drifts opposite to cursor (creates deep internal window effect)
+      quickImgX(normX * -18);
+      quickImgY(normY * -18);
+
+      // Subtle tactile card tilt in 3D perspective
+      quickCardRotY(normX * 4);
+      quickCardRotX(normY * -4);
+
+      // Frameless logo hovers slightly forward on top z-plane
+      if (quickLogoX && quickLogoY) {
+        quickLogoX(normX * 6);
+        quickLogoY(normY * 6);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      quickImgX(0);
+      quickImgY(0);
+      quickCardRotX(0);
+      quickCardRotY(0);
+      if (quickLogoX && quickLogoY) {
+        quickLogoX(0);
+        quickLogoY(0);
+      }
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   return (
     <section
       id="about"
@@ -31,11 +95,17 @@ export const About: React.FC = () => {
         
         {/* Left Column: Zine-Style Card Frame (Reference-Inspired) */}
         <div className="field-card-wrapper">
-          <figure id="field-zine-card-elem" className="field-zine-card" aria-label="Portrait: Syafiq Abiyyu Taqi">
+          <figure
+            ref={cardRef}
+            id="field-zine-card-elem"
+            className="field-zine-card"
+            aria-label="Portrait: Syafiq Abiyyu Taqi"
+          >
             <div className="field-zine-frame">
               <div className="field-zine-img-viewport">
                 {!hasImageError ? (
                   <img
+                    ref={imgRef}
                     id="field-zine-portrait-img"
                     src="/images/taki-portrait.jpg"
                     alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
@@ -58,8 +128,9 @@ export const About: React.FC = () => {
                 )}
               </div>
 
-              {/* Selvagant Emblem Logo in Top-Right Corner (like "Baca di Teras" reference) */}
+              {/* Selvagant Emblem Logo in Top-Right Corner (Frameless directly on photo) */}
               <div
+                ref={logoRef}
                 className={`field-zine-logo-badge ${isNoteOpen ? 'is-expanded' : ''}`}
                 tabIndex={0}
                 role="button"
@@ -83,25 +154,32 @@ export const About: React.FC = () => {
                   }
                 }}
               >
-                <div className="field-zine-logo-anchor">
-                  <img
-                    src="/logo/Logo SVG/Logo-white.svg"
-                    alt="Selvagant Logo Emblem"
-                    className="field-zine-logo-img"
-                    width={48}
-                    height={28}
-                  />
-                </div>
+                <img
+                  src="/logo/Logo SVG/Logo-white.svg"
+                  alt="Selvagant Logo Emblem"
+                  className="field-zine-logo-img"
+                  width={48}
+                  height={28}
+                />
 
-                {/* Floating Etymology Note Popover */}
+                {/* Floating Etymology Note Popover with Official Logo + Text SVG */}
                 <div
                   className="field-zine-note-popover"
                   role="tooltip"
                   aria-hidden={!isNoteOpen}
                 >
+                  <div className="field-zine-note-brand">
+                    <img
+                      src="/logo/Logo SVG/Logo-text-white.svg"
+                      alt="SELVAGANT"
+                      className="field-zine-note-brand-svg"
+                      width={160}
+                      height={24}
+                    />
+                    <span className="field-zine-note-tag font-mono">// ETYMOLOGY</span>
+                  </div>
                   <div className="field-zine-note-header font-mono">
                     <span>THE WANDERING <span className="selvagant-selv-accent">Selv</span></span>
-                    <span className="field-zine-note-tag">// ETYMOLOGY</span>
                   </div>
                   <p className="field-zine-note-body font-mono">
                     Evolved from the Latin <em>Solivagant</em> (one who wanders alone), condensed into <em>Slvgnt</em>, and ultimately forged into <strong>Selvagant</strong> by infusing <strong>Selv</strong>—a deliberate phonetic resonance with <em>Self</em>. A moniker capturing a solitary expedition across software craft, architecture, and conscious self-discovery.

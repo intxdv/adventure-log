@@ -126,6 +126,14 @@ export const useMotionEngine = () => {
           1.55
         );
 
+        // Subtle scroll-scrubbed vertical parallax drift on photo within frame
+        portalTimeline.fromTo(
+          '#field-zine-portrait-img',
+          { yPercent: -5 },
+          { yPercent: 5, ease: 'none', duration: 1.95 },
+          1.60
+        );
+
         // Stagger per-kata pada headline Section 2
         portalTimeline.fromTo(
           '.about-headline .about-word',
