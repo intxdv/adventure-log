@@ -46,7 +46,7 @@ export const About: React.FC = () => {
                     className="field-zine-img"
                     width={1080}
                     height={1080}
-                    loading="lazy"
+                    loading="eager"
                     onError={() => setHasImageError(true)}
                   />
                 ) : (
