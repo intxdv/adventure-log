@@ -26,52 +26,6 @@
   box-sizing: border-box;
 }
 
-/* Technical Transition Datum Line (Section Handoff) */
-.arsenal-datum-handoff {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: var(--space-xl);
-  padding-bottom: var(--space-xs);
-  user-select: none;
-  overflow: hidden;
-}
-
-.datum-marker {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  color: var(--color-ink-faint);
-  white-space: nowrap;
-}
-
-.datum-marker-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--color-olive);
-  box-shadow: 0 0 8px rgba(74, 88, 68, 0.5);
-  display: inline-block;
-}
-
-.datum-ruler-line {
-  flex: 1;
-  height: 1px;
-  background: var(--hairline-base);
-  position: relative;
-  overflow: hidden;
-  transform-origin: center center;
-}
-
-.datum-ruler-track {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, var(--color-olive) 50%, transparent 100%);
-  opacity: 0.7;
-}
 
 /* Section Header (Centered Editorial Composition) */
 .arsenal-header {

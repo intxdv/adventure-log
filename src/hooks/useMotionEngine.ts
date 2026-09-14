@@ -280,41 +280,6 @@ export const useMotionEngine = () => {
       // ======================================================================
       const arsenalSection = document.getElementById('arsenal') || document.getElementById('field-arsenal');
       if (arsenalSection) {
-        // 4a. Technical Transition Datum Line (Handoff Reveal)
-        const datumLine = arsenalSection.querySelector('.datum-ruler-line');
-        const datumMarkers = arsenalSection.querySelectorAll('.datum-marker');
-        if (datumLine && datumMarkers.length) {
-          gsap.fromTo(
-            datumLine,
-            { scaleX: 0 },
-            {
-              scaleX: 1,
-              duration: 1.0,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: arsenalSection,
-                start: 'top 88%',
-                toggleActions: 'play none none reverse',
-              },
-            }
-          );
-          gsap.fromTo(
-            datumMarkers,
-            { autoAlpha: 0, y: 8 },
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.65,
-              stagger: 0.12,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: arsenalSection,
-                start: 'top 88%',
-                toggleActions: 'play none none reverse',
-              },
-            }
-          );
-        }
 
         // 4c. Centered Header & Tagline Stagger Entrance
         gsap.fromTo(

@@ -24,21 +24,6 @@ export const FieldArsenal: React.FC = () => {
   return (
     <section id="arsenal" className="arsenal-section hairline-b" aria-labelledby="arsenal-heading">
       <div className="arsenal-container">
-        
-        {/* Technical Transition Datum Line (Handoff from Section 02 Expeditions to 03 Arsenal) */}
-        <div className="arsenal-datum-handoff font-mono" aria-hidden="true">
-          <div className="datum-marker left">
-            <span className="datum-marker-dot" />
-            <span className="datum-marker-text">[ 02 · EXPEDITIONS ARCHIVED ]</span>
-          </div>
-          <div className="datum-ruler-line">
-            <span className="datum-ruler-track" />
-          </div>
-          <div className="datum-marker right">
-            <span className="datum-marker-text">[ 03 · DEPLOYING FIELD GEAR ]</span>
-            <span className="datum-marker-dot" />
-          </div>
-        </div>
 
         {/* Section Header (Centered Editorial Composition) */}
         <header className="arsenal-header">
