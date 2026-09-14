@@ -51,11 +51,11 @@ export const SelectedExpeditions: React.FC = () => {
     if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
     programmaticTimerRef.current = setTimeout(() => {
       isProgrammaticScrollRef.current = false;
-    }, 900);
+    }, 1100);
 
     if (direction === 'down') {
-      // Gulir mulus dan ringan langsung ke Section 4 (Field Arsenal)
-      const targetScroll = stageWrapper.offsetTop + stageWrapper.offsetHeight - window.innerHeight + 80;
+      // Gulir mulus dan ringan langsung ke Section 4 (Field Arsenal) secara utuh
+      const targetScroll = stageWrapper.offsetTop + stageWrapper.offsetHeight + 4;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     } else if (direction === 'up') {
       // Gulir mulus dan ringan langsung ke Section 2 (About: resting zone)
