@@ -119,6 +119,7 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
     let activeTarget: Element | null = null;
     let currentLeaveHandler: (() => void) | null = null;
     let currentClickHandler: (() => void) | null = null;
+    let currentMutationObserver: MutationObserver | null = null;
     let resumeTimeout: ReturnType<typeof setTimeout> | null = null;
 
     const cleanupTarget = (target: Element) => {
@@ -127,6 +128,10 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
       }
       if (currentClickHandler) {
         target.removeEventListener('click', currentClickHandler);
+      }
+      if (currentMutationObserver) {
+        currentMutationObserver.disconnect();
+        currentMutationObserver = null;
       }
       currentLeaveHandler = null;
       currentClickHandler = null;
@@ -286,13 +291,23 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
         const cursorText = target.getAttribute('data-cursor-text') || target.getAttribute('data-cursor-label');
         if (labelRef.current) {
           if (cursorText) {
-            labelRef.current.textContent = cursorText;
-            gsap.to(labelRef.current, {
-              opacity: 1,
-              scale: 1,
-              duration: 0.2,
-              ease: 'power2.out'
-            });
+            // Jika teks berubah secara dinamis (misal state CLICK // EXPLODE -> CLICK // ASSEMBLE)
+            if (labelRef.current.textContent !== cursorText) {
+              labelRef.current.textContent = cursorText;
+              gsap.fromTo(
+                labelRef.current,
+                { scale: 0.90, opacity: 0.7 },
+                { scale: 1, opacity: 1, duration: 0.22, ease: 'back.out(2)' }
+              );
+            } else {
+              labelRef.current.textContent = cursorText;
+              gsap.to(labelRef.current, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.2,
+                ease: 'power2.out'
+              });
+            }
           } else {
             gsap.to(labelRef.current, { opacity: 0, scale: 0.85, duration: 0.15 });
           }
@@ -300,8 +315,18 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
       };
       updateLabel();
 
+      // MutationObserver untuk mendeteksi perubahan atribut secara instan (real-time state change tanpa re-enter)
+      const observer = new MutationObserver(() => {
+        updateLabel();
+      });
+      observer.observe(target, {
+        attributes: true,
+        attributeFilter: ['data-cursor-text', 'data-cursor-label', 'aria-label']
+      });
+      currentMutationObserver = observer;
+
       const clickHandler = () => {
-        setTimeout(updateLabel, 25);
+        setTimeout(updateLabel, 20);
       };
       currentClickHandler = clickHandler;
       target.addEventListener('click', clickHandler);
