@@ -153,6 +153,12 @@
   background: var(--color-olive, #4A5844);
 }
 
+@media (max-width: 768px) {
+  .depth-carousel__arrow {
+    display: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .depth-carousel__card {
     will-change: auto;

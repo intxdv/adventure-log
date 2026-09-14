@@ -191,7 +191,7 @@
 .hero-dynamic-title {
   margin: 0;
   line-height: 1.05;
-  color: var(--color-ink);
+  color: #121512;
   white-space: nowrap;
   position: relative;
   display: inline-block;
@@ -226,7 +226,7 @@
 .hero-bio-paragraph {
   font-size: clamp(1.05rem, 1.35vw, 1.35rem);
   line-height: 1.65;
-  color: var(--color-ink);
+  color: #121512;
   max-width: min(600px, 42vw);
   margin: 0;
   font-family: var(--font-body);
@@ -236,7 +236,7 @@
 }
 
 .hero-bio-paragraph strong {
-  color: var(--color-ink);
+  color: #000000;
   font-weight: 700;
 }
 

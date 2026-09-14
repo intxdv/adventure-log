@@ -397,6 +397,7 @@
   height: auto;
   display: block;
   overflow: visible;
+  filter: drop-shadow(0 4px 12px rgba(18, 21, 18, 0.35)) drop-shadow(0 12px 28px rgba(18, 21, 18, 0.3));
 }
 
 .slvgnt-char {
@@ -493,6 +494,7 @@
     left: 50%;
     top: 54%;
     transform: translate(-50%, -50%);
+    filter: drop-shadow(0 4px 14px rgba(14, 18, 14, 0.5)) drop-shadow(0 12px 32px rgba(14, 18, 14, 0.4));
   }
 
   .footer-stage-copyright {

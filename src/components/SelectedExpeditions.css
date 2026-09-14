@@ -1046,19 +1046,116 @@
   }
 
   .swiss-col-left {
-    padding: 0.85rem;
+    padding: 0.75rem;
+    max-height: 46vh;
+    overflow-y: auto;
   }
 
-  .swiss-col-stage {
-    padding: 0.85rem 0.85rem 80px 0.85rem;
+  .swiss-counter-reel {
+    height: 2.8rem;
   }
 
-  .swiss-depth-carousel-wrapper {
-    min-height: clamp(260px, 38vh, 340px);
+  .swiss-counter-num {
+    height: 2.8rem;
+    font-size: 2.8rem;
+  }
+
+  .swiss-editorial-summary {
+    font-size: 0.62rem;
+    line-height: 1.4;
   }
 
   .swiss-impact-callout {
-    padding: 6px 8px;
+    padding: 5px 7px;
+  }
+
+  .impact-detail {
+    font-size: 0.6rem;
+    line-height: 1.35;
+  }
+
+  .swiss-col-stage {
+    padding: 0.75rem 0.75rem 80px 0.75rem;
+    align-items: center;
+  }
+
+  .swiss-depth-carousel-wrapper {
+    min-height: clamp(240px, 35vh, 320px);
+  }
+
+  .swiss-stage-bottom-bar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .swiss-stage-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .swiss-step-nav {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .swiss-source-link {
+    margin: 0 auto;
+    font-size: 0.65rem;
+  }
+
+  .swiss-archive-highlight-btn {
+    margin: 0 auto;
+  }
+
+  /* Compact & Airy Archive Modal on Mobile */
+  .dossier-modal-backdrop {
+    padding: 12px;
+  }
+
+  .dossier-modal-container {
+    max-height: 84vh;
+  }
+
+  .dossier-modal-content {
+    padding: 1rem 0.85rem;
+  }
+
+  .archive-cards-list {
+    gap: 6px;
+  }
+
+  .archive-row-card {
+    padding: 8px 10px;
+  }
+
+  .archive-row-left {
+    gap: 8px;
+  }
+
+  .archive-row-idx {
+    font-size: 0.6rem;
+  }
+
+  .archive-row-title {
+    font-size: 0.88rem;
+  }
+
+  .archive-row-cat {
+    font-size: 0.58rem;
+    display: none;
+  }
+
+  .archive-row-btn {
+    padding: 4px 8px;
+    font-size: 0.62rem;
   }
 }
 
@@ -1072,10 +1169,10 @@
   }
 
   .swiss-project-title {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
 
   .swiss-editorial-summary {
-    font-size: 0.64rem;
+    font-size: 0.6rem;
   }
 }
