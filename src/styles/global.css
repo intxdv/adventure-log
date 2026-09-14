@@ -18,6 +18,13 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(
+    to bottom,
+    var(--color-canvas) 0%,
+    var(--color-canvas) 85%,
+    #33572f 100%
+  );
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -29,6 +36,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+  overscroll-behavior-y: none;
 }
 
 /* Paper Grain Texture Overlay (Tactile Field Feel) */

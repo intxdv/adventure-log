@@ -10,6 +10,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 100vh 0 0 #33572f;
 }
 
 /* --------------------------------------------------------------------------
@@ -337,7 +338,8 @@
   margin-top: 0;
   margin-bottom: 0;
   overflow: hidden;
-  background-color: #111411;
+  background-color: #33572f;
+  box-shadow: 0 100vh 0 0 #33572f;
   user-select: none;
 }
 
@@ -410,6 +412,7 @@
   max-width: none !important;
   max-height: none !important;
   object-fit: cover;
+  object-position: center bottom;
   z-index: 3;
   pointer-events: none;
 }
