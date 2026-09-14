@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './About.css';
 
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsProfileModalOpen(false);
+      }
+    };
+    if (isProfileModalOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isProfileModalOpen]);
 
   const toggleNote = () => {
     setIsNoteOpen((prev) => !prev);
@@ -197,7 +211,16 @@ export const About: React.FC = () => {
         <article className="about-article">
           <header>
             <div className="about-kicker">
-              <span className="tag-badge">FIELD BRIEF // 01 · PROFILE</span>
+              <button
+                type="button"
+                className="about-field-brief-btn font-mono cursor-target"
+                onClick={() => setIsProfileModalOpen(true)}
+                aria-label="Open full Field Brief Profile Dossier"
+                title="Open full Field Brief Profile Dossier"
+              >
+                <span>FIELD BRIEF // 01 · PROFILE</span>
+                <span className="about-btn-arrow" aria-hidden="true">↗</span>
+              </button>
             </div>
             
             <h2 id="about-heading" className="about-headline font-display">
@@ -277,6 +300,158 @@ export const About: React.FC = () => {
         </article>
 
       </div>
+
+      {/* Tactical Profile Field Brief Dossier Pop-up Modal */}
+      {isProfileModalOpen && (
+        <div
+          className="dossier-modal-backdrop is-stacked"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsProfileModalOpen(false);
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="profile-dossier-title"
+        >
+          <div className="dossier-modal-container hairline-box">
+            {/* Modal Top Bar */}
+            <div className="dossier-modal-top font-mono">
+              <div className="dossier-modal-header-meta">
+                <span className="dossier-index-badge">[ 01 // PROFILE ]</span>
+                <span className="dossier-meta-sep">//</span>
+                <span className="dossier-meta-tag">FIELD BRIEF &amp; ARCHITECTURAL DOSSIER</span>
+              </div>
+              <button
+                onClick={() => setIsProfileModalOpen(false)}
+                className="dossier-close-btn font-mono"
+                aria-label="Close profile dossier modal"
+                title="Close profile dossier (Esc)"
+              >
+                <span className="dossier-close-text">CLOSE [ESC]</span>
+                <span className="dossier-close-icon" aria-hidden="true">✕</span>
+              </button>
+            </div>
+
+            {/* Modal Scrollable Content */}
+            <div className="dossier-modal-body">
+              <div className="dossier-modal-content">
+                <div className="dossier-title-block">
+                  <h3 id="profile-dossier-title" className="dossier-title font-display">
+                    Creative Developer &amp; Mobile Architect.
+                  </h3>
+                  <p className="dossier-tagline">
+                    “Bridging analytical software engineering with tactile digital systems and organic exploration.”
+                  </p>
+                </div>
+
+                {/* Classification & Identity Matrix */}
+                <div className="dossier-meta-grid font-mono">
+                  <div className="dossier-meta-cell">
+                    <span className="dossier-label">CREATOR IDENTITY</span>
+                    <span className="dossier-nature-badge">TAKI (SYAFIQ ABIYYU TAQI)</span>
+                  </div>
+
+                  <div className="dossier-meta-cell">
+                    <span className="dossier-label">ACADEMIC AFFILIATION</span>
+                    <span className="dossier-team-badge is-individual">
+                      CS @ UNIVERSITAS DIPONEGORO
+                    </span>
+                  </div>
+
+                  <div className="dossier-meta-cell">
+                    <span className="dossier-label">CORE FOCUS</span>
+                    <span className="dossier-role-value">
+                      MOBILE ARCHITECTURE &amp; TACTILE WEB
+                    </span>
+                  </div>
+
+                  <div className="dossier-meta-cell">
+                    <span className="dossier-label">BASECAMP</span>
+                    <span className="dossier-timeline-value">
+                      CENTRAL JAVA, INDONESIA
+                    </span>
+                  </div>
+                </div>
+
+                {/* Section 1: Executive Dossier */}
+                <div className="dossier-section">
+                  <h4 className="dossier-section-title font-mono">
+                    <span className="dossier-sec-num">[01]</span> EXECUTIVE DOSSIER
+                  </h4>
+                  <p className="dossier-narrative-summary font-serif">
+                    Undergraduate Computer Science student at Universitas Diponegoro specializing in Software Engineering. I build resilient mobile architectures and tactile web environments where engineering rigor meets calm editorial aesthetics.
+                  </p>
+                </div>
+
+                {/* Section 2: Background & Leadership */}
+                <div className="dossier-section">
+                  <h4 className="dossier-section-title font-mono">
+                    <span className="dossier-sec-num">[02]</span> BACKGROUND &amp; COMMUNITY INITIATIVES
+                  </h4>
+                  <p className="dossier-narrative-summary font-serif">
+                    From architecting mobile solutions at UPPTI Undip to leading community initiatives at DIGIT and MADANI, every interface is approached as a deliberate expedition: eliminating unnecessary noise, establishing structural clarity, and honoring the craft.
+                  </p>
+                </div>
+
+                {/* Section 3: Etymology & Moniker */}
+                <div className="dossier-section">
+                  <h4 className="dossier-section-title font-mono">
+                    <span className="dossier-sec-num">[03]</span> ETYMOLOGY &amp; PHILOSOPHY
+                  </h4>
+                  <p className="dossier-narrative-summary font-serif">
+                    Evolved from the Latin <em>Solivagant</em> (one who wanders alone), condensed into <em>Slvgnt</em>, and ultimately forged into <strong>Selvagant</strong> by infusing <strong>Selv</strong>—a deliberate phonetic resonance with <em>Self</em>. A moniker capturing a solitary expedition across software craft, architecture, and conscious self-discovery.
+                  </p>
+                </div>
+
+                {/* Section 4: Expedition Manifesto */}
+                <div className="dossier-section">
+                  <h4 className="dossier-section-title font-mono">
+                    <span className="dossier-sec-num">[04]</span> EXPEDITION MANIFESTO
+                  </h4>
+                  <blockquote className="profile-dossier-manifesto font-display">
+                    “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman. Sebagian waktu berusaha, sebagian waktu menyesali keputusan—hingga tersadar bahwa penyesalan itu sia-sia sambil mengingat alasan berjuang—dan membawa pulang sesuatu dari wilayah eksplorasi sambil berpikir, <em>‘Ternyata tak seburuk itu.’</em>”
+                  </blockquote>
+                  <cite className="profile-dossier-cite font-mono">
+                    — Syafiq Abiyyu Taqi · Catatan Refleksi Eksplorasi
+                  </cite>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Bottom Actions */}
+            <div className="dossier-modal-footer font-mono">
+              <div className="dossier-footer-links centered">
+                <a
+                  href="https://github.com/TaqiSyafiq"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="dossier-action-btn primary"
+                  title="Open Taqi's GitHub Profile"
+                >
+                  <span>GITHUB</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href="https://linkedin.com/in/syafiq-abiyyu-taqi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="dossier-action-btn secondary"
+                  title="Open Taqi's LinkedIn Profile"
+                >
+                  <span>LINKEDIN</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <button
+                  type="button"
+                  className="dossier-action-btn secondary"
+                  onClick={() => setIsProfileModalOpen(false)}
+                >
+                  <span>CLOSE</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
