@@ -50,15 +50,15 @@ export const useMotionEngine = () => {
                 }
               }
               // Coordinate About section pointer-events interactivity (hanya aktif saat bio tampil)
-              if (self.progress >= 0.15 && self.progress < 0.31) {
+              if (self.progress >= 0.15 && self.progress < 0.33) {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
               }
 
-              // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 3 mekar hingga tertutup Section 4)
+              // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 02 mekar hingga tertutup Section 03)
               if (expeditionsSection) {
-                if (self.progress >= 0.32) {
+                if (self.progress >= 0.34) {
                   expeditionsSection.classList.add('is-active');
                 } else {
                   expeditionsSection.classList.remove('is-active');
@@ -67,15 +67,15 @@ export const useMotionEngine = () => {
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
               // Calibrated for 520vh stage (effective scroll 420vh):
-              // Mock 0: 0.320->0.430, Mock 1: 0.430->0.540, Mock 2: 0.540->0.650, Mock 3: 0.650->0.760
+              // Mock 0: 0.340->0.440, Mock 1: 0.440->0.550, Mock 2: 0.550->0.655, Mock 3: 0.655->0.760
               // At 0.760, Section 4 (Field Arsenal) smoothly slides up over Section 3
-              if (self.progress >= 0.32) {
+              if (self.progress >= 0.34) {
                 let targetExp = 0;
-                if (self.progress >= 0.65) {
+                if (self.progress >= 0.655) {
                   targetExp = 3;
-                } else if (self.progress >= 0.54) {
+                } else if (self.progress >= 0.55) {
                   targetExp = 2;
-                } else if (self.progress >= 0.43) {
+                } else if (self.progress >= 0.44) {
                   targetExp = 1;
                 } else {
                   targetExp = 0;
@@ -218,51 +218,51 @@ export const useMotionEngine = () => {
           2.40
         );
 
-        // 2. Kotak kartu putih membesar memenuhi layar sesuai 4 direksi sudut
+        // 2. Kotak kartu putih membesar memenuhi layar sesuai 4 direksi sudut hingga menutup 100% viewport
         portalTimeline.to(
           '#field-zine-card-elem',
           {
-            scale: 22,
-            duration: 0.55,
+            scale: 28,
+            duration: 0.50,
+            ease: 'power2.inOut',
+          },
+          2.55
+        );
+
+        // Background putih kanvas Section 02 menyala penuh menutup seluruh layar
+        portalTimeline.to(
+          '#expeditions-white-canvas',
+          {
+            opacity: 1,
+            duration: 0.45,
             ease: 'power2.inOut',
           },
           2.60
         );
 
-        // Background putih kanvas Section 3 menyala penuh
-        portalTimeline.to(
-          '#expeditions-white-canvas',
-          {
-            opacity: 1,
-            duration: 0.40,
-            ease: 'power2.inOut',
-          },
-          2.65
+        // Enable visibility & pointer events on expeditions stage tepat saat tertutup sempurna
+        portalTimeline.set(
+          '#expeditions',
+          { visibility: 'visible', pointerEvents: 'auto' },
+          3.06
         );
 
+        // Sembunyikan Section 01 (#about) sepenuhnya setelah background putih menutupi 100% layar
+        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 3.08);
+
+        // 3. BARU MUNCUL KONTEN SECTION 02 SETELAH LAYAR TERTUTUP 100% SEMPURNA! (t >= 3.12)
         // Swiss Editorial Showcase Container Fade-In
         portalTimeline.fromTo(
           '#expeditions-swiss-container',
-          { opacity: 0, y: 20 },
+          { opacity: 0, y: 24 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.35,
+            duration: 0.45,
             ease: 'power2.out',
           },
-          2.75
+          3.12
         );
-
-        // Enable visibility & pointer events on expeditions stage
-        portalTimeline.fromTo(
-          '#expeditions',
-          { visibility: 'hidden', pointerEvents: 'none' },
-          { visibility: 'visible', pointerEvents: 'auto', duration: 0.01 },
-          2.50
-        );
-
-        // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
-        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 3.20);
 
         // ----------------------------------------------------------------------
         // 1e. Swiss Editorial Showcase: Timeline pacing (t = 3.20 -> 8.30)
