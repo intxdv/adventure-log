@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import './TacticalNav.css';
 
 export interface NavSection {
@@ -28,73 +28,112 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
   const [activeId, setActiveId] = useState<string>(sections[0]?.id || 'hero');
   const [scrollPct, setScrollPct] = useState<number>(0);
   const [altimeter, setAltimeter] = useState<number>(280);
+  const [navFloatIdx, setNavFloatIdx] = useState<number>(0);
+  const [pipCoords, setPipCoords] = useState<number[]>([22, 86, 150, 214, 278]);
+
+  const spineRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+
+  const measurePips = useCallback(() => {
+    if (!spineRef.current) return;
+    const spineRect = spineRef.current.getBoundingClientRect();
+    const pipEls = spineRef.current.querySelectorAll('.tactical-nav-pip');
+    if (pipEls.length >= sections.length) {
+      const coords = Array.from(pipEls).map((pip) => {
+        const rect = pip.getBoundingClientRect();
+        return rect.top + rect.height / 2 - spineRect.top;
+      });
+      setPipCoords(coords);
+    }
+  }, [sections.length]);
 
   useEffect(() => {
+    measurePips();
+    const timer = setTimeout(measurePips, 150);
+
     const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? Math.min(100, Math.max(0, Math.round((scrollY / docHeight) * 100))) : 0;
-      setScrollPct(pct);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? Math.min(100, Math.max(0, Math.round((scrollY / docHeight) * 100))) : 0;
+        setScrollPct(pct);
 
-      // Dynamic altimeter mapping (from 280m to 3142m peak)
-      const currentAlt = Math.round(280 + (pct / 100) * (3142 - 280));
-      setAltimeter(currentAlt);
+        // Dynamic altimeter mapping (from 280m to 3142m peak)
+        const currentAlt = Math.round(280 + (pct / 100) * (3142 - 280));
+        setAltimeter(currentAlt);
 
-      const stageWrapper = document.getElementById('hero-stage-wrapper');
-      const footerEl = document.getElementById('footer');
+        const stageWrapper = document.getElementById('hero-stage-wrapper');
 
-      // 1. Footer check (bottom of document or footer scrolled well into view)
-      if (docHeight > 0 && scrollY >= docHeight - 120) {
-        setActiveId('footer');
-        return;
-      }
-      if (footerEl) {
-        const footerRect = footerEl.getBoundingClientRect();
-        if (footerRect.top <= window.innerHeight * 0.55) {
-          setActiveId('footer');
-          return;
-        }
-      }
+        // Continuous float progress across the 5 sections (0.0 -> 4.0)
+        let floatProgress = 0;
 
-      // 2. Stage wrapper check (Hero, About, Expeditions inside pinned stage)
-      if (stageWrapper) {
-        const stageTop = stageWrapper.offsetTop;
-        const stageHeight = stageWrapper.offsetHeight;
-        const maxScroll = stageHeight - window.innerHeight;
+        if (stageWrapper) {
+          const stageTop = stageWrapper.offsetTop;
+          const stageHeight = stageWrapper.offsetHeight;
+          const maxScroll = stageHeight - window.innerHeight;
 
-        // Passed stageWrapper: entered Section 03 (Field Arsenal)
-        if (scrollY >= stageTop + maxScroll - 8) {
-          setActiveId('arsenal');
-          return;
-        }
+          if (scrollY < stageTop + maxScroll) {
+            const stageProgress = maxScroll > 0 ? Math.max(0, scrollY - stageTop) / maxScroll : 0;
 
-        // Inside stageWrapper: evaluate timeline progress
-        const stageProgress = maxScroll > 0 ? (scrollY - stageTop) / maxScroll : 0;
-
-        if (stageProgress < 0.08) {
-          setActiveId('hero');
-        } else if (stageProgress < 0.31) {
-          setActiveId('about');
-        } else if (stageProgress < 0.76) {
-          setActiveId('expeditions');
+            if (stageProgress <= 0.19) {
+              // 0 (Hero) -> 1 (About)
+              floatProgress = Math.min(1.0, stageProgress / 0.19);
+            } else if (stageProgress <= 0.44) {
+              // 1 (About) -> 2 (Expeditions)
+              floatProgress = 1.0 + Math.min(1.0, (stageProgress - 0.19) / 0.25);
+            } else if (stageProgress <= 0.76) {
+              // Resting in Expeditions 4 mockups
+              floatProgress = 2.0;
+            } else {
+              // 2 (Expeditions) -> 3 (Arsenal)
+              floatProgress = 2.0 + Math.min(1.0, (stageProgress - 0.76) / 0.24);
+            }
+          } else {
+            // Past stageWrapper: 3 (Arsenal) -> 4 (Footer)
+            const arsenalStart = stageTop + maxScroll;
+            const footerDist = Math.max(1, docHeight - arsenalStart);
+            const postScroll = Math.min(footerDist, Math.max(0, scrollY - arsenalStart));
+            floatProgress = 3.0 + postScroll / footerDist;
+          }
         } else {
-          setActiveId('arsenal');
+          floatProgress = docHeight > 0 ? (scrollY / docHeight) * 4.0 : 0;
         }
-        return;
-      }
 
-      setActiveId(sections[0]?.id || 'hero');
+        const clampedFloat = Math.max(0, Math.min(4.0, floatProgress));
+        setNavFloatIdx(clampedFloat);
+
+        // Determine activeId based on rounded threshold for labels & dark theme
+        if (clampedFloat < 0.5) {
+          setActiveId('hero');
+        } else if (clampedFloat < 1.5) {
+          setActiveId('about');
+        } else if (clampedFloat < 2.5) {
+          setActiveId('expeditions');
+        } else if (clampedFloat < 3.5) {
+          setActiveId('arsenal');
+        } else {
+          setActiveId('footer');
+        }
+      });
+    };
+
+    const onResize = () => {
+      measurePips();
+      handleScroll();
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener('resize', onResize);
     handleScroll();
 
     return () => {
+      clearTimeout(timer);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('resize', onResize);
     };
-  }, [sections]);
+  }, [sections, measurePips]);
 
   const handleNavClick = (id: string) => {
     const stageWrapper = document.getElementById('hero-stage-wrapper');
@@ -132,6 +171,24 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
 
   const currentSection = sections.find((s) => s.id === activeId) || sections[0];
 
+  // Dynamic coordinates for living spine line
+  const currentSegIdx = Math.min(sections.length - 2, Math.floor(navFloatIdx));
+  const segFraction = navFloatIdx - currentSegIdx;
+
+  let currentSpineY = pipCoords[0] ?? 22;
+  if (pipCoords.length >= sections.length) {
+    if (navFloatIdx >= sections.length - 1) {
+      currentSpineY = pipCoords[sections.length - 1];
+    } else {
+      const startY = pipCoords[currentSegIdx];
+      const endY = pipCoords[currentSegIdx + 1];
+      currentSpineY = startY + segFraction * (endY - startY);
+    }
+  }
+
+  const activeSegmentStartY = pipCoords[currentSegIdx] ?? currentSpineY;
+  const isTransitioning = segFraction > 0.03 && segFraction < 0.97;
+
   return (
     <>
       {/* Desktop Vertical Rail */}
@@ -143,15 +200,60 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         </div>
 
         {/* Nav Items on the Vertical Ruler */}
-        <div className="tactical-nav-spine">
-          {sections.map((sec) => {
+        <div className="tactical-nav-spine" ref={spineRef}>
+          {/* Living Dynamic Spine Line */}
+          <svg className="tactical-spine-svg" aria-hidden="true">
+            {/* 1. Subtle Inactive Guide Line from first to last pip */}
+            {pipCoords.length >= 2 && (
+              <line
+                x1="5.5"
+                y1={pipCoords[0]}
+                x2="5.5"
+                y2={pipCoords[pipCoords.length - 1]}
+                className="tactical-spine-track"
+              />
+            )}
+
+            {/* 2. Explored Path: Solid Active Line */}
+            {pipCoords.length >= 2 && currentSpineY > pipCoords[0] && (
+              <line
+                x1="5.5"
+                y1={pipCoords[0]}
+                x2="5.5"
+                y2={currentSpineY}
+                className="tactical-spine-active-line"
+              />
+            )}
+
+            {/* 3. Living Active Energy Beam (Between current and next dot) */}
+            {pipCoords.length >= 2 && isTransitioning && (
+              <>
+                <line
+                  x1="5.5"
+                  y1={activeSegmentStartY}
+                  x2="5.5"
+                  y2={currentSpineY}
+                  className="tactical-spine-living-beam"
+                />
+                <circle
+                  cx="5.5"
+                  cy={currentSpineY}
+                  r="2.5"
+                  className="tactical-spine-beacon"
+                />
+              </>
+            )}
+          </svg>
+
+          {sections.map((sec, idx) => {
             const isActive = activeId === sec.id;
+            const isApproaching = isTransitioning && currentSegIdx + 1 === idx;
 
             return (
               <button
                 key={sec.id}
                 onClick={() => handleNavClick(sec.id)}
-                className={`tactical-nav-item cursor-target ${isActive ? 'active' : ''}`}
+                className={`tactical-nav-item cursor-target ${isActive ? 'active' : ''} ${isApproaching ? 'approaching' : ''}`}
                 data-hover-reveal="section-reveal"
                 data-cursor-label={`GOTO ${sec.index}`}
                 aria-label={`Jump to ${sec.label}`}
