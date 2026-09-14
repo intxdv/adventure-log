@@ -1178,9 +1178,29 @@
   }
 
   .dossier-modal-header-meta {
-    font-size: 0.65rem;
-    gap: 6px;
-    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: clamp(0.56rem, 2.3vw, 0.65rem);
+    gap: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .dossier-modal-header-meta .dossier-meta-sep {
+    display: none !important;
+  }
+
+  .dossier-index-badge {
+    text-align: left;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .dossier-meta-tag {
+    text-align: right;
+    line-height: 1.25;
+    flex: 1;
   }
 
   .dossier-modal-content {
