@@ -276,56 +276,111 @@ export const useMotionEngine = () => {
       }
 
       // ======================================================================
-      // 4. SELECTED EXPEDITIONS -> FIELD ARSENAL TRANSITION (CURTAIN SHEET OVERLAP)
+      // 4. SELECTED EXPEDITIONS -> FIELD ARSENAL TRANSITION (DOSSIER SHEET OVERLAP)
       // ======================================================================
       const arsenalSection = document.getElementById('arsenal') || document.getElementById('field-arsenal');
       if (arsenalSection) {
-        // 4a. Header & Tagline Stagger Entrance
+        // 4a. Spatial Depth Push on previous section (Selected Expeditions)
+        // Recedes and softens slightly as Field Arsenal curtain sheet glides over it
+        const expeditionsContainer = document.getElementById('expeditions-swiss-container');
+        if (expeditionsContainer) {
+          gsap.to(expeditionsContainer, {
+            scale: 0.97,
+            autoAlpha: 0.45,
+            y: -24,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: arsenalSection,
+              start: 'top bottom',
+              end: 'top 35%',
+              scrub: 0.6,
+            },
+          });
+        }
+
+        // 4b. Technical Transition Datum Line (Handoff Reveal)
+        const datumLine = arsenalSection.querySelector('.datum-ruler-line');
+        const datumMarkers = arsenalSection.querySelectorAll('.datum-marker');
+        if (datumLine && datumMarkers.length) {
+          gsap.fromTo(
+            datumLine,
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              duration: 1.0,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: arsenalSection,
+                start: 'top 88%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+          gsap.fromTo(
+            datumMarkers,
+            { autoAlpha: 0, y: 8 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.65,
+              stagger: 0.12,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: arsenalSection,
+                start: 'top 88%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        }
+
+        // 4c. Centered Header & Tagline Stagger Entrance
         gsap.fromTo(
           '.arsenal-header > *',
-          { opacity: 0, y: 26 },
+          { autoAlpha: 0, y: 28 },
           {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
             stagger: 0.08,
-            duration: 0.75,
+            duration: 0.85,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: arsenalSection,
-              start: 'top 82%',
+              start: 'top 80%',
               toggleActions: 'play none none reverse',
             },
           }
         );
 
-        // 4b. Pillar Tab Buttons Entrance
+        // 4d. Pillar Tab Buttons Stagger Entrance
         gsap.fromTo(
           '.arsenal-tab-btn',
-          { opacity: 0, y: 16 },
+          { autoAlpha: 0, y: 16 },
           {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
             stagger: 0.06,
             duration: 0.55,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: '.arsenal-control-bar',
-              start: 'top 86%',
+              start: 'top 85%',
               toggleActions: 'play none none reverse',
             },
           }
         );
 
-        // 4c. Accordion Gallery Panels 3D Stagger Reveal (Curtain Sheet Unfold)
+        // 4e. Accordion Gallery Panels 3D Stagger Reveal (Curtain Sheet Unfold)
         gsap.fromTo(
           '.ag-panel',
-          { opacity: 0, y: 44, scale: 0.95 },
+          { autoAlpha: 0, y: 48, scale: 0.96, rotateX: 6 },
           {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
             scale: 1,
-            stagger: 0.12,
-            duration: 0.85,
+            rotateX: 0,
+            stagger: 0.14,
+            duration: 0.95,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: '.arsenal-gallery-wrapper',
