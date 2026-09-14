@@ -26,9 +26,10 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
     // 3/4 Isometric Perspective Angle looking down at the open face
     // Dial face is +Y, Ring is at -Z (upper-right when rotated)
+    // Generous frustum margin to ensure zero canvas edge clipping
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0.0, 7.8, 8.4);
-    camera.lookAt(0.0, 0.45, -0.6);
+    camera.position.set(0.0, 9.0, 9.8);
+    camera.lookAt(0.0, 0.45, -0.1);
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -122,8 +123,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         compassRoot.rotation.x = THREE.MathUtils.degToRad(8);
         compassRoot.rotation.y = THREE.MathUtils.degToRad(-38);
         compassRoot.rotation.z = THREE.MathUtils.degToRad(4);
-        compassRoot.position.set(0.0, -0.3, 0.0);
-        compassRoot.scale.setScalar(1.05);
+        compassRoot.position.set(0.0, 0.0, 0.0);
+        compassRoot.scale.setScalar(1.0);
 
         scene.add(compassRoot);
         setIsLoaded(true);

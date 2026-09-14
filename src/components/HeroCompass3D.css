@@ -3,8 +3,8 @@
   right: clamp(20px, 6vw, 110px);
   top: 50%;
   transform: translateY(-50%);
-  width: clamp(300px, 34vw, 470px);
-  height: clamp(300px, 34vw, 470px);
+  width: clamp(320px, 36vw, 490px);
+  height: clamp(320px, 36vw, 490px);
   pointer-events: none;
   z-index: 1;
   opacity: 0;
