@@ -120,35 +120,46 @@
   }
 
   .about-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
     text-align: center;
   }
 
   .about-article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-    margin-top: 10px;
+    display: contents;
+  }
+
+  .about-article header {
+    display: contents;
+  }
+
+  .about-headline {
+    order: 1;
+    font-size: clamp(1.2rem, 4.8vw, 1.6rem) !important;
+    margin-bottom: 2px !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    padding: 0 clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .field-card-wrapper {
+    order: 2;
+    max-width: min(290px, 80vw);
+    margin: 0 auto;
+    width: 100%;
   }
 
   .about-kicker {
-    margin-bottom: 6px;
+    order: 3;
+    margin-top: 4px;
+    margin-bottom: 0;
   }
 
   .about-article .about-lead,
   .about-article .about-body {
     display: none !important;
-  }
-
-  .about-headline {
-    font-size: clamp(1.3rem, 5vw, 1.75rem) !important;
-    margin-bottom: 0 !important;
-    max-width: 100% !important;
-    text-align: center !important;
   }
 
   .field-card-wrapper {

@@ -212,7 +212,7 @@ export const useMotionEngine = () => {
 
         // Bio editorial, headline meredup keluar
         portalTimeline.to(
-          '.about-article',
+          '.about-article, .about-headline, .about-kicker',
           {
             opacity: 0,
             y: -20,
