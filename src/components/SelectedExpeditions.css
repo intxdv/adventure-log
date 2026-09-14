@@ -1162,14 +1162,23 @@
   .swiss-left-bottom {
     margin-top: 0;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
   }
 
-  .swiss-dossier-btn {
-    width: 100%;
+  .swiss-dossier-btn,
+  .swiss-all-projects-btn {
+    flex: 1 1 0;
+    width: auto;
     justify-content: center;
-    padding: 8px 14px;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
+    padding: 8px 8px;
+    font-size: clamp(0.62rem, 2.5vw, 0.72rem);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    box-sizing: border-box;
   }
 
   .swiss-col-stage {
