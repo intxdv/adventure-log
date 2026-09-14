@@ -9,7 +9,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   padding-top: var(--space-4xl);
-  padding-bottom: clamp(24rem, 45vh, 38rem);
+  padding-bottom: clamp(7rem, 12vh, 11rem);
   padding-left: 0;
   padding-right: 0;
   position: relative;
@@ -139,7 +139,7 @@
 @media (max-width: 768px) {
   .arsenal-section {
     padding-top: var(--space-3xl);
-    padding-bottom: clamp(12rem, 25vh, 18rem);
+    padding-bottom: clamp(3.5rem, 6vh, 5rem);
     padding-left: 0;
     padding-right: 0;
   }
