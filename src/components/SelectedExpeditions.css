@@ -47,7 +47,10 @@
   width: 100%;
   max-width: 1540px;
   margin: 0 auto;
-  padding: clamp(1rem, 2.5vh, 2.2rem) clamp(1.2rem, 3.5vw, 3.5rem);
+  padding-top: var(--space-4xl);
+  padding-bottom: clamp(0.8rem, 1.8vh, 1.6rem);
+  padding-left: clamp(1.2rem, 3.5vw, 3.5rem);
+  padding-right: clamp(1.2rem, 3.5vw, 3.5rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -82,7 +85,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: clamp(0.4rem, 1vh, 0.8rem);
-  margin-top: 12px;
+  margin-top: 0;
 }
 
 .swiss-header-left,
