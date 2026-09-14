@@ -168,11 +168,6 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
       assembleTimeline = gsap.timeline({
         delay: 0.18,
-        onComplete: () => {
-          if (svgRef.current && !isManualExploded) {
-            svgRef.current.style.display = 'none';
-          }
-        },
       });
 
       // 1. Drafting Compass 360 Circle Draw (~0.42s)
@@ -539,7 +534,6 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         animState.rootScale = initialScale;
         animState.circleOpacity = 0.0;
         assembleTimeline?.kill();
-        if (svgRef.current && !isManualExploded) svgRef.current.style.display = 'none';
       }
 
       // If user scrolls during manual explode, rapidly collapse it
@@ -745,14 +739,10 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           [calloutLensRef, calloutNeedleRef, calloutDialRef, calloutCasingRef, calloutRingRef].forEach((ref) => {
             if (ref.current) ref.current.style.opacity = String(calloutsOpacity);
           });
-          svgRef.current.style.display = 'block';
         } else {
           [calloutLensRef, calloutNeedleRef, calloutDialRef, calloutCasingRef, calloutRingRef].forEach((ref) => {
             if (ref.current) ref.current.style.opacity = '0';
           });
-          if (svgRef.current && animState.circleOpacity <= 0.01 && !isManualExploded) {
-            svgRef.current.style.display = 'none';
-          }
         }
       }
 
