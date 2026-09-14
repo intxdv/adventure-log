@@ -57,7 +57,7 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(460px, 580px) 1fr;
+  grid-template-columns: minmax(420px, 520px) 1fr;
   gap: clamp(2.5rem, 5vw, 5rem);
   align-items: center;
 }
@@ -105,14 +105,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  max-width: 580px;
+  max-width: 520px;
   width: 100%;
 }
 
 @media (max-width: 960px) {
   .field-card-wrapper {
     margin: 0 auto;
-    max-width: 520px;
+    max-width: 480px;
     width: 100%;
   }
 }
