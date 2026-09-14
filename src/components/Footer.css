@@ -331,10 +331,7 @@
 .footer-landscape-stage {
   position: relative;
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 100vh;
-  min-height: 100dvh;
+  aspect-ratio: 2752 / 1515;
   margin-top: 0;
   margin-bottom: 0;
   overflow: hidden;
@@ -474,10 +471,7 @@
   }
 
   .footer-landscape-stage {
-    height: 100vh;
-    height: 100dvh;
-    min-height: 100vh;
-    min-height: 100dvh;
+    aspect-ratio: 2752 / 1515;
     margin-top: 0;
   }
 
