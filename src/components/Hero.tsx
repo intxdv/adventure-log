@@ -389,10 +389,10 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             <span className="hero-bio-word">exploration.</span>
           </p>
         </div>
-      </div>
 
-      {/* 3. Interactive Real-Time 3D Compass Asset (Full-Bleed Stage Canvas) */}
-      <HeroCompass3D isVisible={hasStartedLoop} />
+        {/* 3. Interactive Real-Time 3D Compass Asset */}
+        <HeroCompass3D isVisible={hasStartedLoop} />
+      </div>
     </section>
   );
 };
