@@ -6,7 +6,7 @@
 .arsenal-section {
   margin-top: -100vh;
   padding-top: var(--space-4xl);
-  padding-bottom: clamp(9rem, 16vh, 13rem);
+  padding-bottom: clamp(16rem, 28vh, 24rem);
   padding-left: 0;
   padding-right: 0;
   position: relative;
@@ -184,7 +184,7 @@
 @media (max-width: 768px) {
   .arsenal-section {
     padding-top: var(--space-3xl);
-    padding-bottom: clamp(5.5rem, 10vh, 7.5rem);
+    padding-bottom: clamp(8rem, 15vh, 12rem);
     padding-left: 0;
     padding-right: 0;
   }
