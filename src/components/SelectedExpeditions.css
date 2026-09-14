@@ -14,11 +14,17 @@
   align-self: start;
   background: transparent;
   overflow: hidden;
+  visibility: hidden;
   pointer-events: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
+}
+
+.expeditions-perspective-stage.is-active {
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* 0. Expanding White/Neutral Canvas (Base for Section 3) */

@@ -10,21 +10,9 @@ export const useMotionEngine = () => {
     let footerMouseMoveHandler: ((e: MouseEvent) => void) | null = null;
 
     const ctx = gsap.context(() => {
-      // 0. Accessible Fallback for Reduced Motion (WCAG 2.3.3 & Level AAA compliance)
+      // 0. Accessible Fallback for Reduced Motion
       if (prefersReducedMotion) {
-        gsap.set('#expeditions-white-canvas, #expeditions-swiss-container', {
-          opacity: 1,
-          visibility: 'visible',
-          y: 0,
-        });
-        gsap.set('#expeditions', { pointerEvents: 'auto' });
-        gsap.set('.arsenal-header > *, .arsenal-tab-btn, .ag-panel', {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-        });
         gsap.set('#top-notch-header', { opacity: 1, visibility: 'visible' });
-        return;
       }
 
       // ======================================================================
@@ -33,6 +21,7 @@ export const useMotionEngine = () => {
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       const aboutSection = document.getElementById('about');
       const notchHeader = document.getElementById('top-notch-header');
+      const expeditionsSection = document.getElementById('expeditions');
 
       if (stageWrapper && aboutSection) {
         let currentExpIndex = -1;
@@ -59,6 +48,15 @@ export const useMotionEngine = () => {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
+              }
+
+              // Coordinate Expeditions stage visibility & interactivity (hanya aktif saat Section 3 mekar)
+              if (expeditionsSection) {
+                if (self.progress >= 0.44) {
+                  expeditionsSection.classList.add('is-active');
+                } else {
+                  expeditionsSection.classList.remove('is-active');
+                }
               }
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
@@ -248,8 +246,13 @@ export const useMotionEngine = () => {
           5.80
         );
 
-        // Enable pointer events on expeditions stage
-        portalTimeline.set('#expeditions', { pointerEvents: 'auto' }, 6.00);
+        // Enable visibility & pointer events on expeditions stage
+        portalTimeline.fromTo(
+          '#expeditions',
+          { visibility: 'hidden', pointerEvents: 'none' },
+          { visibility: 'visible', pointerEvents: 'auto', duration: 0.01 },
+          5.40
+        );
 
         // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
         portalTimeline.set('#about', { opacity: 0 }, 6.20);

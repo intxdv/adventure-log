@@ -320,6 +320,12 @@ export const DepthCarousel = ({
     if (!el) return;
 
     const onWheel = (e: WheelEvent) => {
+      // Guard: only intercept wheel events if the parent stage is active (visible & interactive)
+      const stage = el.closest('.expeditions-perspective-stage') || el.closest('#expeditions');
+      if (stage && !stage.classList.contains('is-active')) {
+        return;
+      }
+
       const cfg = cfgRef.current;
       if (cfg.count < 2) return;
 

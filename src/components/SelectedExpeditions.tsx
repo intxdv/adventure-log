@@ -252,7 +252,7 @@ export const SelectedExpeditions: React.FC = () => {
                 showControls={true}
                 showIndicators={false}
                 activeIndex={activeIndex}
-                onChange={(idx) => goToProject(idx, true)}
+                onChange={(idx) => goToProject(idx, false)}
                 onBoundaryCross={handleBoundaryCross}
               />
             </div>
