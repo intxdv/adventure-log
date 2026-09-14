@@ -374,6 +374,15 @@
     width: calc(100vw - 48px);
     right: -10px;
   }
+
+  .field-zine-logo-badge {
+    top: 14px;
+    right: 14px;
+  }
+
+  .field-zine-logo-img {
+    width: clamp(52px, 14vw, 68px);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -442,8 +451,8 @@
    -------------------------------------------------------------------------- */
 .field-zine-logo-badge {
   position: absolute;
-  top: clamp(14px, 3.2%, 22px);
-  right: clamp(14px, 3.2%, 22px);
+  top: clamp(16px, 3.8%, 28px);
+  right: clamp(16px, 3.8%, 28px);
   z-index: 15;
   cursor: pointer;
   outline: none;
@@ -457,10 +466,10 @@
 }
 
 .field-zine-logo-img {
-  width: clamp(44px, 3.5vw, 56px);
+  width: clamp(64px, 5.5vw, 86px);
   height: auto;
   display: block;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.75));
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.75));
   transition: transform 0.35s var(--ease-out-expo), filter 0.35s ease;
   pointer-events: auto;
 }

@@ -110,8 +110,8 @@ export const About: React.FC = () => {
                   src="/logo/Logo SVG/Logo-white.svg"
                   alt="Selvagant Logo Emblem"
                   className="field-zine-logo-img"
-                  width={48}
-                  height={28}
+                  width={72}
+                  height={42}
                 />
 
                 {/* Floating Etymology Note Popover with Official Logo + Text SVG */}
