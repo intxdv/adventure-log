@@ -847,6 +847,7 @@
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .dossier-footer-links.centered {
@@ -1167,8 +1168,38 @@
     max-height: 84vh;
   }
 
+  .dossier-modal-top {
+    padding: 10px 14px;
+  }
+
+  /* Relocate Close Button to bottom on Mobile viewports */
+  .dossier-modal-top .dossier-close-btn {
+    display: none !important;
+  }
+
+  .dossier-modal-header-meta {
+    font-size: 0.65rem;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
   .dossier-modal-content {
     padding: 1rem 0.85rem;
+  }
+
+  .dossier-modal-footer {
+    padding: 10px 14px;
+  }
+
+  .dossier-footer-links {
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dossier-action-btn {
+    padding: 8px 14px;
+    font-size: 0.7rem;
   }
 
   .archive-cards-list {

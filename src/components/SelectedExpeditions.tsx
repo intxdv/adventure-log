@@ -669,6 +669,14 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({
                 <span aria-hidden="true">↗</span>
               </a>
             )}
+            <button
+              type="button"
+              className="dossier-action-btn secondary"
+              onClick={onClose}
+              aria-label={isFromArchive ? "Close project detail and return to archive" : "Close dossier modal"}
+            >
+              <span>CLOSE</span>
+            </button>
           </div>
         </div>
       </div>
@@ -753,6 +761,20 @@ const CompleteArchiveModal: React.FC<CompleteArchiveModalProps> = ({
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Modal Bottom Actions */}
+        <div className="dossier-modal-footer font-mono">
+          <div className="dossier-footer-links centered">
+            <button
+              type="button"
+              className="dossier-action-btn secondary"
+              onClick={onClose}
+              aria-label="Close archive modal"
+            >
+              <span>CLOSE</span>
+            </button>
           </div>
         </div>
       </div>
