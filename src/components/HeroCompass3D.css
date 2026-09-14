@@ -1,0 +1,71 @@
+.hero-compass-3d-wrapper {
+  position: absolute;
+  right: clamp(20px, 6vw, 110px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(300px, 34vw, 470px);
+  height: clamp(300px, 34vw, 470px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-compass-3d-wrapper.is-visible {
+  opacity: 0.88;
+}
+
+.hero-compass-3d-wrapper.is-model-ready {
+  opacity: 0.95;
+}
+
+.hero-compass-3d-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  outline: none;
+  filter: drop-shadow(0 20px 32px rgba(24, 26, 24, 0.08));
+}
+
+/* Tactical Coordinate Readout Overlay (Bottom of 3D Canvas) */
+.hero-compass-3d-telemetry {
+  position: absolute;
+  bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-muted);
+  opacity: 0.72;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.hero-compass-3d-tag {
+  color: var(--color-olive);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.hero-compass-3d-fix {
+  font-size: 0.62rem;
+  opacity: 0.85;
+}
+
+/* Responsiveness on Small Screens */
+@media (max-width: 900px) {
+  .hero-compass-3d-wrapper {
+    right: 50%;
+    transform: translate(50%, -50%);
+    opacity: 0.35 !important;
+    width: clamp(260px, 60vw, 360px);
+    height: clamp(260px, 60vw, 360px);
+    filter: blur(0.5px);
+  }
+}

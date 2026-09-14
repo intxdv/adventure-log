@@ -256,134 +256,13 @@
   transform: translateY(0);
 }
 
-/* 3. Atmospheric Background Compass (Fixed on Page / Layer Belakang) */
-.hero-compass-backdrop {
-  position: absolute;
-  right: clamp(24px, 7vw, 120px);
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.85s ease;
-  user-select: none;
-  will-change: opacity;
-}
-
-.hero-compass-backdrop.is-visible {
-  opacity: 0.55;
-}
-
-.hero-compass-dial {
-  width: clamp(280px, 32vw, 440px);
-  height: clamp(280px, 32vw, 440px);
-  border-radius: 50%;
-  border: 1px solid var(--hairline-base);
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.7) 0%, rgba(247, 246, 242, 0.3) 70%, transparent 100%);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 40px rgba(24, 26, 24, 0.04);
-}
-
-/* Concentric Inner Ring */
-.hero-compass-dial::before {
-  content: "";
-  position: absolute;
-  width: 78%;
-  height: 78%;
-  border-radius: 50%;
-  border: 1px dashed var(--hairline-subtle);
-  animation: compassSlowSpin 140s linear infinite;
-}
-
-/* Core Reticle Ring */
-.hero-compass-dial::after {
-  content: "";
-  position: absolute;
-  width: 46%;
-  height: 46%;
-  border-radius: 50%;
-  border: 1px solid rgba(74, 88, 68, 0.2);
-}
-
-@keyframes compassSlowSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Cardinal Points (N, E, S, W) */
-.hero-compass-cardinal {
-  position: absolute;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--color-ink-muted);
-  letter-spacing: 0.1em;
-}
-
-.hero-compass-cardinal.n { top: 12px; color: var(--color-olive); }
-.hero-compass-cardinal.s { bottom: 12px; }
-.hero-compass-cardinal.e { right: 14px; }
-.hero-compass-cardinal.w { left: 14px; }
-
-/* Compass Center Hub */
-.hero-compass-hub {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  z-index: 2;
-  gap: 6px;
-}
-
-.hero-compass-needle-ring {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid var(--color-olive);
-  position: relative;
-}
-
-.hero-compass-needle-ring::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background-color: var(--color-olive);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.hero-compass-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
-  color: var(--color-olive);
-  text-transform: uppercase;
-}
-
-.hero-compass-coords {
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: var(--color-ink-faint);
-}
+/* 3. 3D Compass Asset is styled in HeroCompass3D.css */
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
   .hero-body-container {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .hero-compass-backdrop {
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    margin-top: var(--space-2xl);
-    opacity: 0.45;
   }
 }
 
@@ -413,10 +292,5 @@
 
   .hero-dynamic-title {
     white-space: normal;
-  }
-
-  .hero-compass-dial {
-    width: 220px;
-    height: 220px;
   }
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useWibTime } from '../hooks/useWibTime';
+import { HeroCompass3D } from './HeroCompass3D';
 import './Hero.css';
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -113,8 +114,8 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         ease: 'power2.out',
       });
 
-      gsap.to('.hero-compass-backdrop', {
-        opacity: 0.55,
+      gsap.to('.hero-compass-3d-wrapper', {
+        opacity: 0.95,
         duration: 0.85,
         ease: 'power2.out',
       });
@@ -389,21 +390,8 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           </p>
         </div>
 
-        {/* 3. Atmospheric Background Compass Dial (Fixed Position di Layer Belakang) */}
-        <div className={`hero-compass-backdrop ${hasStartedLoop ? 'is-visible' : ''}`} aria-hidden="true">
-          <div className="hero-compass-dial" id="hero-compass-dial">
-            <span className="hero-compass-cardinal n">N</span>
-            <span className="hero-compass-cardinal e">E</span>
-            <span className="hero-compass-cardinal s">S</span>
-            <span className="hero-compass-cardinal w">W</span>
-
-            <div className="hero-compass-hub">
-              <div className="hero-compass-needle-ring" />
-              <span className="hero-compass-label font-mono">COMPASS SENSOR</span>
-              <span className="hero-compass-coords font-mono">7.05°S // 110.44°E</span>
-            </div>
-          </div>
-        </div>
+        {/* 3. Interactive Real-Time 3D Compass Asset */}
+        <HeroCompass3D isVisible={hasStartedLoop} />
       </div>
     </section>
   );
