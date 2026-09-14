@@ -203,12 +203,25 @@ export const DepthCarousel = ({
         ry = hDir * cfg.tilt * clamp(d, 0, 1);
       }
 
-      let opacity = d < 0 ? Math.max(0, 1 + d * 0.95) : 1;
-      if (!shown) opacity = 0;
+      let opacity = 1;
+      let zi = 2000;
+
+      if (d < 0) {
+        // Outgoing card fades rapidly and cleanly. Completely 0 when d <= -0.7
+        opacity = Math.max(0, 1 + d * 1.5);
+        // Once faded halfway, drop zIndex behind active card to prevent any ghost layering
+        zi = d <= -0.5 ? Math.round(1000 + d * 25) : Math.round(2000 + Math.abs(d) * 5);
+      } else {
+        // Upcoming cards stacked behind with decreasing zIndex
+        zi = Math.round(2000 - d * 25);
+      }
+
+      if (!shown || d <= -0.7) {
+        opacity = 0;
+      }
 
       const brightness = Math.max(0.2, 1 - back * cfg.falloff);
       const blurPx = cfg.blur > 0 ? Math.min(cfg.blur, (back / Math.max(1, cfg.visibleCards)) * cfg.blur) : 0;
-      const zi = Math.round(2000 - d * 25);
 
       const rotTransform = isVert
         ? `rotateX(${rx.toFixed(3)}deg)`
@@ -216,9 +229,10 @@ export const DepthCarousel = ({
 
       el.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(4)}) translateX(${tx.toFixed(2)}px) translateY(${ty.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) ${rotTransform}`;
       el.style.opacity = opacity.toFixed(3);
+      el.style.visibility = opacity > 0.005 ? 'visible' : 'hidden';
       el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
       el.style.zIndex = String(zi);
-      el.style.pointerEvents = shown && opacity > 0.05 ? 'auto' : 'none';
+      el.style.pointerEvents = shown && opacity > 0.5 ? 'auto' : 'none';
 
       const ov = overlayRefs.current[i];
       if (ov) ov.style.opacity = clamp(back * cfg.falloff * 1.3, 0, 0.88).toFixed(3);
