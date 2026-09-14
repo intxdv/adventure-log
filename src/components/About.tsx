@@ -1,14 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import React, { useState } from 'react';
 import './About.css';
 
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
-
-  const cardRef = useRef<HTMLElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
 
   const toggleNote = () => {
     setIsNoteOpen((prev) => !prev);
@@ -26,65 +21,6 @@ export const About: React.FC = () => {
     }
   };
 
-  // Interactive Tactile Parallax Depth on Photo & Card
-  useEffect(() => {
-    const card = cardRef.current;
-    const img = imgRef.current;
-    const logo = logoRef.current;
-    if (!card || !img) return;
-
-    if (typeof window === 'undefined') return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const canHover = window.matchMedia('(hover: hover)').matches;
-    if (prefersReduced || !canHover) return;
-
-    const quickImgX = gsap.quickTo(img, 'x', { duration: 0.65, ease: 'power2.out' });
-    const quickImgY = gsap.quickTo(img, 'y', { duration: 0.65, ease: 'power2.out' });
-    const quickCardRotX = gsap.quickTo(card, 'rotateX', { duration: 0.75, ease: 'power2.out' });
-    const quickCardRotY = gsap.quickTo(card, 'rotateY', { duration: 0.75, ease: 'power2.out' });
-    const quickLogoX = logo ? gsap.quickTo(logo, 'x', { duration: 0.5, ease: 'power2.out' }) : null;
-    const quickLogoY = logo ? gsap.quickTo(logo, 'y', { duration: 0.5, ease: 'power2.out' }) : null;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-      const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-
-      // Photo drifts opposite to cursor (creates deep internal window effect)
-      quickImgX(normX * -18);
-      quickImgY(normY * -18);
-
-      // Subtle tactile card tilt in 3D perspective
-      quickCardRotY(normX * 4);
-      quickCardRotX(normY * -4);
-
-      // Frameless logo hovers slightly forward on top z-plane
-      if (quickLogoX && quickLogoY) {
-        quickLogoX(normX * 6);
-        quickLogoY(normY * 6);
-      }
-    };
-
-    const handleMouseLeave = () => {
-      quickImgX(0);
-      quickImgY(0);
-      quickCardRotX(0);
-      quickCardRotY(0);
-      if (quickLogoX && quickLogoY) {
-        quickLogoX(0);
-        quickLogoY(0);
-      }
-    };
-
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
-
   return (
     <section
       id="about"
@@ -96,7 +32,6 @@ export const About: React.FC = () => {
         {/* Left Column: Zine-Style Card Frame (Reference-Inspired) */}
         <div className="field-card-wrapper">
           <figure
-            ref={cardRef}
             id="field-zine-card-elem"
             className="field-zine-card"
             aria-label="Portrait: Syafiq Abiyyu Taqi"
@@ -105,7 +40,6 @@ export const About: React.FC = () => {
               <div className="field-zine-img-viewport">
                 {!hasImageError ? (
                   <img
-                    ref={imgRef}
                     id="field-zine-portrait-img"
                     src="/images/taki-portrait.jpg"
                     alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
@@ -130,7 +64,6 @@ export const About: React.FC = () => {
 
               {/* Selvagant Emblem Logo in Top-Right Corner (Frameless directly on photo) */}
               <div
-                ref={logoRef}
                 className={`field-zine-logo-badge ${isNoteOpen ? 'is-expanded' : ''}`}
                 tabIndex={0}
                 role="button"

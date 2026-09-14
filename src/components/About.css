@@ -107,7 +107,6 @@
   gap: var(--space-md);
   max-width: 520px;
   width: 100%;
-  perspective: 1200px;
 }
 
 @media (max-width: 960px) {
@@ -127,7 +126,6 @@
   box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
   opacity: 0;
   will-change: opacity, transform;
-  transform-style: preserve-3d;
   transition: box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s ease;
 }
 
@@ -157,8 +155,6 @@
   object-fit: cover;
   display: block;
   filter: contrast(1.02) brightness(0.98);
-  transform: scale(1.12);
-  will-change: transform;
 }
 
 /* Fallback Container if Image Unloaded/Error */
