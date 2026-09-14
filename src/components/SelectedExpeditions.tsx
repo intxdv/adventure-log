@@ -540,6 +540,8 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({
                 src={expedition.image}
                 alt={`${expedition.title} visual showcase`}
                 className="dossier-visual-banner-img"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           )}
