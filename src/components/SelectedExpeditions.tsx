@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { initialExpeditions } from '../data/expeditions';
 import type { Expedition } from '../types';
 import DepthCarousel from './ui/DepthCarousel';
 import './SelectedExpeditions.css';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 // 4 Top Featured Expeditions matching Robert Aperios editorial showcase
 const FEATURED_EXPEDITIONS = initialExpeditions.filter((exp) => exp.featured).slice(0, 4);
@@ -40,9 +44,9 @@ export const SelectedExpeditions: React.FC = () => {
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-        // Symmetric step distribution matching useMotionEngine thresholds (midpoints of each 53vh bracket)
-        const progressMap = [0.38, 0.49, 0.61, 0.72];
-        const targetRatio = progressMap[newIndex] ?? (0.38 + newIndex * 0.115);
+        // Symmetric step distribution matching useMotionEngine thresholds (midpoints of each 40vh bracket)
+        const progressMap = [0.37, 0.48, 0.58, 0.69];
+        const targetRatio = progressMap[newIndex] ?? (0.37 + newIndex * 0.105);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }
@@ -91,17 +95,61 @@ export const SelectedExpeditions: React.FC = () => {
 
       const currentIdx = activeIndexRef.current;
 
-      // 3. Boundary pass-through:
-      // If at last mockup (3) and scrolling down: let it scroll down naturally to Section 4 (Field Arsenal)
+      // 3. Boundary forward transition:
+      // If at last mockup (3) and scrolling down: smoothly glide directly to Section 4 (Field Arsenal)
       if (delta > 0 && currentIdx >= FEATURED_EXPEDITIONS.length - 1) {
-        return;
-      }
-      // If at first mockup (0) and scrolling up: let it scroll up naturally to Section 2 (About)
-      if (delta < 0 && currentIdx <= 0) {
+        e.preventDefault();
+        if (wheelLockRef.current) return;
+        wheelLockRef.current = true;
+
+        const stageWrapper = document.getElementById('hero-stage-wrapper');
+        if (stageWrapper) {
+          const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+          const targetScroll = stageWrapper.offsetTop + maxScroll;
+
+          gsap.to(window, {
+            duration: 0.65,
+            scrollTo: { y: targetScroll, autoKill: false },
+            ease: 'power2.out',
+            onComplete: () => {
+              if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+              wheelLockTimerRef.current = setTimeout(() => {
+                wheelLockRef.current = false;
+              }, 250);
+            },
+          });
+        }
         return;
       }
 
-      // 4. Inside Section 3 between mockups:
+      // 4. Boundary backward transition:
+      // If at first mockup (0) and scrolling up: smoothly glide to Section 2 (About)
+      if (delta < 0 && currentIdx <= 0) {
+        e.preventDefault();
+        if (wheelLockRef.current) return;
+        wheelLockRef.current = true;
+
+        const stageWrapper = document.getElementById('hero-stage-wrapper');
+        if (stageWrapper) {
+          const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+          const targetScroll = stageWrapper.offsetTop + maxScroll * 0.19;
+
+          gsap.to(window, {
+            duration: 0.65,
+            scrollTo: { y: targetScroll, autoKill: false },
+            ease: 'power2.out',
+            onComplete: () => {
+              if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+              wheelLockTimerRef.current = setTimeout(() => {
+                wheelLockRef.current = false;
+              }, 250);
+            },
+          });
+        }
+        return;
+      }
+
+      // 5. Inside Section 3 between mockups:
       // Intercept wheel and advance exactly 1 step with IDENTICAL effort in both directions
       e.preventDefault();
 

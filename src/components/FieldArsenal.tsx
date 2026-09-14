@@ -1,11 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { initialArsenal } from '../data/arsenal';
 import AccordionGallery from './ui/AccordionGallery';
 import type { AccordionGalleryItem } from './ui/AccordionGallery';
 import './FieldArsenal.css';
 
+gsap.registerPlugin(ScrollToPlugin);
+
 export const FieldArsenal: React.FC = () => {
   const [activePillarIndex, setActivePillarIndex] = useState<number>(0);
+
+  // Smooth reverse glide from top of Arsenal back into Selected Expeditions (Mockup 3)
+  useEffect(() => {
+    const arsenalEl = document.getElementById('arsenal');
+    const stageWrapper = document.getElementById('hero-stage-wrapper');
+    if (!arsenalEl || !stageWrapper) return;
+
+    let isTransitioning = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const handleArsenalWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 18) return;
+
+      const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+      const arsenalTopScroll = stageWrapper.offsetTop + maxScroll;
+
+      // Only intercept if user is at the top edge of Arsenal and scrolls up
+      if (e.deltaY < 0 && window.scrollY <= arsenalTopScroll + 8) {
+        e.preventDefault();
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        const targetScroll = stageWrapper.offsetTop + maxScroll * 0.69;
+        gsap.to(window, {
+          duration: 0.65,
+          scrollTo: { y: targetScroll, autoKill: false },
+          ease: 'power2.out',
+          onComplete: () => {
+            if (timer) clearTimeout(timer);
+            timer = setTimeout(() => {
+              isTransitioning = false;
+            }, 250);
+          },
+        });
+      }
+    };
+
+    arsenalEl.addEventListener('wheel', handleArsenalWheel, { passive: false });
+    return () => {
+      arsenalEl.removeEventListener('wheel', handleArsenalWheel);
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
 
   // Map arsenal pillars directly with complete dossier specs
   const galleryItems: AccordionGalleryItem[] = initialArsenal.map((pillar) => ({
