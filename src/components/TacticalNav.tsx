@@ -67,7 +67,7 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
           setActiveId('hero');
         } else if (stageProgress < 0.32) {
           setActiveId('about');
-        } else if (stageProgress < 0.94) {
+        } else if (stageProgress < 0.84) {
           setActiveId('expeditions');
         } else {
           setActiveId('arsenal');
@@ -105,8 +105,8 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         return;
       }
       if (id === 'expeditions') {
-        // Scroll to Selected Expeditions stage (progress 0.40 - Mock 1)
-        window.scrollTo({ top: stageTop + maxScroll * 0.40, behavior: 'smooth' });
+        // Scroll to Selected Expeditions stage (progress 0.38 - Mock 1)
+        window.scrollTo({ top: stageTop + maxScroll * 0.38, behavior: 'smooth' });
         return;
       }
       if (id === 'arsenal') {

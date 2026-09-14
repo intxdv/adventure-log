@@ -2,11 +2,12 @@
 .hero-stage-wrapper {
   position: relative;
   width: 100%;
-  height: 520vh;
+  height: 720vh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   align-items: start;
+  overflow: clip;
 }
 
 .hero-section {

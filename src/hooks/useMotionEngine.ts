@@ -60,13 +60,15 @@ export const useMotionEngine = () => {
               }
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
+              // Calibrated for 720vh stage: Mock 0: 0.32->0.45, Mock 1: 0.45->0.58, Mock 2: 0.58->0.71, Mock 3: 0.71->0.84
+              // From 0.84 to 1.00: Section 4 smoothly pulls up over Section 3 only AFTER Mockup 4 has rested cleanly
               if (self.progress >= 0.32) {
                 let targetExp = 0;
-                if (self.progress >= 0.80) {
+                if (self.progress >= 0.71) {
                   targetExp = 3;
-                } else if (self.progress >= 0.64) {
+                } else if (self.progress >= 0.58) {
                   targetExp = 2;
-                } else if (self.progress >= 0.48) {
+                } else if (self.progress >= 0.45) {
                   targetExp = 1;
                 } else {
                   targetExp = 0;
@@ -85,7 +87,10 @@ export const useMotionEngine = () => {
           },
         });
 
-        // 1a. Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero (t = 0.25 -> 1.00)
+        // 1a. Reset display and prepare Section 2
+        portalTimeline.set('#about', { display: 'flex' }, 0);
+
+        // Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero (t = 0.25 -> 1.00)
         portalTimeline.fromTo(
           aboutSection,
           { clipPath: 'circle(0% at 50% 50%)' },
@@ -224,7 +229,7 @@ export const useMotionEngine = () => {
         );
 
         // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
-        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden' }, 3.20);
+        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 3.20);
 
         // ----------------------------------------------------------------------
         // 1e. Swiss Editorial Showcase: Timeline pacing (t = 3.20 -> 8.30)
@@ -423,32 +428,58 @@ export const useMotionEngine = () => {
 
           // 5d. Interactive 3D Cursor-Dependent Parallax on Landscape Diorama
           // Note: SLVGNT stands firmly anchored as the monumental baseline behind the hills
-          const stageEl = landscapeStage as HTMLElement;
-          const bgX = gsap.quickTo('.footer-landscape-bg', 'x', { duration: 0.9, ease: 'power2.out' });
-          const bgY = gsap.quickTo('.footer-landscape-bg', 'y', { duration: 0.9, ease: 'power2.out' });
-          const fgX = gsap.quickTo('.footer-landscape-fg', 'x', { duration: 0.5, ease: 'power2.out' });
-          const fgY = gsap.quickTo('.footer-landscape-fg', 'y', { duration: 0.5, ease: 'power2.out' });
-          const copyrightX = gsap.quickTo('.footer-stage-copyright', 'x', { duration: 0.4, ease: 'power2.out' });
-          const copyrightY = gsap.quickTo('.footer-stage-copyright', 'y', { duration: 0.4, ease: 'power2.out' });
+          const prefersReduced =
+            typeof window !== 'undefined' && window.matchMedia
+              ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+              : false;
 
-          const handleFooterMouseMove = (e: MouseEvent) => {
-            const rect = stageEl.getBoundingClientRect();
-            // Hanya aktif saat stage berada di dalam atau dekat viewport
-            if (rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
+          let isLandscapeVisible = false;
+          let landscapeObserver: IntersectionObserver | null = null;
+          let updateCachedRect: (() => void) | null = null;
 
-            const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-            const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+          if (!prefersReduced) {
+            const stageEl = landscapeStage as HTMLElement;
+            const bgX = gsap.quickTo('.footer-landscape-bg', 'x', { duration: 0.9, ease: 'power2.out' });
+            const bgY = gsap.quickTo('.footer-landscape-bg', 'y', { duration: 0.9, ease: 'power2.out' });
+            const fgX = gsap.quickTo('.footer-landscape-fg', 'x', { duration: 0.5, ease: 'power2.out' });
+            const fgY = gsap.quickTo('.footer-landscape-fg', 'y', { duration: 0.5, ease: 'power2.out' });
+            const copyrightX = gsap.quickTo('.footer-stage-copyright', 'x', { duration: 0.4, ease: 'power2.out' });
+            const copyrightY = gsap.quickTo('.footer-stage-copyright', 'y', { duration: 0.4, ease: 'power2.out' });
 
-            bgX(normX * -18);
-            bgY(normY * -10);
-            fgX(normX * 10);
-            fgY(normY * 6);
-            copyrightX(normX * 16);
-            copyrightY(normY * 12);
-          };
+            landscapeObserver = new IntersectionObserver(
+              ([entry]) => {
+                isLandscapeVisible = entry.isIntersecting;
+              },
+              { rootMargin: '50px 0px 50px 0px' }
+            );
+            landscapeObserver.observe(stageEl);
 
-          footerMouseMoveHandler = handleFooterMouseMove;
-          window.addEventListener('mousemove', footerMouseMoveHandler, { passive: true });
+            let cachedRect = stageEl.getBoundingClientRect();
+            updateCachedRect = () => {
+              if (isLandscapeVisible) {
+                cachedRect = stageEl.getBoundingClientRect();
+              }
+            };
+            window.addEventListener('resize', updateCachedRect, { passive: true });
+            window.addEventListener('scroll', updateCachedRect, { passive: true });
+
+            const handleFooterMouseMove = (e: MouseEvent) => {
+              if (!isLandscapeVisible) return;
+
+              const normX = ((e.clientX - cachedRect.left) / cachedRect.width - 0.5) * 2;
+              const normY = ((e.clientY - cachedRect.top) / cachedRect.height - 0.5) * 2;
+
+              bgX(normX * -18);
+              bgY(normY * -10);
+              fgX(normX * 10);
+              fgY(normY * 6);
+              copyrightX(normX * 16);
+              copyrightY(normY * 12);
+            };
+
+            footerMouseMoveHandler = handleFooterMouseMove;
+            window.addEventListener('mousemove', footerMouseMoveHandler, { passive: true });
+          }
         }
       }
     });

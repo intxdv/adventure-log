@@ -25,6 +25,7 @@
   clip-path: circle(0% at 50% 50%);
   will-change: clip-path;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .about-section.is-active {

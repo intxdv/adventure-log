@@ -41,8 +41,8 @@ export const SelectedExpeditions: React.FC = () => {
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
         // Symmetric step distribution matching useMotionEngine thresholds
-        const progressMap = [0.40, 0.56, 0.72, 0.88];
-        const targetRatio = progressMap[newIndex] ?? (0.40 + newIndex * 0.16);
+        const progressMap = [0.38, 0.51, 0.64, 0.77];
+        const targetRatio = progressMap[newIndex] ?? (0.38 + newIndex * 0.13);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }
