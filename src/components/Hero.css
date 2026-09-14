@@ -292,7 +292,7 @@
 
   .hero-body-container {
     margin: 0;
-    padding-top: clamp(28px, 4.5vh, 40px);
+    padding-top: clamp(38px, 6.0vh, 52px);
     padding-bottom: 0;
     padding-left: 20px;
     padding-right: 20px;
@@ -303,14 +303,14 @@
   }
 
   .hero-meta-kicker {
-    margin-bottom: 4px;
-    font-size: 0.68rem;
-    letter-spacing: 0.10em;
+    margin-bottom: 6px;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
   }
 
   .hero-title-wrapper {
-    min-height: 3.2rem;
-    margin-bottom: 8px;
+    min-height: clamp(3.6rem, 8.5vw, 4.6rem);
+    margin-bottom: 12px;
   }
 
   .hero-dynamic-title {
@@ -318,9 +318,9 @@
   }
 
   .hero-bio-paragraph {
-    max-width: 100%;
-    font-size: clamp(0.82rem, 3.4vw, 0.90rem);
-    line-height: 1.5;
+    max-width: min(100%, 350px);
+    font-size: clamp(0.96rem, 3.8vw, 1.12rem);
+    line-height: 1.58;
   }
 }
 
