@@ -199,19 +199,19 @@
   transition: font-size 0.2s ease;
 }
 
-/* Tanda Titik Portal */
+/* Tanda Titik Portal - Full Solid Black */
 .hero-portal-dot {
   display: inline-block;
-  color: var(--color-olive);
+  color: #121512;
   position: relative;
 }
 
-/* Kursor Blinking Typewriter */
+/* Kursor Blinking Typewriter - Full Solid Black */
 .hero-typewriter-cursor {
   display: inline-block;
   width: 3.5px;
   height: 0.82em;
-  background-color: var(--color-olive);
+  background-color: #121512;
   margin-left: 8px;
   vertical-align: middle;
   animation: cursorBlink 0.9s infinite;
@@ -222,11 +222,12 @@
   50% { opacity: 0; }
 }
 
-/* Bio Editorial - Crisp Contrast & Instant Solid Readability */
+/* Bio Editorial - Full Solid Black, Crisp & Uniform */
 .hero-bio-paragraph {
   font-size: clamp(1.05rem, 1.35vw, 1.35rem);
   line-height: 1.65;
-  color: #121512;
+  color: #111411;
+  font-weight: 500;
   max-width: min(600px, 42vw);
   margin: 0;
   font-family: var(--font-body);
@@ -236,12 +237,13 @@
 }
 
 .hero-bio-paragraph strong {
-  color: #000000;
-  font-weight: 700;
+  color: #111411;
+  font-weight: 600;
 }
 
 .hero-bio-word {
   display: inline-block;
+  color: #111411;
   opacity: 1;
   transform: none;
 }
@@ -252,7 +254,7 @@
   gap: var(--space-sm);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
-  color: var(--color-olive);
+  color: #121512;
   margin-bottom: var(--space-sm);
   text-transform: uppercase;
   opacity: 0;

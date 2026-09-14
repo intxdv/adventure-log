@@ -62,7 +62,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     const initialDistance = camPos.distanceTo(camTarget);
 
     const computeInitialScale = (aspect: number) => {
-      if (aspect < 0.9) return 0.44;
+      if (aspect < 0.9) return 0.40;
       return 0.58;
     };
     let initialScale = computeInitialScale(camera.aspect);
@@ -76,7 +76,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     };
 
     const computeRestY = (aspect: number) => {
-      if (aspect <= 0.9) return -1.55;
+      if (aspect <= 0.9) return -1.95;
       return 0.0;
     };
 

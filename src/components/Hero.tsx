@@ -361,34 +361,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           </div>
 
           <p className="hero-bio-paragraph">
-            <span className="hero-bio-word">A</span>{' '}
-            <span className="hero-bio-word">digital</span>{' '}
-            <span className="hero-bio-word">field</span>{' '}
-            <span className="hero-bio-word">journal</span>{' '}
-            <span className="hero-bio-word">by</span>{' '}
-            <span className="hero-bio-word"><strong>Selvagant</strong></span>{' '}
-            <span className="hero-bio-word"><strong>(Taki)</strong></span>{' '}
-            <span className="hero-bio-word">—</span>{' '}
-            <span className="hero-bio-word"><strong>Creative</strong></span>{' '}
-            <span className="hero-bio-word"><strong>Developer</strong></span>{' '}
-            <span className="hero-bio-word"><strong>&amp;</strong></span>{' '}
-            <span className="hero-bio-word"><strong>Mobile</strong></span>{' '}
-            <span className="hero-bio-word"><strong>Architect</strong></span>{' '}
-            <span className="hero-bio-word">based</span>{' '}
-            <span className="hero-bio-word">in</span>{' '}
-            <span className="hero-bio-word">Central</span>{' '}
-            <span className="hero-bio-word">Java.</span>{' '}
-            <span className="hero-bio-word">Bridging</span>{' '}
-            <span className="hero-bio-word">analytical</span>{' '}
-            <span className="hero-bio-word">software</span>{' '}
-            <span className="hero-bio-word">engineering</span>{' '}
-            <span className="hero-bio-word">with</span>{' '}
-            <span className="hero-bio-word">tactile</span>{' '}
-            <span className="hero-bio-word">digital</span>{' '}
-            <span className="hero-bio-word">systems</span>{' '}
-            <span className="hero-bio-word">and</span>{' '}
-            <span className="hero-bio-word">organic</span>{' '}
-            <span className="hero-bio-word">exploration.</span>
+            A digital field journal by <strong>Selvagant (Taki)</strong> — <strong>Creative Developer &amp; Mobile Architect</strong> based in Central Java. Bridging analytical software engineering with tactile digital systems and organic exploration.
           </p>
         </div>
       </div>
