@@ -25,30 +25,30 @@ export const FieldArsenal: React.FC = () => {
     <section id="arsenal" className="arsenal-section hairline-b" aria-labelledby="arsenal-heading">
       <div className="arsenal-container">
 
-        {/* Section Header (Swiss Cartography Split Datum Bar with Cleared Center for Notch Dock) */}
+        {/* Section Header: Horizontal Tri-Column Alignment (Badge, Title, Telemetry) */}
         <header className="arsenal-header">
-          {/* Top Datum Bar: Left Badge, Protected Notch Channel, Right Telemetry */}
-          <div className="arsenal-top-datum font-mono">
-            <div className="arsenal-datum-left">
+          <div className="arsenal-header-row">
+            {/* Left Column: Field Gear Tag Badge */}
+            <div className="arsenal-header-left">
               <span className="tag-badge">FIELD GEAR // 03 · ARSENAL</span>
             </div>
-            {/* Cleared center channel specifically reserved for floating Notch Dock */}
-            <div className="arsenal-datum-center" aria-hidden="true" />
-            <div className="arsenal-datum-right">
-              <span className="arsenal-telemetry-meta font-mono">
+
+            {/* Center Column: Technical Arsenal Headline & Tagline */}
+            <div className="arsenal-header-center">
+              <h2 id="arsenal-heading" className="arsenal-headline font-display">
+                Technical Arsenal<span style={{ color: 'var(--color-olive)' }}>.</span>
+              </h2>
+              <p className="arsenal-header-tagline font-serif">
+                “Tactical toolchains & craft disciplines forged through production expeditions.”
+              </p>
+            </div>
+
+            {/* Right Column: Inventory Telemetry */}
+            <div className="arsenal-header-right font-mono">
+              <span className="arsenal-telemetry-meta">
                 CORE INVENTORY: 03 PILLARS // 18 SPECS
               </span>
             </div>
-          </div>
-
-          {/* Centered Editorial Title & Tagline */}
-          <div className="arsenal-title-group">
-            <h2 id="arsenal-heading" className="arsenal-headline font-display">
-              Technical Arsenal<span style={{ color: 'var(--color-olive)' }}>.</span>
-            </h2>
-            <p className="arsenal-header-tagline font-serif">
-              “Tactical toolchains & craft disciplines forged through production expeditions.”
-            </p>
           </div>
         </header>
 
