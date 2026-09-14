@@ -105,8 +105,8 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         return;
       }
       if (id === 'expeditions') {
-        // Scroll to Selected Expeditions stage (progress 0.37 - Mock 0)
-        window.scrollTo({ top: stageTop + maxScroll * 0.37, behavior: 'smooth' });
+        // Scroll to Selected Expeditions stage (progress 0.44 - Mock 0)
+        window.scrollTo({ top: stageTop + maxScroll * 0.44, behavior: 'smooth' });
         return;
       }
       if (id === 'arsenal') {

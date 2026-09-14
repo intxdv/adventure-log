@@ -56,9 +56,9 @@ export const useMotionEngine = () => {
                 aboutSection.classList.remove('is-active');
               }
 
-              // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 02 mekar hingga tertutup Section 03)
+              // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 02 mekar penuh hingga tertutup Section 03)
               if (expeditionsSection) {
-                if (self.progress >= 0.31) {
+                if (self.progress >= 0.42) {
                   expeditionsSection.classList.add('is-active');
                 } else {
                   expeditionsSection.classList.remove('is-active');
@@ -67,18 +67,18 @@ export const useMotionEngine = () => {
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
               // Calibrated for 520vh stage (effective scroll 420vh):
-              // Mock 0: 0.310 -> 0.460 (~63vh generous resting room for first project!)
-              // Mock 1: 0.460 -> 0.560 (~42vh)
-              // Mock 2: 0.560 -> 0.660 (~42vh)
-              // Mock 3: 0.660 -> 0.760 (~42vh)
-              // At 0.760, Section 03 (Technical Capabilities) smoothly slides up over Section 02
-              if (self.progress >= 0.31) {
+              // Mock 0: 0.300 -> 0.500 (~84vh generous resting room for first project!)
+              // Mock 1: 0.500 -> 0.590 (~38vh)
+              // Mock 2: 0.590 -> 0.680 (~38vh)
+              // Mock 3: 0.680 -> 0.770 (~38vh)
+              // At 0.770, Section 03 (Technical Capabilities) smoothly slides up over Section 02
+              if (self.progress >= 0.30) {
                 let targetExp = 0;
-                if (self.progress >= 0.66) {
+                if (self.progress >= 0.68) {
                   targetExp = 3;
-                } else if (self.progress >= 0.56) {
+                } else if (self.progress >= 0.59) {
                   targetExp = 2;
-                } else if (self.progress >= 0.46) {
+                } else if (self.progress >= 0.50) {
                   targetExp = 1;
                 } else {
                   targetExp = 0;
@@ -253,7 +253,7 @@ export const useMotionEngine = () => {
         // Sembunyikan Section 01 (#about) sepenuhnya setelah background putih menutupi 100% layar (t = 2.82)
         portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 2.82);
 
-        // 3. BARU MUNCUL KONTEN SECTION 02 SETELAH LAYAR TERTUTUP 100% SEMPURNA! (t = 2.85 -> 3.25)
+        // 3. BARU MUNCUL KONTEN SECTION 02 SETELAH LAYAR TERTUTUP 100% SEMPURNA & JEDA TENANG! (t = 3.10 -> 3.55)
         // Swiss Editorial Showcase Container Fade-In
         portalTimeline.fromTo(
           '#expeditions-swiss-container',
@@ -261,10 +261,10 @@ export const useMotionEngine = () => {
           {
             opacity: 1,
             y: 0,
-            duration: 0.40,
+            duration: 0.45,
             ease: 'power2.out',
           },
-          2.85
+          3.10
         );
 
         // ----------------------------------------------------------------------

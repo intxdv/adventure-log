@@ -45,8 +45,8 @@ export const SelectedExpeditions: React.FC = () => {
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
         // Symmetric step distribution matching useMotionEngine thresholds (midpoints of each bracket)
-        const progressMap = [0.38, 0.51, 0.61, 0.71];
-        const targetRatio = progressMap[newIndex] ?? (0.38 + newIndex * 0.10);
+        const progressMap = [0.44, 0.545, 0.635, 0.725];
+        const targetRatio = progressMap[newIndex] ?? (0.44 + newIndex * 0.095);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }
@@ -149,7 +149,28 @@ export const SelectedExpeditions: React.FC = () => {
         return;
       }
 
-      // 5. Inside Section 3 between mockups:
+      // 5. Entrance dwell buffer protection:
+      // If at first mockup (0) and scrolling down, ensure user is docked on mockup 0 before advancing
+      if (delta > 0 && currentIdx === 0) {
+        const stageWrapper = document.getElementById('hero-stage-wrapper');
+        if (stageWrapper) {
+          const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+          const currentScrollRatio = (window.scrollY - stageWrapper.offsetTop) / maxScroll;
+          if (currentScrollRatio < 0.43) {
+            e.preventDefault();
+            if (wheelLockRef.current) return;
+            wheelLockRef.current = true;
+            goToProject(0, true);
+            if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+            wheelLockTimerRef.current = setTimeout(() => {
+              wheelLockRef.current = false;
+            }, 260);
+            return;
+          }
+        }
+      }
+
+      // 6. Inside Section between mockups:
       // Intercept wheel and advance exactly 1 step with IDENTICAL effort in both directions
       e.preventDefault();
 
