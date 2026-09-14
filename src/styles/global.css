@@ -183,7 +183,7 @@ code, kbd, samp, pre, .font-mono {
   }
 }
 
-/* Motion Sensitivity */
+/* Motion Sensitivity (Graceful A11y Dampening) */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -191,6 +191,7 @@ code, kbd, samp, pre, .font-mono {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 120ms !important;
   }
 }
+

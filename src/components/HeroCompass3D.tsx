@@ -829,13 +829,19 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     toggleExplodedRef.current?.();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleExplodedRef.current?.();
+    }
+  };
+
   return (
     <div
       ref={containerRef}
       className={`hero-compass-3d-wrapper ${isVisible ? 'is-visible' : ''} ${isLoaded ? 'is-model-ready' : ''}`}
-      aria-hidden="true"
     >
-      <canvas ref={canvasRef} className="hero-compass-3d-canvas" />
+      <canvas ref={canvasRef} className="hero-compass-3d-canvas" aria-hidden="true" />
 
       {/* Blueprint Exploded Schematic & Drafting Compass Overlay */}
       <svg ref={svgRef} className="hero-compass-exploded-svg" aria-hidden="true">
@@ -844,8 +850,11 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           ref={hitAreaRef}
           className="compass-interactive-hit-area cursor-target"
           onClick={handleHitAreaClick}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          role="button"
           data-cursor-text="CLICK // EXPLODE"
-          aria-label="Toggle Exploded Compass View"
+          aria-label="Toggle Exploded 3D Compass View"
         />
 
         {/* 00 // Architectural Drafting Compass 360 Circle Draw */}
