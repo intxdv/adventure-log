@@ -180,15 +180,20 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       // 1b. Hold Lingkaran Utuh Sejenak (Jeda tenang ~0.45s sebelum kompas mekar)
       assembleTimeline.to({}, { duration: 0.45 });
 
-      // 2. Lift into 3D & Mekar Membelah (Diperlambat agar anggun dan tidak mengejutkan / boom) (~1.05s)
+      // 2. Lift into 3D & Mekar Membelah (Lingkaran jangka langsung menghilang begitu kompas mulai mekar)
+      assembleTimeline.to(animState, {
+        circleOpacity: 0.0,
+        duration: 0.32,
+        ease: 'power2.out',
+      });
+
       assembleTimeline.to(animState, {
         rootOpacity: 1.0,
         rootScale: initialScale,
         explodeProgress: 1.0,
-        circleOpacity: 0.45,
         duration: 1.05,
         ease: 'power2.out',
-      });
+      }, '<');
 
       // 3. Savor the Schematic Hold (~0.50s)
       assembleTimeline.to({}, { duration: 0.50 });
@@ -196,7 +201,6 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       // 4. Magnetic Snap Assembly (~0.75s)
       assembleTimeline.to(animState, {
         assembleProgress: 1.0,
-        circleOpacity: 0.0,
         duration: 0.75,
         ease: 'power3.out',
       });
