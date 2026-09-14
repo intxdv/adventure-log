@@ -354,6 +354,10 @@
 
 .swiss-left-bottom {
   padding-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* Boxed Dossier Button */
@@ -372,6 +376,7 @@
   border-radius: 2px;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: auto;
+  white-space: nowrap;
 }
 
 .swiss-dossier-btn:hover {
@@ -385,6 +390,39 @@
 }
 
 .swiss-dossier-btn:hover .btn-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* All Projects / Complete Archive Button (Positioned directly to the right of View Dossier) */
+.swiss-all-projects-btn {
+  background: rgba(74, 88, 68, 0.05);
+  border: 1.5px solid var(--color-olive, #4A5844);
+  padding: 8px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-olive, #4A5844);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.swiss-all-projects-btn:hover {
+  background: var(--color-olive, #4A5844);
+  color: #ecebe8;
+  transform: translateY(-1px);
+}
+
+.swiss-all-projects-btn .btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.swiss-all-projects-btn:hover .btn-arrow {
   transform: translate(2px, -2px);
 }
 

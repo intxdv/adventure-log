@@ -331,7 +331,7 @@ export const SelectedExpeditions: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bottom Anchor: View Dossier Trigger */}
+              {/* Bottom Anchor: Action Buttons Row (View Dossier + All Projects) */}
               <div className="swiss-left-bottom">
                 <button
                   type="button"
@@ -343,6 +343,16 @@ export const SelectedExpeditions: React.FC = () => {
                   title={`Open technical dossier for ${currentExpedition.title}`}
                 >
                   <span>VIEW DOSSIER</span>
+                  <span className="btn-arrow" aria-hidden="true">↗</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="swiss-all-projects-btn font-mono"
+                  onClick={() => setIsRepoModalOpen(true)}
+                  title="Explore complete repository archive of all 07 projects"
+                >
+                  <span>ALL PROJECTS [07]</span>
                   <span className="btn-arrow" aria-hidden="true">↗</span>
                 </button>
               </div>
@@ -425,21 +435,6 @@ export const SelectedExpeditions: React.FC = () => {
                     </svg>
                     <span>SOURCE REPOSITORY ↗</span>
                   </a>
-                )}
-
-                {/* Grand Archive CTA - Placed strictly on the final project (04) */}
-                {activeIndex === FEATURED_EXPEDITIONS.length - 1 && (
-                  <button
-                    type="button"
-                    className="swiss-archive-highlight-btn inline-compact font-mono"
-                    onClick={() => setIsRepoModalOpen(true)}
-                  >
-                    <span className="cta-kicker">[ FIELD REPOSITORY ARCHIVE ]</span>
-                    <span className="cta-title">
-                      <span>EXPLORE ALL 07 EXPEDITIONS</span>
-                      <span className="cta-arrow" aria-hidden="true">↗</span>
-                    </span>
-                  </button>
                 )}
               </div>
             </div>
