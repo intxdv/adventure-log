@@ -41,6 +41,7 @@
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
+  position: relative;
   padding-top: var(--space-md);
   padding-bottom: var(--space-md);
   padding-left: clamp(24px, 5vw, 80px);
@@ -57,8 +58,11 @@
   pointer-events: none;
 }
 
-/* Center Tactical Telemetry / Motto Marker */
+/* Center Tactical Telemetry / Motto Marker (Dead Center under camera) */
 .hero-top-datum {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
   gap: var(--space-md);
@@ -67,6 +71,7 @@
   color: var(--color-ink-muted);
   user-select: none;
   transition: color 0.3s ease;
+  pointer-events: auto;
 }
 
 .hero-top-motto-link {
@@ -165,18 +170,18 @@
   justify-content: space-between;
 }
 
-/* Sisi Kiri: Judul Dinamis & Bio Editorial (Gedein & Lapang) */
+/* Sisi Kiri: Judul Dinamis & Bio Editorial (Gedein & Lapang, Rapi di Paruh Kiri) */
 .hero-left-col {
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   z-index: 2;
-  max-width: 820px;
+  max-width: min(640px, 44vw);
 }
 
 .hero-title-wrapper {
-  min-height: clamp(8.5rem, 15vw, 13rem);
+  min-height: clamp(6.5rem, 11vw, 9.5rem);
   display: flex;
   align-items: center;
   position: relative;
@@ -219,10 +224,10 @@
 
 /* Bio Editorial - Scaled Up & Stagger Phrase */
 .hero-bio-paragraph {
-  font-size: clamp(1.2rem, 1.65vw, 1.55rem);
-  line-height: 1.68;
+  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  line-height: 1.65;
   color: var(--color-ink-muted);
-  max-width: 760px;
+  max-width: min(600px, 42vw);
   margin: 0;
   font-family: var(--font-body);
 }
