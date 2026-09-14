@@ -482,6 +482,19 @@
     margin-top: 0;
   }
 
+  .footer-landscape-bg,
+  .footer-landscape-fg {
+    object-position: 70% bottom;
+  }
+
+  .footer-landscape-wordmark {
+    width: calc(100vh * (2752 / 1515) * 0.8823);
+    height: calc(100vh * (478 / 1515));
+    left: calc(50% + (100vh * (2752 / 1515) - 100vw) * (0.5 - 0.70));
+    top: 57%;
+    transform: translate(-50%, -50%);
+  }
+
   .footer-stage-copyright {
     left: 0;
     right: 0;
