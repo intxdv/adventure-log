@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect.js';
 import './HeroCompass3D.css';
 
 interface HeroCompass3DProps {
@@ -20,13 +21,14 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     // 1. Three.js Scene Setup
     const scene = new THREE.Scene();
 
-    const width = container.clientWidth || 400;
-    const height = container.clientHeight || 400;
+    const width = container.clientWidth || 440;
+    const height = container.clientHeight || 440;
 
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-    // 3/4 Isometric Perspective Angle framing the stepped basin & suspension ring
-    camera.position.set(0.0, -8.6, 9.4);
-    camera.lookAt(0.0, 0.9, 0.4);
+    // 3/4 Isometric Perspective Angle looking down at the open face
+    // Dial face is +Y, Ring is at -Z (upper-right when rotated)
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    camera.position.set(0.0, 7.8, 8.4);
+    camera.lookAt(0.0, 0.45, -0.6);
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -37,24 +39,27 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.08;
+    renderer.toneMapping = THREE.NoToneMapping;
 
-    // 2. Studio Lighting (Warm Editorial Tone matching #F7F6F2 paper canvas)
-    const ambientLight = new THREE.AmbientLight(0xf5f3ee, 1.4);
+    // Line-art Ink Outline Pass
+    const effect = new OutlineEffect(renderer, {
+      defaultThickness: 0.0036,
+      defaultColor: [0.06, 0.06, 0.06],
+      defaultAlpha: 1.0,
+      defaultKeepAlive: true,
+    });
+
+    // 2. High-Contrast Crisp Studio Lighting (Technical Drawing Aesthetics)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xfffdfa, 2.7);
-    keyLight.position.set(6.0, -7.0, 11.0);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    keyLight.position.set(-5.0, 9.0, 6.0);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xe8edf5, 1.2);
-    fillLight.position.set(-7.0, 5.0, 7.0);
+    const fillLight = new THREE.DirectionalLight(0xf7f5f0, 0.7);
+    fillLight.position.set(6.0, 5.0, 4.0);
     scene.add(fillLight);
-
-    const rimLight = new THREE.DirectionalLight(0xffffff, 0.85);
-    rimLight.position.set(0.0, 8.0, 3.5);
-    scene.add(rimLight);
 
     // 3. Compass Model References
     let compassRoot: THREE.Group | null = null;
@@ -68,15 +73,44 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       (gltf) => {
         compassRoot = gltf.scene;
 
-        // Tune materials for tactile paper-like matte finish
+        // Tune materials for tactical paper-bone & pure ink contrast
         compassRoot.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
             const mesh = child as THREE.Mesh;
             mesh.castShadow = false;
             mesh.receiveShadow = false;
+
+            // Add mechanical feature edge lines for steps, rims, and grooves
+            if (mesh.name.includes('Font_Card_E_1') || mesh.name.includes('Compass_Ring')) {
+              const edges = new THREE.EdgesGeometry(mesh.geometry, 26);
+              const line = new THREE.LineSegments(
+                edges,
+                new THREE.LineBasicMaterial({
+                  color: 0x111111,
+                  linewidth: 1.5,
+                  transparent: true,
+                  opacity: 0.85,
+                })
+              );
+              mesh.add(line);
+            }
+
             if (mesh.material) {
-              const mat = mesh.material as THREE.MeshStandardMaterial;
-              mat.roughness = Math.max(mat.roughness, 0.80);
+              const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+              mats.forEach((mat) => {
+                const m = mat as THREE.MeshStandardMaterial;
+                m.roughness = 0.95;
+                m.metalness = 0.0;
+
+                // High-contrast ink lines vs clean paper casing
+                if (m.name.includes('Ink') || m.name.includes('Dark') || m.name.includes('North')) {
+                  m.color.setHex(0x0a0a0a);
+                } else if (m.name.includes('Casing') || m.name.includes('Bone') || m.name.includes('Dial') || m.name.includes('South')) {
+                  m.color.setHex(0xFAF8F5);
+                } else if (m.name.includes('Star') || m.name.includes('White')) {
+                  m.color.setHex(0xFFFFFF);
+                }
+              });
             }
           }
         });
@@ -84,9 +118,12 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         needleMesh = compassRoot.getObjectByName('Compass_Needle') || null;
         ringMesh = compassRoot.getObjectByName('Compass_Ring') || null;
 
-        // Default initial tilt of the compass
-        compassRoot.rotation.x = THREE.MathUtils.degToRad(-5);
-        compassRoot.rotation.z = THREE.MathUtils.degToRad(-7);
+        // Orient compass so ring sits at ~1 o'clock (upper-right) and dial faces viewer at 3/4 angle
+        compassRoot.rotation.x = THREE.MathUtils.degToRad(8);
+        compassRoot.rotation.y = THREE.MathUtils.degToRad(-38);
+        compassRoot.rotation.z = THREE.MathUtils.degToRad(4);
+        compassRoot.position.set(0.0, -0.3, 0.0);
+        compassRoot.scale.setScalar(1.05);
 
         scene.add(compassRoot);
         setIsLoaded(true);
@@ -114,11 +151,11 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       mouseX = (e.clientX / w) * 2 - 1;
       mouseY = -(e.clientY / h) * 2 + 1;
 
-      // Calculate pointer deflection for needle
-      // Compass position in hero is roughly at (0.60, 0.45) in NDC
+      // Calculate pointer deflection for needle relative to compass center
       const dx = mouseX - 0.55;
       const dy = mouseY - 0.05;
-      targetNeedleRot = -Math.atan2(dy, dx) + Math.PI / 2;
+      // In glTF, needle rotates around Y-axis
+      targetNeedleRot = -Math.atan2(dy, dx) - Math.PI / 2 + THREE.MathUtils.degToRad(38);
 
       // Calculate mouse velocity for ring swing inertia
       const vx = mouseX - prevMouseX;
@@ -142,29 +179,31 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
       const elapsed = clock.getElapsedTime();
 
-      // Needle Dynamics: Magnetic Drift + Smooth Tracking
-      const idleWobble = Math.sin(elapsed * 1.8) * 0.045 + Math.cos(elapsed * 3.2) * 0.02;
+      // Needle Dynamics: Magnetic Drift + Smooth Pointer Tracking around Y-axis
+      const idleWobble = Math.sin(elapsed * 1.8) * 0.04 + Math.cos(elapsed * 3.2) * 0.02;
       currentNeedleRot += (targetNeedleRot + idleWobble - currentNeedleRot) * 0.075;
 
       if (needleMesh) {
-        needleMesh.rotation.z = currentNeedleRot;
+        needleMesh.rotation.y = currentNeedleRot;
       }
 
-      // Ring Dynamics: Pendulum Swing reacting to motion
-      const idleSwing = Math.sin(elapsed * 1.4) * 0.06;
-      targetRingRot = idleSwing + mouseVelocity * 4.5;
+      // Ring Dynamics: Pendulum Swing reacting to motion around local X-axis
+      const idleSwing = Math.sin(elapsed * 1.4) * 0.05;
+      targetRingRot = idleSwing + mouseVelocity * 3.8;
       currentRingRot += (targetRingRot - currentRingRot) * 0.065;
 
       if (ringMesh) {
-        // Hinge rotates on X-axis (clamped between -35 deg and +45 deg)
-        const clampedX = THREE.MathUtils.clamp(currentRingRot, -0.6, 0.75);
+        // Hinge rotates on X-axis (clamped between -25 deg and +35 deg)
+        const clampedX = THREE.MathUtils.clamp(currentRingRot, -0.45, 0.60);
         ringMesh.rotation.x = clampedX;
       }
 
-      // Compass Body Parallax Tilt (Subtle 3D Depth)
+      // Subtle 3D Parallax Tilt reacting to mouse position
       if (compassRoot) {
-        const targetTiltX = THREE.MathUtils.degToRad(-5) + mouseY * 0.07;
-        const targetTiltY = THREE.MathUtils.degToRad(-7) + mouseX * 0.07;
+        const baseRotX = THREE.MathUtils.degToRad(8);
+        const baseRotY = THREE.MathUtils.degToRad(-38);
+        const targetTiltX = baseRotX + mouseY * 0.05;
+        const targetTiltY = baseRotY + mouseX * 0.05;
         compassRoot.rotation.x += (targetTiltX - compassRoot.rotation.x) * 0.05;
         compassRoot.rotation.y += (targetTiltY - compassRoot.rotation.y) * 0.05;
       }
@@ -172,7 +211,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       // Damping velocity
       mouseVelocity *= 0.94;
 
-      renderer.render(scene, camera);
+      // Render with Line-Art Outline Effect
+      effect.render(scene, camera);
     };
 
     animId = requestAnimationFrame(animate);
