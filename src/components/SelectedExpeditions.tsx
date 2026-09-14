@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { initialExpeditions } from '../data/expeditions';
 import type { Expedition } from '../types';
 import DepthCarousel from './ui/DepthCarousel';
@@ -17,11 +17,20 @@ export const SelectedExpeditions: React.FC = () => {
   const [activeDossier, setActiveDossier] = useState<Expedition | null>(null);
   const [isRepoModalOpen, setIsRepoModalOpen] = useState<boolean>(false);
 
+  const isProgrammaticScrollRef = useRef(false);
+  const programmaticTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   // Smooth project navigation with optional ScrollTrigger stage synchronization
   const goToProject = useCallback((newIndex: number, syncScroll = false) => {
     if (newIndex < 0 || newIndex >= FEATURED_EXPEDITIONS.length) return;
     setActiveIndex(newIndex);
     if (syncScroll) {
+      isProgrammaticScrollRef.current = true;
+      if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
+      programmaticTimerRef.current = setTimeout(() => {
+        isProgrammaticScrollRef.current = false;
+      }, 750);
+
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
@@ -36,6 +45,7 @@ export const SelectedExpeditions: React.FC = () => {
   // Listen for scroll synchronization events from GSAP motion engine
   useEffect(() => {
     const handleExpeditionChange = (e: Event) => {
+      if (isProgrammaticScrollRef.current) return;
       const customEvent = e as CustomEvent<{ index: number }>;
       if (customEvent.detail && typeof customEvent.detail.index === 'number') {
         goToProject(customEvent.detail.index, false);
@@ -45,6 +55,7 @@ export const SelectedExpeditions: React.FC = () => {
     window.addEventListener('adventure:expedition-change', handleExpeditionChange);
     return () => {
       window.removeEventListener('adventure:expedition-change', handleExpeditionChange);
+      if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
     };
   }, [goToProject]);
 
@@ -212,8 +223,8 @@ export const SelectedExpeditions: React.FC = () => {
                 visibleCards={3}
                 falloff={0.24}
                 blur={0}
-                duration={600}
-                ease="power3.out"
+                duration={420}
+                ease="power2.out"
                 loop={false}
                 showControls={true}
                 showIndicators={false}

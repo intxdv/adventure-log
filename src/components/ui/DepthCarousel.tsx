@@ -203,7 +203,7 @@ export const DepthCarousel = ({
         ry = hDir * cfg.tilt * clamp(d, 0, 1);
       }
 
-      let opacity = d < 0 ? Math.max(0, 1 + d * 1.3) : 1;
+      let opacity = d < 0 ? Math.max(0, 1 + d * 0.95) : 1;
       if (!shown) opacity = 0;
 
       const brightness = Math.max(0.2, 1 - back * cfg.falloff);
@@ -349,7 +349,6 @@ export const DepthCarousel = ({
       const targetIdx = clamp(nextIdx, 0, cfg.count - 1);
 
       if (targetIdx !== currentIdx) {
-        focusRef.current = targetIdx;
         activeIndexRef.current = targetIdx;
         setFocus(targetIdx, true);
         onChangeRef.current?.(targetIdx, data[targetIdx]);
