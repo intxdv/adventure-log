@@ -736,7 +736,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         if (draftingPenDotRef.current) {
           draftingPenDotRef.current.setAttribute('cx', String(px));
           draftingPenDotRef.current.setAttribute('cy', String(py));
-          draftingPenDotRef.current.style.display = animState.drawProgress < 0.999 ? '' : 'none';
+          draftingPenDotRef.current.style.display = '';
         }
 
         if (draftingArmRef.current) {
@@ -744,11 +744,13 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           draftingArmRef.current.setAttribute('y1', String(cy));
           draftingArmRef.current.setAttribute('x2', String(px));
           draftingArmRef.current.setAttribute('y2', String(py));
-          draftingArmRef.current.style.display = animState.drawProgress < 0.999 ? '' : 'none';
+          draftingArmRef.current.style.display = '';
         }
 
+        draftingGroupRef.current.style.display = '';
         draftingGroupRef.current.style.opacity = String(animState.circleOpacity);
       } else if (draftingGroupRef.current) {
+        draftingGroupRef.current.style.display = 'none';
         draftingGroupRef.current.style.opacity = '0';
       }
 
