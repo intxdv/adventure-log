@@ -17,10 +17,20 @@ export const SelectedExpeditions: React.FC = () => {
   const [activeDossier, setActiveDossier] = useState<Expedition | null>(null);
   const [isRepoModalOpen, setIsRepoModalOpen] = useState<boolean>(false);
 
-  // Smooth project navigation
-  const goToProject = useCallback((newIndex: number) => {
+  // Smooth project navigation with optional ScrollTrigger stage synchronization
+  const goToProject = useCallback((newIndex: number, syncScroll = false) => {
     if (newIndex < 0 || newIndex >= FEATURED_EXPEDITIONS.length) return;
     setActiveIndex(newIndex);
+    if (syncScroll) {
+      const stageWrapper = document.getElementById('hero-stage-wrapper');
+      if (stageWrapper) {
+        const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+        const progressMap = [0.45, 0.59, 0.73, 0.87];
+        const targetRatio = progressMap[newIndex] ?? (0.45 + newIndex * 0.14);
+        const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
+        window.scrollTo({ top: targetScroll, behavior: 'auto' });
+      }
+    }
   }, []);
 
   // Listen for scroll synchronization events from GSAP motion engine
@@ -28,7 +38,7 @@ export const SelectedExpeditions: React.FC = () => {
     const handleExpeditionChange = (e: Event) => {
       const customEvent = e as CustomEvent<{ index: number }>;
       if (customEvent.detail && typeof customEvent.detail.index === 'number') {
-        goToProject(customEvent.detail.index);
+        goToProject(customEvent.detail.index, false);
       }
     };
 
@@ -208,7 +218,7 @@ export const SelectedExpeditions: React.FC = () => {
                 showControls={true}
                 showIndicators={false}
                 activeIndex={activeIndex}
-                onChange={(idx) => setActiveIndex(idx)}
+                onChange={(idx) => goToProject(idx, true)}
               />
             </div>
 
@@ -224,7 +234,7 @@ export const SelectedExpeditions: React.FC = () => {
                       aria-selected={activeIndex === idx}
                       aria-label={`Jump to expedition 0${idx + 1}: ${exp.title}`}
                       className={`swiss-step-btn ${activeIndex === idx ? 'is-active' : ''}`}
-                      onClick={() => goToProject(idx)}
+                      onClick={() => goToProject(idx, true)}
                     >
                       <span className="swiss-step-dash" />
                     </button>

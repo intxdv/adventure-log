@@ -305,30 +305,60 @@ export const DepthCarousel = ({
     return () => ro.disconnect();
   }, [layout]);
 
+  const wheelLockRef = useRef(false);
+  const wheelLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
+
     const onWheel = (e: WheelEvent) => {
       const cfg = cfgRef.current;
       if (cfg.count < 2) return;
+
+      const delta = e.deltaY;
+      // Filter out small jitter
+      if (Math.abs(delta) < 15) return;
+
+      const currentIdx = focusRef.current;
+
+      // 1. Boundary pass-through:
+      // - Mentok di mock terakhir dan scroll ke bawah: izinkan native scroll ke section berikutnya (Field Arsenal)
+      if (delta > 0 && currentIdx >= cfg.count - 1 && !cfg.loop) {
+        return;
+      }
+
+      // - Mentok di mock pertama dan scroll ke atas: izinkan native scroll ke section sebelumnya (About)
+      if (delta < 0 && currentIdx <= 0 && !cfg.loop) {
+        return;
+      }
+
+      // 2. Di antara mock 1 dan mock 4:
+      // Tahan native scroll agar perpindahan mock terasa presisi dan terukur
       e.preventDefault();
-      tweenRef.current?.kill();
-      const isVert = cfg.orientation === 'vertical';
-      const raw = isVert ? e.deltaY : (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY);
-      const delta = e.deltaMode === 1 ? raw * 24 : raw;
-      const stepBase = isVert ? cfg.cardHeight * 0.75 : cfg.cardWidth * 0.9;
-      const step = clamp(delta / stepBase, -0.6, 0.6);
-      posRef.current += step;
-      layout(posRef.current);
-      if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
-      wheelTimerRef.current = setTimeout(() => setFocus(Math.round(posRef.current), true), 130);
+
+      if (wheelLockRef.current) return;
+      wheelLockRef.current = true;
+
+      const nextIdx = delta > 0 ? currentIdx + 1 : currentIdx - 1;
+      const targetIdx = clamp(nextIdx, 0, cfg.count - 1);
+
+      if (targetIdx !== currentIdx) {
+        setFocus(targetIdx, true);
+      }
+
+      if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+      wheelLockTimerRef.current = setTimeout(() => {
+        wheelLockRef.current = false;
+      }, 380);
     };
+
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => {
       el.removeEventListener('wheel', onWheel);
-      if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current);
+      if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
     };
-  }, [layout, setFocus]);
+  }, [setFocus]);
 
   const onPointerDown = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
     const cfg = cfgRef.current;
