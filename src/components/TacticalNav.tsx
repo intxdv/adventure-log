@@ -63,11 +63,11 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         // Inside stageWrapper: evaluate timeline progress
         const stageProgress = maxScroll > 0 ? (scrollY - stageTop) / maxScroll : 0;
 
-        if (stageProgress < 0.10) {
+        if (stageProgress < 0.08) {
           setActiveId('hero');
-        } else if (stageProgress < 0.38) {
+        } else if (stageProgress < 0.32) {
           setActiveId('about');
-        } else if (stageProgress < 0.85) {
+        } else if (stageProgress < 0.94) {
           setActiveId('expeditions');
         } else {
           setActiveId('arsenal');
@@ -100,13 +100,13 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         return;
       }
       if (id === 'about') {
-        // Scroll to About resting/reading zone (progress 0.24)
-        window.scrollTo({ top: stageTop + maxScroll * 0.24, behavior: 'smooth' });
+        // Scroll to About resting/reading zone (progress 0.19)
+        window.scrollTo({ top: stageTop + maxScroll * 0.19, behavior: 'smooth' });
         return;
       }
       if (id === 'expeditions') {
-        // Scroll to Selected Expeditions stage (progress 0.49 - Mock 1)
-        window.scrollTo({ top: stageTop + maxScroll * 0.49, behavior: 'smooth' });
+        // Scroll to Selected Expeditions stage (progress 0.40 - Mock 1)
+        window.scrollTo({ top: stageTop + maxScroll * 0.40, behavior: 'smooth' });
         return;
       }
       if (id === 'arsenal') {

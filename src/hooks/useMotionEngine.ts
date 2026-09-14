@@ -35,16 +35,16 @@ export const useMotionEngine = () => {
             onUpdate: (self) => {
               // Coordinate Notch Dock appearance
               if (notchHeader) {
-                if (self.progress > 0.13) {
+                if (self.progress > 0.08) {
                   notchHeader.classList.add('is-visible');
                   notchHeader.classList.remove('is-hidden');
-                } else if (self.progress < 0.05) {
+                } else if (self.progress < 0.03) {
                   notchHeader.classList.remove('is-visible');
                   notchHeader.classList.add('is-hidden');
                 }
               }
               // Coordinate About section pointer-events interactivity (hanya aktif saat bio tampil)
-              if (self.progress > 0.10 && self.progress < 0.42) {
+              if (self.progress > 0.07 && self.progress < 0.31) {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
@@ -52,7 +52,7 @@ export const useMotionEngine = () => {
 
               // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 3 mekar hingga tertutup Section 4)
               if (expeditionsSection) {
-                if (self.progress >= 0.44) {
+                if (self.progress >= 0.32) {
                   expeditionsSection.classList.add('is-active');
                 } else {
                   expeditionsSection.classList.remove('is-active');
@@ -60,13 +60,13 @@ export const useMotionEngine = () => {
               }
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
-              if (self.progress >= 0.44) {
+              if (self.progress >= 0.32) {
                 let targetExp = 0;
-                if (self.progress >= 0.74) {
+                if (self.progress >= 0.80) {
                   targetExp = 3;
                 } else if (self.progress >= 0.64) {
                   targetExp = 2;
-                } else if (self.progress >= 0.54) {
+                } else if (self.progress >= 0.48) {
                   targetExp = 1;
                 } else {
                   targetExp = 0;
@@ -85,16 +85,16 @@ export const useMotionEngine = () => {
           },
         });
 
-        // 1a. Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero (t = 0.35 -> 1.35)
+        // 1a. Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero (t = 0.25 -> 1.00)
         portalTimeline.fromTo(
           aboutSection,
           { clipPath: 'circle(0% at 50% 50%)' },
           {
             clipPath: 'circle(150% at 50% 50%)',
-            duration: 1.00,
+            duration: 0.75,
             ease: 'power2.inOut',
           },
-          0.35
+          0.25
         );
 
         // 1b. Konten Hero meredup lembut di balik mekarnya lingkaran portal nokturnal
@@ -102,90 +102,59 @@ export const useMotionEngine = () => {
           '.hero-body-container, .hero-top-bar',
           {
             opacity: 0,
-            duration: 0.45,
+            duration: 0.35,
             ease: 'power1.out',
           },
-          0.40
+          0.30
         );
 
-        // 1c. Entrance Tiap Elemen Section 2 (Muncul berurutan dan tenang)
+        // 1c. Entrance Tiap Elemen Section 2 (Muncul berurutan, tenang, dan responsif)
         portalTimeline.fromTo(
           '.about-kicker',
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.38
+          { opacity: 1, y: 0, duration: 0.20, ease: 'power2.out' },
+          0.95
         );
 
         portalTimeline.fromTo(
           '.field-zine-card',
-          { opacity: 0, y: 28, scale: 0.94 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(1.2)' },
-          1.44
+          { opacity: 0, y: 24, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.28, ease: 'back.out(1.2)' },
+          1.00
         );
 
         // Stagger per-kata pada headline Section 2
         portalTimeline.fromTo(
           '.about-headline .about-word',
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, stagger: 0.035, duration: 0.25, ease: 'power2.out' },
-          1.50
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, stagger: 0.025, duration: 0.20, ease: 'power2.out' },
+          1.05
         );
 
         // Stagger per-kata pada bio editorial Section 2
         portalTimeline.fromTo(
           '.about-lead .about-word, .about-body .about-word',
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, stagger: 0.006, duration: 0.18, ease: 'power2.out' },
-          1.56
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, stagger: 0.005, duration: 0.16, ease: 'power2.out' },
+          1.10
         );
 
         // Selvagant emblem logo badge
         portalTimeline.fromTo(
           '.field-zine-logo-badge',
           { opacity: 0, scale: 0.88, y: -8 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.65
-        );
-
-        portalTimeline.fromTo(
-          '.about-tags-row .tag-badge',
-          { opacity: 0, y: 10, scale: 0.92 },
-          { opacity: 1, y: 0, scale: 1, stagger: 0.04, duration: 0.25, ease: 'power2.out' },
-          1.75
-        );
-
-        // Kotak manifesto
-        portalTimeline.fromTo(
-          '.about-manifesto',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' },
-          1.85
-        );
-
-        // Kicker kutipan manifesto
-        portalTimeline.fromTo(
-          '.about-manifesto .about-manifesto-kicker',
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' },
-          2.00
-        );
-
-        portalTimeline.fromTo(
-          '.about-manifesto .about-word, .about-manifesto-cite',
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, stagger: 0.010, duration: 0.22, ease: 'power2.out' },
-          2.15
+          { opacity: 1, scale: 1, y: 0, duration: 0.20, ease: 'power2.out' },
+          1.18
         );
 
         // ======================================================================
-        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 2.40 -> 5.20)
-        // Seluruh elemen Section 2 menetap kokoh di layar sehingga pengunjung dapat
-        // membaca bio, mengamati kartu polaroid, berinteraksi kursor parallax,
-        // dan mengeksplorasi popover etimologi tanpa terburu-buru.
+        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 1.30 -> 2.40)
+        // Dwell zone dioptimalkan (~56vh equivalent) sehingga cukup waktu membaca
+        // tanpa menimbulkan rasa scroll yang terlalu lama/lambat.
         // ======================================================================
 
         // ----------------------------------------------------------------------
-        // 1d. White Card Transformation & Viewport Expansion (t = 5.20 -> 6.20)
+        // 1d. White Card Transformation & Viewport Expansion (t = 2.40 -> 3.20)
         // ----------------------------------------------------------------------
 
         // 1. Foto, badge logo, dan teks dalam frame kartu menghilang (menjadi solid white)
@@ -193,22 +162,22 @@ export const useMotionEngine = () => {
           '#field-zine-portrait-img, .field-zine-footer, .field-zine-logo-badge',
           {
             opacity: 0,
-            duration: 0.35,
+            duration: 0.25,
             ease: 'power2.inOut',
           },
-          5.20
+          2.40
         );
 
-        // Bio editorial, headline, tag, dan manifesto meredup keluar
+        // Bio editorial, headline meredup keluar
         portalTimeline.to(
           '.about-article',
           {
             opacity: 0,
-            y: -25,
-            duration: 0.35,
+            y: -20,
+            duration: 0.25,
             ease: 'power2.in',
           },
-          5.20
+          2.40
         );
 
         // 2. Kotak kartu putih membesar memenuhi layar sesuai 4 direksi sudut
@@ -216,10 +185,10 @@ export const useMotionEngine = () => {
           '#field-zine-card-elem',
           {
             scale: 22,
-            duration: 0.70,
+            duration: 0.55,
             ease: 'power2.inOut',
           },
-          5.50
+          2.60
         );
 
         // Background putih kanvas Section 3 menyala penuh
@@ -227,23 +196,23 @@ export const useMotionEngine = () => {
           '#expeditions-white-canvas',
           {
             opacity: 1,
-            duration: 0.50,
+            duration: 0.40,
             ease: 'power2.inOut',
           },
-          5.60
+          2.65
         );
 
         // Swiss Editorial Showcase Container Fade-In
         portalTimeline.fromTo(
           '#expeditions-swiss-container',
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.45,
+            duration: 0.35,
             ease: 'power2.out',
           },
-          5.80
+          2.75
         );
 
         // Enable visibility & pointer events on expeditions stage
@@ -251,14 +220,14 @@ export const useMotionEngine = () => {
           '#expeditions',
           { visibility: 'hidden', pointerEvents: 'none' },
           { visibility: 'visible', pointerEvents: 'auto', duration: 0.01 },
-          5.40
+          2.50
         );
 
         // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
-        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden' }, 6.20);
+        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden' }, 3.20);
 
         // ----------------------------------------------------------------------
-        // 1e. Swiss Editorial Showcase: Timeline pacing (t = 6.20 -> 12.20)
+        // 1e. Swiss Editorial Showcase: Timeline pacing (t = 3.20 -> 8.30)
         // Project indexing is synchronized continuously via onUpdate (reverse-scrub safe)
         // ----------------------------------------------------------------------
 
@@ -271,7 +240,7 @@ export const useMotionEngine = () => {
             duration: 0.50,
             ease: 'none',
           },
-          12.10
+          8.20
         );
       }
 
