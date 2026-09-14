@@ -854,6 +854,15 @@
   justify-content: center;
 }
 
+/* Hide bottom close button on desktop to eliminate redundancy with top-right CLOSE [ESC] */
+.dossier-footer-close-btn {
+  display: none !important;
+}
+
+.dossier-modal-footer.mobile-only {
+  display: none !important;
+}
+
 .dossier-action-btn {
   padding: 8px 18px;
   font-size: 0.75rem;
@@ -1209,6 +1218,15 @@
 
   .dossier-modal-footer {
     padding: 10px 14px;
+  }
+
+  .dossier-modal-footer.mobile-only {
+    display: block !important;
+  }
+
+  /* Show bottom close button on mobile viewports */
+  .dossier-footer-close-btn {
+    display: inline-flex !important;
   }
 
   .dossier-footer-links {

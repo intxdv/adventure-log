@@ -450,7 +450,7 @@ export const About: React.FC = () => {
                 </a>
                 <button
                   type="button"
-                  className="dossier-action-btn secondary"
+                  className="dossier-action-btn secondary dossier-footer-close-btn"
                   onClick={() => setIsProfileModalOpen(false)}
                 >
                   <span>CLOSE</span>
