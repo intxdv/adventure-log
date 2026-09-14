@@ -50,9 +50,9 @@ export const useMotionEngine = () => {
                 aboutSection.classList.remove('is-active');
               }
 
-              // Coordinate Expeditions stage visibility & interactivity (hanya aktif saat Section 3 mekar)
+              // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 3 mekar hingga tertutup Section 4)
               if (expeditionsSection) {
-                if (self.progress >= 0.44 && self.progress <= 0.98) {
+                if (self.progress >= 0.44) {
                   expeditionsSection.classList.add('is-active');
                 } else {
                   expeditionsSection.classList.remove('is-active');
@@ -60,13 +60,13 @@ export const useMotionEngine = () => {
               }
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
-              if (self.progress >= 0.46 && self.progress <= 0.98) {
+              if (self.progress >= 0.44) {
                 let targetExp = 0;
-                if (self.progress >= 0.85) {
+                if (self.progress >= 0.76) {
                   targetExp = 3;
-                } else if (self.progress >= 0.72) {
+                } else if (self.progress >= 0.65) {
                   targetExp = 2;
-                } else if (self.progress >= 0.59) {
+                } else if (self.progress >= 0.54) {
                   targetExp = 1;
                 } else {
                   targetExp = 0;
@@ -154,34 +154,11 @@ export const useMotionEngine = () => {
           1.75
         );
 
-        // Kotak manifesto
-        portalTimeline.fromTo(
-          '.about-manifesto',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' },
-          1.95
-        );
-
-        // Kicker kutipan manifesto
-        portalTimeline.fromTo(
-          '.about-manifesto .about-manifesto-kicker',
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' },
-          2.15
-        );
-
-        portalTimeline.fromTo(
-          '.about-manifesto .about-word, .about-manifesto-cite',
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, stagger: 0.010, duration: 0.22, ease: 'power2.out' },
-          2.30
-        );
-
         // ======================================================================
-        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 2.55 -> 5.20)
+        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 1.80 -> 5.20)
         // Seluruh elemen Section 2 menetap kokoh di layar sehingga pengunjung dapat
-        // membaca bio, mengamati kartu polaroid, berinteraksi kursor parallax,
-        // dan mengeksplorasi popover etimologi tanpa terburu-buru.
+        // membaca bio, mengamati kartu polaroid, dan mengeksplorasi popover etimologi
+        // serta popover manifesto eksplorasi pada kutipan tanpa terburu-buru.
         // ======================================================================
 
         // ----------------------------------------------------------------------
@@ -262,14 +239,14 @@ export const useMotionEngine = () => {
         // Project indexing is synchronized continuously via onUpdate (reverse-scrub safe)
         // ----------------------------------------------------------------------
 
-        // Project 04 stays settled and calm on screen (no blank screen fadeout)
-        // Subtle settled breathing room before curtain overlap
+        // Project 04 stays settled and calm on screen (section 3 tetap di situ)
+        // Stationary resting room as Section 4 pulls over it
         portalTimeline.to(
           '#expeditions-swiss-container',
           {
-            y: -8,
+            y: 0,
             duration: 0.50,
-            ease: 'power1.out',
+            ease: 'none',
           },
           12.10
         );

@@ -4,6 +4,10 @@
    ========================================================================== */
 
 .arsenal-section {
+  margin-top: -100vh;
+  margin-top: -100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--space-4xl) 0;
   position: relative;
   z-index: 10;

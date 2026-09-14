@@ -55,7 +55,7 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         const maxScroll = stageHeight - window.innerHeight;
 
         // Passed stageWrapper: entered Section 03 (Field Arsenal)
-        if (scrollY >= stageTop + maxScroll + window.innerHeight * 0.2) {
+        if (scrollY >= stageTop + maxScroll - 8) {
           setActiveId('arsenal');
           return;
         }
@@ -63,11 +63,11 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         // Inside stageWrapper: evaluate timeline progress
         const stageProgress = maxScroll > 0 ? (scrollY - stageTop) / maxScroll : 0;
 
-        if (stageProgress < 0.12) {
+        if (stageProgress < 0.10) {
           setActiveId('hero');
-        } else if (stageProgress < 0.44) {
+        } else if (stageProgress < 0.38) {
           setActiveId('about');
-        } else if (stageProgress <= 0.98) {
+        } else if (stageProgress < 0.85) {
           setActiveId('expeditions');
         } else {
           setActiveId('arsenal');
@@ -100,17 +100,17 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         return;
       }
       if (id === 'about') {
-        // Scroll to About resting/reading zone (progress 0.28)
-        window.scrollTo({ top: stageTop + maxScroll * 0.28, behavior: 'smooth' });
+        // Scroll to About resting/reading zone (progress 0.24)
+        window.scrollTo({ top: stageTop + maxScroll * 0.24, behavior: 'smooth' });
         return;
       }
       if (id === 'expeditions') {
-        // Scroll to Selected Expeditions stage (progress 0.52 - Mock 1)
-        window.scrollTo({ top: stageTop + maxScroll * 0.52, behavior: 'smooth' });
+        // Scroll to Selected Expeditions stage (progress 0.49 - Mock 1)
+        window.scrollTo({ top: stageTop + maxScroll * 0.49, behavior: 'smooth' });
         return;
       }
       if (id === 'arsenal') {
-        const targetScroll = stageTop + stageWrapper.offsetHeight + 4;
+        const targetScroll = stageTop + maxScroll;
         window.scrollTo({ top: targetScroll, behavior: 'smooth' });
         return;
       }

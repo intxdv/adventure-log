@@ -34,8 +34,8 @@ export const SelectedExpeditions: React.FC = () => {
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-        const progressMap = [0.52, 0.65, 0.78, 0.91];
-        const targetRatio = progressMap[newIndex] ?? (0.52 + newIndex * 0.13);
+        const progressMap = [0.49, 0.60, 0.71, 0.81];
+        const targetRatio = progressMap[newIndex] ?? (0.49 + newIndex * 0.11);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }
@@ -53,14 +53,14 @@ export const SelectedExpeditions: React.FC = () => {
       isProgrammaticScrollRef.current = false;
     }, 1100);
 
+    const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
     if (direction === 'down') {
-      // Gulir mulus dan ringan langsung ke Section 4 (Field Arsenal) secara utuh
-      const targetScroll = stageWrapper.offsetTop + stageWrapper.offsetHeight + 4;
+      // Gulir mulus menarik layer Section 4 (Field Arsenal) ke atas menimpa Section 3
+      const targetScroll = stageWrapper.offsetTop + maxScroll;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     } else if (direction === 'up') {
       // Gulir mulus dan ringan langsung ke Section 2 (About: resting zone)
-      const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-      const targetScroll = stageWrapper.offsetTop + maxScroll * 0.28;
+      const targetScroll = stageWrapper.offsetTop + maxScroll * 0.24;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     }
   }, []);
