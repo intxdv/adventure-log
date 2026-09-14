@@ -40,9 +40,8 @@
   outline: none;
   transform-style: preserve-3d;
   transform-origin: center center;
-  background: #101210;
+  background: var(--color-surface-dark, #101210);
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.4);
-  will-change: flex-grow, transform;
   -webkit-tap-highlight-color: transparent;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -83,7 +82,6 @@
   width: var(--ag-media-size);
   height: 100%;
   filter: grayscale(var(--ag-gray));
-  will-change: transform, filter;
   transform: translate(-50%, -50%);
 }
 
@@ -186,7 +184,7 @@
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #A3B59D;
+  color: var(--color-sage-accent, #A3B59D);
 }
 
 .ag-panel__spine-title {
@@ -202,7 +200,7 @@
 }
 
 .ag-panel:hover .ag-panel__spine-title {
-  color: #C2D4BC;
+  color: var(--color-sage-hover, #C2D4BC);
 }
 
 .ag-panel__spine-code {
@@ -333,7 +331,7 @@
 }
 
 .ag-skill-card {
-  background: rgba(24, 28, 24, 0.75);
+  background: var(--color-surface-dark-card, rgba(24, 28, 24, 0.75));
   border: 1px solid rgba(247, 246, 242, 0.12);
   border-radius: 2px;
   padding: 8px 12px;

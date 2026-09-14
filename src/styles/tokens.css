@@ -21,6 +21,12 @@
   --hairline-subtle: rgba(24, 26, 24, 0.06);
   --hairline-strong: rgba(24, 26, 24, 0.20);
 
+  /* Tactical Dark Surface & Accent Tokens (Field Arsenal & Deep Sections) */
+  --color-surface-dark: #111411;
+  --color-surface-dark-card: #181c18;
+  --color-sage-accent: #A3B59D;
+  --color-sage-hover: #C2D4BC;
+
   /* Typography Stacks */
   --font-display: 'Lufga', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Lufga', -apple-system, BlinkMacSystemFont, sans-serif;

@@ -253,6 +253,7 @@ export const AccordionGallery = ({
         return (
           <Tag
             key={item.id || i}
+            id={`ag-panel-${i}`}
             ref={(el: HTMLElement | null) => {
               panelRefs.current[i] = el;
             }}
@@ -265,6 +266,8 @@ export const AccordionGallery = ({
             onKeyDown={e => handleKeyDown(i, e)}
             role="listitem"
             tabIndex={0}
+            aria-expanded={isActive}
+            aria-controls={`ag-dossier-${i}`}
             aria-current={isActive ? 'true' : undefined}
             aria-label={item.label}
           >
@@ -312,6 +315,9 @@ export const AccordionGallery = ({
 
             {/* Expanded View: Full Technical Dossier Content (Shown when active) */}
             <div
+              id={`ag-dossier-${i}`}
+              role="region"
+              aria-labelledby={`ag-panel-${i}`}
               className="ag-panel__dossier"
               ref={(el: HTMLElement | null) => {
                 dossierRefs.current[i] = el;
