@@ -119,11 +119,10 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         ease: 'power2.out',
       });
 
-      gsap.to('.hero-bio-word', {
+      gsap.to('.hero-bio-paragraph', {
         opacity: 1,
         y: 0,
-        stagger: 0.075,
-        duration: 0.65,
+        duration: 0.5,
         ease: 'power2.out',
       });
 

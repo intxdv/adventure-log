@@ -222,26 +222,28 @@
   50% { opacity: 0; }
 }
 
-/* Bio Editorial - Scaled Up & Stagger Phrase */
+/* Bio Editorial - Crisp Contrast & Instant Solid Readability */
 .hero-bio-paragraph {
   font-size: clamp(1.05rem, 1.35vw, 1.35rem);
   line-height: 1.65;
-  color: var(--color-ink-muted);
+  color: var(--color-ink);
   max-width: min(600px, 42vw);
   margin: 0;
   font-family: var(--font-body);
+  opacity: 0;
+  transform: translateY(8px);
+  will-change: opacity, transform;
 }
 
 .hero-bio-paragraph strong {
   color: var(--color-ink);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .hero-bio-word {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(12px);
-  will-change: opacity, transform;
+  opacity: 1;
+  transform: none;
 }
 
 .hero-meta-kicker {

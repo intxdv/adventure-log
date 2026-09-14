@@ -61,8 +61,11 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     const viewDir = new THREE.Vector3().subVectors(camTarget, camPos).normalize();
     const initialDistance = camPos.distanceTo(camTarget);
 
-    // Initial scale (~380px diameter on 1080p desktop)
-    const initialScale = 0.58;
+    const computeInitialScale = (aspect: number) => {
+      if (aspect < 0.9) return 0.44;
+      return 0.58;
+    };
+    let initialScale = computeInitialScale(camera.aspect);
 
     const computeRestX = (aspect: number) => {
       if (aspect > 1.8) return 4.1;
@@ -71,7 +74,14 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       if (aspect > 0.9) return 1.8;
       return 0.0;
     };
+
+    const computeRestY = (aspect: number) => {
+      if (aspect <= 0.9) return -1.55;
+      return 0.0;
+    };
+
     let xRest = computeRestX(camera.aspect);
+    let yRest = computeRestY(camera.aspect);
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -558,8 +568,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       }
 
       // Calculate 2D Screen Center and Radius for Hit Area & Drafting Circle
-      const center3D = new THREE.Vector3(xRest, 0.55, 0.0);
-      const rim3D = new THREE.Vector3(xRest + 3.45 * initialScale, 0.55, 0.0);
+      const center3D = new THREE.Vector3(xRest, 0.55 + yRest, 0.0);
+      const rim3D = new THREE.Vector3(xRest + 3.45 * initialScale, 0.55 + yRest, 0.0);
 
       const pCenter = center3D.clone().project(camera);
       const pRim = rim3D.clone().project(camera);
@@ -692,8 +702,10 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         const centerRayPoint = camPos.clone().addScaledVector(viewDir, dist);
 
         const shiftX = xRest * Math.pow(Math.max(0.0, 1.0 - currentWarp), 1.3);
+        const shiftY = yRest * Math.pow(Math.max(0.0, 1.0 - currentWarp), 1.3);
         const targetPivot = centerRayPoint.clone();
         targetPivot.x += shiftX;
+        targetPivot.y += shiftY;
 
         // Current scale combines initial entrance scale and warp scale
         const effectiveBaseScale = THREE.MathUtils.lerp(animState.rootScale, initialScale, animState.assembleProgress);
@@ -782,7 +794,9 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           camera.aspect = newW / newH;
           camera.updateProjectionMatrix();
           renderer.setSize(newW, newH);
+          initialScale = computeInitialScale(camera.aspect);
           xRest = computeRestX(camera.aspect);
+          yRest = computeRestY(camera.aspect);
         }
       }
     });
