@@ -96,29 +96,16 @@ export const useMotionEngine = () => {
         // 1a. Reset display and prepare Section 2
         portalTimeline.set('#about', { display: 'flex' }, 0);
 
-        // Dynamically locate center of the 3D compass in right column
-        const getCompassOrigin = () => {
-          const el = document.querySelector('.hero-compass-3d-wrapper');
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            const cx = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
-            const cy = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
-            return `${cx.toFixed(1)}% ${cy.toFixed(1)}%`;
-          }
-          return '78% 50%';
-        };
-        const compassOrigin = getCompassOrigin();
-
-        // Section 2 mekar melingkar tepat dari titik hitam poros kompas (t = 0.25 -> 1.00)
+        // Section 2 memudar masuk lembut di balik kompas 3D yang menembus layar
         portalTimeline.fromTo(
           aboutSection,
-          { clipPath: `circle(0% at ${compassOrigin})` },
+          { opacity: 0 },
           {
-            clipPath: `circle(170% at ${compassOrigin})`,
-            duration: 0.75,
-            ease: 'power2.inOut',
+            opacity: 1,
+            duration: 0.55,
+            ease: 'power1.inOut',
           },
-          0.25
+          0.18
         );
 
         // Konten kiri Hero (judul & bio) meredup lembut di awal scroll
@@ -126,21 +113,10 @@ export const useMotionEngine = () => {
           '.hero-left-col, .hero-top-bar',
           {
             opacity: 0,
-            duration: 0.35,
+            duration: 0.28,
             ease: 'power1.out',
           },
-          0.20
-        );
-
-        // Kompas 3D memudar lembut setelah titik hitamnya menyatu dengan kanvas About
-        portalTimeline.to(
-          '.hero-compass-3d-wrapper',
-          {
-            opacity: 0,
-            duration: 0.25,
-            ease: 'power1.out',
-          },
-          0.38
+          0.06
         );
 
         // 1c. Entrance Tiap Elemen Section 2 (Muncul berurutan, tenang, dan responsif)

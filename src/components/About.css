@@ -22,8 +22,8 @@
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  clip-path: circle(0% at 50% 50%);
-  will-change: clip-path;
+  opacity: 0;
+  will-change: opacity;
   pointer-events: none;
   overflow: hidden;
 }

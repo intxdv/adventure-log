@@ -1,22 +1,24 @@
 .hero-compass-3d-wrapper {
-  position: absolute;
-  right: clamp(20px, 6vw, 110px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(320px, 36vw, 490px);
-  height: clamp(320px, 36vw, 490px);
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  z-index: 1;
+  z-index: 4;
   opacity: 0;
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .hero-compass-3d-wrapper.is-visible {
-  opacity: 0.92;
+  opacity: 0.96;
 }
 
 .hero-compass-3d-wrapper.is-model-ready {
@@ -31,15 +33,10 @@
   filter: drop-shadow(0 20px 32px rgba(24, 26, 24, 0.08));
 }
 
-
 /* Responsiveness on Small Screens */
 @media (max-width: 900px) {
   .hero-compass-3d-wrapper {
-    right: 50%;
-    transform: translate(50%, -50%);
-    opacity: 0.35 !important;
-    width: clamp(260px, 60vw, 360px);
-    height: clamp(260px, 60vw, 360px);
-    filter: blur(0.5px);
+    opacity: 0.45 !important;
   }
 }
+

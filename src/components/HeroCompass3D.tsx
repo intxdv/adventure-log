@@ -21,15 +21,23 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     // 1. Three.js Scene Setup
     const scene = new THREE.Scene();
 
-    const width = container.clientWidth || 440;
-    const height = container.clientHeight || 440;
+    const width = container.clientWidth || window.innerWidth;
+    const height = container.clientHeight || window.innerHeight;
 
     // 3/4 Isometric Perspective Angle looking down at the open face
     // Dial face is +Y, Ring is at -Z (upper-right when rotated)
-    // near: 0.005 so camera can dive right up to the center black dot without clipping
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.005, 100);
-    camera.position.set(0.0, 9.0, 9.8);
+    const camera = new THREE.PerspectiveCamera(36, width / height, 0.05, 100);
+    camera.position.set(0.0, 8.5, 9.5);
     camera.lookAt(0.0, 0.45, -0.1);
+
+    const computeRestX = (aspect: number) => {
+      if (aspect > 1.8) return 4.3;
+      if (aspect > 1.5) return 3.9;
+      if (aspect > 1.2) return 3.3;
+      if (aspect > 0.9) return 2.1;
+      return 0.0;
+    };
+    let xRest = computeRestX(camera.aspect);
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -123,7 +131,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         compassRoot.rotation.x = THREE.MathUtils.degToRad(8);
         compassRoot.rotation.y = THREE.MathUtils.degToRad(-38);
         compassRoot.rotation.z = THREE.MathUtils.degToRad(4);
-        compassRoot.position.set(0.0, 0.0, 0.0);
+        compassRoot.position.set(xRest, 0.0, 0.0);
         compassRoot.scale.setScalar(1.0);
 
         scene.add(compassRoot);
@@ -165,8 +173,13 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       mouseX = (e.clientX / w) * 2 - 1;
       mouseY = -(e.clientY / h) * 2 + 1;
 
-      // Pointer deflection for needle relative to compass center
-      const dx = mouseX - 0.55;
+      // Pointer deflection for needle relative to projected compass center
+      const compassNdcX = THREE.MathUtils.clamp(
+        xRest / (12.8 * Math.tan(THREE.MathUtils.degToRad(18)) * camera.aspect),
+        -0.8,
+        0.8
+      );
+      const dx = mouseX - compassNdcX;
       const dy = mouseY - 0.05;
       // In glTF, needle rotates around Y-axis
       targetNeedleRot = -Math.atan2(dy, dx) - Math.PI / 2 + THREE.MathUtils.degToRad(38);
@@ -181,17 +194,10 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
-    // 5. Render Loop with Inertia Physics & Dive-into-Dot Warp Animation
+    // 5. Render Loop with Inertia Physics & True Screen Penetration Animation
     let animId: number;
     let isIntersecting = true;
     const clock = new THREE.Clock();
-
-    // Pivot center coordinates in 3D space
-    const pivotCenter = new THREE.Vector3(0.0, 0.87, 0.0);
-    const startCamPos = new THREE.Vector3(0.0, 9.0, 9.8);
-    const camRay = new THREE.Vector3().subVectors(startCamPos, pivotCenter);
-    const initialDistance = camRay.length();
-    const camDirection = camRay.clone().normalize();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
@@ -201,15 +207,15 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       const elapsed = clock.getElapsedTime();
 
       // Smooth interpolation of warp progress
-      currentWarp += (targetWarp - currentWarp) * 0.10;
+      currentWarp += (targetWarp - currentWarp) * 0.12;
 
       // Needle Dynamics: Magnetic Drift + Pointer Tracking + Accelerating Needle Spin Surge
       const idleWobble = Math.sin(elapsed * 1.8) * 0.04 + Math.cos(elapsed * 3.2) * 0.02;
       currentNeedleRot += (targetNeedleRot + idleWobble - currentNeedleRot) * 0.075;
 
       if (needleMesh) {
-        // Accelerating spin surge: spins faster and faster into a warp blur as we approach center dot
-        const spinSurge = Math.pow(currentWarp, 2.0) * Math.PI * 16;
+        // Accelerating spin surge: spins faster and faster into a warp blur as compass rushes in
+        const spinSurge = Math.pow(currentWarp, 2.0) * Math.PI * 24;
         needleMesh.rotation.y = currentNeedleRot + spinSurge;
       }
 
@@ -224,32 +230,47 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         ringMesh.rotation.x = THREE.MathUtils.lerp(clampedX, 0.0, currentWarp);
       }
 
-      // Dive into Center Black Dot: Camera moves along line of sight directly into (0, 0.87, 0)
-      const currentDist = initialDistance * Math.pow(Math.max(0.0002, 1.0 - currentWarp * 0.992), 2.2);
-      camera.position.copy(pivotCenter).addScaledVector(camDirection, currentDist);
-      camera.lookAt(
-        0.0,
-        THREE.MathUtils.lerp(0.45, 0.87, currentWarp),
-        THREE.MathUtils.lerp(-0.1, 0.0, currentWarp)
-      );
-
-      // Parallax Tilt (active at rest, smoothly fades to 0 as we dive in)
+      // True Screen Penetration Dynamics ("menembus layar"):
+      // Compass rushes forward towards and past the camera plane
       if (compassRoot) {
+        const warpCurve = Math.pow(currentWarp, 1.35);
+        // Moves from (xRest, 0, 0) rushing toward camera position (0.0, 8.5, 9.5) and through the screen
+        const posX = THREE.MathUtils.lerp(xRest, 0.0, warpCurve);
+        const posY = THREE.MathUtils.lerp(0.0, 7.8, warpCurve);
+        const posZ = THREE.MathUtils.lerp(0.0, 10.2, warpCurve);
+        compassRoot.position.set(posX, posY, posZ);
+
+        // Dramatic scale expansion: the compass expands to engulf the entire 100vw x 100vh display
+        const scale = 1.0 + Math.pow(currentWarp, 1.45) * 6.8;
+        compassRoot.scale.setScalar(scale);
+
+        // Tilt transition: 3/4 isometric angle -> face-on circular view rushing into the viewer
         const baseRotX = THREE.MathUtils.degToRad(8);
         const baseRotY = THREE.MathUtils.degToRad(-38);
         const baseRotZ = THREE.MathUtils.degToRad(4);
 
-        const parallaxInfluence = Math.max(0.0, 1.0 - currentWarp * 1.5);
-        const targetTiltX = baseRotX + mouseY * 0.05 * parallaxInfluence;
-        const targetTiltY = baseRotY + mouseX * 0.05 * parallaxInfluence;
+        const parallaxInfluence = Math.max(0.0, 1.0 - currentWarp * 2.0);
+        const targetTiltX = THREE.MathUtils.lerp(baseRotX, THREE.MathUtils.degToRad(42), warpCurve) + (mouseY * 0.04 * parallaxInfluence);
+        const targetTiltY = THREE.MathUtils.lerp(baseRotY, 0.0, warpCurve) + (mouseX * 0.04 * parallaxInfluence);
+        const targetTiltZ = THREE.MathUtils.lerp(baseRotZ, 0.0, currentWarp);
 
-        compassRoot.rotation.x += (targetTiltX - compassRoot.rotation.x) * 0.08;
-        compassRoot.rotation.y += (targetTiltY - compassRoot.rotation.y) * 0.08;
-        compassRoot.rotation.z = baseRotZ;
+        compassRoot.rotation.x += (targetTiltX - compassRoot.rotation.x) * 0.10;
+        compassRoot.rotation.y += (targetTiltY - compassRoot.rotation.y) * 0.10;
+        compassRoot.rotation.z += (targetTiltZ - compassRoot.rotation.z) * 0.10;
       }
 
       // Damping velocity
       mouseVelocity *= 0.94;
+
+      // Dissolve canvas as the compass penetrates through the screen plane
+      if (canvas) {
+        if (currentWarp > 0.72) {
+          const dissolve = THREE.MathUtils.clamp((currentWarp - 0.72) / 0.24, 0.0, 1.0);
+          canvas.style.opacity = String(Math.max(0.0, 1.0 - dissolve));
+        } else {
+          canvas.style.opacity = '1';
+        }
+      }
 
       // Render with Line-Art Outline Effect
       effect.render(scene, camera);
@@ -265,6 +286,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           camera.aspect = newW / newH;
           camera.updateProjectionMatrix();
           renderer.setSize(newW, newH);
+          xRest = computeRestX(camera.aspect);
         }
       }
     });

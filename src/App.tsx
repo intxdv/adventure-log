@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { SelectedExpeditions } from './components/SelectedExpeditions';
+import { HeroCompass3D } from './components/HeroCompass3D';
 import { FieldArsenal } from './components/FieldArsenal';
 import { Footer } from './components/Footer';
 import TargetCursor from './TargetCursor';
@@ -40,6 +41,7 @@ export const App: React.FC = () => {
           <Hero isAppLoaded={isAppLoaded} />
           <About />
           <SelectedExpeditions />
+          <HeroCompass3D isVisible={isAppLoaded} />
         </div>
         <FieldArsenal />
       </main>

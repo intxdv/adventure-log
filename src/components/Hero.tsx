@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useWibTime } from '../hooks/useWibTime';
-import { HeroCompass3D } from './HeroCompass3D';
 import './Hero.css';
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -389,9 +388,6 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             <span className="hero-bio-word">exploration.</span>
           </p>
         </div>
-
-        {/* 3. Interactive Real-Time 3D Compass Asset */}
-        <HeroCompass3D isVisible={hasStartedLoop} />
       </div>
     </section>
   );
