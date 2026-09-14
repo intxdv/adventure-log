@@ -35,8 +35,8 @@ export const useMotionEngine = () => {
       const notchHeader = document.getElementById('top-notch-header');
 
       if (stageWrapper && aboutSection) {
-        // Scrub the clip-path of Section 2 from circle(0%) to circle(150%)
-        // Flow: Clean hero pinned with editorial boxes -> scroll: nocturnal circle blooms to Section 01
+        let currentExpIndex = -1;
+
         const portalTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: stageWrapper,
@@ -59,6 +59,29 @@ export const useMotionEngine = () => {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
+              }
+
+              // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
+              if (self.progress >= 0.38 && self.progress <= 0.98) {
+                let targetExp = 0;
+                if (self.progress >= 0.80) {
+                  targetExp = 3;
+                } else if (self.progress >= 0.66) {
+                  targetExp = 2;
+                } else if (self.progress >= 0.52) {
+                  targetExp = 1;
+                } else {
+                  targetExp = 0;
+                }
+
+                if (targetExp !== currentExpIndex) {
+                  currentExpIndex = targetExp;
+                  window.dispatchEvent(
+                    new CustomEvent('adventure:expedition-change', { detail: { index: targetExp } })
+                  );
+                }
+              } else {
+                currentExpIndex = -1;
               }
             },
           },
@@ -226,52 +249,9 @@ export const useMotionEngine = () => {
         portalTimeline.set('#about', { opacity: 0 }, 4.55);
 
         // ----------------------------------------------------------------------
-        // 1e. Swiss Editorial Showcase: Synchronize 4 Featured Expeditions (t = 4.55 -> 10.65)
+        // 1e. Swiss Editorial Showcase: Timeline pacing (t = 4.55 -> 10.65)
+        // Project indexing is synchronized continuously via onUpdate (reverse-scrub safe)
         // ----------------------------------------------------------------------
-
-        // Project 01: lapor fsm. (t = 4.55 -> 6.05)
-        portalTimeline.call(
-          () => {
-            window.dispatchEvent(
-              new CustomEvent('adventure:expedition-change', { detail: { index: 0 } })
-            );
-          },
-          [],
-          4.55
-        );
-
-        // Project 02: dipofeed. (t = 6.05 -> 7.55)
-        portalTimeline.call(
-          () => {
-            window.dispatchEvent(
-              new CustomEvent('adventure:expedition-change', { detail: { index: 1 } })
-            );
-          },
-          [],
-          6.05
-        );
-
-        // Project 03: aware. (t = 7.55 -> 9.05)
-        portalTimeline.call(
-          () => {
-            window.dispatchEvent(
-              new CustomEvent('adventure:expedition-change', { detail: { index: 2 } })
-            );
-          },
-          [],
-          7.55
-        );
-
-        // Project 04: kagu. (t = 9.05 -> 10.65)
-        portalTimeline.call(
-          () => {
-            window.dispatchEvent(
-              new CustomEvent('adventure:expedition-change', { detail: { index: 3 } })
-            );
-          },
-          [],
-          9.05
-        );
 
         // Project 04 stays settled and calm on screen (no blank screen fadeout)
         // Subtle settled breathing room before curtain overlap

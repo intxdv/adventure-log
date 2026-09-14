@@ -307,6 +307,11 @@ export const DepthCarousel = ({
 
   const wheelLockRef = useRef(false);
   const wheelLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const activeIndexRef = useRef(activeIndex);
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -320,7 +325,7 @@ export const DepthCarousel = ({
       // Filter out small jitter
       if (Math.abs(delta) < 15) return;
 
-      const currentIdx = focusRef.current;
+      const currentIdx = typeof activeIndexRef.current === 'number' ? activeIndexRef.current : focusRef.current;
 
       // 1. Boundary pass-through:
       // - Mentok di mock terakhir dan scroll ke bawah: izinkan native scroll ke section berikutnya (Field Arsenal)
@@ -334,7 +339,7 @@ export const DepthCarousel = ({
       }
 
       // 2. Di antara mock 1 dan mock 4:
-      // Tahan native scroll agar perpindahan mock terasa presisi dan terukur
+      // Tahan native scroll agar perpindahan mock terasa presisi dan responsif
       e.preventDefault();
 
       if (wheelLockRef.current) return;
@@ -344,13 +349,16 @@ export const DepthCarousel = ({
       const targetIdx = clamp(nextIdx, 0, cfg.count - 1);
 
       if (targetIdx !== currentIdx) {
+        focusRef.current = targetIdx;
+        activeIndexRef.current = targetIdx;
         setFocus(targetIdx, true);
+        onChangeRef.current?.(targetIdx, data[targetIdx]);
       }
 
       if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
       wheelLockTimerRef.current = setTimeout(() => {
         wheelLockRef.current = false;
-      }, 380);
+      }, 200);
     };
 
     el.addEventListener('wheel', onWheel, { passive: false });
@@ -358,7 +366,7 @@ export const DepthCarousel = ({
       el.removeEventListener('wheel', onWheel);
       if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
     };
-  }, [setFocus]);
+  }, [data, setFocus]);
 
   const onPointerDown = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
     const cfg = cfgRef.current;
