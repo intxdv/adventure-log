@@ -160,9 +160,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: auto;
-  height: auto;
-  padding: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px;
   background: transparent;
   border: none;
   border-radius: 0;
@@ -285,8 +285,8 @@
 }
 
 .footer-link-idx {
-  color: var(--color-ink-faint);
-  font-size: 0.7rem;
+  color: var(--color-ink-muted);
+  font-size: 0.72rem;
 }
 
 .footer-link:hover {
@@ -396,7 +396,6 @@
 
 .slvgnt-char {
   transform-origin: center bottom;
-  will-change: transform, opacity;
 }
 
 /* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout (Centered Bleed Parallax Anti-Bolong) */
@@ -482,9 +481,9 @@
     margin-right: auto;
     width: fit-content;
     top: 83%;
-    font-size: 0.58rem;
-    padding: 4px 10px;
-    letter-spacing: 0.04em;
+    font-size: clamp(0.68rem, 1.8vw, 0.75rem);
+    padding: 6px 14px;
+    letter-spacing: 0.06em;
     max-width: 90%;
     text-align: center;
     white-space: normal;

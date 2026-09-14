@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react';
  * before dismissing the preloader screen.
  */
 export const CRITICAL_IMAGES = [
-  '/images/footer-landscape-bg-v2.png',
-  '/images/footer-landscape-fg-slvgnt.png',
   '/images/taki-portrait.jpg',
   '/images/expeditions/dipofeed.png',
   '/images/expeditions/aware.png',

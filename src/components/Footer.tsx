@@ -146,10 +146,10 @@ export const Footer: React.FC = () => {
       >
         {/* Layer 1: Background Landscape Sky & Mountains */}
         <img
-          src="/images/footer-landscape-bg-v2.png"
+          src="/images/footer-landscape-bg-v2.webp"
           alt="Mountain Landscape Background"
           className="footer-landscape-bg"
-          loading="eager"
+          loading="lazy"
           decoding="async"
         />
 
@@ -222,10 +222,10 @@ export const Footer: React.FC = () => {
 
         {/* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout */}
         <img
-          src="/images/footer-landscape-fg-slvgnt.png"
+          src="/images/footer-landscape-fg-slvgnt.webp"
           alt="Landscape Foreground Hill with Retro CRT Monitor"
           className="footer-landscape-fg"
-          loading="eager"
+          loading="lazy"
           decoding="async"
         />
 
