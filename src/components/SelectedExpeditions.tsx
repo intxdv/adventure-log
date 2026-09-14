@@ -208,19 +208,28 @@ export const SelectedExpeditions: React.FC = () => {
     };
 
     if (activeDossier || isRepoModalOpen) {
+      const originalBodyOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-    }
 
-    return () => {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+      const preventBackgroundScroll = (e: WheelEvent | TouchEvent) => {
+        const target = e.target as HTMLElement | null;
+        if (target && target.closest('.dossier-modal-body, .grand-archive-body')) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      window.addEventListener('wheel', preventBackgroundScroll, { passive: false });
+      window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
+
+      return () => {
+        document.body.style.overflow = originalBodyOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('wheel', preventBackgroundScroll);
+        window.removeEventListener('touchmove', preventBackgroundScroll);
+      };
+    }
   }, [activeDossier, isRepoModalOpen]);
 
   const currentExpedition = FEATURED_EXPEDITIONS[activeIndex] || FEATURED_EXPEDITIONS[0];

@@ -8,17 +8,27 @@ export const About: React.FC = () => {
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  // Lock body/html scroll when profile modal is open to prevent page scroll hijacking
+  // Lock background scroll when profile modal is open without breaking position:sticky on ancestors
   useEffect(() => {
     if (isProfileModalOpen) {
       const originalBodyOverflow = document.body.style.overflow;
-      const originalHtmlOverflow = document.documentElement.style.overflow;
       document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
+
+      const preventBackgroundScroll = (e: WheelEvent | TouchEvent) => {
+        const target = e.target as HTMLElement | null;
+        if (target && target.closest('.dossier-modal-body')) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      window.addEventListener('wheel', preventBackgroundScroll, { passive: false });
+      window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
 
       return () => {
         document.body.style.overflow = originalBodyOverflow;
-        document.documentElement.style.overflow = originalHtmlOverflow;
+        window.removeEventListener('wheel', preventBackgroundScroll);
+        window.removeEventListener('touchmove', preventBackgroundScroll);
       };
     }
   }, [isProfileModalOpen]);
