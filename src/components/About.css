@@ -132,6 +132,12 @@
 .about-section.is-nocturne .field-zine-card {
   border-color: rgba(255, 255, 255, 0.16);
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+
+.about-section.is-nocturne .field-zine-card:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 24px 52px -8px rgba(0, 0, 0, 0.65), 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .field-zine-frame {
@@ -140,6 +146,11 @@
   aspect-ratio: 1 / 1;
   background-color: var(--color-canvas-subtle);
   border: 1px solid var(--hairline-subtle);
+  transition: border-color 0.4s ease;
+}
+
+.field-zine-card:hover .field-zine-frame {
+  border-color: rgba(18, 21, 18, 0.22);
 }
 
 .field-zine-img-viewport {
@@ -155,6 +166,12 @@
   object-fit: cover;
   display: block;
   filter: contrast(1.02) brightness(0.98);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.field-zine-card:hover .field-zine-img {
+  transform: scale(1.035);
+  filter: contrast(1.04) brightness(1.01);
 }
 
 /* Fallback Container if Image Unloaded/Error */
