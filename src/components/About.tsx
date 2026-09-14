@@ -3,21 +3,21 @@ import './About.css';
 
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isNoteOpen, setIsNoteOpen] = useState(false);
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen((prev) => !prev);
+  const toggleNote = () => {
+    setIsNoteOpen((prev) => !prev);
   };
 
   const handleMouseEnter = () => {
     if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
-      setIsDrawerOpen(true);
+      setIsNoteOpen(true);
     }
   };
 
   const handleMouseLeave = () => {
     if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
-      setIsDrawerOpen(false);
+      setIsNoteOpen(false);
     }
   };
 
@@ -33,28 +33,81 @@ export const About: React.FC = () => {
         <div className="field-card-wrapper">
           <figure id="field-zine-card-elem" className="field-zine-card" aria-label="Portrait: Syafiq Abiyyu Taqi">
             <div className="field-zine-frame">
-              {!hasImageError ? (
-                <img
-                  id="field-zine-portrait-img"
-                  src="/images/taki-portrait.jpg"
-                  alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
-                  className="field-zine-img"
-                  width={1080}
-                  height={1080}
-                  loading="lazy"
-                  onError={() => setHasImageError(true)}
-                />
-              ) : (
-                <div className="field-dossier-fallback">
-                  <div className="field-dossier-reticle font-mono">FIELD</div>
-                  <div style={{ fontWeight: 700, fontSize: 'var(--text-base)', color: 'var(--color-ink)' }}>
-                    TAKI
+              <div className="field-zine-img-viewport">
+                {!hasImageError ? (
+                  <img
+                    id="field-zine-portrait-img"
+                    src="/images/taki-portrait.jpg"
+                    alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
+                    className="field-zine-img"
+                    width={1080}
+                    height={1080}
+                    loading="lazy"
+                    onError={() => setHasImageError(true)}
+                  />
+                ) : (
+                  <div className="field-dossier-fallback">
+                    <div className="field-dossier-reticle font-mono">FIELD</div>
+                    <div style={{ fontWeight: 700, fontSize: 'var(--text-base)', color: 'var(--color-ink)' }}>
+                      TAKI
+                    </div>
+                    <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', marginTop: '4px' }}>
+                      Syafiq Abiyyu Taqi
+                    </div>
                   </div>
-                  <div className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', marginTop: '4px' }}>
-                    Syafiq Abiyyu Taqi
-                  </div>
+                )}
+              </div>
+
+              {/* Selvagant Emblem Logo in Top-Right Corner (like "Baca di Teras" reference) */}
+              <div
+                className={`field-zine-logo-badge ${isNoteOpen ? 'is-expanded' : ''}`}
+                tabIndex={0}
+                role="button"
+                aria-label="Selvagant Moniker & Etymology - Hover or tap to view note"
+                aria-expanded={isNoteOpen}
+                onClick={toggleNote}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onFocus={() => setIsNoteOpen(true)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    setIsNoteOpen(false);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleNote();
+                  } else if (e.key === 'Escape') {
+                    setIsNoteOpen(false);
+                  }
+                }}
+              >
+                <div className="field-zine-logo-anchor">
+                  <img
+                    src="/logo/Logo SVG/Logo-white.svg"
+                    alt="Selvagant Logo Emblem"
+                    className="field-zine-logo-img"
+                    width={48}
+                    height={28}
+                  />
                 </div>
-              )}
+
+                {/* Floating Etymology Note Popover */}
+                <div
+                  className="field-zine-note-popover"
+                  role="tooltip"
+                  aria-hidden={!isNoteOpen}
+                >
+                  <div className="field-zine-note-header font-mono">
+                    <span>THE WANDERING <span className="selvagant-selv-accent">Selv</span></span>
+                    <span className="field-zine-note-tag">// ETYMOLOGY</span>
+                  </div>
+                  <p className="field-zine-note-body font-mono">
+                    Evolved from the Latin <em>Solivagant</em> (one who wanders alone), condensed into <em>Slvgnt</em>, and ultimately forged into <strong>Selvagant</strong> by infusing <strong>Selv</strong>—a deliberate phonetic resonance with <em>Self</em>. A moniker capturing a solitary expedition across software craft, architecture, and conscious self-discovery.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <figcaption className="field-zine-footer">
@@ -67,43 +120,6 @@ export const About: React.FC = () => {
               </div>
             </figcaption>
           </figure>
-
-          {/* Interactive SELVAGANT Display Dock with Click & Hover Disclosure */}
-          <div
-            className={`selvagant-reveal-dock ${isDrawerOpen ? 'is-expanded' : ''}`}
-            tabIndex={0}
-            role="button"
-            aria-expanded={isDrawerOpen}
-            aria-label="Selvagant Moniker Etymology & Meaning - Click to toggle"
-            onClick={toggleDrawer}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleDrawer();
-              }
-            }}
-          >
-            <div className="selvagant-trigger-row">
-              <h3 className="selvagant-hero-word">
-                SELVAGANT
-              </h3>
-            </div>
-
-            {/* Revealed Meaning Drawer */}
-            <div className="selvagant-drawer">
-              <div className="selvagant-drawer-inner">
-                <div className="selvagant-drawer-header font-mono">
-                  <span>THE WANDERING <span className="selvagant-selv-accent">Selv</span></span>
-                  <span style={{ color: 'var(--color-ink-faint)' }}>// ETYMOLOGY</span>
-                </div>
-                <p className="selvagant-drawer-body font-mono">
-                  Evolved from the Latin <em>Solivagant</em> (one who wanders alone), condensed into <em>Slvgnt</em>, and ultimately forged into <strong>Selvagant</strong> by infusing <strong>Selv</strong>—a deliberate phonetic resonance with <em>Self</em>. A moniker capturing a solitary expedition across software craft, architecture, and conscious self-discovery.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Editorial Storytelling & Manifesto */}

@@ -119,12 +119,12 @@ export const useMotionEngine = () => {
           1.67
         );
 
-        // Selvagant reveal dock
+        // Selvagant emblem logo badge
         portalTimeline.fromTo(
-          '.selvagant-reveal-dock',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.81
+          '.field-zine-logo-badge',
+          { opacity: 0, scale: 0.88, y: -8 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.25, ease: 'power2.out' },
+          1.75
         );
 
         portalTimeline.fromTo(
@@ -161,9 +161,9 @@ export const useMotionEngine = () => {
         // 1d. White Card Transformation & Viewport Expansion (t = 3.55 -> 4.55)
         // ----------------------------------------------------------------------
 
-        // 1. Foto dan teks dalam frame kartu menghilang (menjadi solid white)
+        // 1. Foto, badge logo, dan teks dalam frame kartu menghilang (menjadi solid white)
         portalTimeline.to(
-          '#field-zine-portrait-img, .field-zine-footer',
+          '#field-zine-portrait-img, .field-zine-footer, .field-zine-logo-badge',
           {
             opacity: 0,
             duration: 0.35,
@@ -174,7 +174,7 @@ export const useMotionEngine = () => {
 
         // Bio editorial, headline, tag, dan manifesto meredup keluar
         portalTimeline.to(
-          '.about-article, .selvagant-reveal-dock',
+          '.about-article',
           {
             opacity: 0,
             y: -25,
