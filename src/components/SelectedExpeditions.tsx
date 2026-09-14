@@ -117,52 +117,55 @@ export const SelectedExpeditions: React.FC = () => {
                 </div>
               </div>
 
-              {/* Project Title & Metadata */}
-              <div className="swiss-left-project-info font-mono">
-                <h3 className="swiss-project-title font-display">
-                  {currentExpedition.title}
-                </h3>
-                <div className="swiss-project-cat">
-                  {currentExpedition.categoryLabel.toUpperCase()}
+              {/* Dynamic Project Details with Soft Micro-Fade & Drift Animation */}
+              <div key={activeIndex} className="swiss-project-dynamic-details">
+                {/* Project Title & Metadata */}
+                <div className="swiss-left-project-info font-mono">
+                  <h3 className="swiss-project-title font-display">
+                    {currentExpedition.title}
+                  </h3>
+                  <div className="swiss-project-cat">
+                    {currentExpedition.categoryLabel.toUpperCase()}
+                  </div>
+                  <div className="swiss-project-role">
+                    ROLE: {currentExpedition.role.toUpperCase()}
+                  </div>
+                  <div className="swiss-project-status">
+                    <span className="status-dot">●</span>
+                    <span>{currentExpedition.year} // {currentExpedition.status.toUpperCase()}</span>
+                  </div>
                 </div>
-                <div className="swiss-project-role">
-                  ROLE: {currentExpedition.role.toUpperCase()}
-                </div>
-                <div className="swiss-project-status">
-                  <span className="status-dot">●</span>
-                  <span>{currentExpedition.year} // {currentExpedition.status.toUpperCase()}</span>
-                </div>
-              </div>
-            </div>
 
-            {/* Mid Section: Editorial Narrative, Impact & Arsenal Telemetry (Option A) */}
-            <div className="swiss-left-body font-mono">
-              <div className="swiss-box-header font-mono">
-                <span className="swiss-box-kicker">[ EXPEDITION SPECIFICATION ]</span>
-                <span className="swiss-box-idx">{currentExpedition.indexNumber}</span>
-              </div>
+                {/* Mid Section: Editorial Narrative, Impact & Arsenal Telemetry (Option A) */}
+                <div className="swiss-left-body font-mono">
+                  <div className="swiss-box-header font-mono">
+                    <span className="swiss-box-kicker">[ EXPEDITION SPECIFICATION ]</span>
+                    <span className="swiss-box-idx">{currentExpedition.indexNumber}</span>
+                  </div>
 
-              <p className="swiss-editorial-summary">
-                {(currentExpedition.dossier?.englishSummary || currentExpedition.summary).toUpperCase()}
-              </p>
-
-              {currentExpedition.dossier?.impact?.[0] && (
-                <div className="swiss-impact-callout">
-                  <span className="impact-kicker">[ KEY ARCHITECTURAL IMPACT ]</span>
-                  <p className="impact-detail">
-                    {currentExpedition.dossier.impact[0].toUpperCase()}
+                  <p className="swiss-editorial-summary">
+                    {(currentExpedition.dossier?.englishSummary || currentExpedition.summary).toUpperCase()}
                   </p>
-                </div>
-              )}
 
-              <div className="swiss-stack-section">
-                <span className="swiss-stack-label">[ ARSENAL TELEMETRY ]</span>
-                <div className="swiss-stack-pills">
-                  {currentExpedition.stack.slice(0, 5).map((tech) => (
-                    <span key={tech} className="swiss-tech-pill">
-                      {tech}
-                    </span>
-                  ))}
+                  {currentExpedition.dossier?.impact?.[0] && (
+                    <div className="swiss-impact-callout">
+                      <span className="impact-kicker">[ KEY ARCHITECTURAL IMPACT ]</span>
+                      <p className="impact-detail">
+                        {currentExpedition.dossier.impact[0].toUpperCase()}
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="swiss-stack-section">
+                    <span className="swiss-stack-label">[ ARSENAL TELEMETRY ]</span>
+                    <div className="swiss-stack-pills">
+                      {currentExpedition.stack.slice(0, 5).map((tech) => (
+                        <span key={tech} className="swiss-tech-pill">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -198,7 +201,7 @@ export const SelectedExpeditions: React.FC = () => {
                 perspective={1200}
                 visibleCards={3}
                 falloff={0.24}
-                blur={2}
+                blur={0}
                 duration={600}
                 ease="power3.out"
                 loop={false}
