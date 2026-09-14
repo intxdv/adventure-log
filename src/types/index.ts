@@ -2,7 +2,14 @@ export type ExpeditionCategory = 'all' | 'mobile' | 'ai-tools' | 'systems' | 'ed
 
 export interface ExpeditionDossier {
   englishSummary: string;
-  nature: 'Self-initiated' | 'Class Assignment' | 'Work / Organizational Assignment' | 'Community Initiative';
+  nature:
+    | 'Self-initiated'
+    | 'Class Assignment'
+    | 'Course Capstone Project'
+    | 'Work / Organizational Assignment'
+    | 'Work'
+    | 'Internship'
+    | 'Community Initiative';
   isGroupProject: boolean;
   groupRole?: string;
   impact: string[];

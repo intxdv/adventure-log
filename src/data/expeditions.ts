@@ -5,12 +5,12 @@ export const initialExpeditions: Expedition[] = [
     id: 'lapor-fsm',
     indexNumber: 'EXP. 01 / 07',
     title: 'lapor fsm.',
-    tagline: 'whistleblower of the hall.',
+    tagline: 'Because our community deserves a safer campus experience.',
     category: 'mobile',
     categoryLabel: 'Mobile Architecture · Civic Tech',
     year: '2026',
-    period: 'Jan 2026 – Present',
-    role: 'Lead Mobile Architect & Backend',
+    period: 'Jan – Mei 2026',
+    role: 'Mobile Engineer (Supervisor & Technician Apps)',
     status: 'Deployed',
     stack: ['Flutter', 'Dart', 'Elysia', 'Bun', 'Clean Arch', 'REST API'],
     summary: 'Sistem pelaporan insiden & fasilitas kampus untuk transparansi civitas akademika FSM Undip, menghubungkan pelapor langsung ke pengelola sarana dengan alur verifikasi transparan.',
@@ -21,13 +21,14 @@ export const initialExpeditions: Expedition[] = [
     dossier: {
       englishSummary:
         'A centralized digital reporting and incident management mobile application developed to streamline grievance resolution and campus facility maintenance for the FSM Undip academic community.',
-      nature: 'Class Assignment',
+      nature: 'Internship',
       isGroupProject: true,
-      groupRole: 'Lead Mobile Architect & Backend Engineer',
+      groupRole: 'Mobile Engineer & UI/UX Designer (Supervisor & Technician Modules)',
       impact: [
+        'Empowered campus community transparency and psychological safety by bridging students and staff directly to facility technicians without bureaucratic friction or fear of reporting.',
         'Designed and implemented Clean Architecture in Flutter with strict separation of concerns, ensuring high testability and reliable offline report drafting.',
         'Engineered high-throughput REST microservices using Elysia and Bun, achieving sub-millisecond response times for campus incident dispatch.',
-        'Eliminated manual paper-based ticketing, accelerating incident triage and status visibility for thousands of faculty students and staff.',
+        'Accelerated critical campus facility remediation from weeks to days, safeguarding the daily learning environment for 5,000+ faculty students.',
       ],
       learnings: [
         'Mastered end-to-end type-safe API contract design between Elysia and Flutter clients with zero schema drift.',
@@ -49,7 +50,7 @@ export const initialExpeditions: Expedition[] = [
     period: 'Mar 2026 – Present',
     role: 'Mobile Developer',
     status: 'Active',
-    stack: ['Flutter', 'Dart', 'Nutrition Algorithm', 'CSV Database', 'Offline-First'],
+    stack: ['Flutter', 'Dart', 'Nutrition Algorithm', 'Offline-First'],
     summary: 'Aplikasi mobile formulasi dan evaluasi ransum nutrisi sapi perah berbasis database pakan lokal, membantu peternak mengoptimalkan biaya dan produktivitas ternak.',
     featured: true,
     repoUrl: 'https://github.com/leanderarya/dipo-feed',
@@ -58,13 +59,13 @@ export const initialExpeditions: Expedition[] = [
     dossier: {
       englishSummary:
         'A specialized agricultural mobile application engineered to assist Indonesian dairy cattle farmers in formulating and evaluating nutritionally balanced feed rations using local forage databases.',
-      nature: 'Class Assignment',
+      nature: 'Work',
       isGroupProject: true,
       groupRole: 'Mobile Developer & UI Engineer',
       impact: [
+        'Democratized precision animal nutrition for rural dairy smallholders in Central Java, optimizing ration cost-efficiency and boosting farm yields without reliance on costly commercial feeds.',
         'Translated complex animal nutrition equations into an intuitive, offline-first mobile calculator using Flutter.',
-        'Enabled rural dairy farmers to optimize ration cost-efficiency directly in the field without requiring persistent cellular reception.',
-        'Integrated dynamic forage composition lookups from local datasets to reduce expensive commercial feed dependencies.',
+        'Enabled rural dairy farmers to optimize ration cost-efficiency directly in remote fields without requiring persistent cellular reception.',
       ],
       learnings: [
         'Learned how to translate intricate domain-specific mathematical models into reactive, foolproof state management.',
@@ -84,7 +85,7 @@ export const initialExpeditions: Expedition[] = [
     categoryLabel: 'Computer Vision · Occupational Safety',
     year: '2026',
     period: 'Apr – Jun 2026',
-    role: 'Computer Vision & Software Engineer',
+    role: 'Computer Vision Engineer',
     status: 'Concluded',
     stack: ['Python', 'Computer Vision', 'MediaPipe', 'EAR / MAR', 'Safety Screening'],
     summary: 'Sistem screening fit-to-work pendeteksi kelelahan pekerja (<30 dtk) menggunakan Computer Vision via kalkulasi EAR & MAR mata/mulut dan data kesehatan mandiri untuk mencegah kecelakaan kerja.',
@@ -95,13 +96,13 @@ export const initialExpeditions: Expedition[] = [
     dossier: {
       englishSummary:
         'An occupational safety screening platform that detects worker fatigue in under 30 seconds by combining real-time computer vision facial landmark tracking with daily health self-assessments.',
-      nature: 'Class Assignment',
+      nature: 'Course Capstone Project',
       isGroupProject: true,
-      groupRole: 'Computer Vision & Software Engineer',
+      groupRole: 'Computer Vision Engineer',
       impact: [
+        'Championed worker dignity and proactive industrial safety by creating an empathetic, non-invasive fatigue screening tool that prevents workplace injuries before shifts begin.',
         'Implemented real-time facial landmark telemetry with MediaPipe to calculate Eye Aspect Ratio (EAR) and Mouth Aspect Ratio (MAR) for automated drowsiness and yawning detection.',
         'Built a rapid, pre-shift fit-to-work screening pipeline executing in under 30 seconds per worker on commodity webcam hardware.',
-        'Provided workplace safety supervisors with objective, data-backed fatigue alerts before hazardous shifts commence.',
       ],
       learnings: [
         'Deepened practical knowledge of edge computer vision optimization and dynamic threshold calibration under erratic industrial lighting.',
@@ -122,7 +123,7 @@ export const initialExpeditions: Expedition[] = [
     year: '2026',
     period: 'Agu – Sep 2026',
     role: 'Solo Creator & Lead Engineer',
-    status: 'Active',
+    status: 'Deployed',
     stack: ['TypeScript', 'WXT', 'Gemini API', 'Whisper API', 'Next.js', 'BYOK'],
     summary: 'Ekstensi browser speech-to-text modern berbasis Google Gemini & Whisper API dengan auto-input field aktif, multi-lingua cerdas, dan sinkronisasi clipboard instan.',
     featured: true,
@@ -136,9 +137,9 @@ export const initialExpeditions: Expedition[] = [
       isGroupProject: false,
       groupRole: 'Solo Creator & Fullstack Extension Engineer',
       impact: [
+        'Empowered developers, writers, and individuals with typing fatigue or motor strain with a voice-first productivity workflow, removing barriers to digital expression.',
         'Engineered a zero-friction voice capture pipeline that injects transcribed text directly into active browser DOM input elements while preserving cursor position.',
         'Architected a Bring-Your-Own-Key (BYOK) privacy model that eliminates central data tracking and provides cost-free transcription via Gemini Flash.',
-        'Built intelligent multilingual punctuation and tone-formatting options tailored for creative writing and developer workflows.',
       ],
       learnings: [
         'Mastered modern WebExtension development using the WXT framework and navigating cross-browser content-script isolation constraints.',
@@ -168,13 +169,13 @@ export const initialExpeditions: Expedition[] = [
     dossier: {
       englishSummary:
         'An interactive music education mobile platform designed to make fundamental music theory intuitive through gamified rhythm training, interactive pitch canvas, and tactile audio feedback.',
-      nature: 'Class Assignment',
+      nature: 'Work',
       isGroupProject: true,
       groupRole: 'Mobile & Interactive Audio Engineer',
       impact: [
+        'Made foundational music literacy and rhythmic training accessible to young learners everywhere through gamified acoustic interactions, lowering barriers to musical education.',
         'Developed interactive custom canvas components in Flutter for real-time rhythm and pitch tapping with negligible latency.',
         'Constructed a lightweight leaderboard and user progression backend with Elysia and Bun to sustain student motivation.',
-        'Structured modular audio playback controllers that synchronize visual notes with synthetic acoustic tones.',
       ],
       learnings: [
         'Gained deep technical proficiency in low-latency mobile audio buffer handling and coordinating game tick loops with Flutter rendering cycles.',
@@ -189,7 +190,7 @@ export const initialExpeditions: Expedition[] = [
     id: 'baca-di-teras',
     indexNumber: 'EXP. 06 / 07',
     title: 'baca di teras.',
-    tagline: 'archive of the sanctuary.',
+    tagline: "Because Knowledge Should Be Within Everyone's Reach.",
     category: 'systems',
     categoryLabel: 'Library Automation · Public Systems',
     year: '2026',
@@ -208,9 +209,9 @@ export const initialExpeditions: Expedition[] = [
       isGroupProject: true,
       groupRole: 'Systems Architect & Fullstack Engineer',
       impact: [
+        'Democratized public knowledge and reading access in rural Boyolali by modernizing community libraries with digital cataloging, empowering local village youth and educators.',
         'Configured and deployed an open-source SLiMS (Senayan Library Management System) instance tailored for rural public service operations.',
         'Migrated hundreds of legacy physical card catalogs into an online searchable OPAC (Open Public Access Catalog), empowering local youth and educators.',
-        'Streamlined circulation records to eliminate missing books and track community reading engagement trends.',
       ],
       learnings: [
         'Learned how to adapt and maintain open-source software within resource-constrained municipal IT infrastructure.',
@@ -231,7 +232,7 @@ export const initialExpeditions: Expedition[] = [
     year: '2026',
     period: 'Mar – Mei 2026',
     role: 'Editorial Typesetter & Translator',
-    status: 'Concluded',
+    status: 'Active',
     stack: ['HTML5', 'EPUB3', 'Editorial Typography', 'Typesetting', 'Webnovel'],
     summary: 'Kurasi dan tata letak tipografi digital terjemahan novel Omniscient Reader’s Viewpoint ke dalam bahasa Indonesia, dipaketkan dalam format EPUB3 berstandar e-reader.',
     featured: false,
@@ -244,9 +245,9 @@ export const initialExpeditions: Expedition[] = [
       isGroupProject: false,
       groupRole: 'Solo Editorial Typesetter & Translator',
       impact: [
+        'Promoted grassroots literary access and inclusive storytelling by offering a high-grade, accessible Indonesian translation to thousands of speculative fiction fans.',
         'Crafted semantic, clean HTML5/CSS stylesheets calibrated specifically for optical contrast and comfortable long-form reading on e-ink devices.',
         'Engineered standards-compliant EPUB3 files with interactive footnotes, structured table of contents, and responsive chapter typography.',
-        'Provided community readers with a high-fidelity digital book edition, elevating amateur webnovel translations into bookstore-grade publications.',
       ],
       learnings: [
         'Mastered micro-typography principles including kerning, leading, typographic hierarchy, and cross-platform e-reader CSS rendering quirks.',
