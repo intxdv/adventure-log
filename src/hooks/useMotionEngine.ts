@@ -33,6 +33,12 @@ export const useMotionEngine = () => {
             end: 'bottom bottom',
             scrub: 0.6,
             onUpdate: (self) => {
+              // Coordinate 3D Compass Warp (Hero -> About transition: 0.00 -> 0.22)
+              const compassWarp = Math.min(1.0, Math.max(0.0, self.progress / 0.22));
+              window.dispatchEvent(
+                new CustomEvent('adventure:compass-warp', { detail: { progress: compassWarp } })
+              );
+
               // Coordinate Notch Dock appearance
               if (notchHeader) {
                 if (self.progress > 0.08) {
