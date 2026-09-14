@@ -66,15 +66,15 @@ export const useMotionEngine = () => {
               }
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
-              // Calibrated for 720vh stage: Mock 0: 0.32->0.45, Mock 1: 0.45->0.58, Mock 2: 0.58->0.71, Mock 3: 0.71->0.84
-              // From 0.84 to 1.00: Section 4 smoothly pulls up over Section 3 only AFTER Mockup 4 has rested cleanly
+              // Calibrated for 560vh stage: Mock 0: 0.320->0.435, Mock 1: 0.435->0.550, Mock 2: 0.550->0.665, Mock 3: 0.665->0.780
+              // At 0.780, Section 4 (Field Arsenal) smoothly slides up over Section 3 without dead scroll delay
               if (self.progress >= 0.32) {
                 let targetExp = 0;
-                if (self.progress >= 0.71) {
+                if (self.progress >= 0.665) {
                   targetExp = 3;
-                } else if (self.progress >= 0.58) {
+                } else if (self.progress >= 0.55) {
                   targetExp = 2;
-                } else if (self.progress >= 0.45) {
+                } else if (self.progress >= 0.435) {
                   targetExp = 1;
                 } else {
                   targetExp = 0;

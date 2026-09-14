@@ -67,7 +67,7 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
           setActiveId('hero');
         } else if (stageProgress < 0.32) {
           setActiveId('about');
-        } else if (stageProgress < 0.84) {
+        } else if (stageProgress < 0.78) {
           setActiveId('expeditions');
         } else {
           setActiveId('arsenal');

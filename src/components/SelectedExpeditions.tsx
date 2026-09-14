@@ -40,9 +40,9 @@ export const SelectedExpeditions: React.FC = () => {
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-        // Symmetric step distribution matching useMotionEngine thresholds
-        const progressMap = [0.38, 0.51, 0.64, 0.77];
-        const targetRatio = progressMap[newIndex] ?? (0.38 + newIndex * 0.13);
+        // Symmetric step distribution matching useMotionEngine thresholds (midpoints of each 53vh bracket)
+        const progressMap = [0.38, 0.49, 0.61, 0.72];
+        const targetRatio = progressMap[newIndex] ?? (0.38 + newIndex * 0.115);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }
