@@ -144,10 +144,48 @@ export const About: React.FC = () => {
                 <span className="field-zine-callname">TAKI</span>
                 <span className="field-zine-fullname">Syafiq Abiyyu Taqi</span>
               </div>
-              <div className="field-zine-telemetry font-mono" aria-label="Geographic telemetry and academic coordinates">
-                <span className="telemetry-coord">7.45° S, 110.51° E</span>
-                <span className="telemetry-origin">MERBABU // TENGARAN, ID</span>
-                <span className="telemetry-station">STATION // UNDIP CS '23</span>
+              <div
+                className={`field-zine-quote-trigger ${isManifestoOpen ? 'is-active' : ''}`}
+                tabIndex={0}
+                role="button"
+                aria-label="Refleksi filosofis eksplorasi Taki"
+                aria-expanded={isManifestoOpen}
+                onClick={toggleManifesto}
+                onMouseEnter={handleManifestoEnter}
+                onMouseLeave={handleManifestoLeave}
+                onFocus={() => setIsManifestoOpen(true)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    setIsManifestoOpen(false);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleManifesto();
+                  }
+                }}
+              >
+                <p className="field-zine-quote">
+                  “karena kita terlalu berharga untuk disia-siakan.”
+                </p>
+
+                {/* Tactical Dossier Manifesto Popover (Revealed on hover/tap) */}
+                <div
+                  className="field-zine-manifesto-popover"
+                  role="tooltip"
+                  aria-hidden={!isManifestoOpen}
+                >
+                  <div className="manifesto-popover-header font-mono">
+                    <span className="manifesto-popover-tag">[ EXPEDITION MANIFESTO // FIELD LOG ]</span>
+                  </div>
+                  <p className="manifesto-popover-text font-display">
+                    “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman. Sebagian waktu berusaha, sebagian waktu menyesali keputusan—hingga tersadar bahwa penyesalan itu sia-sia sambil mengingat alasan berjuang—dan membawa pulang sesuatu dari wilayah eksplorasi sambil berpikir, <em>‘Ternyata tak seburuk itu.’</em>”
+                  </p>
+                  <cite className="manifesto-popover-cite font-mono">
+                    — Syafiq Abiyyu Taqi · Catatan Refleksi Eksplorasi
+                  </cite>
+                </div>
               </div>
             </figcaption>
           </figure>
@@ -238,54 +276,6 @@ export const About: React.FC = () => {
             <span className="about-word">the</span>{' '}
             <span className="about-word">craft.</span>
           </p>
-
-          {/* Authentic Manifesto Blockquote from taki-bio-dossier.md */}
-          <blockquote className="about-manifesto" cite="resource/specs/taki-bio-dossier.md">
-            <span className="about-manifesto-kicker font-mono">[ EXPEDITION MANIFESTO // FIELD LOG ]</span>
-            <p className="about-manifesto-quote font-display">
-              <span className="about-word">“Menyusuri</span>{' '}
-              <span className="about-word">daerah</span>{' '}
-              <span className="about-word">yang</span>{' '}
-              <span className="about-word">tak</span>{' '}
-              <span className="about-word">terjamah</span>{' '}
-              <span className="about-word">indra</span>{' '}
-              <span className="about-word">sejarah,</span>{' '}
-              <span className="about-word">tak</span>{' '}
-              <span className="about-word">terjamah</span>{' '}
-              <span className="about-word">pengalaman.</span>{' '}
-              <span className="about-word">Sebagian</span>{' '}
-              <span className="about-word">waktu</span>{' '}
-              <span className="about-word">berusaha,</span>{' '}
-              <span className="about-word">sebagian</span>{' '}
-              <span className="about-word">waktu</span>{' '}
-              <span className="about-word">menyesali</span>{' '}
-              <span className="about-word">keputusan—hingga</span>{' '}
-              <span className="about-word">tersadar</span>{' '}
-              <span className="about-word">bahwa</span>{' '}
-              <span className="about-word">penyesalan</span>{' '}
-              <span className="about-word">itu</span>{' '}
-              <span className="about-word">sia-sia</span>{' '}
-              <span className="about-word">sambil</span>{' '}
-              <span className="about-word">mengingat</span>{' '}
-              <span className="about-word">alasan</span>{' '}
-              <span className="about-word">berjuang—dan</span>{' '}
-              <span className="about-word">membawa</span>{' '}
-              <span className="about-word">pulang</span>{' '}
-              <span className="about-word">sesuatu</span>{' '}
-              <span className="about-word">dari</span>{' '}
-              <span className="about-word">wilayah</span>{' '}
-              <span className="about-word">eksplorasi</span>{' '}
-              <span className="about-word">sambil</span>{' '}
-              <span className="about-word">berpikir,</span>{' '}
-              <span className="about-word"><em>‘Ternyata</em></span>{' '}
-              <span className="about-word"><em>tak</em></span>{' '}
-              <span className="about-word"><em>seburuk</em></span>{' '}
-              <span className="about-word"><em>itu.’</em>”</span>
-            </p>
-            <cite className="about-manifesto-cite font-mono">
-              — Syafiq Abiyyu Taqi · Catatan Refleksi Eksplorasi
-            </cite>
-          </blockquote>
         </article>
 
       </div>

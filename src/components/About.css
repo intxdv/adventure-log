@@ -236,35 +236,100 @@
   letter-spacing: -0.01em;
 }
 
-.field-zine-telemetry {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+.field-zine-quote-trigger {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  background: transparent;
+  border: none;
+  padding: 0;
   text-align: right;
-  gap: 3px;
-  font-size: clamp(0.58rem, 0.65vw, 0.68rem);
+  margin-left: auto;
+  max-width: clamp(170px, 14vw, 220px);
+}
+
+.field-zine-quote {
+  font-family: var(--font-body);
+  font-size: clamp(0.725rem, 0.7rem + 0.15vw, 0.8rem);
   line-height: 1.35;
-  color: var(--color-ink-muted);
-  margin-top: 3px;
-}
-
-.field-zine-telemetry .telemetry-coord {
   color: var(--color-ink);
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  text-align: right;
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.field-zine-telemetry .telemetry-origin {
-  color: var(--color-olive);
-  font-size: clamp(0.55rem, 0.6vw, 0.62rem);
-  letter-spacing: 0.04em;
+.field-zine-quote-trigger:hover .field-zine-quote,
+.field-zine-quote-trigger:focus-visible .field-zine-quote,
+.field-zine-quote-trigger.is-active .field-zine-quote {
+  color: #2F3C2C;
+  text-decoration: underline dotted rgba(47, 60, 44, 0.45);
+  text-underline-offset: 3px;
 }
 
-.field-zine-telemetry .telemetry-station {
-  color: var(--color-ink-muted);
-  font-size: clamp(0.52rem, 0.58vw, 0.6rem);
-  letter-spacing: 0.03em;
-  opacity: 0.85;
+/* Floating Expedition Manifesto Popover (Discovered on hover/tap) */
+.field-zine-manifesto-popover {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  right: 0;
+  width: clamp(300px, 26vw, 420px);
+  background: rgba(18, 21, 18, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 3px solid #8FA382;
+  border-radius: 4px;
+  padding: clamp(1rem, 1.3vw, 1.35rem);
+  box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.75), 0 4px 16px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.97);
+  transform-origin: bottom right;
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-out-expo), visibility 0.3s;
+  pointer-events: none;
+  z-index: 30;
+  text-align: left;
+}
+
+.field-zine-quote-trigger:hover .field-zine-manifesto-popover,
+.field-zine-quote-trigger:focus-visible .field-zine-manifesto-popover,
+.field-zine-quote-trigger.is-active .field-zine-manifesto-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.manifesto-popover-header {
+  margin-bottom: 8px;
+}
+
+.manifesto-popover-tag {
+  font-size: 0.68rem;
+  color: #9DB594;
+  letter-spacing: 0.08em;
+  display: block;
+}
+
+.manifesto-popover-text {
+  font-style: italic;
+  font-size: clamp(0.85rem, 0.95vw, 0.95rem);
+  line-height: 1.7;
+  color: #F2F0EB;
+  margin: 0 0 10px 0;
+}
+
+.manifesto-popover-text em {
+  color: #E2E4DE;
+}
+
+.manifesto-popover-cite {
+  font-size: 0.68rem;
+  color: #8C9086;
+  display: block;
+  text-align: right;
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 480px) {
@@ -290,9 +355,17 @@
     margin-top: 4px;
   }
 
-  .field-zine-telemetry {
-    font-size: 0.58rem;
-    gap: 2px;
+  .field-zine-quote-trigger {
+    max-width: 150px;
+  }
+
+  .field-zine-quote {
+    font-size: clamp(0.68rem, 2.4vw, 0.75rem);
+  }
+
+  .field-zine-manifesto-popover {
+    width: calc(100vw - 48px);
+    right: -10px;
   }
 }
 
@@ -371,64 +444,6 @@
 
 .about-section.is-nocturne .about-body {
   color: #A6AAA0;
-}
-
-/* Authentic Manifesto Blockquote */
-.about-manifesto {
-  position: relative;
-  margin: 0;
-  padding: clamp(1rem, 1.6vh, 1.5rem) clamp(1.25rem, 2vw, 2rem);
-  background-color: var(--color-canvas-subtle);
-  border: 1px solid var(--hairline-base);
-  border-radius: 4px;
-  opacity: 0;
-  will-change: opacity, transform;
-  max-width: 74ch;
-  transition: background-color 0.6s ease, border-color 0.6s ease;
-}
-
-.about-section.is-nocturne .about-manifesto {
-  background-color: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-left: 3px solid #8FA382;
-}
-
-.about-manifesto-kicker {
-  font-size: 0.7rem;
-  color: var(--color-olive);
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-xs);
-  display: block;
-  transition: color 0.6s ease;
-}
-
-.about-section.is-nocturne .about-manifesto-kicker {
-  color: #9DB594;
-}
-
-.about-manifesto-quote {
-  font-style: italic;
-  font-size: clamp(0.88rem, 1vw, 0.98rem);
-  line-height: 1.75;
-  color: var(--color-ink);
-  margin-bottom: var(--space-sm);
-  transition: color 0.6s ease;
-}
-
-.about-section.is-nocturne .about-manifesto-quote {
-  color: #F2F0EB;
-}
-
-.about-manifesto-cite {
-  font-size: var(--text-xs);
-  color: var(--color-ink-muted);
-  display: block;
-  text-align: right;
-  transition: color 0.6s ease;
-}
-
-.about-section.is-nocturne .about-manifesto-cite {
-  color: #8C9086;
 }
 
 /* --------------------------------------------------------------------------
