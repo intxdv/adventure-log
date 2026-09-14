@@ -31,7 +31,7 @@
 .hero-top-bar {
   width: 100%;
   position: relative;
-  border-bottom: 2.5px solid rgba(18, 21, 18, 0.28);
+  border-bottom: 1.5px solid var(--color-ink);
   transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 20;
 }
@@ -66,6 +66,29 @@
   color: var(--color-ink-muted);
   user-select: none;
   transition: color 0.3s ease;
+}
+
+.hero-top-motto-link {
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.hero-top-motto-link:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.hero-top-motto-link:hover em {
+  color: var(--color-olive-hover);
+}
+
+.hero-top-motto-link:focus-visible {
+  outline: 1.5px solid var(--color-olive);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 .hero-top-motto {

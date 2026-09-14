@@ -220,6 +220,34 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
     });
   };
 
+  // Navigasi langsung ke section bio (#about) saat tulisan "The Wandering Selv." diklik
+  const handleNavigateToBio = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Pastikan animasi hero dimulai jika user mengklik sebelum timer startup
+    startHeroImmediately();
+
+    const stageWrapper = document.getElementById('hero-stage-wrapper');
+    if (stageWrapper) {
+      const stageTop = stageWrapper.offsetTop;
+      const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+      const targetScroll = stageTop + maxScroll * 0.24;
+
+      gsap.to(window, {
+        duration: 1.2,
+        scrollTo: { y: targetScroll, autoKill: false },
+        ease: 'power2.inOut',
+      });
+      return;
+    }
+
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Animasi 1: Typewriter & Multi-Font Morphing Loop
   useEffect(() => {
     if (!hasStartedLoop) return;
@@ -280,11 +308,17 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             />
           </a>
 
-          {/* Center Tactical Motto / Datum (Clean tanpa bintang/plus) */}
-          <div className="hero-top-datum font-mono" aria-hidden="true">
-            <span className="hero-top-motto font-serif">
+          {/* Center Tactical Motto / Datum (Interactive link to Field Log / Bio) */}
+          <div className="hero-top-datum font-mono">
+            <a
+              href="#about"
+              onClick={handleNavigateToBio}
+              className="hero-top-motto font-serif hero-top-motto-link"
+              aria-label="Navigate to Field Log / Bio"
+              title="Navigate to Field Log / Bio"
+            >
               The Wandering <em>Selv.</em>
-            </span>
+            </a>
           </div>
 
           {/* Live WIB Clock murni tanpa label teks */}
