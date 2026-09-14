@@ -166,6 +166,7 @@ export const initialExpeditions: Expedition[] = [
     featured: false,
     repoUrl: 'https://github.com/Note-Craft-Project/note-craft',
     link: 'https://github.com/Note-Craft-Project/note-craft',
+    image: '/images/expeditions/notecraft.png',
     dossier: {
       englishSummary:
         'An interactive music education mobile platform designed to make fundamental music theory intuitive through gamified rhythm training, interactive pitch canvas, and tactile audio feedback.',
@@ -202,6 +203,7 @@ export const initialExpeditions: Expedition[] = [
     featured: false,
     repoUrl: 'https://github.com/baca-di-teras/baca-di-teras',
     link: 'https://github.com/baca-di-teras/baca-di-teras',
+    image: '/images/expeditions/baca-di-teras.png',
     dossier: {
       englishSummary:
         'A comprehensive public library automation deployment that digitized book cataloging, member registration, and book loans for rural community reading rooms in Teras District, Boyolali.',
@@ -238,6 +240,7 @@ export const initialExpeditions: Expedition[] = [
     featured: false,
     repoUrl: 'https://github.com/intxdv/orv-id-translation',
     link: 'https://github.com/intxdv/orv-id-translation',
+    image: '/images/expeditions/orv-translation.png',
     dossier: {
       englishSummary:
         'A fan-driven digital editorial and typesetting project publishing an Indonesian translation of the webnovel "Omniscient Reader’s Viewpoint" packaged into an elegant, standards-compliant EPUB3 edition.',
