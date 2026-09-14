@@ -593,15 +593,15 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           draftingCircleRef.current.style.strokeDashoffset = `${perimeter * (1.0 - animState.drawProgress)}`;
         }
 
-        // 3. Drafting Arm & Needle Pen Tip
+        // 3. Drafting Arm & Needle Pen Tip (Garis putus-putus radius)
         const angle = animState.drawProgress * Math.PI * 2 - Math.PI / 2;
-        const px = cx + radius * Math.cos(angle);
-        const py = cy + radius * Math.sin(angle);
+        const px = animState.drawProgress >= 0.999 ? cx : cx + radius * Math.cos(angle);
+        const py = animState.drawProgress >= 0.999 ? cy - radius : cy + radius * Math.sin(angle);
 
         if (draftingPenDotRef.current) {
           draftingPenDotRef.current.setAttribute('cx', String(px));
           draftingPenDotRef.current.setAttribute('cy', String(py));
-          draftingPenDotRef.current.style.display = animState.drawProgress < 0.99 ? '' : 'none';
+          draftingPenDotRef.current.style.display = '';
         }
 
         if (draftingArmRef.current) {
@@ -609,7 +609,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           draftingArmRef.current.setAttribute('y1', String(cy));
           draftingArmRef.current.setAttribute('x2', String(px));
           draftingArmRef.current.setAttribute('y2', String(py));
-          draftingArmRef.current.style.display = animState.drawProgress < 0.99 ? '' : 'none';
+          draftingArmRef.current.style.display = '';
         }
 
         draftingGroupRef.current.style.opacity = String(animState.circleOpacity);
