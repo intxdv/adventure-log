@@ -297,7 +297,7 @@ export const SelectedExpeditions: React.FC = () => {
                     )}
 
                     <div className="swiss-stack-section">
-                      <span className="swiss-stack-label">[ ARSENAL TELEMETRY ]</span>
+                      <span className="swiss-stack-label">[ CAPABILITIES TELEMETRY ]</span>
                       <div className="swiss-stack-pills">
                         {currentExpedition.stack.slice(0, 5).map((tech) => (
                           <span key={tech} className="swiss-tech-pill">

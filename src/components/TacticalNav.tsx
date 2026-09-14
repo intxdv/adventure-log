@@ -10,10 +10,10 @@ export interface NavSection {
 
 const DEFAULT_SECTIONS: NavSection[] = [
   { id: 'hero', index: '00', label: 'EXPEDITION HERO', alt: '280M' },
-  { id: 'about', index: '01', label: 'FIELD LOG / BIO', alt: '850M' },
-  { id: 'expeditions', index: '02', label: 'SELECTED LOGS', alt: '1640M' },
-  { id: 'arsenal', index: '03', label: 'FIELD ARSENAL', alt: '2280M' },
-  { id: 'footer', index: '04', label: 'BASECAMP / ARCHIVE', alt: '3142M' },
+  { id: 'about', index: '01', label: 'FIELD BRIEF / BIO', alt: '850M' },
+  { id: 'expeditions', index: '02', label: 'SELECTED EXPEDITIONS', alt: '1640M' },
+  { id: 'arsenal', index: '03', label: 'TECHNICAL CAPABILITIES', alt: '2280M' },
+  { id: 'footer', index: '04', label: 'BASECAMP DISPATCH', alt: '3142M' },
 ];
 
 export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = DEFAULT_SECTIONS }) => {

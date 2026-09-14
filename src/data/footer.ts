@@ -15,7 +15,7 @@ export const FOOTER_NAV_LINKS: FooterNavLink[] = [
   { index: '00', label: 'Expedition Hero', href: '#hero' },
   { index: '01', label: 'Field Brief / Bio', href: '#about' },
   { index: '02', label: 'Selected Expeditions', href: '#expeditions' },
-  { index: '03', label: 'Field Arsenal', href: '#arsenal' },
+  { index: '03', label: 'Technical Capabilities', href: '#arsenal' },
   { index: '04', label: 'Basecamp Dispatch', href: '#footer' },
 ];
 

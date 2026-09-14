@@ -334,7 +334,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         {/* Kolom Kiri: Judul Dinamis & Bio Editorial */}
         <div className="hero-left-col">
           <div className={`hero-meta-kicker font-mono ${hasStartedLoop ? 'is-visible' : ''}`}>
-            <span>[ 00 // FIELD ARCHIVE & EXPEDITIONS ]</span>
+            <span>[ 00 // EXPEDITION BASECAMP ]</span>
           </div>
 
           <div className="hero-title-wrapper">

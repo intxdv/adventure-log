@@ -75,15 +75,15 @@ export const FieldArsenal: React.FC = () => {
         {/* Section Header: Horizontal Tri-Column Alignment (Badge, Title, Telemetry) */}
         <header className="arsenal-header">
           <div className="arsenal-header-row">
-            {/* Left Column: Field Gear Tag Badge */}
+            {/* Left Column: Technical Capabilities Tag Badge */}
             <div className="arsenal-header-left">
-              <span className="tag-badge">FIELD GEAR // 03 · ARSENAL</span>
+              <span className="tag-badge">TECHNICAL CAPABILITIES // 03 · CRAFT</span>
             </div>
 
-            {/* Center Column: Technical Arsenal Headline & Tagline */}
+            {/* Center Column: Technical Capabilities Headline & Tagline */}
             <div className="arsenal-header-center">
               <h2 id="arsenal-heading" className="arsenal-headline font-display">
-                Technical Arsenal<span style={{ color: 'var(--color-olive)' }}>.</span>
+                Technical Capabilities<span style={{ color: 'var(--color-olive)' }}>.</span>
               </h2>
               <p className="arsenal-header-tagline font-serif">
                 “Tactical toolchains & craft disciplines forged through production expeditions.”
@@ -100,7 +100,7 @@ export const FieldArsenal: React.FC = () => {
         </header>
 
         {/* Tactical Pillar Selector Navigation Bar (Centered) */}
-        <div className="arsenal-control-bar font-mono" role="toolbar" aria-label="Arsenal Pillar Navigation">
+        <div className="arsenal-control-bar font-mono" role="toolbar" aria-label="Capabilities Pillar Navigation">
           <div className="arsenal-nav-tabs">
             {initialArsenal.map((pillar, idx) => {
               const shortLabel =
