@@ -137,10 +137,10 @@
 
   .about-headline {
     order: 1 !important;
-    font-size: clamp(1.45rem, 5.2vw, 1.95rem) !important;
-    line-height: 1.12 !important;
-    letter-spacing: -0.03em !important;
-    margin-bottom: 2px !important;
+    font-size: clamp(1.75rem, 6.5vw, 2.4rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.035em !important;
+    margin-bottom: 4px !important;
     max-width: 100% !important;
     text-align: center !important;
     padding: 0 clamp(0.5rem, 2vw, 1rem);
@@ -187,9 +187,9 @@
   }
 
   .about-headline {
-    font-size: clamp(1.32rem, 5.4vw, 1.65rem) !important;
-    line-height: 1.12 !important;
-    letter-spacing: -0.03em !important;
+    font-size: clamp(1.65rem, 6.8vw, 2.15rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.035em !important;
   }
 
   .field-dossier-header,
@@ -367,12 +367,12 @@
 
 .field-zine-quote {
   font-family: var(--font-body);
-  font-size: clamp(1.05rem, 1.3vw, 1.35rem);
-  line-height: 1.35;
+  font-size: clamp(0.88rem, 1.05vw, 1.08rem);
+  line-height: 1.3;
   color: var(--color-ink);
   text-align: right;
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.015em;
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
@@ -484,13 +484,14 @@
   }
 
   .field-zine-quote-trigger {
-    max-width: 185px;
+    max-width: 155px;
   }
 
   .field-zine-quote {
-    font-size: clamp(0.9rem, 3.2vw, 1.05rem);
-    line-height: 1.35;
-    font-weight: 600;
+    font-size: clamp(0.68rem, 2.2vw, 0.78rem);
+    line-height: 1.28;
+    font-weight: 500;
+    opacity: 0.88;
   }
 
   .field-zine-manifesto-popover {
