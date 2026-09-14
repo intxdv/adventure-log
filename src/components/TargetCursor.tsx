@@ -66,12 +66,16 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
   const tickerFnRef = useRef<(() => void) | null>(null);
   const activeStrengthRef = useRef(0);
 
-  const isDesktop = useMemo(() => {
+  const isTouchOnly = useMemo(() => {
     if (typeof window === 'undefined') return false;
-    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-    const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isSmallScreen = window.innerWidth <= 768;
-    return hasFinePointer && !isSmallScreen && !hasTouchScreen;
+    // Hanya nonaktifkan jika perangkat murni sentuh (misal smartphone tanpa mouse)
+    const isCoarseOnly =
+      window.matchMedia('(pointer: coarse)').matches &&
+      !window.matchMedia('(pointer: fine)').matches;
+    const isMobileUA = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+      navigator.userAgent.toLowerCase()
+    );
+    return isCoarseOnly || (isMobileUA && window.innerWidth <= 768);
   }, []);
 
   const constants = useMemo(
@@ -94,18 +98,14 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!isDesktop || !cursorRef.current) return;
+    if (isTouchOnly || !cursorRef.current) return;
 
     // Sembunyikan kursor default jika hideDefaultCursor true
-    let styleTag: HTMLStyleElement | null = null;
     const originalCursor = document.body.style.cursor;
 
     if (hideDefaultCursor) {
+      document.documentElement.classList.add('target-cursor-active');
       document.body.style.cursor = 'none';
-      styleTag = document.createElement('style');
-      styleTag.id = 'target-cursor-hide-native';
-      styleTag.innerHTML = `* { cursor: none !important; }`;
-      document.head.appendChild(styleTag);
     }
 
     const cursor = cursorRef.current;
@@ -401,9 +401,7 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
 
       spinTl.current?.kill();
       document.body.style.cursor = originalCursor;
-      if (styleTag && styleTag.parentNode) {
-        styleTag.parentNode.removeChild(styleTag);
-      }
+      document.documentElement.classList.remove('target-cursor-active');
 
       isActiveRef.current = false;
       targetCornerPositionsRef.current = null;
@@ -415,7 +413,7 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
     moveCursor,
     constants,
     hideDefaultCursor,
-    isDesktop,
+    isTouchOnly,
     hoverDuration,
     parallaxOn,
     cursorColor,
@@ -423,16 +421,16 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
   ]);
 
   useEffect(() => {
-    if (!isDesktop || !ringRef.current || !spinTl.current) return;
+    if (isTouchOnly || !ringRef.current || !spinTl.current) return;
     if (spinTl.current.isActive()) {
       spinTl.current.kill();
       spinTl.current = gsap
         .timeline({ repeat: -1 })
         .to(ringRef.current, { rotation: '+=360', duration: spinDuration, ease: 'none' });
     }
-  }, [spinDuration, isDesktop]);
+  }, [spinDuration, isTouchOnly]);
 
-  if (!isDesktop || typeof document === 'undefined') {
+  if (isTouchOnly || typeof document === 'undefined') {
     return null;
   }
 

@@ -2,6 +2,14 @@
    TargetCursor Component Styles
    ========================================================================== */
 
+/* Sembunyikan kursor default saat TargetCursor aktif */
+html.target-cursor-active,
+html.target-cursor-active *,
+html.target-cursor-active *::before,
+html.target-cursor-active *::after {
+  cursor: none !important;
+}
+
 .target-cursor-wrapper {
   position: fixed;
   top: 0;
