@@ -236,7 +236,11 @@ export const DepthCarousel = ({
       el.style.opacity = opacity.toFixed(3);
       el.style.display = isHidden ? 'none' : 'block';
       el.style.visibility = isHidden ? 'hidden' : 'visible';
-      el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
+      if (blurPx <= 0.05 && Math.abs(brightness - 1) <= 0.02) {
+        el.style.filter = 'none';
+      } else {
+        el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
+      }
       el.style.zIndex = String(zi);
       el.style.pointerEvents = shown && opacity > 0.5 ? 'auto' : 'none';
 
