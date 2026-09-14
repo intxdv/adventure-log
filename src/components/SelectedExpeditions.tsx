@@ -123,87 +123,90 @@ export const SelectedExpeditions: React.FC = () => {
         <div className="swiss-grid">
           {/* LEFT PANEL: Dynamic Dossier Sidebar (Counter + Title + Specs + Tech Stack + Dossier Button) */}
           <div className="swiss-col-left">
-            <div className="swiss-left-top">
-              <div className="swiss-counter-reel">
-                <div
-                  className="swiss-counter-track font-display"
-                  style={{
-                    transform: `translateY(-${activeIndex * 25}%)`,
-                  }}
-                  aria-live="polite"
-                  aria-atomic="true"
+            <div className="swiss-left-content">
+              {/* TOP ANCHOR: Index Reel, Title Block & Technical Specifications */}
+              <div className="swiss-left-top">
+                <div className="swiss-counter-reel">
+                  <div
+                    className="swiss-counter-track font-display"
+                    style={{
+                      transform: `translateY(-${activeIndex * 25}%)`,
+                    }}
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    <div className="swiss-counter-num">01</div>
+                    <div className="swiss-counter-num">02</div>
+                    <div className="swiss-counter-num">03</div>
+                    <div className="swiss-counter-num">04</div>
+                  </div>
+                </div>
+
+                {/* Dynamic Project Details with Soft Micro-Fade & Drift Animation */}
+                <div key={activeIndex} className="swiss-project-dynamic-details">
+                  {/* Project Title & Metadata */}
+                  <div className="swiss-left-project-info font-mono">
+                    <h3 className="swiss-project-title font-display">
+                      {currentExpedition.title}
+                    </h3>
+                    <div className="swiss-project-cat">
+                      {currentExpedition.categoryLabel.toUpperCase()}
+                    </div>
+                    <div className="swiss-project-role">
+                      ROLE: {currentExpedition.role.toUpperCase()}
+                    </div>
+                    <div className="swiss-project-status">
+                      <span className="status-dot">●</span>
+                      <span>{currentExpedition.year} // {currentExpedition.status.toUpperCase()}</span>
+                    </div>
+                  </div>
+
+                  {/* Mid Section: Editorial Narrative, Impact & Arsenal Telemetry (Option A) */}
+                  <div className="swiss-left-body font-mono">
+                    <div className="swiss-box-header font-mono">
+                      <span className="swiss-box-kicker">[ EXPEDITION SPECIFICATION ]</span>
+                      <span className="swiss-box-idx">{currentExpedition.indexNumber}</span>
+                    </div>
+
+                    <p className="swiss-editorial-summary">
+                      {(currentExpedition.dossier?.englishSummary || currentExpedition.summary).toUpperCase()}
+                    </p>
+
+                    {currentExpedition.dossier?.impact?.[0] && (
+                      <div className="swiss-impact-callout">
+                        <span className="impact-kicker">[ KEY ARCHITECTURAL IMPACT ]</span>
+                        <p className="impact-detail">
+                          {currentExpedition.dossier.impact[0].toUpperCase()}
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="swiss-stack-section">
+                      <span className="swiss-stack-label">[ ARSENAL TELEMETRY ]</span>
+                      <div className="swiss-stack-pills">
+                        {currentExpedition.stack.slice(0, 5).map((tech) => (
+                          <span key={tech} className="swiss-tech-pill">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Anchor: View Dossier Trigger */}
+              <div className="swiss-left-bottom">
+                <button
+                  type="button"
+                  className="swiss-dossier-btn font-mono"
+                  onClick={() => setActiveDossier(currentExpedition)}
+                  title={`Open technical dossier for ${currentExpedition.title}`}
                 >
-                  <div className="swiss-counter-num">01</div>
-                  <div className="swiss-counter-num">02</div>
-                  <div className="swiss-counter-num">03</div>
-                  <div className="swiss-counter-num">04</div>
-                </div>
+                  <span>VIEW DOSSIER</span>
+                  <span className="btn-arrow" aria-hidden="true">↗</span>
+                </button>
               </div>
-
-              {/* Dynamic Project Details with Soft Micro-Fade & Drift Animation */}
-              <div key={activeIndex} className="swiss-project-dynamic-details">
-                {/* Project Title & Metadata */}
-                <div className="swiss-left-project-info font-mono">
-                  <h3 className="swiss-project-title font-display">
-                    {currentExpedition.title}
-                  </h3>
-                  <div className="swiss-project-cat">
-                    {currentExpedition.categoryLabel.toUpperCase()}
-                  </div>
-                  <div className="swiss-project-role">
-                    ROLE: {currentExpedition.role.toUpperCase()}
-                  </div>
-                  <div className="swiss-project-status">
-                    <span className="status-dot">●</span>
-                    <span>{currentExpedition.year} // {currentExpedition.status.toUpperCase()}</span>
-                  </div>
-                </div>
-
-                {/* Mid Section: Editorial Narrative, Impact & Arsenal Telemetry (Option A) */}
-                <div className="swiss-left-body font-mono">
-                  <div className="swiss-box-header font-mono">
-                    <span className="swiss-box-kicker">[ EXPEDITION SPECIFICATION ]</span>
-                    <span className="swiss-box-idx">{currentExpedition.indexNumber}</span>
-                  </div>
-
-                  <p className="swiss-editorial-summary">
-                    {(currentExpedition.dossier?.englishSummary || currentExpedition.summary).toUpperCase()}
-                  </p>
-
-                  {currentExpedition.dossier?.impact?.[0] && (
-                    <div className="swiss-impact-callout">
-                      <span className="impact-kicker">[ KEY ARCHITECTURAL IMPACT ]</span>
-                      <p className="impact-detail">
-                        {currentExpedition.dossier.impact[0].toUpperCase()}
-                      </p>
-                    </div>
-                  )}
-
-                  <div className="swiss-stack-section">
-                    <span className="swiss-stack-label">[ ARSENAL TELEMETRY ]</span>
-                    <div className="swiss-stack-pills">
-                      {currentExpedition.stack.slice(0, 5).map((tech) => (
-                        <span key={tech} className="swiss-tech-pill">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Anchor: View Dossier Trigger */}
-            <div className="swiss-left-bottom">
-              <button
-                type="button"
-                className="swiss-dossier-btn font-mono"
-                onClick={() => setActiveDossier(currentExpedition)}
-                title={`Open technical dossier for ${currentExpedition.title}`}
-              >
-                <span>VIEW DOSSIER</span>
-                <span className="btn-arrow" aria-hidden="true">↗</span>
-              </button>
             </div>
           </div>
 

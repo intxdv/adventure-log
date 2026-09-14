@@ -141,7 +141,7 @@
 .swiss-col-left {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding: clamp(1rem, 1.8vw, 1.8rem) clamp(1rem, 1.6vw, 1.6rem);
   border-right: 1px solid rgba(18, 21, 18, 0.2);
   min-width: 0;
@@ -149,7 +149,14 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(18, 21, 18, 0.2) transparent;
   box-sizing: border-box;
-  gap: 12px;
+}
+
+.swiss-left-content {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vh, 16px);
+  width: 100%;
 }
 
 .swiss-left-top {
