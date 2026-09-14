@@ -44,8 +44,8 @@
   max-width: 1600px;
   margin: 0 auto;
   position: relative;
-  padding-top: clamp(13px, 1.4vh, 14px);
-  padding-bottom: clamp(13px, 1.4vh, 14px);
+  padding-top: clamp(14.5px, 1.6vh, 15.5px);
+  padding-bottom: clamp(14.5px, 1.6vh, 15.5px);
   padding-left: clamp(24px, 5vw, 80px);
   padding-right: clamp(24px, 5vw, 80px);
   display: flex;
@@ -326,8 +326,8 @@
 
 @media (max-width: 640px) {
   .hero-top-bar-inner {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 
   .hero-top-logo-img {
