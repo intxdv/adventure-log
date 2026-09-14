@@ -118,13 +118,18 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
 
     let activeTarget: Element | null = null;
     let currentLeaveHandler: (() => void) | null = null;
+    let currentClickHandler: (() => void) | null = null;
     let resumeTimeout: ReturnType<typeof setTimeout> | null = null;
 
     const cleanupTarget = (target: Element) => {
       if (currentLeaveHandler) {
         target.removeEventListener('mouseleave', currentLeaveHandler);
       }
+      if (currentClickHandler) {
+        target.removeEventListener('click', currentClickHandler);
+      }
       currentLeaveHandler = null;
+      currentClickHandler = null;
     };
 
     const initialOffset = getOffset();
@@ -277,20 +282,29 @@ export const TargetCursor: React.FC<TargetCursorProps> = ({
       gsap.to(corners, { opacity: 1, duration: 0.2, ease: 'power2.out' });
 
       // Tampilkan label aksi dinamis jika elemen target memiliki data-cursor-text / data-cursor-label
-      const cursorText = target.getAttribute('data-cursor-text') || target.getAttribute('data-cursor-label');
-      if (labelRef.current) {
-        if (cursorText) {
-          labelRef.current.textContent = cursorText;
-          gsap.to(labelRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.2,
-            ease: 'power2.out'
-          });
-        } else {
-          gsap.to(labelRef.current, { opacity: 0, scale: 0.85, duration: 0.15 });
+      const updateLabel = () => {
+        const cursorText = target.getAttribute('data-cursor-text') || target.getAttribute('data-cursor-label');
+        if (labelRef.current) {
+          if (cursorText) {
+            labelRef.current.textContent = cursorText;
+            gsap.to(labelRef.current, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.2,
+              ease: 'power2.out'
+            });
+          } else {
+            gsap.to(labelRef.current, { opacity: 0, scale: 0.85, duration: 0.15 });
+          }
         }
-      }
+      };
+      updateLabel();
+
+      const clickHandler = () => {
+        setTimeout(updateLabel, 25);
+      };
+      currentClickHandler = clickHandler;
+      target.addEventListener('click', clickHandler);
 
       if (cursorColorOnTarget) {
         gsap.to(corners, {

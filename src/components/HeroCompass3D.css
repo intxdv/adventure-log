@@ -111,73 +111,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 7. Tactical Floating Hover Prompt Pill */
-.compass-hover-prompt {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 12px;
-  background: rgba(250, 248, 245, 0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(24, 26, 24, 0.35);
-  box-shadow: 0 4px 20px rgba(24, 26, 24, 0.08);
-  border-radius: 2px;
-  color: #181a18;
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  pointer-events: auto;
-  cursor: pointer;
-  opacity: 0;
-  transform: translate(-50%, 6px);
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
-  z-index: 6;
-  user-select: none;
-}
-
-.compass-hover-prompt.is-visible {
-  opacity: 0.96;
-  transform: translate(-50%, 0);
-  border-color: #181a18;
-}
-
-.compass-hover-prompt:hover {
-  opacity: 1;
-  background: #181a18;
-  color: #faf8f5;
-  border-color: #181a18;
-}
-
-.compass-hover-prompt .prompt-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #181a18;
-  display: inline-block;
-  animation: promptPulse 1.8s infinite ease-in-out;
-}
-
-.compass-hover-prompt:hover .prompt-dot {
-  background: #faf8f5;
-}
-
-@keyframes promptPulse {
-  0%, 100% { opacity: 0.35; transform: scale(0.85); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
 @media (max-width: 960px) {
   .hero-compass-exploded-svg {
     display: none !important;
   }
-  .compass-hover-prompt {
-    display: none !important;
-  }
 }
+
 
