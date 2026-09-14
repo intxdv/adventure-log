@@ -119,13 +119,14 @@
 }
 
 .tactical-nav-item:hover .tactical-nav-reveal,
-.tactical-nav-item.active .tactical-nav-reveal {
+.tactical-nav-item:focus-visible .tactical-nav-reveal {
   opacity: 1;
   transform: translateX(0) scale(1);
   pointer-events: auto;
 }
 
-.tactical-nav-item.active .tactical-nav-reveal {
+.tactical-nav-item.active:hover .tactical-nav-reveal,
+.tactical-nav-item.active:focus-visible .tactical-nav-reveal {
   border-color: var(--color-olive);
   box-shadow: 2px 2px 0px var(--color-olive);
 }
