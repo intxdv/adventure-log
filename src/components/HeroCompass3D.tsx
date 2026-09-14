@@ -78,8 +78,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     };
 
     const computeRestY = (aspect: number) => {
-      if (aspect < 0.6) return -1.25;
-      if (aspect <= 0.9) return -1.60;
+      if (aspect < 0.6) return -2.80;
+      if (aspect <= 0.9) return -2.20;
       return 0.0;
     };
 

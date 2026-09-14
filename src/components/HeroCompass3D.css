@@ -79,6 +79,15 @@
   transition: opacity 0.4s ease-out;
 }
 
+.exploded-callout {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.drafting-compass-group {
+  opacity: 0;
+}
+
 .exploded-callout-line {
   stroke: #181a18;
   stroke-width: 1.1;
