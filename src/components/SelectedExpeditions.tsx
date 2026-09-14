@@ -340,6 +340,17 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedit
 
         {/* Modal Scrollable Content */}
         <div className="dossier-modal-body">
+          {/* Visual Showcase Banner - Positioned above title */}
+          {expedition.image && (
+            <div className="dossier-visual-banner">
+              <img
+                src={expedition.image}
+                alt={`${expedition.title} visual showcase`}
+                className="dossier-visual-banner-img"
+              />
+            </div>
+          )}
+
           <div className="dossier-title-block">
             <h3 id="dossier-modal-title" className="dossier-title font-display">
               {expedition.title}
@@ -379,17 +390,6 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedit
               </span>
             </div>
           </div>
-
-          {/* Visual Showcase Banner */}
-          {expedition.image && (
-            <div className="dossier-visual-banner">
-              <img
-                src={expedition.image}
-                alt={`${expedition.title} visual showcase`}
-                className="dossier-visual-banner-img"
-              />
-            </div>
-          )}
 
           {/* Section 1: Executive Summary */}
           <div className="dossier-section">
