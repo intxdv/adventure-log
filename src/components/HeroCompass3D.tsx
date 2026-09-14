@@ -13,6 +13,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const hitAreaRef = useRef<SVGCircleElement>(null);
 
   // SVG Callout Refs
   const calloutLensRef = useRef<SVGGElement>(null);
@@ -30,6 +31,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
   const [isLoaded, setIsLoaded] = useState(false);
   const triggerAssembleRef = useRef<(() => void) | null>(null);
+  const toggleExplodedRef = useRef<(() => void) | null>(null);
 
   // Trigger assembly once app has loaded and model is ready
   useEffect(() => {
@@ -115,7 +117,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     let axisLine: THREE.Line | null = null;
     let axisMat: THREE.LineDashedMaterial | null = null;
 
-    // Unified Choreography State
+    // Unified Choreography State (Entrance)
     const animState = {
       drawProgress: 0.0,     // 0 -> 1: Drafting Compass circle draw-in
       explodeProgress: 0.0,  // 0 -> 1: Lift to 3D & mekar membelah
@@ -128,6 +130,34 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     let hasTriggeredAssemble = false;
     let assembleTimeline: gsap.core.Timeline | null = null;
 
+    // Interactive Exploded State (Click-to-explode toggle)
+    let isManualExploded = false;
+    const manualExplodeState = { progress: 0.0 };
+    let manualTween: gsap.core.Tween | null = null;
+
+    const toggleExploded = () => {
+      // If entrance timeline is still running, complete it immediately
+      if (assembleTimeline && assembleTimeline.isActive()) {
+        assembleTimeline.progress(1.0);
+        animState.drawProgress = 1.0;
+        animState.explodeProgress = 1.0;
+        animState.assembleProgress = 1.0;
+        animState.rootOpacity = 1.0;
+        animState.rootScale = initialScale;
+        animState.circleOpacity = 0.0;
+      }
+
+      isManualExploded = !isManualExploded;
+
+      manualTween?.kill();
+      manualTween = gsap.to(manualExplodeState, {
+        progress: isManualExploded ? 1.0 : 0.0,
+        duration: isManualExploded ? 0.75 : 0.55,
+        ease: isManualExploded ? 'back.out(1.2)' : 'power3.out',
+      });
+    };
+    toggleExplodedRef.current = toggleExploded;
+
     const triggerAssembly = () => {
       if (hasTriggeredAssemble) return;
       hasTriggeredAssemble = true;
@@ -135,7 +165,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       assembleTimeline = gsap.timeline({
         delay: 0.18,
         onComplete: () => {
-          if (svgRef.current) {
+          if (svgRef.current && !isManualExploded) {
             svgRef.current.style.display = 'none';
           }
         },
@@ -348,10 +378,59 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       const customEvent = e as CustomEvent<{ progress: number }>;
       if (typeof customEvent.detail?.progress === 'number') {
         targetWarp = customEvent.detail.progress;
+
+        // Auto-close on scroll: if in exploded mode and user scrolls, immediately snap close
+        if (isManualExploded && targetWarp > 0.005) {
+          isManualExploded = false;
+          manualTween?.kill();
+          manualTween = gsap.to(manualExplodeState, {
+            progress: 0.0,
+            duration: 0.32,
+            ease: 'power2.out',
+          });
+        }
       }
     };
 
     window.addEventListener('adventure:compass-warp', handleWarp);
+
+    // Close on scroll interaction (wheel/touch)
+    const handleScrollClose = () => {
+      if (isManualExploded) {
+        isManualExploded = false;
+        manualTween?.kill();
+        manualTween = gsap.to(manualExplodeState, {
+          progress: 0.0,
+          duration: 0.32,
+          ease: 'power2.out',
+        });
+      }
+    };
+    window.addEventListener('wheel', handleScrollClose, { passive: true });
+    window.addEventListener('touchmove', handleScrollClose, { passive: true });
+
+    // Raycast hit detection for 3D compass clicks
+    const raycaster = new THREE.Raycaster();
+    const mouseNDC = new THREE.Vector2();
+
+    const checkCompassHit = (clientX: number, clientY: number): boolean => {
+      if (!camera || !compassRoot) return false;
+      mouseNDC.x = (clientX / window.innerWidth) * 2 - 1;
+      mouseNDC.y = -(clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouseNDC, camera);
+      const hits = raycaster.intersectObjects(compassRoot.children, true);
+      return hits.length > 0;
+    };
+
+    const handleWindowCaptureClick = (e: MouseEvent) => {
+      if (currentWarp > 0.02) return;
+      if (checkCompassHit(e.clientX, e.clientY)) {
+        e.stopPropagation();
+        e.preventDefault();
+        toggleExploded();
+      }
+    };
+    window.addEventListener('click', handleWindowCaptureClick, { capture: true });
 
     const handlePointerMove = (e: PointerEvent) => {
       const w = window.innerWidth;
@@ -449,31 +528,45 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         animState.rootScale = initialScale;
         animState.circleOpacity = 0.0;
         assembleTimeline?.kill();
-        if (svgRef.current) svgRef.current.style.display = 'none';
+        if (svgRef.current && !isManualExploded) svgRef.current.style.display = 'none';
       }
 
-      // Dynamic Separation Ratio: 0.0 -> 1.0 (Mekar) -> 0.0 (Rapat)
-      const separation = animState.explodeProgress * (1.0 - animState.assembleProgress);
+      // If user scrolls during manual explode, rapidly collapse it
+      if (currentWarp > 0.01 && manualExplodeState.progress > 0) {
+        manualExplodeState.progress *= Math.max(0.0, 1.0 - currentWarp * 4.0);
+      }
+
+      // Combined Separation Ratio (Entrance bloom OR user manual toggle)
+      const entranceSeparation = animState.explodeProgress * (1.0 - animState.assembleProgress);
+      const separation = Math.max(entranceSeparation, manualExplodeState.progress);
 
       // Visibility of 3D Model
       if (compassRoot) {
-        compassRoot.visible = animState.rootOpacity > 0.01;
+        compassRoot.visible = animState.rootOpacity > 0.01 || manualExplodeState.progress > 0.01;
+      }
+
+      // Calculate 2D Screen Center and Radius for Hit Area & Drafting Circle
+      const center3D = new THREE.Vector3(xRest, 0.55, 0.0);
+      const rim3D = new THREE.Vector3(xRest + 3.45 * initialScale, 0.55, 0.0);
+
+      const pCenter = center3D.clone().project(camera);
+      const pRim = rim3D.clone().project(camera);
+
+      const cx = (pCenter.x * 0.5 + 0.5) * width;
+      const cy = (-pCenter.y * 0.5 + 0.5) * height;
+      const rx = (pRim.x * 0.5 + 0.5) * width;
+      const radius = Math.max(10, Math.abs(rx - cx));
+
+      // Update Interactive Hit Area
+      if (hitAreaRef.current) {
+        hitAreaRef.current.setAttribute('cx', String(cx));
+        hitAreaRef.current.setAttribute('cy', String(cy));
+        hitAreaRef.current.setAttribute('r', String(radius * 1.15));
+        hitAreaRef.current.style.pointerEvents = currentWarp > 0.02 ? 'none' : 'auto';
       }
 
       // Update Drafting Compass Circle & Arm in SVG
       if (draftingGroupRef.current && animState.circleOpacity > 0.01 && currentWarp < 0.01) {
-        // Project 3D compass center and perimeter to calculate exact 2D pixel coordinates
-        const center3D = new THREE.Vector3(xRest, 0.55, 0.0);
-        const rim3D = new THREE.Vector3(xRest + 3.45 * initialScale, 0.55, 0.0);
-
-        const pCenter = center3D.clone().project(camera);
-        const pRim = rim3D.clone().project(camera);
-
-        const cx = (pCenter.x * 0.5 + 0.5) * width;
-        const cy = (-pCenter.y * 0.5 + 0.5) * height;
-        const rx = (pRim.x * 0.5 + 0.5) * width;
-        const radius = Math.max(10, Math.abs(rx - cx));
-
         // 1. Center Cross (+)
         if (draftingCrossRef.current) {
           draftingCrossRef.current.setAttribute(
@@ -492,7 +585,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           draftingCircleRef.current.style.strokeDashoffset = `${perimeter * (1.0 - animState.drawProgress)}`;
         }
 
-        // 3. Drafting Arm & Needle Pen Tip (Rotates 360 deg starting from top 12 o'clock)
+        // 3. Drafting Arm & Needle Pen Tip
         const angle = animState.drawProgress * Math.PI * 2 - Math.PI / 2;
         const px = cx + radius * Math.cos(angle);
         const py = cy + radius * Math.sin(angle);
@@ -547,7 +640,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       if (needleMesh) {
         needleMesh.position.y = THREE.MathUtils.lerp(0.62, 0.62 + 1.65, separation);
 
-        if (separation > 0.03 || animState.assembleProgress < 1.0) {
+        if (separation > 0.03) {
           // Rapid calibration spin settling as layers assemble
           const calibrationSpin = separation * Math.PI * 14;
           needleMesh.rotation.y = currentNeedleRot + calibrationSpin;
@@ -571,6 +664,9 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         if (animState.assembleProgress > 0.80 && animState.assembleProgress < 1.0) {
           const localT = (animState.assembleProgress - 0.80) / 0.20;
           clickBounce = Math.sin(localT * Math.PI * 3) * (1 - localT) * 0.16;
+        } else if (manualExplodeState.progress < 0.20 && manualExplodeState.progress > 0.01 && !isManualExploded) {
+          const localT = manualExplodeState.progress / 0.20;
+          clickBounce = Math.sin((1 - localT) * Math.PI * 3) * localT * 0.12;
         }
 
         const clampedX = THREE.MathUtils.clamp(currentRingRot + clickBounce, -0.45, 0.60);
@@ -643,7 +739,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           [calloutLensRef, calloutNeedleRef, calloutDialRef, calloutCasingRef, calloutRingRef].forEach((ref) => {
             if (ref.current) ref.current.style.opacity = '0';
           });
-          if (svgRef.current && animState.circleOpacity <= 0.01) {
+          if (svgRef.current && animState.circleOpacity <= 0.01 && !isManualExploded) {
             svgRef.current.style.display = 'none';
           }
         }
@@ -694,7 +790,11 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     return () => {
       cancelAnimationFrame(animId);
       assembleTimeline?.kill();
+      manualTween?.kill();
       window.removeEventListener('adventure:compass-warp', handleWarp);
+      window.removeEventListener('wheel', handleScrollClose);
+      window.removeEventListener('touchmove', handleScrollClose);
+      window.removeEventListener('click', handleWindowCaptureClick, { capture: true });
       window.removeEventListener('pointermove', handlePointerMove);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
@@ -715,6 +815,12 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     };
   }, []);
 
+  const handleHitAreaClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    toggleExplodedRef.current?.();
+  };
+
   return (
     <div
       ref={containerRef}
@@ -725,6 +831,14 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
       {/* Blueprint Exploded Schematic & Drafting Compass Overlay */}
       <svg ref={svgRef} className="hero-compass-exploded-svg" aria-hidden="true">
+        {/* Interactive Click Hit Area Circle */}
+        <circle
+          ref={hitAreaRef}
+          className="compass-interactive-hit-area cursor-target"
+          onClick={handleHitAreaClick}
+          aria-label="Toggle Exploded Compass View"
+        />
+
         {/* 00 // Architectural Drafting Compass 360 Circle Draw */}
         <g ref={draftingGroupRef} className="drafting-compass-group">
           {/* Center pivot cross (+) */}

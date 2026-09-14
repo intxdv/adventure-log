@@ -102,6 +102,15 @@
   opacity: 0.85;
 }
 
+/* 6. Interactive Click Hit Area */
+.compass-interactive-hit-area {
+  fill: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media (max-width: 960px) {
   .hero-compass-exploded-svg {
     display: none !important;

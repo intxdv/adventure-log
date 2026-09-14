@@ -199,8 +199,8 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
   }, [isAppLoaded, startHeroImmediately]);
 
   const handleHeroClick = (e: React.MouseEvent<HTMLElement>) => {
-    // Jangan picu transisi jika user mengklik link, tombol, atau navigasi top bar
-    if ((e.target as HTMLElement).closest('a, button, .hero-top-bar')) return;
+    // Jangan picu transisi jika user mengklik link, tombol, navigasi top bar, atau kompas 3D
+    if ((e.target as HTMLElement).closest('a, button, .hero-top-bar, .hero-compass-3d-wrapper, .compass-interactive-hit-area')) return;
 
     // Jika animasi belum mulai, klik pertama langsung paksa mulai animasinya
     if (!hasStartedLoop) {
