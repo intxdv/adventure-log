@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect.js';
+import gsap from 'gsap';
 import './HeroCompass3D.css';
 
 interface HeroCompass3DProps {
@@ -11,7 +12,22 @@ interface HeroCompass3DProps {
 export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const calloutLensRef = useRef<SVGGElement>(null);
+  const calloutNeedleRef = useRef<SVGGElement>(null);
+  const calloutDialRef = useRef<SVGGElement>(null);
+  const calloutCasingRef = useRef<SVGGElement>(null);
+  const calloutRingRef = useRef<SVGGElement>(null);
+
   const [isLoaded, setIsLoaded] = useState(false);
+  const triggerAssembleRef = useRef<(() => void) | null>(null);
+
+  // Trigger assembly once app has loaded and model is ready
+  useEffect(() => {
+    if (isVisible && isLoaded && triggerAssembleRef.current) {
+      triggerAssembleRef.current();
+    }
+  }, [isVisible, isLoaded]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -21,11 +37,10 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     // 1. Three.js Scene Setup
     const scene = new THREE.Scene();
 
-    const width = container.clientWidth || window.innerWidth;
-    const height = container.clientHeight || window.innerHeight;
+    let width = container.clientWidth || window.innerWidth;
+    let height = container.clientHeight || window.innerHeight;
 
-    // 3/4 Isometric Perspective Angle looking down at the open face
-    // Dial face is +Y, Ring is at -Z (upper-right when rotated)
+    // 3/4 Isometric Perspective Angle looking down at open dial face
     const camera = new THREE.PerspectiveCamera(36, width / height, 0.05, 100);
     const camPos = new THREE.Vector3(0.0, 8.5, 9.5);
     const camTarget = new THREE.Vector3(0.0, 0.55, 0.0);
@@ -35,7 +50,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     const viewDir = new THREE.Vector3().subVectors(camTarget, camPos).normalize();
     const initialDistance = camPos.distanceTo(camTarget);
 
-    // Initial scale tuned to match original compact size (~380px diameter on 1080p desktop)
+    // Initial scale (~380px diameter on 1080p desktop)
     const initialScale = 0.58;
 
     const computeRestX = (aspect: number) => {
@@ -78,10 +93,41 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     fillLight.position.set(6.0, 5.0, 4.0);
     scene.add(fillLight);
 
-    // 3. Compass Model References
+    // 3. Exploded Layer Groups & References
     let compassRoot: THREE.Group | null = null;
+    let casingGroup: THREE.Group | null = null;
+    let dialGroup: THREE.Group | null = null;
     let needleMesh: THREE.Object3D | null = null;
     let ringMesh: THREE.Object3D | null = null;
+    let lensGroup: THREE.Group | null = null;
+    let lensMat: THREE.MeshStandardMaterial | null = null;
+    let rimLines: THREE.LineSegments | null = null;
+    let reticleMesh: THREE.Mesh | null = null;
+    let axisLine: THREE.Line | null = null;
+    let axisMat: THREE.LineDashedMaterial | null = null;
+
+    // Exploded Assembly State (0.0 = Fully Exploded, 1.0 = Fully Assembled)
+    const assembleState = { progress: 0.0 };
+    let hasTriggeredAssemble = false;
+    let assembleTween: gsap.core.Tween | null = null;
+
+    const triggerAssembly = () => {
+      if (hasTriggeredAssemble) return;
+      hasTriggeredAssemble = true;
+
+      assembleTween = gsap.to(assembleState, {
+        progress: 1.0,
+        duration: 1.6,
+        delay: 0.22,
+        ease: 'power3.out',
+        onComplete: () => {
+          if (svgRef.current) {
+            svgRef.current.style.display = 'none';
+          }
+        },
+      });
+    };
+    triggerAssembleRef.current = triggerAssembly;
 
     // Load GLTF Model
     const loader = new GLTFLoader();
@@ -132,13 +178,102 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           }
         });
 
+        // Split Compass_Body into Layer_Casing and Layer_Dial
+        const body = compassRoot.getObjectByName('Compass_Body');
+        casingGroup = new THREE.Group();
+        casingGroup.name = 'Layer_Casing';
+        dialGroup = new THREE.Group();
+        dialGroup.name = 'Layer_Dial';
+
+        if (body) {
+          const children = [...body.children];
+          children.forEach((c) => {
+            if (c.name === 'Font_Card_E_1' || c.name === 'Font_Card_E_3') {
+              casingGroup!.add(c);
+            } else {
+              dialGroup!.add(c);
+            }
+          });
+          compassRoot.add(casingGroup);
+          compassRoot.add(dialGroup);
+          compassRoot.remove(body);
+        }
+
         needleMesh = compassRoot.getObjectByName('Compass_Needle') || null;
         ringMesh = compassRoot.getObjectByName('Compass_Ring') || null;
+
+        // Create Procedural Sapphire Crystal Lens Group
+        lensGroup = new THREE.Group();
+        lensGroup.name = 'Layer_Lens';
+
+        const lensGeo = new THREE.CylinderGeometry(3.42, 3.42, 0.04, 64);
+        lensMat = new THREE.MeshStandardMaterial({
+          color: 0xf2f5f8,
+          transparent: true,
+          opacity: 0.35,
+          roughness: 0.1,
+          metalness: 0.1,
+        });
+        const lensMesh = new THREE.Mesh(lensGeo, lensMat);
+        lensGroup.add(lensMesh);
+
+        // Crisp ink perimeter contour for the lens
+        const rimEdges = new THREE.EdgesGeometry(lensGeo, 30);
+        rimLines = new THREE.LineSegments(
+          rimEdges,
+          new THREE.LineBasicMaterial({
+            color: 0x0a0a0a,
+            transparent: true,
+            opacity: 0.85,
+            linewidth: 1.5,
+          })
+        );
+        lensGroup.add(rimLines);
+
+        // Subtle reticle tick ring on lens
+        const ringGeo = new THREE.RingGeometry(3.28, 3.36, 64);
+        const ringMarkMat = new THREE.MeshBasicMaterial({
+          color: 0x0a0a0a,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.6,
+        });
+        reticleMesh = new THREE.Mesh(ringGeo, ringMarkMat);
+        reticleMesh.rotation.x = -Math.PI / 2;
+        reticleMesh.position.y = 0.025;
+        lensGroup.add(reticleMesh);
+
+        compassRoot.add(lensGroup);
+
+        // Central Drafting Axis Line (Technical dashed center guide)
+        const axisPoints = [
+          new THREE.Vector3(0, -2.4, 0),
+          new THREE.Vector3(0, 4.4, 0),
+        ];
+        const axisGeo = new THREE.BufferGeometry().setFromPoints(axisPoints);
+        axisMat = new THREE.LineDashedMaterial({
+          color: 0x181a18,
+          dashSize: 0.18,
+          gapSize: 0.12,
+          transparent: true,
+          opacity: 0.65,
+        });
+        axisLine = new THREE.Line(axisGeo, axisMat);
+        axisLine.computeLineDistances();
+        compassRoot.add(axisLine);
+
+        // Set Initial Exploded Positions
+        casingGroup.position.y = -1.35;
+        dialGroup.position.y = 0.35;
+        if (needleMesh) needleMesh.position.y = 0.62 + 1.65;
+        if (ringMesh) ringMesh.position.z = -4.22 - 2.20;
+        lensGroup.position.y = 3.30;
 
         // Orient compass so ring sits at ~1 o'clock (upper-right) and dial faces viewer at 3/4 angle
         compassRoot.rotation.x = THREE.MathUtils.degToRad(8);
         compassRoot.rotation.y = THREE.MathUtils.degToRad(-38);
         compassRoot.rotation.z = THREE.MathUtils.degToRad(4);
+
         // Position compassRoot so needle pivot dot sits at xRest in right column
         const initialPivot = camTarget.clone();
         initialPivot.x = xRest;
@@ -194,7 +329,6 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       );
       const dx = mouseX - compassNdcX;
       const dy = mouseY - 0.05;
-      // In glTF, needle rotates around Y-axis
       targetNeedleRot = -Math.atan2(dy, dx) - Math.PI / 2 + THREE.MathUtils.degToRad(38);
 
       // Mouse velocity for ring swing inertia
@@ -207,7 +341,53 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
-    // 5. Render Loop with Inertia Physics & True Screen Penetration Animation
+    // Helper to update SVG callout leader line & text
+    const updateCallout = (
+      groupEl: SVGGElement | null,
+      worldPos: THREE.Vector3,
+      direction: 'right' | 'left',
+      armLength: number = 44
+    ) => {
+      if (!groupEl) return;
+      const p = worldPos.clone().project(camera);
+      if (p.z > 1.0) {
+        groupEl.style.display = 'none';
+        return;
+      }
+      groupEl.style.display = '';
+
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const x = (p.x * 0.5 + 0.5) * w;
+      const y = (-p.y * 0.5 + 0.5) * h;
+
+      const path = groupEl.querySelector('path');
+      const dot = groupEl.querySelector('circle');
+      const text = groupEl.querySelector('text');
+
+      if (dot) {
+        dot.setAttribute('cx', String(x));
+        dot.setAttribute('cy', String(y));
+      }
+
+      const sign = direction === 'right' ? 1 : -1;
+      const elbowX = x + sign * 22;
+      const elbowY = y - 12;
+      const endX = elbowX + sign * armLength;
+      const endY = elbowY;
+
+      if (path) {
+        path.setAttribute('d', `M ${x} ${y} L ${elbowX} ${elbowY} L ${endX} ${endY}`);
+      }
+
+      if (text) {
+        text.setAttribute('x', String(endX + sign * 6));
+        text.setAttribute('y', String(endY + 3.5));
+        text.setAttribute('text-anchor', direction === 'right' ? 'start' : 'end');
+      }
+    };
+
+    // 5. Render Loop with Exploded Assembly & True Screen Penetration Dynamics
     let animId: number;
     let isIntersecting = true;
     const clock = new THREE.Clock();
@@ -222,45 +402,88 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       // Smooth interpolation of warp progress
       currentWarp += (targetWarp - currentWarp) * 0.12;
 
-      // Needle Dynamics: Magnetic Drift + Pointer Tracking + Accelerating Needle Spin Surge
+      // If user scrolls during exploded assembly, snap assembly immediately
+      if (currentWarp > 0.02 && assembleState.progress < 1.0) {
+        assembleState.progress = 1.0;
+        assembleTween?.kill();
+        if (svgRef.current) svgRef.current.style.display = 'none';
+      }
+
+      const assembleP = assembleState.progress;
+
+      // Animate Exploded Layers Convergence (0.0 -> 1.0)
+      if (casingGroup) {
+        casingGroup.position.y = THREE.MathUtils.lerp(-1.35, 0.0, assembleP);
+      }
+      if (dialGroup) {
+        dialGroup.position.y = THREE.MathUtils.lerp(0.35, 0.0, assembleP);
+      }
+      if (lensGroup) {
+        lensGroup.position.y = THREE.MathUtils.lerp(3.30, 1.05, assembleP);
+        if (lensMat) {
+          lensMat.opacity = THREE.MathUtils.lerp(0.35, 0.08, assembleP);
+        }
+        if (rimLines) {
+          (rimLines.material as THREE.LineBasicMaterial).opacity = THREE.MathUtils.lerp(0.85, 0.0, assembleP);
+        }
+        if (reticleMesh) {
+          (reticleMesh.material as THREE.MeshBasicMaterial).opacity = THREE.MathUtils.lerp(0.60, 0.0, assembleP);
+        }
+      }
+      if (axisLine && axisMat) {
+        axisMat.opacity = THREE.MathUtils.lerp(0.65, 0.0, assembleP);
+        axisLine.visible = assembleP < 0.98;
+      }
+
+      // Needle Dynamics: Exploded Spin Calibration -> Magnetic Drift & Tracking -> Warp Surge
       const idleWobble = Math.sin(elapsed * 1.8) * 0.04 + Math.cos(elapsed * 3.2) * 0.02;
       currentNeedleRot += (targetNeedleRot + idleWobble - currentNeedleRot) * 0.075;
 
       if (needleMesh) {
-        // Accelerating spin surge: spins faster and faster into a warp blur as compass rushes in
-        const spinSurge = Math.pow(currentWarp, 2.0) * Math.PI * 24;
-        needleMesh.rotation.y = currentNeedleRot + spinSurge;
+        needleMesh.position.y = THREE.MathUtils.lerp(0.62 + 1.65, 0.62, assembleP);
+
+        if (assembleP < 1.0) {
+          // Rapid calibration spin settling as layers assemble
+          const calibrationSpin = Math.pow(1.0 - assembleP, 2.0) * Math.PI * 14;
+          needleMesh.rotation.y = currentNeedleRot + calibrationSpin;
+        } else {
+          // Accelerating spin surge during warp dive
+          const spinSurge = Math.pow(currentWarp, 2.0) * Math.PI * 24;
+          needleMesh.rotation.y = currentNeedleRot + spinSurge;
+        }
       }
 
-      // Ring Dynamics: Pendulum Swing reacting to motion around local X-axis
-      const idleSwing = Math.sin(elapsed * 1.4) * 0.05;
-      targetRingRot = idleSwing + mouseVelocity * 3.8;
-      currentRingRot += (targetRingRot - currentRingRot) * 0.065;
-
+      // Ring Dynamics: Assembly Pull-in & Click Bounce -> Pendulum Swing
       if (ringMesh) {
-        const clampedX = THREE.MathUtils.clamp(currentRingRot, -0.45, 0.60);
-        // Settle ring flush during warp dive
+        ringMesh.position.z = THREE.MathUtils.lerp(-4.22 - 2.20, -4.22, assembleP);
+
+        const idleSwing = Math.sin(elapsed * 1.4) * 0.05;
+        targetRingRot = idleSwing + mouseVelocity * 3.8;
+        currentRingRot += (targetRingRot - currentRingRot) * 0.065;
+
+        // Subtle tactile click bounce as ring snaps into casing knuckle
+        let clickBounce = 0;
+        if (assembleP > 0.80 && assembleP < 1.0) {
+          const localT = (assembleP - 0.80) / 0.20;
+          clickBounce = Math.sin(localT * Math.PI * 3) * (1 - localT) * 0.16;
+        }
+
+        const clampedX = THREE.MathUtils.clamp(currentRingRot + clickBounce, -0.45, 0.60);
         ringMesh.rotation.x = THREE.MathUtils.lerp(clampedX, 0.0, currentWarp);
       }
 
       // True Screen Penetration Dynamics ("menembus layar"):
-      // The compass center pivot dot lands DEAD-CENTER on screen (50% 50%) along the camera view ray
       if (compassRoot) {
         const warpCurve = Math.pow(currentWarp, 1.25);
-
-        // Distance along camera view ray shrinks from initialDistance (~12.8) to 0.40 as it crashes into screen
         const dist = THREE.MathUtils.lerp(initialDistance, 0.40, Math.pow(currentWarp, 1.4));
         const centerRayPoint = camPos.clone().addScaledVector(viewDir, dist);
 
-        // Smooth horizontal centering: moves from xRest (right column) to 0.0 (center optical axis)
         const shiftX = xRest * Math.pow(Math.max(0.0, 1.0 - currentWarp), 1.3);
         const targetPivot = centerRayPoint.clone();
         targetPivot.x += shiftX;
 
-        // Scale expands from original compact size (0.58) up to 5.4x to engulf the entire viewport
         const scale = THREE.MathUtils.lerp(initialScale, 5.4, Math.pow(currentWarp, 1.35));
 
-        // Tilt transition: 3/4 isometric -> direct face-on perpendicular to camera (40 deg pitch, 0 deg yaw, 0 deg roll)
         const baseRotX = THREE.MathUtils.degToRad(8);
         const baseRotY = THREE.MathUtils.degToRad(-38);
         const baseRotZ = THREE.MathUtils.degToRad(4);
@@ -273,17 +496,48 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
         compassRoot.rotation.set(targetTiltX, targetTiltY, targetTiltZ);
 
-        // Position compassRoot so needle pivot dome (0, 0.87, 0) is GUARANTEED at targetPivot
         const localPivot = new THREE.Vector3(0.0, 0.87 * scale, 0.0);
         const worldPivotOffset = localPivot.applyEuler(compassRoot.rotation);
         compassRoot.position.copy(targetPivot).sub(worldPivotOffset);
         compassRoot.scale.setScalar(scale);
+
+        // Update Exploded Leader Lines & Telemetry Callouts
+        if (svgRef.current && compassRoot && assembleP < 0.99 && currentWarp < 0.01) {
+          compassRoot.updateMatrixWorld(true);
+
+          if (lensGroup) {
+            const ptLens = new THREE.Vector3(2.2, lensGroup.position.y, 0.0).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutLensRef.current, ptLens, 'right', 46);
+          }
+          if (needleMesh) {
+            const ptNeedle = new THREE.Vector3(-1.8, needleMesh.position.y, 0.3).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutNeedleRef.current, ptNeedle, 'left', 48);
+          }
+          if (dialGroup) {
+            const ptDial = new THREE.Vector3(2.6, dialGroup.position.y, 0.8).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutDialRef.current, ptDial, 'right', 50);
+          }
+          if (casingGroup) {
+            const ptCasing = new THREE.Vector3(2.8, casingGroup.position.y, -0.2).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutCasingRef.current, ptCasing, 'right', 44);
+          }
+          if (ringMesh) {
+            const ptRing = new THREE.Vector3(0.0, 0.55, ringMesh.position.z - 0.7).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutRingRef.current, ptRing, 'left', 42);
+          }
+
+          const svgOpacity = Math.max(0, 1 - Math.pow(assembleP, 1.4));
+          svgRef.current.style.opacity = String(svgOpacity);
+          svgRef.current.style.display = 'block';
+        } else if (svgRef.current && (assembleP >= 0.99 || currentWarp >= 0.01)) {
+          svgRef.current.style.display = 'none';
+        }
       }
 
-      // Damping velocity
+      // Damping mouse velocity
       mouseVelocity *= 0.94;
 
-      // Dissolve canvas as the compass penetrates through the screen center
+      // Dissolve canvas as compass penetrates through screen center
       if (canvas) {
         if (currentWarp > 0.74) {
           const dissolve = THREE.MathUtils.clamp((currentWarp - 0.74) / 0.22, 0.0, 1.0);
@@ -299,11 +553,13 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
 
     animId = requestAnimationFrame(animate);
 
-    // 6. Resize Observer for Crisp Rendering
+    // 6. Resize Observer for Crisp High-DPI Rendering
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width: newW, height: newH } = entry.contentRect;
         if (newW > 0 && newH > 0) {
+          width = newW;
+          height = newH;
           camera.aspect = newW / newH;
           camera.updateProjectionMatrix();
           renderer.setSize(newW, newH);
@@ -322,6 +578,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     // Cleanup on Unmount
     return () => {
       cancelAnimationFrame(animId);
+      assembleTween?.kill();
       window.removeEventListener('adventure:compass-warp', handleWarp);
       window.removeEventListener('pointermove', handlePointerMove);
       resizeObserver.disconnect();
@@ -350,6 +607,40 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       aria-hidden="true"
     >
       <canvas ref={canvasRef} className="hero-compass-3d-canvas" />
+
+      {/* Blueprint Exploded Schematic Callout Overlay */}
+      <svg ref={svgRef} className="hero-compass-exploded-svg" aria-hidden="true">
+        {/* 01 // Sapphire Crystal Lens */}
+        <g ref={calloutLensRef} className="exploded-callout">
+          <path className="exploded-callout-line" />
+          <circle className="exploded-callout-dot" r="2.2" />
+          <text className="exploded-callout-text">[ 01 // SAPPHIRE CRYSTAL LENS ]</text>
+        </g>
+        {/* 02 // Balanced Agate Needle */}
+        <g ref={calloutNeedleRef} className="exploded-callout">
+          <path className="exploded-callout-line" />
+          <circle className="exploded-callout-dot" r="2.2" />
+          <text className="exploded-callout-text">[ 02 // BALANCED AGATE NEEDLE ]</text>
+        </g>
+        {/* 03 // Engraved Dial Plate */}
+        <g ref={calloutDialRef} className="exploded-callout">
+          <path className="exploded-callout-line" />
+          <circle className="exploded-callout-dot" r="2.2" />
+          <text className="exploded-callout-text">[ 03 // 360° ENGRAVED DIAL ]</text>
+        </g>
+        {/* 04 // Solid Brass Casing */}
+        <g ref={calloutCasingRef} className="exploded-callout">
+          <path className="exploded-callout-line" />
+          <circle className="exploded-callout-dot" r="2.2" />
+          <text className="exploded-callout-text">[ 04 // SOLID CASING & BEZEL ]</text>
+        </g>
+        {/* 05 // Suspension Bow */}
+        <g ref={calloutRingRef} className="exploded-callout">
+          <path className="exploded-callout-line" />
+          <circle className="exploded-callout-dot" r="2.2" />
+          <text className="exploded-callout-text">[ 05 // SUSPENSION BOW ]</text>
+        </g>
+      </svg>
     </div>
   );
 };

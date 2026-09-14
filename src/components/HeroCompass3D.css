@@ -40,3 +40,45 @@
   }
 }
 
+/* 4. Exploded Schematic Overlay (Blueprint Leader Lines & Telemetry) */
+.hero-compass-exploded-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+  transition: opacity 0.4s ease-out;
+}
+
+.exploded-callout-line {
+  stroke: #181a18;
+  stroke-width: 1.1;
+  fill: none;
+  stroke-dasharray: 2.5 2.5;
+  opacity: 0.75;
+}
+
+.exploded-callout-dot {
+  fill: #181a18;
+  opacity: 0.85;
+}
+
+.exploded-callout-text {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  fill: #181a18;
+  user-select: none;
+  opacity: 0.82;
+}
+
+@media (max-width: 960px) {
+  .hero-compass-exploded-svg {
+    display: none !important;
+  }
+}
+
