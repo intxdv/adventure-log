@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useAssetReadiness } from '../hooks/useAssetReadiness';
+import './Preloader.css';
 
 interface PreloaderProps {
   onComplete?: () => void;
@@ -10,6 +11,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isRevealing, setIsRevealing] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+
+  const hasTriggeredRevealRef = useRef(false);
+  const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Force viewport to top on initial mount & disable browser scrollRestoration caching
   useEffect(() => {
@@ -36,6 +41,50 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     };
   }, [isDismissed]);
 
+  const triggerRevealSequence = useCallback((instant = false) => {
+    if (hasTriggeredRevealRef.current) return;
+    hasTriggeredRevealRef.current = true;
+
+    setProgress(100);
+
+    if (instant) {
+      setIsRevealing(true);
+      if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
+      dismissTimerRef.current = setTimeout(() => {
+        setIsDismissed(true);
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+        onComplete?.();
+      }, 350);
+      return;
+    }
+
+    // Zen pacing: hold 100% for 180ms before smooth curtain lift
+    pauseTimerRef.current = setTimeout(() => {
+      setIsRevealing(true);
+      // Smooth curtain fade transition (650ms)
+      dismissTimerRef.current = setTimeout(() => {
+        setIsDismissed(true);
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+        onComplete?.();
+      }, 650);
+    }, 180);
+  }, [onComplete]);
+
+  // Click or keypress to skip
+  const handleSkip = useCallback(() => {
+    triggerRevealSequence(true);
+  }, [triggerRevealSequence]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
+        handleSkip();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleSkip]);
+
   useEffect(() => {
     if (isDismissed) {
       onComplete?.();
@@ -44,186 +93,100 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
     let animationFrameId: number;
     let startTime: number | null = null;
-    let pauseTimer: ReturnType<typeof setTimeout> | null = null;
-    let dismissTimer: ReturnType<typeof setTimeout> | null = null;
-    const targetDuration = 2400; // 2.4s unhurried, measured telemetry loading
-
-    const triggerRevealSequence = () => {
-      setProgress(100);
-      // Pacing pause: allow user to comfortably absorb 100% calibration for 900ms
-      pauseTimer = setTimeout(() => {
-        setIsRevealing(true);
-        // Deeply cinematic, slow curtain reveal transition (1750ms)
-        dismissTimer = setTimeout(() => {
-          setIsDismissed(true);
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
-          onComplete?.();
-        }, 1750);
-      }, 900);
-    };
+    const targetDuration = 1050; // Responsive, respectful 1.05s loading curve
 
     const animate = (timestamp: number) => {
+      if (hasTriggeredRevealRef.current) return;
+
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
-      const linearRatio = Math.min(elapsed / targetDuration, 1);
+      const ratio = Math.min(elapsed / targetDuration, 1);
 
-      // Nonlinear calibration curve with deliberate steps
-      let calculatedProgress: number;
-      if (linearRatio < 0.5) {
-        calculatedProgress = Math.floor((linearRatio / 0.5) * 52);
-      } else if (linearRatio < 0.8) {
-        calculatedProgress = 52 + Math.floor(((linearRatio - 0.5) / 0.3) * 34);
-      } else {
-        calculatedProgress = 86 + Math.floor(((linearRatio - 0.8) / 0.2) * 14);
-      }
+      // Smooth cubic curve
+      const easedRatio = ratio < 0.5
+        ? 4 * ratio * ratio * ratio
+        : 1 - Math.pow(-2 * ratio + 2, 3) / 2;
 
-      if (isAssetsReady && linearRatio >= 0.96) {
+      let calculatedProgress = Math.floor(easedRatio * 100);
+
+      if (isAssetsReady && ratio >= 0.85) {
         calculatedProgress = 100;
       }
 
       setProgress(Math.min(100, calculatedProgress));
 
-      if (linearRatio < 1 && calculatedProgress < 100) {
+      if (ratio < 1 && calculatedProgress < 100) {
         animationFrameId = requestAnimationFrame(animate);
       } else {
-        triggerRevealSequence();
+        triggerRevealSequence(false);
       }
     };
 
     animationFrameId = requestAnimationFrame(animate);
 
-    // Emergency fallback safety timer (5.5 seconds)
+    // Fallback timer (2.2s max safety)
     const fallbackTimer = setTimeout(() => {
-      triggerRevealSequence();
-    }, 5500);
+      triggerRevealSequence(false);
+    }, 2200);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       clearTimeout(fallbackTimer);
-      if (pauseTimer) clearTimeout(pauseTimer);
-      if (dismissTimer) clearTimeout(dismissTimer);
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+      if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
     };
-  }, [isAssetsReady, isDismissed, onComplete]);
+  }, [isAssetsReady, isDismissed, onComplete, triggerRevealSequence]);
 
   if (isDismissed) return null;
 
   return (
-    <div
+    <aside
       id="preloader-curtain"
-      aria-label="Expedition Telemetry Preloader"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        backgroundColor: 'var(--color-canvas)',
-        zIndex: 1000,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: 'clamp(1.5rem, 5vw, 3.5rem)',
-        transition: 'opacity 1.75s cubic-bezier(0.22, 1, 0.36, 1), transform 1.75s cubic-bezier(0.22, 1, 0.36, 1)',
-        opacity: isRevealing ? 0 : 1,
-        transform: isRevealing ? 'translateY(-40px) scale(0.98)' : 'translateY(0) scale(1)',
-        pointerEvents: isRevealing ? 'none' : 'all',
-      }}
+      className={`preloader-curtain ${isRevealing ? 'is-revealing' : ''}`}
+      aria-label="Selvagant Loading Screen"
+      onClick={handleSkip}
+      role="status"
     >
-      {/* Top Telemetry Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-        <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', letterSpacing: '0.04em' }}>
-          [ EXPEDITION TELEMETRY UNIT // 001.2026 ]
-        </span>
-        <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-muted)' }}>
-          BASECAMP // 7.45° S, 110.51° E · SEMARANG, ID
-        </span>
-      </div>
-
-      {/* Centerpiece Artifact */}
-      <div style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto', width: '100%' }}>
-        <div style={{ marginBottom: 'var(--space-md)' }}>
-          <span className="tag-badge">
-            SELVAGANT // THE DIGITAL CARTOGRAPHER
-          </span>
-        </div>
-
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2rem, 5vw, 3.25rem)',
-            fontWeight: 800,
-            marginBottom: 'var(--space-md)',
-            letterSpacing: '-0.03em',
-            lineHeight: 1,
-            color: 'var(--color-ink)',
-          }}
-        >
-          Adventure Log<span style={{ color: 'var(--color-olive)' }}>.</span>
-        </h2>
-
-        {/* Tactile Progress Track Bar */}
-        <div
-          style={{
-            width: '100%',
-            height: '2px',
-            backgroundColor: 'var(--hairline-base)',
-            margin: 'var(--space-md) auto',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-          aria-hidden="true"
-        >
-          <div
-            style={{
-              height: '100%',
-              width: '100%',
-              backgroundColor: 'var(--color-olive)',
-              transformOrigin: 'left',
-              transform: `scaleX(${progress / 100})`,
-              transition: 'transform 0.08s linear',
-            }}
+      {/* Centered Brand Stage */}
+      <div className="preloader-stage" aria-hidden={isRevealing}>
+        {/* Official Selvagant Emblem */}
+        <div className="preloader-emblem-wrap">
+          <img
+            src="/logo/Logo SVG/Logo-deep-ink.svg"
+            alt="Selvagant Emblem"
+            className="preloader-emblem-img"
+            width="68"
+            height="40"
+            loading="eager"
           />
         </div>
 
-        <p className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-ink-faint)', letterSpacing: '0.02em' }}>
-          CALIBRATING SENSORS & ARCHIVAL SYSTEMS...
+        {/* Wordmark Hierarchy */}
+        <h1 className="preloader-brand-title">
+          SELVAGANT
+        </h1>
+        <p className="preloader-brand-sub">
+          ADVENTURE LOG
         </p>
-      </div>
 
-      {/* Bottom Status & Numerical Counter */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 'var(--space-md)' }}>
-        <div>
-          <span className="font-mono" style={{ fontSize: 'var(--text-xs)', display: 'block', color: 'var(--color-ink-muted)', marginBottom: '2px' }}>
-            STATUS // CALIBRATING INSTRUMENTS
-          </span>
-          <span className="font-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-olive)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                backgroundColor: 'var(--color-olive)',
-                display: 'inline-block',
-              }}
-            />
-            STATION // INFORMATIKA UNDIP '23
-          </span>
+        {/* Minimalist 128px Hairline Progress */}
+        <div className="preloader-progress-track" aria-hidden="true">
+          <div
+            className="preloader-progress-bar"
+            style={{ transform: `scaleX(${progress / 100})` }}
+          />
         </div>
 
-        <div style={{ textAlign: 'right' }}>
-          <span
-            className="font-mono"
-            style={{
-              fontSize: 'clamp(2.5rem, 6vw, 4.25rem)',
-              fontWeight: 700,
-              color: 'var(--color-ink)',
-              fontVariantNumeric: 'tabular-nums',
-              lineHeight: 1,
-              display: 'block',
-              letterSpacing: '-0.03em',
-            }}
-          >
-            {String(progress).padStart(2, '0')}%
-          </span>
-        </div>
+        {/* Quiet Percentage Counter */}
+        <span className="preloader-counter" aria-live="polite">
+          {String(progress).padStart(2, '0')}%
+        </span>
       </div>
-    </div>
+
+      {/* Subtle Skip Hint */}
+      <span className="preloader-skip-hint">
+        Click or press any key to skip
+      </span>
+    </aside>
   );
 };
