@@ -57,8 +57,8 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: min(clamp(440px, 35vw, 620px), 68vh) 1fr;
-  gap: clamp(3rem, 6vw, 7.5rem);
+  grid-template-columns: min(clamp(440px, 35vw, 620px), 64vh) 1fr;
+  gap: clamp(3.5rem, 6vw, 7.5rem);
   align-items: center;
   width: 100%;
 }
@@ -106,7 +106,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  max-width: min(clamp(440px, 35vw, 620px), 68vh);
+  max-width: min(clamp(440px, 35vw, 620px), 64vh);
   width: 100%;
   justify-self: start;
 }
@@ -124,7 +124,7 @@
   position: relative;
   background-color: #FFFFFF;
   border: 1px solid var(--hairline-base);
-  padding: clamp(0.875rem, 2vw, 1.25rem);
+  padding: clamp(0.875rem, 1.6vw, 1.25rem) clamp(0.875rem, 1.6vw, 1.25rem) clamp(2.25rem, 4vw, 3.25rem);
   box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
   opacity: 0;
   will-change: opacity, transform;
@@ -206,7 +206,7 @@
 
 /* Zine Card Footer (Inspired by reference VOL. 1 layout) */
 .field-zine-footer {
-  margin-top: clamp(0.75rem, 1.5vw, 1rem);
+  margin-top: clamp(1rem, 2vw, 1.5rem);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -221,19 +221,20 @@
 
 .field-zine-callname {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
   font-weight: 900;
-  line-height: 0.92;
-  letter-spacing: 0.14em;
+  line-height: 0.9;
+  letter-spacing: 0.12em;
   color: var(--color-ink);
 }
 
 .field-zine-fullname {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: clamp(0.8rem, 0.9vw, 0.92rem);
   color: var(--color-ink-muted);
-  margin-top: 6px;
+  margin-top: 8px;
   letter-spacing: -0.01em;
+  font-weight: 500;
 }
 
 .field-zine-quote-trigger {
@@ -245,13 +246,13 @@
   padding: 0;
   text-align: right;
   margin-left: auto;
-  max-width: clamp(170px, 14vw, 220px);
+  max-width: clamp(200px, 18vw, 260px);
 }
 
 .field-zine-quote {
   font-family: var(--font-body);
-  font-size: clamp(0.725rem, 0.7rem + 0.15vw, 0.8rem);
-  line-height: 1.35;
+  font-size: clamp(0.85rem, 0.95vw, 1.02rem);
+  line-height: 1.42;
   color: var(--color-ink);
   text-align: right;
   margin: 0;
@@ -278,7 +279,6 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-left: 3px solid #8FA382;
   border-radius: 4px;
   padding: clamp(1rem, 1.3vw, 1.35rem);
   box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.75), 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -333,6 +333,10 @@
 }
 
 @media (max-width: 480px) {
+  .field-zine-card {
+    padding: 0.875rem 0.875rem 1.85rem;
+  }
+
   .field-zine-footer {
     display: flex;
     justify-content: space-between;
@@ -346,21 +350,21 @@
   }
 
   .field-zine-callname {
-    font-size: clamp(1.75rem, 7.5vw, 2.25rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(2rem, 8vw, 2.6rem);
+    letter-spacing: 0.1em;
   }
 
   .field-zine-fullname {
-    font-size: 0.68rem;
+    font-size: 0.76rem;
     margin-top: 4px;
   }
 
   .field-zine-quote-trigger {
-    max-width: 150px;
+    max-width: 175px;
   }
 
   .field-zine-quote {
-    font-size: clamp(0.68rem, 2.4vw, 0.75rem);
+    font-size: clamp(0.78rem, 2.6vw, 0.88rem);
   }
 
   .field-zine-manifesto-popover {
@@ -387,7 +391,7 @@
   letter-spacing: -0.035em;
   line-height: 1.08;
   color: var(--color-ink);
-  margin-bottom: var(--space-xs);
+  margin-bottom: clamp(1.25rem, 2vh, 1.85rem);
   max-width: 22ch;
   transition: color 0.6s ease;
 }
@@ -403,29 +407,13 @@
   color: #F7F6F2;
 }
 
-.about-subhead {
-  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
-  color: var(--color-olive);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: clamp(1rem, 1.8vh, 1.75rem);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.6s ease;
-}
-
-.about-section.is-nocturne .about-subhead {
-  color: #9DB594;
-}
-
 .about-lead {
   font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   line-height: 1.65;
   color: var(--color-ink);
   font-weight: 500;
-  max-width: 68ch;
-  margin-bottom: clamp(0.75rem, 1.4vh, 1.25rem);
+  max-width: 66ch;
+  margin-bottom: clamp(0.85rem, 1.5vh, 1.25rem);
   transition: color 0.6s ease;
 }
 
@@ -434,11 +422,11 @@
 }
 
 .about-body {
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-size: clamp(0.92rem, 1vw, 1.02rem);
   line-height: 1.7;
   color: var(--color-ink-muted);
-  max-width: 72ch;
-  margin-bottom: clamp(1rem, 1.8vh, 1.75rem);
+  max-width: 70ch;
+  margin-bottom: 0;
   transition: color 0.6s ease;
 }
 

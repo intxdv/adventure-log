@@ -205,10 +205,6 @@ export const About: React.FC = () => {
               <span className="about-word">Mobile</span>{' '}
               <span className="about-word">Architect<span style={{ color: 'var(--color-olive)' }}>.</span></span>
             </h2>
-
-            <p className="about-subhead font-mono">
-              SYAFIQ ABIYYU TAQI // INFORMATIKA UNDIP '23
-            </p>
           </header>
 
           <p className="about-lead">

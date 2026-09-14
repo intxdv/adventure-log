@@ -110,7 +110,7 @@ export const useMotionEngine = () => {
 
         // 1c. Entrance Tiap Elemen Section 2 (Muncul berurutan dan tenang)
         portalTimeline.fromTo(
-          '.about-kicker, .about-subhead',
+          '.about-kicker',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
           1.38
