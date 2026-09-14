@@ -256,9 +256,8 @@ export const AccordionGallery = ({
             ref={(el: HTMLElement | null) => {
               panelRefs.current[i] = el;
             }}
-            className={`ag-panel cursor-target${isActive ? ' ag-panel--active' : ' ag-panel--collapsed'}`}
+            className={`ag-panel no-cursor-target${isActive ? ' ag-panel--active' : ' ag-panel--collapsed'}`}
             style={{ borderRadius: `${radius}px` }}
-            data-hover-reveal="accordion-panel"
             href={item.link || undefined}
             onClick={e => handleClick(i, e)}
             onMouseEnter={() => handleEnter(i)}

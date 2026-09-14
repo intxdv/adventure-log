@@ -45,7 +45,7 @@ const getContainingBlockOffset = (block: HTMLElement | null) => {
 
 export const TargetCursor: React.FC<TargetCursorProps> = ({
   targetSelector = '.cursor-target, [data-hover-reveal], [aria-haspopup], [aria-expanded], a, button',
-  excludeSelector = '#top-notch-header, #top-notch-header *, .notch-header-container, .notch-header-container *, .notch-dock-body, .notch-dock-body *, .notch-brand-anchor, .notch-brand-anchor *, .no-cursor-target, .no-cursor-target *',
+  excludeSelector = '#top-notch-header, #top-notch-header *, .notch-header-container, .notch-header-container *, .notch-dock-body, .notch-dock-body *, .notch-brand-anchor, .notch-brand-anchor *, .ag-panel, .ag-panel *, .accordion-gallery, .accordion-gallery *, .arsenal-gallery-wrapper, .arsenal-gallery-wrapper *, .no-cursor-target, .no-cursor-target *',
   spinDuration = 2,
   hideDefaultCursor = true,
   hoverDuration = 0.2,

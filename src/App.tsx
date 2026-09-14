@@ -22,7 +22,7 @@ export const App: React.FC = () => {
         hideDefaultCursor={true}
         parallaxOn={true}
         targetSelector=".cursor-target, [data-hover-reveal], [aria-haspopup], [aria-expanded], a, button"
-        excludeSelector="#top-notch-header, #top-notch-header *, .notch-header-container, .notch-header-container *, .notch-dock-body, .notch-dock-body *, .notch-brand-anchor, .notch-brand-anchor *, .no-cursor-target, .no-cursor-target *"
+        excludeSelector="#top-notch-header, #top-notch-header *, .notch-header-container, .notch-header-container *, .notch-dock-body, .notch-dock-body *, .notch-brand-anchor, .notch-brand-anchor *, .ag-panel, .ag-panel *, .accordion-gallery, .accordion-gallery *, .arsenal-gallery-wrapper, .arsenal-gallery-wrapper *, .no-cursor-target, .no-cursor-target *"
       />
       {/* Tactile Paper Noise Overlay */}
       <div className="paper-grain-overlay" aria-hidden="true" />
