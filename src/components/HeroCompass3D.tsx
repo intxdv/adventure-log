@@ -183,28 +183,28 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         delay: 0.18,
       });
 
-      // 1. Drafting Compass 360 Circle Draw (~0.45s)
+      // 1. Drafting Compass 360 Circle Draw (~0.48s)
       assembleTimeline.to(animState, {
         drawProgress: 1.0,
-        duration: 0.45,
+        duration: 0.48,
         ease: 'power2.inOut',
       });
 
-      // 1b. Hold Lingkaran Utuh Sejenak (Jeda tenang ~0.45s sebelum kompas mekar)
-      assembleTimeline.to({}, { duration: 0.45 });
+      // 1b. Hold Lingkaran Utuh Sejenak (Jeda tenang ~0.35s sebelum kompas mekar)
+      assembleTimeline.to({}, { duration: 0.35 });
 
-      // 2. Lift into 3D & Mekar Membelah (Lingkaran jangka langsung menghilang begitu kompas mulai mekar)
+      // 2. Lift into 3D & Mekar Membelah (Fade out lingkaran jangka secara halus & sinematis saat 3D kompas muncul)
       assembleTimeline.to(animState, {
         circleOpacity: 0.0,
-        duration: 0.32,
-        ease: 'power2.out',
+        duration: 0.75,
+        ease: 'sine.inOut',
       });
 
       assembleTimeline.to(animState, {
         rootOpacity: 1.0,
         rootScale: initialScale,
         explodeProgress: 1.0,
-        duration: 1.05,
+        duration: 1.15,
         ease: 'power2.out',
       }, '<');
 
@@ -708,7 +708,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         if (draftingPenDotRef.current) {
           draftingPenDotRef.current.setAttribute('cx', String(px));
           draftingPenDotRef.current.setAttribute('cy', String(py));
-          draftingPenDotRef.current.style.display = '';
+          draftingPenDotRef.current.style.display = animState.drawProgress < 0.999 ? '' : 'none';
         }
 
         if (draftingArmRef.current) {
@@ -716,7 +716,7 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           draftingArmRef.current.setAttribute('y1', String(cy));
           draftingArmRef.current.setAttribute('x2', String(px));
           draftingArmRef.current.setAttribute('y2', String(py));
-          draftingArmRef.current.style.display = '';
+          draftingArmRef.current.style.display = animState.drawProgress < 0.999 ? '' : 'none';
         }
 
         draftingGroupRef.current.style.opacity = String(animState.circleOpacity);
