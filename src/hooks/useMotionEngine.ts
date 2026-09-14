@@ -327,25 +327,30 @@ export const useMotionEngine = () => {
           }
         );
 
-        // 4e. Accordion Gallery Panels 3D Stagger Reveal (Curtain Sheet Unfold)
-        gsap.fromTo(
-          '.ag-panel',
-          { autoAlpha: 0, y: 48, scale: 0.96, rotateX: 6 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            rotateX: 0,
-            stagger: 0.14,
-            duration: 0.95,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: '.arsenal-gallery-wrapper',
-              start: 'top 84%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
+        // 4e. Accordion Gallery Panels 3D Stagger Reveal (Desktop) / Direct Render (Mobile)
+        const isMobileScreen = window.innerWidth <= 768;
+        if (!isMobileScreen) {
+          gsap.fromTo(
+            '.ag-panel',
+            { autoAlpha: 0, y: 48, scale: 0.96, rotateX: 6 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              rotateX: 0,
+              stagger: 0.14,
+              duration: 0.95,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: '.arsenal-gallery-wrapper',
+                start: 'top 88%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        } else {
+          gsap.set('.ag-panel', { autoAlpha: 1, y: 0, scale: 1, rotateX: 0 });
+        }
       }
 
       // ======================================================================

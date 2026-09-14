@@ -8,6 +8,7 @@
   grid-template-rows: 1fr;
   align-items: start;
   overflow: clip;
+  background-color: var(--color-canvas);
 }
 
 .hero-section {
@@ -17,15 +18,16 @@
   top: 0;
   height: 100vh;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
   align-self: start;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0 0 clamp(2rem, 4vw, 4rem);
-  background-color: var(--color-canvas);
+  background-color: transparent;
   overflow: hidden;
   cursor: pointer;
+  pointer-events: none;
 }
 
 /* 1. Minimalist Hero Top Bar with Full-Bleed Tactical Editorial Datum Line */
@@ -35,6 +37,7 @@
   border-bottom: 1.5px solid var(--color-ink);
   transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 20;
+  pointer-events: auto;
 }
 
 .hero-top-bar-inner {
@@ -168,6 +171,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  pointer-events: auto;
 }
 
 /* Sisi Kiri: Judul Dinamis & Bio Editorial (Gedein & Lapang, Rapi di Paruh Kiri) */

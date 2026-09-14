@@ -1046,32 +1046,75 @@
   }
 
   .swiss-col-left {
-    padding: 0.75rem;
-    max-height: 46vh;
-    overflow-y: auto;
+    padding: 0.6rem 0.75rem;
+    max-height: none;
+    overflow: visible;
+    border-bottom: 1px dashed rgba(18, 21, 18, 0.18);
+  }
+
+  .swiss-left-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: auto;
+  }
+
+  .swiss-left-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
   }
 
   .swiss-counter-reel {
-    height: 2.8rem;
+    height: 2.2rem;
+    flex-shrink: 0;
   }
 
   .swiss-counter-num {
-    height: 2.8rem;
-    font-size: 2.8rem;
+    height: 2.2rem;
+    font-size: 2.2rem;
+    line-height: 2.2rem;
   }
 
-  .swiss-editorial-summary {
-    font-size: 0.62rem;
-    line-height: 1.4;
+  .swiss-project-dynamic-details {
+    min-width: 0;
+    flex: 1;
   }
 
-  .swiss-impact-callout {
-    padding: 5px 7px;
+  .swiss-left-project-info {
+    margin: 0;
   }
 
-  .impact-detail {
-    font-size: 0.6rem;
-    line-height: 1.35;
+  .swiss-project-title {
+    font-size: clamp(1.1rem, 4.5vw, 1.45rem);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Hide long specifications and secondary metadata on mobile */
+  .swiss-left-body,
+  .swiss-project-cat,
+  .swiss-project-role,
+  .swiss-project-status {
+    display: none !important;
+  }
+
+  .swiss-left-bottom {
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+
+  .swiss-dossier-btn {
+    padding: 8px 14px;
+    font-size: 0.68rem;
+    white-space: nowrap;
   }
 
   .swiss-col-stage {

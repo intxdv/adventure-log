@@ -417,54 +417,38 @@
 
 @media (max-width: 768px) {
   .accordion-gallery {
-    flex-direction: column;
+    display: block;
+    width: 100%;
     perspective: none;
     height: auto !important;
-    gap: 12px;
   }
 
   .ag-panel {
-    min-height: 72px;
-    height: auto;
     transform: none !important;
   }
 
   .ag-panel--collapsed {
-    min-height: 72px;
-    height: 72px;
+    display: none !important;
   }
 
   .ag-panel--active {
-    min-height: 580px;
+    width: 100%;
+    display: block;
+    position: relative;
+    border-radius: var(--ag-radius);
+    height: auto;
+    overflow: hidden;
   }
 
   .ag-panel__media {
     width: 100%;
-    height: var(--ag-media-size);
+    height: 100%;
+    position: absolute;
+    inset: 0;
   }
 
-  /* In mobile collapsed view, spine is horizontal */
+  /* In mobile collapsed view, spine is hidden as collapsed panels are hidden */
   .ag-panel__spine {
-    padding: 0 16px;
-    justify-content: flex-start;
-  }
-
-  .ag-panel__spine-content {
-    writing-mode: horizontal-tb;
-    transform: none;
-    gap: 10px;
-    padding-left: 42px; /* clearance for badge */
-  }
-
-  .ag-panel__spine-title {
-    font-size: 1.05rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 220px;
-  }
-
-  .ag-panel__spine-code {
     display: none;
   }
 
@@ -474,8 +458,10 @@
 
   .ag-panel__dossier {
     position: relative;
-    padding: 48px 16px 84px;
+    padding: 44px 16px 28px;
     height: auto;
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
 
   .ag-dossier__title {
