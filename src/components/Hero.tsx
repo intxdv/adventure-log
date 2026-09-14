@@ -357,7 +357,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
             </h1>
           </div>
 
-          <p className="hero-bio-paragraph font-serif">
+          <p className="hero-bio-paragraph">
             <span className="hero-bio-word">A</span>{' '}
             <span className="hero-bio-word">digital</span>{' '}
             <span className="hero-bio-word">field</span>{' '}

@@ -224,7 +224,7 @@
   color: var(--color-ink-muted);
   max-width: 760px;
   margin: 0;
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
 }
 
 .hero-bio-paragraph strong {
