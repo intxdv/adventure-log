@@ -10,6 +10,23 @@ export const useMotionEngine = () => {
     let footerMouseMoveHandler: ((e: MouseEvent) => void) | null = null;
 
     const ctx = gsap.context(() => {
+      // 0. Accessible Fallback for Reduced Motion (WCAG 2.3.3 & Level AAA compliance)
+      if (prefersReducedMotion) {
+        gsap.set('#expeditions-white-canvas, #expeditions-swiss-container', {
+          opacity: 1,
+          visibility: 'visible',
+          y: 0,
+        });
+        gsap.set('#expeditions', { pointerEvents: 'auto' });
+        gsap.set('.arsenal-header > *, .arsenal-tab-btn, .ag-panel', {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+        });
+        gsap.set('#top-notch-header', { opacity: 1, visibility: 'visible' });
+        return;
+      }
+
       // ======================================================================
       // 1. HERO -> ABOUT CENTER CIRCLE PORTAL TRANSITION (CLIP-PATH BLOOM)
       // ======================================================================
@@ -17,7 +34,7 @@ export const useMotionEngine = () => {
       const aboutSection = document.getElementById('about');
       const notchHeader = document.getElementById('top-notch-header');
 
-      if (stageWrapper && aboutSection && !prefersReducedMotion) {
+      if (stageWrapper && aboutSection) {
         // Scrub the clip-path of Section 2 from circle(0%) to circle(150%)
         // Flow: Clean hero pinned with editorial boxes -> scroll: nocturnal circle blooms to Section 01
         const portalTimeline = gsap.timeline({
@@ -273,7 +290,7 @@ export const useMotionEngine = () => {
       // 4. SELECTED EXPEDITIONS -> FIELD ARSENAL TRANSITION (CURTAIN SHEET OVERLAP)
       // ======================================================================
       const arsenalSection = document.getElementById('arsenal') || document.getElementById('field-arsenal');
-      if (arsenalSection && !prefersReducedMotion) {
+      if (arsenalSection) {
         // 4a. Header & Tagline Stagger Entrance
         gsap.fromTo(
           '.arsenal-header > *',
@@ -334,7 +351,7 @@ export const useMotionEngine = () => {
       // 5. FOOTER MULTI-STAGE ENTRANCE & LAYERED CHOREOGRAPHY
       // ======================================================================
       const footerSection = document.getElementById('footer');
-      if (footerSection && !prefersReducedMotion) {
+      if (footerSection) {
         // 5a. Marquee Ribbon slide & fade in
         gsap.from('.footer-marquee-ribbon', {
           scrollTrigger: {
