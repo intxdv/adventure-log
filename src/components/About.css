@@ -123,20 +123,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-align: center;
   }
 
   .about-article {
-    display: contents;
+    display: contents !important;
   }
 
   .about-article header {
-    display: contents;
+    display: contents !important;
   }
 
   .about-headline {
-    order: 1;
+    order: 1 !important;
     font-size: clamp(1.2rem, 4.8vw, 1.6rem) !important;
     margin-bottom: 2px !important;
     max-width: 100% !important;
@@ -145,27 +145,21 @@
   }
 
   .field-card-wrapper {
-    order: 2;
-    max-width: min(290px, 80vw);
-    margin: 0 auto;
+    order: 2 !important;
+    max-width: min(290px, 80vw) !important;
+    margin: 0 auto !important;
     width: 100%;
   }
 
   .about-kicker {
-    order: 3;
-    margin-top: 4px;
-    margin-bottom: 0;
+    order: 3 !important;
+    margin-top: 4px !important;
+    margin-bottom: 0 !important;
   }
 
   .about-article .about-lead,
   .about-article .about-body {
     display: none !important;
-  }
-
-  .field-card-wrapper {
-    max-width: min(300px, 84vw);
-    margin: 0 auto;
-    width: 100%;
   }
 
   .field-dossier {
@@ -193,15 +187,6 @@
   .about-headline {
     font-size: clamp(1.15rem, 4.6vw, 1.4rem) !important;
     line-height: 1.15;
-  }
-
-  .about-article {
-    margin-top: 8px;
-    gap: 6px;
-  }
-
-  .about-kicker {
-    margin-bottom: 4px;
   }
 
   .field-dossier-header,
