@@ -126,18 +126,7 @@ export const DepthCarousel = ({
   const focusRef = useRef(activeIndex ?? 0);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
   const scaleRef = useRef(1);
-  const cfgRef = useRef<CarouselConfig>({} as CarouselConfig);
-  const onChangeRef = useRef(onChange);
-
-  const dragRef = useRef<DragState | null>(null);
-  const wheelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const autoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const reducedRef = useRef(false);
-
-  const [active, setActive] = useState(activeIndex ?? 0);
-
-  onChangeRef.current = onChange;
-  cfgRef.current = {
+  const cfgRef = useRef<CarouselConfig>({
     count,
     depth,
     spread,
@@ -154,7 +143,37 @@ export const DepthCarousel = ({
     cardWidth,
     cardHeight,
     autoplayDelay
-  };
+  });
+  const onChangeRef = useRef(onChange);
+
+  const dragRef = useRef<DragState | null>(null);
+  const wheelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const reducedRef = useRef(false);
+
+  const [active, setActive] = useState(activeIndex ?? 0);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+    cfgRef.current = {
+      count,
+      depth,
+      spread,
+      tilt,
+      tiltDirection,
+      orientation,
+      verticalDirection,
+      visibleCards,
+      falloff,
+      blur,
+      duration,
+      ease,
+      loop,
+      cardWidth,
+      cardHeight,
+      autoplayDelay
+    };
+  });
 
   const layout = useCallback((pos: number) => {
     const cfg = cfgRef.current;

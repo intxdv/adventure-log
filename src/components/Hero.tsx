@@ -267,9 +267,13 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
 
     if (isDeleting && displayedText === '') {
       // Selesai menghapus, pindah ke font berikutnya dan mulai mengetik
-      setIsDeleting(false);
-      setFontIndex((prev) => (prev + 1) % FONT_SEQUENCE.length);
-      return;
+      timerRef.current = setTimeout(() => {
+        setIsDeleting(false);
+        setFontIndex((prev) => (prev + 1) % FONT_SEQUENCE.length);
+      }, 60);
+      return () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+      };
     }
 
     const typingSpeed = isDeleting ? 36 : 72;
