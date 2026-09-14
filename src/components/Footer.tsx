@@ -55,7 +55,8 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="footer-wandering-selv font-serif">
-              The Wandering <span className="footer-selv-accent">Selv</span>.
+              <span>The Wandering</span>
+              <span className="footer-selv-accent">Selv.</span>
             </p>
 
             <div className="footer-clock-row font-mono">

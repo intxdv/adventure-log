@@ -117,6 +117,9 @@
 }
 
 .footer-wandering-selv {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
   font-size: 0.95rem;
   color: var(--color-ink-muted);
   line-height: 1.4;

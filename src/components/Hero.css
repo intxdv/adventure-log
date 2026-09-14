@@ -92,6 +92,9 @@
 }
 
 .hero-top-motto {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.38em;
   font-size: 0.95rem;
   letter-spacing: 0.04em;
   color: var(--color-ink);

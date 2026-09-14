@@ -317,7 +317,8 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
               aria-label="Navigate to Field Log / Bio"
               title="Navigate to Field Log / Bio"
             >
-              The Wandering <em>Selv.</em>
+              <span>The Wandering</span>
+              <em>Selv.</em>
             </a>
           </div>
 
