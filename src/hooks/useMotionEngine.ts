@@ -49,8 +49,8 @@ export const useMotionEngine = () => {
                   notchHeader.classList.add('is-hidden');
                 }
               }
-              // Coordinate About section pointer-events interactivity (hanya aktif saat bio tampil)
-              if (self.progress >= 0.15 && self.progress < 0.30) {
+              // Coordinate About section pointer-events interactivity (aktif saat bio tampil)
+              if (self.progress >= 0.08 && self.progress < 0.42) {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');

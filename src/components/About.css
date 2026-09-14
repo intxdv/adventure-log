@@ -105,9 +105,10 @@
 
 @media (max-width: 960px) {
   .about-section {
-    padding-top: calc(var(--space-2xl) + 20px);
+    padding-top: calc(var(--space-lg) + 8px);
     padding-bottom: 76px;
     overflow: hidden;
+    justify-content: flex-start;
   }
 
   .about-container {
@@ -116,11 +117,12 @@
     padding-left: clamp(1.2rem, 4vw, 2rem);
     padding-right: clamp(1.2rem, 4vw, 2rem);
     padding-bottom: 0;
+    margin-top: 4px;
   }
 
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
     justify-items: center;
     text-align: center;
   }
@@ -131,6 +133,11 @@
     align-items: center;
     text-align: center;
     gap: 8px;
+    margin-top: 12px;
+  }
+
+  .about-kicker {
+    margin-bottom: 6px;
   }
 
   .about-article .about-lead,
@@ -139,14 +146,14 @@
   }
 
   .about-headline {
-    font-size: clamp(1.35rem, 5.2vw, 1.85rem) !important;
+    font-size: clamp(1.3rem, 5vw, 1.75rem) !important;
     margin-bottom: 0 !important;
     max-width: 100% !important;
     text-align: center !important;
   }
 
   .field-card-wrapper {
-    max-width: min(320px, 85vw);
+    max-width: min(300px, 84vw);
     margin: 0 auto;
     width: 100%;
   }
@@ -160,17 +167,31 @@
 
 @media (max-width: 480px) {
   .about-section {
-    padding-top: calc(var(--space-2xl) + 12px);
+    padding-top: calc(var(--space-lg) + 4px);
     padding-bottom: 76px;
+    justify-content: flex-start;
+  }
+
+  .about-container {
+    margin-top: 0;
   }
 
   .field-card-wrapper {
-    max-width: min(290px, 86vw);
+    max-width: min(280px, 85vw);
   }
 
   .about-headline {
-    font-size: clamp(1.25rem, 5vw, 1.55rem) !important;
+    font-size: clamp(1.2rem, 4.8vw, 1.45rem) !important;
     line-height: 1.15;
+  }
+
+  .about-article {
+    margin-top: 10px;
+    gap: 6px;
+  }
+
+  .about-kicker {
+    margin-bottom: 4px;
   }
 
   .field-dossier-header,
@@ -309,6 +330,8 @@
 .field-zine-identity {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .field-zine-callname {
@@ -316,8 +339,10 @@
   font-size: clamp(3rem, 5vw, 4.25rem);
   font-weight: 900;
   line-height: 0.88;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
   color: var(--color-ink);
+  text-align: left;
+  margin: 0;
 }
 
 .field-zine-fullname {
@@ -327,6 +352,7 @@
   margin-top: 10px;
   letter-spacing: -0.01em;
   font-weight: 600;
+  text-align: left;
 }
 
 .field-zine-quote-trigger {
@@ -439,17 +465,24 @@
 
   .field-zine-identity {
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .field-zine-callname {
     font-size: clamp(2.4rem, 9.5vw, 3.2rem);
     letter-spacing: 0.08em;
+    text-align: left;
+    margin: 0;
   }
 
   .field-zine-fullname {
     font-size: 0.88rem;
     margin-top: 6px;
     font-weight: 600;
+    text-align: left;
   }
 
   .field-zine-quote-trigger {

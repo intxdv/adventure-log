@@ -7,21 +7,45 @@ export const About: React.FC = () => {
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  // Close modal on Escape key
+  // Close modal on Escape key and handle outside clicks for popovers
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsProfileModalOpen(false);
+        setIsNoteOpen(false);
+        setIsManifestoOpen(false);
       }
     };
-    if (isProfileModalOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isProfileModalOpen]);
 
-  const toggleNote = () => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      if (isNoteOpen && !target.closest('.field-zine-logo-badge')) {
+        setIsNoteOpen(false);
+      }
+      if (isManifestoOpen && !target.closest('.field-zine-quote-trigger')) {
+        setIsManifestoOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('click', handleDocumentClick);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('click', handleDocumentClick);
+    };
+  }, [isNoteOpen, isManifestoOpen]);
+
+  const toggleNote = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsNoteOpen((prev) => !prev);
+    setIsManifestoOpen(false);
+  };
+
+  const toggleManifesto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsManifestoOpen((prev) => !prev);
+    setIsNoteOpen(false);
   };
 
   const handleMouseEnter = () => {
@@ -34,10 +58,6 @@ export const About: React.FC = () => {
     if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
       setIsNoteOpen(false);
     }
-  };
-
-  const toggleManifesto = () => {
-    setIsManifestoOpen((prev) => !prev);
   };
 
   const handleManifestoEnter = () => {
@@ -105,16 +125,10 @@ export const About: React.FC = () => {
                 onClick={toggleNote}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-                onFocus={() => setIsNoteOpen(true)}
-                onBlur={(e) => {
-                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-                    setIsNoteOpen(false);
-                  }
-                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    toggleNote();
+                    toggleNote(e as unknown as React.MouseEvent);
                   } else if (e.key === 'Escape') {
                     setIsNoteOpen(false);
                   }
@@ -169,16 +183,10 @@ export const About: React.FC = () => {
                 onClick={toggleManifesto}
                 onMouseEnter={handleManifestoEnter}
                 onMouseLeave={handleManifestoLeave}
-                onFocus={() => setIsManifestoOpen(true)}
-                onBlur={(e) => {
-                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-                    setIsManifestoOpen(false);
-                  }
-                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    toggleManifesto();
+                    toggleManifesto(e as unknown as React.MouseEvent);
                   }
                 }}
               >
