@@ -504,10 +504,10 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       const rawGamma = e.gamma;
       const rawBeta = e.beta;
 
-      // Normalize roll (gamma) [-35 deg, 35 deg] -> [-1, 1]
-      targetGyroX = THREE.MathUtils.clamp(rawGamma / 35, -1, 1);
-      // Normalize pitch (beta - 45 deg resting baseline) [-35 deg, 35 deg] -> [-1, 1]
-      targetGyroY = THREE.MathUtils.clamp((rawBeta - 45) / 35, -1, 1);
+      // Aggressive & responsive mobile tilt normalization:
+      // Map [-20 deg, 20 deg] tilt range to full [-1, 1] response
+      targetGyroX = THREE.MathUtils.clamp(rawGamma / 20, -1, 1);
+      targetGyroY = THREE.MathUtils.clamp((rawBeta - 45) / 20, -1, 1);
       hasGyroData = true;
     };
 
@@ -779,9 +779,9 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         axisLine.visible = separation > 0.05;
       }
 
-      // Gyroscope / Accelerometer Smoothing & Inertia Damping
-      currentGyroX += (targetGyroX - currentGyroX) * 0.08;
-      currentGyroY += (targetGyroY - currentGyroY) * 0.08;
+      // Gyroscope / Accelerometer Smoothing & Snappy Tracking
+      currentGyroX += (targetGyroX - currentGyroX) * 0.15;
+      currentGyroY += (targetGyroY - currentGyroY) * 0.15;
 
       if (gyroMotionVelocity > 0.01) {
         mouseVelocity = Math.max(mouseVelocity, gyroMotionVelocity);
@@ -791,9 +791,9 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       // Needle Dynamics: Exploded Spin Calibration -> Magnetic Drift & Tracking -> Warp Surge
       const idleWobble = Math.sin(elapsed * 1.8) * 0.04 + Math.cos(elapsed * 3.2) * 0.02;
       
-      // On mobile with gyro, needle physically counter-rotates against phone tilt (magnetic compass feel)
+      // On mobile with gyro, needle physically and aggressively counter-rotates against phone tilt (magnetic compass feel)
       if (hasGyroData) {
-        targetNeedleRot = -currentGyroX * 0.90 + (currentGyroY * 0.22);
+        targetNeedleRot = -currentGyroX * 1.65 + (currentGyroY * 0.45);
       }
       currentNeedleRot += (targetNeedleRot + idleWobble - currentNeedleRot) * 0.075;
 
@@ -855,19 +855,25 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         const baseRotZ = THREE.MathUtils.degToRad(4);
         const targetFaceOnX = THREE.MathUtils.degToRad(40);
 
-        // Tactile Parallax: Enhanced amplitude when physical device orientation / gyro is active
+        // Tactile Parallax: Enhanced amplitude when physical device orientation / gyro or mobile pointer is active
         const isMobile = window.innerWidth <= 768;
         const effectiveParallaxX = (isMobile && hasGyroData) ? currentGyroX : mouseX;
         const effectiveParallaxY = (isMobile && hasGyroData) ? currentGyroY : mouseY;
-        const parallaxAmpX = (isMobile && hasGyroData) ? 0.12 : 0.04;
-        const parallaxAmpY = (isMobile && hasGyroData) ? 0.10 : 0.04;
+        const parallaxAmpX = (isMobile && hasGyroData) ? 0.38 : isMobile ? 0.22 : 0.04;
+        const parallaxAmpY = (isMobile && hasGyroData) ? 0.30 : isMobile ? 0.18 : 0.04;
 
         const parallaxInfluence = Math.max(0.0, 1.0 - currentWarp * 2.0);
         const targetTiltX = THREE.MathUtils.lerp(baseRotX, targetFaceOnX, warpCurve) + (effectiveParallaxY * parallaxAmpY * parallaxInfluence);
         const targetTiltY = THREE.MathUtils.lerp(baseRotY, 0.0, warpCurve) + (effectiveParallaxX * parallaxAmpX * parallaxInfluence);
-        const targetTiltZ = THREE.MathUtils.lerp(baseRotZ, 0.0, warpCurve);
+        const targetTiltZ = THREE.MathUtils.lerp(baseRotZ, 0.0, warpCurve) - (effectiveParallaxX * 0.08 * parallaxInfluence);
 
         compassRoot.rotation.set(targetTiltX, targetTiltY, targetTiltZ);
+
+        // Floating 3D holographic parallax displacement
+        const parallaxShiftX = effectiveParallaxX * (isMobile ? 0.32 : 0.08) * parallaxInfluence;
+        const parallaxShiftY = effectiveParallaxY * (isMobile ? 0.24 : 0.06) * parallaxInfluence;
+        targetPivot.x += parallaxShiftX;
+        targetPivot.y += parallaxShiftY;
 
         const localPivot = new THREE.Vector3(0.0, 0.87 * scale, 0.0);
         const worldPivotOffset = localPivot.applyEuler(compassRoot.rotation);
