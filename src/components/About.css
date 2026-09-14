@@ -359,10 +359,16 @@
   outline: none;
   background: transparent;
   border: none;
-  padding: 0;
+  padding: 6px 8px;
+  margin: -6px -8px;
+  border-radius: 2px;
   text-align: right;
   margin-left: auto;
   max-width: clamp(230px, 20vw, 310px);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  z-index: 10;
 }
 
 .field-zine-quote {
@@ -377,12 +383,19 @@
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.field-zine-quote-trigger:hover .field-zine-quote,
-.field-zine-quote-trigger:focus-visible .field-zine-quote,
 .field-zine-quote-trigger.is-active .field-zine-quote {
   color: #2F3C2C;
   text-decoration: underline dotted rgba(47, 60, 44, 0.45);
   text-underline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .field-zine-quote-trigger:hover .field-zine-quote,
+  .field-zine-quote-trigger:focus-visible .field-zine-quote {
+    color: #2F3C2C;
+    text-decoration: underline dotted rgba(47, 60, 44, 0.45);
+    text-underline-offset: 3px;
+  }
 }
 
 /* Floating Expedition Manifesto Popover (Discovered on hover/tap) */
@@ -408,13 +421,21 @@
   text-align: left;
 }
 
-.field-zine-quote-trigger:hover .field-zine-manifesto-popover,
-.field-zine-quote-trigger:focus-visible .field-zine-manifesto-popover,
 .field-zine-quote-trigger.is-active .field-zine-manifesto-popover {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .field-zine-quote-trigger:hover .field-zine-manifesto-popover,
+  .field-zine-quote-trigger:focus-visible .field-zine-manifesto-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
 }
 
 .manifesto-popover-header {
@@ -484,28 +505,41 @@
   }
 
   .field-zine-quote-trigger {
-    max-width: 155px;
+    max-width: 170px;
+    padding: 6px 8px;
+    margin: -6px -8px;
   }
 
   .field-zine-quote {
-    font-size: clamp(0.68rem, 2.2vw, 0.78rem);
-    line-height: 1.28;
+    font-size: clamp(0.70rem, 2.3vw, 0.82rem);
+    line-height: 1.3;
     font-weight: 500;
-    opacity: 0.88;
+    opacity: 0.92;
   }
 
   .field-zine-manifesto-popover {
-    width: calc(100vw - 48px);
-    right: -10px;
+    width: min(calc(100vw - 36px), 330px);
+    right: -4px;
+    bottom: calc(100% + 10px);
+    z-index: 40;
   }
 
   .field-zine-logo-badge {
     top: 14px;
     right: 14px;
+    padding: 10px;
+    margin: -10px;
   }
 
   .field-zine-logo-img {
-    width: clamp(52px, 14vw, 68px);
+    width: clamp(54px, 15vw, 70px);
+  }
+
+  .field-zine-note-popover {
+    width: min(calc(100vw - 36px), 330px);
+    right: -4px;
+    top: calc(100% + 10px);
+    z-index: 40;
   }
 }
 
@@ -585,8 +619,12 @@
   align-items: flex-end;
   background: transparent;
   border: none;
-  padding: 0;
+  padding: 8px;
+  margin: -8px;
   box-shadow: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .field-zine-logo-img {
@@ -598,11 +636,17 @@
   pointer-events: auto;
 }
 
-.field-zine-logo-badge:hover .field-zine-logo-img,
-.field-zine-logo-badge:focus-visible .field-zine-logo-img,
 .field-zine-logo-badge.is-expanded .field-zine-logo-img {
   transform: scale(1.08);
   filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .field-zine-logo-badge:hover .field-zine-logo-img,
+  .field-zine-logo-badge:focus-visible .field-zine-logo-img {
+    transform: scale(1.08);
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+  }
 }
 
 /* Floating Etymology Note Popover */
@@ -628,13 +672,21 @@
   text-align: left;
 }
 
-.field-zine-logo-badge:hover .field-zine-note-popover,
-.field-zine-logo-badge:focus-visible .field-zine-note-popover,
 .field-zine-logo-badge.is-expanded .field-zine-note-popover {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .field-zine-logo-badge:hover .field-zine-note-popover,
+  .field-zine-logo-badge:focus-visible .field-zine-note-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
 }
 
 .field-zine-note-brand {

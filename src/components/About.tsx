@@ -43,7 +43,7 @@ export const About: React.FC = () => {
       }
     };
 
-    const handleDocumentClick = (e: MouseEvent) => {
+    const handleDocumentDismiss = (e: MouseEvent | TouchEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
       if (isNoteOpen && !target.closest('.field-zine-logo-badge')) {
@@ -55,10 +55,12 @@ export const About: React.FC = () => {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('click', handleDocumentClick);
+    window.addEventListener('click', handleDocumentDismiss);
+    window.addEventListener('touchstart', handleDocumentDismiss, { passive: true });
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('click', handleDocumentClick);
+      window.removeEventListener('click', handleDocumentDismiss);
+      window.removeEventListener('touchstart', handleDocumentDismiss);
     };
   }, [isNoteOpen, isManifestoOpen]);
 
