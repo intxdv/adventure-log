@@ -42,28 +42,7 @@ export const SelectedExpeditions: React.FC = () => {
     }
   }, []);
 
-  // Effortless section transitions when scrolling past the first or last mock
-  const handleBoundaryCross = useCallback((direction: 'up' | 'down') => {
-    const stageWrapper = document.getElementById('hero-stage-wrapper');
-    if (!stageWrapper) return;
 
-    isProgrammaticScrollRef.current = true;
-    if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
-    programmaticTimerRef.current = setTimeout(() => {
-      isProgrammaticScrollRef.current = false;
-    }, 1100);
-
-    const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-    if (direction === 'down') {
-      // Gulir mulus menarik layer Section 4 (Field Arsenal) ke atas menimpa Section 3
-      const targetScroll = stageWrapper.offsetTop + maxScroll;
-      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-    } else if (direction === 'up') {
-      // Gulir mulus dan ringan langsung ke Section 2 (About: resting zone)
-      const targetScroll = stageWrapper.offsetTop + maxScroll * 0.24;
-      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-    }
-  }, []);
 
   // Listen for scroll synchronization events from GSAP motion engine
   useEffect(() => {
@@ -253,7 +232,6 @@ export const SelectedExpeditions: React.FC = () => {
                 showIndicators={false}
                 activeIndex={activeIndex}
                 onChange={(idx) => goToProject(idx, false)}
-                onBoundaryCross={handleBoundaryCross}
               />
             </div>
 
