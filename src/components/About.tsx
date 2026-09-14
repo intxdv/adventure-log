@@ -4,6 +4,7 @@ import './About.css';
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
+  const [isManifestoOpen, setIsManifestoOpen] = useState(false);
 
   const toggleNote = () => {
     setIsNoteOpen((prev) => !prev);
@@ -18,6 +19,22 @@ export const About: React.FC = () => {
   const handleMouseLeave = () => {
     if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
       setIsNoteOpen(false);
+    }
+  };
+
+  const toggleManifesto = () => {
+    setIsManifestoOpen((prev) => !prev);
+  };
+
+  const handleManifestoEnter = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setIsManifestoOpen(true);
+    }
+  };
+
+  const handleManifestoLeave = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setIsManifestoOpen(false);
     }
   };
 

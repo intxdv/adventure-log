@@ -154,11 +154,34 @@ export const useMotionEngine = () => {
           1.75
         );
 
+        // Kotak manifesto
+        portalTimeline.fromTo(
+          '.about-manifesto',
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' },
+          1.85
+        );
+
+        // Kicker kutipan manifesto
+        portalTimeline.fromTo(
+          '.about-manifesto .about-manifesto-kicker',
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' },
+          2.00
+        );
+
+        portalTimeline.fromTo(
+          '.about-manifesto .about-word, .about-manifesto-cite',
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, stagger: 0.010, duration: 0.22, ease: 'power2.out' },
+          2.15
+        );
+
         // ======================================================================
-        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 1.80 -> 5.20)
+        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 2.40 -> 5.20)
         // Seluruh elemen Section 2 menetap kokoh di layar sehingga pengunjung dapat
-        // membaca bio, mengamati kartu polaroid, dan mengeksplorasi popover etimologi
-        // serta popover manifesto eksplorasi pada kutipan tanpa terburu-buru.
+        // membaca bio, mengamati kartu polaroid, berinteraksi kursor parallax,
+        // dan mengeksplorasi popover etimologi tanpa terburu-buru.
         // ======================================================================
 
         // ----------------------------------------------------------------------
