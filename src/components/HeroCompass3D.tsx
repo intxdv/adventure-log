@@ -62,7 +62,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     const initialDistance = camPos.distanceTo(camTarget);
 
     const computeInitialScale = (aspect: number) => {
-      if (aspect < 0.9) return 0.40;
+      if (aspect < 0.6) return 0.30;
+      if (aspect < 0.9) return 0.38;
       return 0.58;
     };
     let initialScale = computeInitialScale(camera.aspect);
@@ -76,7 +77,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     };
 
     const computeRestY = (aspect: number) => {
-      if (aspect <= 0.9) return -1.95;
+      if (aspect < 0.6) return -3.40;
+      if (aspect <= 0.9) return -2.20;
       return 0.0;
     };
 
@@ -510,19 +512,44 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         dot.setAttribute('cy', String(y));
       }
 
+      const isMobile = w <= 768;
       const sign = direction === 'right' ? 1 : -1;
-      const elbowX = x + sign * 22;
-      const elbowY = y - 12;
-      const endX = elbowX + sign * armLength;
+      const elbowOffset = isMobile ? 7 : 22;
+      const elbowLift = isMobile ? 6 : 12;
+      const effectiveArmLength = isMobile ? 8 : armLength;
+      const textGap = isMobile ? 3 : 6;
+
+      let elbowX = x + sign * elbowOffset;
+      const elbowY = y - elbowLift;
+      let endX = elbowX + sign * effectiveArmLength;
       const endY = elbowY;
+      let textX = endX + sign * textGap;
+
+      if (isMobile) {
+        if (direction === 'right') {
+          textX = Math.min(textX, w - 152);
+          endX = textX - sign * textGap;
+          elbowX = endX - sign * effectiveArmLength;
+        } else {
+          textX = Math.max(textX, 180);
+          endX = textX - sign * textGap;
+          elbowX = endX - sign * effectiveArmLength;
+        }
+      }
 
       if (path) {
         path.setAttribute('d', `M ${x} ${y} L ${elbowX} ${elbowY} L ${endX} ${endY}`);
       }
 
       if (text) {
-        text.setAttribute('x', String(endX + sign * 6));
-        text.setAttribute('y', String(endY + 3.5));
+        const fullLabel = groupEl.getAttribute('data-label') || '';
+        const mobileLabel = groupEl.getAttribute('data-label-mobile') || fullLabel;
+        const targetLabel = isMobile ? mobileLabel : fullLabel;
+        if (text.textContent !== targetLabel) {
+          text.textContent = targetLabel;
+        }
+        text.setAttribute('x', String(textX));
+        text.setAttribute('y', String(endY + (isMobile ? 2.5 : 3.5)));
         text.setAttribute('text-anchor', direction === 'right' ? 'start' : 'end');
       }
     };
@@ -731,25 +758,31 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         // Update Exploded Leader Lines & Telemetry Callouts
         if (svgRef.current && compassRoot && separation > 0.05 && currentWarp < 0.01) {
           compassRoot.updateMatrixWorld(true);
+          const isMobile = window.innerWidth <= 768;
 
           if (lensGroup) {
-            const ptLens = new THREE.Vector3(2.2, lensGroup.position.y, 0.0).applyMatrix4(compassRoot.matrixWorld);
+            const lensX = isMobile ? 1.6 : 2.2;
+            const ptLens = new THREE.Vector3(lensX, lensGroup.position.y, 0.0).applyMatrix4(compassRoot.matrixWorld);
             updateCallout(calloutLensRef.current, ptLens, 'right', 46);
           }
           if (needleMesh) {
-            const ptNeedle = new THREE.Vector3(-1.8, needleMesh.position.y, 0.3).applyMatrix4(compassRoot.matrixWorld);
+            const needleX = isMobile ? -1.3 : -1.8;
+            const ptNeedle = new THREE.Vector3(needleX, needleMesh.position.y, 0.3).applyMatrix4(compassRoot.matrixWorld);
             updateCallout(calloutNeedleRef.current, ptNeedle, 'left', 48);
           }
           if (dialGroup) {
-            const ptDial = new THREE.Vector3(2.6, dialGroup.position.y, 0.8).applyMatrix4(compassRoot.matrixWorld);
+            const dialX = isMobile ? 1.8 : 2.6;
+            const ptDial = new THREE.Vector3(dialX, dialGroup.position.y, 0.8).applyMatrix4(compassRoot.matrixWorld);
             updateCallout(calloutDialRef.current, ptDial, 'right', 50);
           }
           if (casingGroup) {
-            const ptCasing = new THREE.Vector3(2.8, casingGroup.position.y, -0.2).applyMatrix4(compassRoot.matrixWorld);
-            updateCallout(calloutCasingRef.current, ptCasing, 'right', 44);
+            const casingLocalX = isMobile ? -1.5 : 2.8;
+            const ptCasing = new THREE.Vector3(casingLocalX, casingGroup.position.y, -0.2).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutCasingRef.current, ptCasing, isMobile ? 'left' : 'right', 44);
           }
           if (ringMesh) {
-            const ptRing = new THREE.Vector3(0.0, 0.55, ringMesh.position.z - 0.7).applyMatrix4(compassRoot.matrixWorld);
+            const ringZ = isMobile ? ringMesh.position.z + 0.5 : ringMesh.position.z - 0.7;
+            const ptRing = new THREE.Vector3(0.0, 0.55, ringZ).applyMatrix4(compassRoot.matrixWorld);
             updateCallout(calloutRingRef.current, ptRing, 'left', 42);
           }
 
@@ -884,31 +917,56 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         </g>
 
         {/* 01 // Sapphire Crystal Lens */}
-        <g ref={calloutLensRef} className="exploded-callout">
+        <g
+          ref={calloutLensRef}
+          className="exploded-callout"
+          data-label="[ 01 // SAPPHIRE CRYSTAL LENS ]"
+          data-label-mobile="[ 01 // SAPPHIRE LENS ]"
+        >
           <path className="exploded-callout-line" />
           <circle className="exploded-callout-dot" r="2.2" />
           <text className="exploded-callout-text">[ 01 // SAPPHIRE CRYSTAL LENS ]</text>
         </g>
         {/* 02 // Balanced Agate Needle */}
-        <g ref={calloutNeedleRef} className="exploded-callout">
+        <g
+          ref={calloutNeedleRef}
+          className="exploded-callout"
+          data-label="[ 02 // BALANCED AGATE NEEDLE ]"
+          data-label-mobile="[ 02 // AGATE NEEDLE ]"
+        >
           <path className="exploded-callout-line" />
           <circle className="exploded-callout-dot" r="2.2" />
           <text className="exploded-callout-text">[ 02 // BALANCED AGATE NEEDLE ]</text>
         </g>
         {/* 03 // Engraved Dial Plate */}
-        <g ref={calloutDialRef} className="exploded-callout">
+        <g
+          ref={calloutDialRef}
+          className="exploded-callout"
+          data-label="[ 03 // 360° ENGRAVED DIAL ]"
+          data-label-mobile="[ 03 // 360° DIAL ]"
+        >
           <path className="exploded-callout-line" />
           <circle className="exploded-callout-dot" r="2.2" />
           <text className="exploded-callout-text">[ 03 // 360° ENGRAVED DIAL ]</text>
         </g>
         {/* 04 // Solid Brass Casing */}
-        <g ref={calloutCasingRef} className="exploded-callout">
+        <g
+          ref={calloutCasingRef}
+          className="exploded-callout"
+          data-label="[ 04 // SOLID CASING & BEZEL ]"
+          data-label-mobile="[ 04 // CASING & BEZEL ]"
+        >
           <path className="exploded-callout-line" />
           <circle className="exploded-callout-dot" r="2.2" />
           <text className="exploded-callout-text">[ 04 // SOLID CASING & BEZEL ]</text>
         </g>
         {/* 05 // Suspension Bow */}
-        <g ref={calloutRingRef} className="exploded-callout">
+        <g
+          ref={calloutRingRef}
+          className="exploded-callout"
+          data-label="[ 05 // SUSPENSION BOW ]"
+          data-label-mobile="[ 05 // SUSPENSION BOW ]"
+        >
           <path className="exploded-callout-line" />
           <circle className="exploded-callout-dot" r="2.2" />
           <text className="exploded-callout-text">[ 05 // SUSPENSION BOW ]</text>

@@ -33,18 +33,36 @@
   filter: drop-shadow(0 20px 32px rgba(24, 26, 24, 0.08));
 }
 
-/* Responsiveness on Small Screens */
-@media (max-width: 900px) {
-  .hero-compass-3d-wrapper {
-    opacity: 0.45 !important;
-  }
+.callout-text-mobile {
+  display: none;
+}
+
+.callout-text-full {
+  display: inline;
 }
 
 @media (max-width: 768px) {
   .hero-compass-3d-wrapper {
     align-items: flex-end;
     padding-bottom: clamp(6vh, 8vh, 12vh);
-    opacity: 0.45 !important;
+  }
+
+  .callout-text-mobile {
+    display: inline;
+  }
+
+  .callout-text-full {
+    display: none;
+  }
+
+  .exploded-callout-text {
+    font-size: clamp(6.4px, 2.0vw, 8px);
+    letter-spacing: 0.02em;
+    font-weight: 700;
+  }
+
+  .exploded-callout-line {
+    stroke-width: 0.85;
   }
 }
 
@@ -117,12 +135,6 @@
   pointer-events: auto;
   outline: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-@media (max-width: 960px) {
-  .hero-compass-exploded-svg {
-    display: none !important;
-  }
 }
 
 
