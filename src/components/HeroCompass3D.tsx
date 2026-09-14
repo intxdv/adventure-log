@@ -27,14 +27,22 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     // 3/4 Isometric Perspective Angle looking down at the open face
     // Dial face is +Y, Ring is at -Z (upper-right when rotated)
     const camera = new THREE.PerspectiveCamera(36, width / height, 0.05, 100);
-    camera.position.set(0.0, 8.5, 9.5);
-    camera.lookAt(0.0, 0.45, -0.1);
+    const camPos = new THREE.Vector3(0.0, 8.5, 9.5);
+    const camTarget = new THREE.Vector3(0.0, 0.55, 0.0);
+    camera.position.copy(camPos);
+    camera.lookAt(camTarget);
+
+    const viewDir = new THREE.Vector3().subVectors(camTarget, camPos).normalize();
+    const initialDistance = camPos.distanceTo(camTarget);
+
+    // Initial scale tuned to match original compact size (~380px diameter on 1080p desktop)
+    const initialScale = 0.58;
 
     const computeRestX = (aspect: number) => {
-      if (aspect > 1.8) return 4.3;
-      if (aspect > 1.5) return 3.9;
-      if (aspect > 1.2) return 3.3;
-      if (aspect > 0.9) return 2.1;
+      if (aspect > 1.8) return 4.1;
+      if (aspect > 1.5) return 3.65;
+      if (aspect > 1.2) return 3.1;
+      if (aspect > 0.9) return 1.8;
       return 0.0;
     };
     let xRest = computeRestX(camera.aspect);
@@ -131,8 +139,13 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         compassRoot.rotation.x = THREE.MathUtils.degToRad(8);
         compassRoot.rotation.y = THREE.MathUtils.degToRad(-38);
         compassRoot.rotation.z = THREE.MathUtils.degToRad(4);
-        compassRoot.position.set(xRest, 0.0, 0.0);
-        compassRoot.scale.setScalar(1.0);
+        // Position compassRoot so needle pivot dot sits at xRest in right column
+        const initialPivot = camTarget.clone();
+        initialPivot.x = xRest;
+        const initLocalPivot = new THREE.Vector3(0.0, 0.87 * initialScale, 0.0);
+        const initWorldOffset = initLocalPivot.applyEuler(compassRoot.rotation);
+        compassRoot.position.copy(initialPivot).sub(initWorldOffset);
+        compassRoot.scale.setScalar(initialScale);
 
         scene.add(compassRoot);
         setIsLoaded(true);
@@ -231,41 +244,49 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       }
 
       // True Screen Penetration Dynamics ("menembus layar"):
-      // Compass rushes forward towards and past the camera plane
+      // The compass center pivot dot lands DEAD-CENTER on screen (50% 50%) along the camera view ray
       if (compassRoot) {
-        const warpCurve = Math.pow(currentWarp, 1.35);
-        // Moves from (xRest, 0, 0) rushing toward camera position (0.0, 8.5, 9.5) and through the screen
-        const posX = THREE.MathUtils.lerp(xRest, 0.0, warpCurve);
-        const posY = THREE.MathUtils.lerp(0.0, 7.8, warpCurve);
-        const posZ = THREE.MathUtils.lerp(0.0, 10.2, warpCurve);
-        compassRoot.position.set(posX, posY, posZ);
+        const warpCurve = Math.pow(currentWarp, 1.25);
 
-        // Dramatic scale expansion: the compass expands to engulf the entire 100vw x 100vh display
-        const scale = 1.0 + Math.pow(currentWarp, 1.45) * 6.8;
-        compassRoot.scale.setScalar(scale);
+        // Distance along camera view ray shrinks from initialDistance (~12.8) to 0.40 as it crashes into screen
+        const dist = THREE.MathUtils.lerp(initialDistance, 0.40, Math.pow(currentWarp, 1.4));
+        const centerRayPoint = camPos.clone().addScaledVector(viewDir, dist);
 
-        // Tilt transition: 3/4 isometric angle -> face-on circular view rushing into the viewer
+        // Smooth horizontal centering: moves from xRest (right column) to 0.0 (center optical axis)
+        const shiftX = xRest * Math.pow(Math.max(0.0, 1.0 - currentWarp), 1.3);
+        const targetPivot = centerRayPoint.clone();
+        targetPivot.x += shiftX;
+
+        // Scale expands from original compact size (0.58) up to 5.4x to engulf the entire viewport
+        const scale = THREE.MathUtils.lerp(initialScale, 5.4, Math.pow(currentWarp, 1.35));
+
+        // Tilt transition: 3/4 isometric -> direct face-on perpendicular to camera (40 deg pitch, 0 deg yaw, 0 deg roll)
         const baseRotX = THREE.MathUtils.degToRad(8);
         const baseRotY = THREE.MathUtils.degToRad(-38);
         const baseRotZ = THREE.MathUtils.degToRad(4);
+        const targetFaceOnX = THREE.MathUtils.degToRad(40);
 
         const parallaxInfluence = Math.max(0.0, 1.0 - currentWarp * 2.0);
-        const targetTiltX = THREE.MathUtils.lerp(baseRotX, THREE.MathUtils.degToRad(42), warpCurve) + (mouseY * 0.04 * parallaxInfluence);
+        const targetTiltX = THREE.MathUtils.lerp(baseRotX, targetFaceOnX, warpCurve) + (mouseY * 0.04 * parallaxInfluence);
         const targetTiltY = THREE.MathUtils.lerp(baseRotY, 0.0, warpCurve) + (mouseX * 0.04 * parallaxInfluence);
-        const targetTiltZ = THREE.MathUtils.lerp(baseRotZ, 0.0, currentWarp);
+        const targetTiltZ = THREE.MathUtils.lerp(baseRotZ, 0.0, warpCurve);
 
-        compassRoot.rotation.x += (targetTiltX - compassRoot.rotation.x) * 0.10;
-        compassRoot.rotation.y += (targetTiltY - compassRoot.rotation.y) * 0.10;
-        compassRoot.rotation.z += (targetTiltZ - compassRoot.rotation.z) * 0.10;
+        compassRoot.rotation.set(targetTiltX, targetTiltY, targetTiltZ);
+
+        // Position compassRoot so needle pivot dome (0, 0.87, 0) is GUARANTEED at targetPivot
+        const localPivot = new THREE.Vector3(0.0, 0.87 * scale, 0.0);
+        const worldPivotOffset = localPivot.applyEuler(compassRoot.rotation);
+        compassRoot.position.copy(targetPivot).sub(worldPivotOffset);
+        compassRoot.scale.setScalar(scale);
       }
 
       // Damping velocity
       mouseVelocity *= 0.94;
 
-      // Dissolve canvas as the compass penetrates through the screen plane
+      // Dissolve canvas as the compass penetrates through the screen center
       if (canvas) {
-        if (currentWarp > 0.72) {
-          const dissolve = THREE.MathUtils.clamp((currentWarp - 0.72) / 0.24, 0.0, 1.0);
+        if (currentWarp > 0.74) {
+          const dissolve = THREE.MathUtils.clamp((currentWarp - 0.74) / 0.22, 0.0, 1.0);
           canvas.style.opacity = String(Math.max(0.0, 1.0 - dissolve));
         } else {
           canvas.style.opacity = '1';
