@@ -16,6 +16,7 @@ export const SelectedExpeditions: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeDossier, setActiveDossier] = useState<Expedition | null>(null);
   const [isRepoModalOpen, setIsRepoModalOpen] = useState<boolean>(false);
+  const [openedFromArchive, setOpenedFromArchive] = useState<boolean>(false);
 
   const isProgrammaticScrollRef = useRef(false);
   const programmaticTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -127,8 +128,12 @@ export const SelectedExpeditions: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setActiveDossier(null);
-        setIsRepoModalOpen(false);
+        if (activeDossier) {
+          setActiveDossier(null);
+          setOpenedFromArchive(false);
+        } else if (isRepoModalOpen) {
+          setIsRepoModalOpen(false);
+        }
       }
     };
 
@@ -262,7 +267,10 @@ export const SelectedExpeditions: React.FC = () => {
                 <button
                   type="button"
                   className="swiss-dossier-btn font-mono"
-                  onClick={() => setActiveDossier(currentExpedition)}
+                  onClick={() => {
+                    setOpenedFromArchive(false);
+                    setActiveDossier(currentExpedition);
+                  }}
                   title={`Open technical dossier for ${currentExpedition.title}`}
                 >
                   <span>VIEW DOSSIER</span>
@@ -370,23 +378,31 @@ export const SelectedExpeditions: React.FC = () => {
         </div>
       </div>
 
-      {/* Detailed Architectural Dossier Modal (Esc to close) */}
-      {activeDossier && (
-        <ExpeditionDossierModal
-          expedition={activeDossier}
-          onClose={() => setActiveDossier(null)}
-        />
-      )}
-
       {/* Full 7-Expedition Repository Index Modal */}
       {isRepoModalOpen && (
         <CompleteArchiveModal
           expeditions={initialExpeditions}
           onSelectDossier={(target) => {
-            setIsRepoModalOpen(false);
+            setOpenedFromArchive(true);
             setActiveDossier(target);
           }}
-          onClose={() => setIsRepoModalOpen(false)}
+          onClose={() => {
+            setIsRepoModalOpen(false);
+            setActiveDossier(null);
+            setOpenedFromArchive(false);
+          }}
+        />
+      )}
+
+      {/* Detailed Architectural Dossier Modal (Esc to close) */}
+      {activeDossier && (
+        <ExpeditionDossierModal
+          expedition={activeDossier}
+          isFromArchive={openedFromArchive}
+          onClose={() => {
+            setActiveDossier(null);
+            setOpenedFromArchive(false);
+          }}
         />
       )}
     </section>
@@ -396,13 +412,18 @@ export const SelectedExpeditions: React.FC = () => {
 // Tactile Field Dossier Pop-Up Modal (Apple Developer Academy Portfolio Specification)
 interface ExpeditionDossierModalProps {
   expedition: Expedition;
+  isFromArchive?: boolean;
   onClose: () => void;
 }
 
-const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedition, onClose }) => {
+const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({
+  expedition,
+  isFromArchive = false,
+  onClose,
+}) => {
   return (
     <div
-      className="dossier-modal-backdrop"
+      className={`dossier-modal-backdrop ${isFromArchive ? 'is-stacked' : ''}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -421,8 +442,8 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({ expedit
           <button
             onClick={onClose}
             className="dossier-close-btn font-mono"
-            aria-label="Close dossier modal"
-            title="Close dossier (Esc)"
+            aria-label={isFromArchive ? "Close project detail and return to archive" : "Close dossier modal"}
+            title={isFromArchive ? "Return to archive (Esc)" : "Close dossier (Esc)"}
           >
             <span className="dossier-close-text">CLOSE [ESC]</span>
             <span className="dossier-close-icon" aria-hidden="true">✕</span>

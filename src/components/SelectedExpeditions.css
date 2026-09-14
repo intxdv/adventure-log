@@ -595,6 +595,11 @@
   animation: modalBackdropFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.dossier-modal-backdrop.is-stacked {
+  z-index: 10000;
+  background: rgba(18, 20, 18, 0.72);
+}
+
 .dossier-modal-container {
   background-color: #FFFFFF;
   border: 1px solid var(--hairline-base);
