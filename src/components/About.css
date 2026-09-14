@@ -123,7 +123,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: clamp(18px, 2.8vh, 26px);
     text-align: center;
   }
 
@@ -137,11 +137,11 @@
 
   .about-headline {
     order: 1 !important;
-    font-size: clamp(1.75rem, 6.5vw, 2.4rem) !important;
-    line-height: 1.08 !important;
-    letter-spacing: -0.035em !important;
-    margin-bottom: 4px !important;
-    max-width: 100% !important;
+    font-size: clamp(2.1rem, 7.8vw, 3.2rem) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.04em !important;
+    margin-bottom: clamp(6px, 1.2vh, 12px) !important;
+    max-width: 18ch !important;
     text-align: center !important;
     padding: 0 clamp(0.5rem, 2vw, 1rem);
   }
@@ -155,7 +155,7 @@
 
   .about-kicker {
     order: 3 !important;
-    margin-top: 4px !important;
+    margin-top: clamp(8px, 1.6vh, 16px) !important;
     margin-bottom: 0 !important;
   }
 
@@ -187,9 +187,9 @@
   }
 
   .about-headline {
-    font-size: clamp(1.65rem, 6.8vw, 2.15rem) !important;
-    line-height: 1.08 !important;
-    letter-spacing: -0.035em !important;
+    font-size: clamp(1.95rem, 8.2vw, 2.6rem) !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.04em !important;
   }
 
   .field-dossier-header,
