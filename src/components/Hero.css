@@ -314,8 +314,7 @@
   }
 
   .hero-dynamic-title {
-    font-size: clamp(1.85rem, 7.5vw, 2.4rem) !important;
-    white-space: normal;
+    white-space: nowrap !important;
   }
 
   .hero-bio-paragraph {

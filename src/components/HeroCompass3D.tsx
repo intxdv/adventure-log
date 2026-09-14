@@ -62,8 +62,8 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     const initialDistance = camPos.distanceTo(camTarget);
 
     const computeInitialScale = (aspect: number) => {
-      if (aspect < 0.6) return 0.37;
-      if (aspect < 0.9) return 0.44;
+      if (aspect < 0.6) return 0.54;
+      if (aspect < 0.9) return 0.56;
       return 0.58;
     };
     let initialScale = computeInitialScale(camera.aspect);
@@ -73,12 +73,13 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       if (aspect > 1.5) return 3.65;
       if (aspect > 1.2) return 3.1;
       if (aspect > 0.9) return 1.8;
+      if (aspect < 0.6) return 1.45;
       return 0.0;
     };
 
     const computeRestY = (aspect: number) => {
-      if (aspect < 0.6) return -1.75;
-      if (aspect <= 0.9) return -1.95;
+      if (aspect < 0.6) return -1.35;
+      if (aspect <= 0.9) return -1.60;
       return 0.0;
     };
 
@@ -761,29 +762,29 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
           const isMobile = window.innerWidth <= 768;
 
           if (lensGroup) {
-            const lensX = isMobile ? 1.6 : 2.2;
-            const ptLens = new THREE.Vector3(lensX, lensGroup.position.y, 0.0).applyMatrix4(compassRoot.matrixWorld);
-            updateCallout(calloutLensRef.current, ptLens, 'right', 46);
+            const lensX = isMobile ? -1.2 : 2.2;
+            const ptLens = new THREE.Vector3(lensX, lensGroup.position.y + 0.3, 0.0).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutLensRef.current, ptLens, isMobile ? 'left' : 'right', isMobile ? 32 : 46);
           }
           if (needleMesh) {
-            const needleX = isMobile ? -1.3 : -1.8;
+            const needleX = isMobile ? -1.6 : -1.8;
             const ptNeedle = new THREE.Vector3(needleX, needleMesh.position.y, 0.3).applyMatrix4(compassRoot.matrixWorld);
-            updateCallout(calloutNeedleRef.current, ptNeedle, 'left', 48);
+            updateCallout(calloutNeedleRef.current, ptNeedle, 'left', isMobile ? 36 : 48);
           }
           if (dialGroup) {
-            const dialX = isMobile ? 1.8 : 2.6;
-            const ptDial = new THREE.Vector3(dialX, dialGroup.position.y, 0.8).applyMatrix4(compassRoot.matrixWorld);
-            updateCallout(calloutDialRef.current, ptDial, 'right', 50);
+            const dialX = isMobile ? -0.8 : 2.6;
+            const ptDial = new THREE.Vector3(dialX, dialGroup.position.y + 0.6, 0.8).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutDialRef.current, ptDial, isMobile ? 'left' : 'right', isMobile ? 32 : 50);
           }
           if (casingGroup) {
-            const casingLocalX = isMobile ? -1.5 : 2.8;
-            const ptCasing = new THREE.Vector3(casingLocalX, casingGroup.position.y, -0.2).applyMatrix4(compassRoot.matrixWorld);
-            updateCallout(calloutCasingRef.current, ptCasing, isMobile ? 'left' : 'right', 44);
+            const casingLocalX = isMobile ? -2.2 : 2.8;
+            const ptCasing = new THREE.Vector3(casingLocalX, casingGroup.position.y - 0.4, -0.2).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutCasingRef.current, ptCasing, isMobile ? 'left' : 'right', isMobile ? 38 : 44);
           }
           if (ringMesh) {
-            const ringZ = isMobile ? ringMesh.position.z + 0.5 : ringMesh.position.z - 0.7;
-            const ptRing = new THREE.Vector3(0.0, 0.55, ringZ).applyMatrix4(compassRoot.matrixWorld);
-            updateCallout(calloutRingRef.current, ptRing, 'left', 42);
+            const ringZ = isMobile ? ringMesh.position.z + 0.2 : ringMesh.position.z - 0.7;
+            const ptRing = new THREE.Vector3(isMobile ? -0.8 : 0.0, 0.55, ringZ).applyMatrix4(compassRoot.matrixWorld);
+            updateCallout(calloutRingRef.current, ptRing, 'left', isMobile ? 30 : 42);
           }
 
           const calloutsOpacity = Math.max(0, separation * (1.0 - animState.assembleProgress * 0.4));

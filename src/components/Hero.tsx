@@ -14,63 +14,63 @@ interface FontConfig {
   letterSpacing?: string;
 }
 
-// 8 Variasi Font & Casing terkalibrasi secara optik dengan skala berwibawa & megah
+// 8 Variasi Font & Casing terkalibrasi secara optik dengan skala berwibawa & megah (single-line guarantee)
 const FONT_SEQUENCE: FontConfig[] = [
   {
     text: 'Adventure Log.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.5rem, 4.8vw, 4.4rem)',
+    fontSize: 'clamp(1.75rem, 4.5vw, 4.4rem)',
     letterSpacing: '0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.3rem, 4.4vw, 4.0rem)',
+    fontSize: 'clamp(1.50rem, 4.0vw, 3.8rem)',
     letterSpacing: '-0.02em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Daydream',
     fontWeight: 400,
-    fontSize: 'clamp(1.65rem, 3.0vw, 2.7rem)',
+    fontSize: 'clamp(1.25rem, 2.8vw, 2.5rem)',
     letterSpacing: '0.04em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'Hitobito',
     fontWeight: 400,
-    fontSize: 'clamp(2.3rem, 4.4vw, 4.0rem)',
+    fontSize: 'clamp(1.55rem, 4.0vw, 3.8rem)',
     letterSpacing: '0.03em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Printvetica',
     fontWeight: 400,
-    fontSize: 'clamp(2.4rem, 4.6vw, 4.2rem)',
+    fontSize: 'clamp(1.70rem, 4.4vw, 4.0rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 400,
-    fontSize: 'clamp(2.1rem, 4.0vw, 3.6rem)',
+    fontSize: 'clamp(1.55rem, 3.8vw, 3.4rem)',
     letterSpacing: '0.02em',
   },
   {
     text: 'Adventure Log.',
     fontFamily: 'Lufga',
     fontWeight: 800,
-    fontSize: 'clamp(2.5rem, 4.8vw, 4.4rem)',
+    fontSize: 'clamp(1.70rem, 4.4vw, 4.2rem)',
     letterSpacing: '-0.01em',
   },
   {
     text: 'ADVENTURE LOG.',
     fontFamily: 'TBJ Serial Port',
     fontWeight: 700,
-    fontSize: 'clamp(2.0rem, 3.8vw, 3.4rem)',
-    letterSpacing: '0.04em',
+    fontSize: 'clamp(1.45rem, 3.6vw, 3.2rem)',
+    letterSpacing: '0.03em',
   },
 ];
 
