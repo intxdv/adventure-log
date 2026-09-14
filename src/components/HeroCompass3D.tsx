@@ -457,6 +457,71 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
     };
     window.addEventListener('click', handleWindowCaptureClick, { capture: true });
 
+    // Gyroscope & Accelerometer (Device Orientation & Motion API for Mobile Tilt)
+    let hasGyroData = false;
+    let targetGyroX = 0;
+    let targetGyroY = 0;
+    let currentGyroX = 0;
+    let currentGyroY = 0;
+    let gyroMotionVelocity = 0;
+
+    const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
+      // In portrait orientation:
+      // gamma is left-to-right tilt in degrees [-90, 90]
+      // beta is front-to-back tilt in degrees [-180, 180]
+      // When user holds mobile phone naturally, beta is roughly ~45 deg
+      if (e.gamma === null || e.beta === null) return;
+
+      const rawGamma = e.gamma;
+      const rawBeta = e.beta;
+
+      // Normalize roll (gamma) [-35 deg, 35 deg] -> [-1, 1]
+      targetGyroX = THREE.MathUtils.clamp(rawGamma / 35, -1, 1);
+      // Normalize pitch (beta - 45 deg resting baseline) [-35 deg, 35 deg] -> [-1, 1]
+      targetGyroY = THREE.MathUtils.clamp((rawBeta - 45) / 35, -1, 1);
+      hasGyroData = true;
+    };
+
+    const handleDeviceMotion = (e: DeviceMotionEvent) => {
+      const rotAlpha = e.rotationRate?.alpha || 0;
+      const rotBeta = e.rotationRate?.beta || 0;
+      const rotGamma = e.rotationRate?.gamma || 0;
+      const rotMag = Math.sqrt(rotAlpha * rotAlpha + rotBeta * rotBeta + rotGamma * rotGamma) / 120;
+
+      const accX = e.acceleration?.x || 0;
+      const accY = e.acceleration?.y || 0;
+      const accZ = e.acceleration?.z || 0;
+      const accMag = Math.sqrt(accX * accX + accY * accY + accZ * accZ) * 0.12;
+
+      const totalMotion = rotMag + accMag;
+      if (totalMotion > 0.04) {
+        gyroMotionVelocity = Math.min(2.5, totalMotion);
+      }
+    };
+
+    // Auto-listen to device orientation & motion
+    if (typeof window !== 'undefined' && 'DeviceOrientationEvent' in window) {
+      window.addEventListener('deviceorientation', handleDeviceOrientation, { passive: true });
+    }
+    if (typeof window !== 'undefined' && 'DeviceMotionEvent' in window) {
+      window.addEventListener('devicemotion', handleDeviceMotion, { passive: true });
+    }
+
+    // iOS 13+ requires explicit user gesture permission request
+    const requestDevicePermission = () => {
+      if (typeof (DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> }).requestPermission === 'function') {
+        (DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> }).requestPermission()
+          .then((state) => {
+            if (state === 'granted') {
+              window.addEventListener('deviceorientation', handleDeviceOrientation, { passive: true });
+              window.addEventListener('devicemotion', handleDeviceMotion, { passive: true });
+            }
+          })
+          .catch(() => {});
+      }
+    };
+    window.addEventListener('touchstart', requestDevicePermission, { once: true, passive: true });
+
     const handlePointerMove = (e: PointerEvent) => {
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -683,8 +748,22 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         axisLine.visible = separation > 0.05;
       }
 
+      // Gyroscope / Accelerometer Smoothing & Inertia Damping
+      currentGyroX += (targetGyroX - currentGyroX) * 0.08;
+      currentGyroY += (targetGyroY - currentGyroY) * 0.08;
+
+      if (gyroMotionVelocity > 0.01) {
+        mouseVelocity = Math.max(mouseVelocity, gyroMotionVelocity);
+        gyroMotionVelocity *= 0.90;
+      }
+
       // Needle Dynamics: Exploded Spin Calibration -> Magnetic Drift & Tracking -> Warp Surge
       const idleWobble = Math.sin(elapsed * 1.8) * 0.04 + Math.cos(elapsed * 3.2) * 0.02;
+      
+      // On mobile with gyro, needle physically counter-rotates against phone tilt (magnetic compass feel)
+      if (hasGyroData) {
+        targetNeedleRot = -currentGyroX * 0.90 + (currentGyroY * 0.22);
+      }
       currentNeedleRot += (targetNeedleRot + idleWobble - currentNeedleRot) * 0.075;
 
       if (needleMesh) {
@@ -701,12 +780,13 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         }
       }
 
-      // Ring Dynamics: Assembly Pull-in & Click Bounce -> Pendulum Swing
+      // Ring Dynamics: Assembly Pull-in & Click Bounce -> Pendulum Swing & Tilt Reaction
       if (ringMesh) {
         ringMesh.position.z = THREE.MathUtils.lerp(-4.22, -4.22 - 2.20, separation);
 
         const idleSwing = Math.sin(elapsed * 1.4) * 0.05;
-        targetRingRot = idleSwing + mouseVelocity * 3.8;
+        const gyroRingBias = hasGyroData ? currentGyroY * 0.30 : 0.0;
+        targetRingRot = idleSwing + gyroRingBias + mouseVelocity * 3.8;
         currentRingRot += (targetRingRot - currentRingRot) * 0.065;
 
         // Subtle tactile click bounce as ring snaps into casing knuckle
@@ -744,9 +824,16 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
         const baseRotZ = THREE.MathUtils.degToRad(4);
         const targetFaceOnX = THREE.MathUtils.degToRad(40);
 
+        // Tactile Parallax: Enhanced amplitude when physical device orientation / gyro is active
+        const isMobile = window.innerWidth <= 768;
+        const effectiveParallaxX = (isMobile && hasGyroData) ? currentGyroX : mouseX;
+        const effectiveParallaxY = (isMobile && hasGyroData) ? currentGyroY : mouseY;
+        const parallaxAmpX = (isMobile && hasGyroData) ? 0.12 : 0.04;
+        const parallaxAmpY = (isMobile && hasGyroData) ? 0.10 : 0.04;
+
         const parallaxInfluence = Math.max(0.0, 1.0 - currentWarp * 2.0);
-        const targetTiltX = THREE.MathUtils.lerp(baseRotX, targetFaceOnX, warpCurve) + (mouseY * 0.04 * parallaxInfluence);
-        const targetTiltY = THREE.MathUtils.lerp(baseRotY, 0.0, warpCurve) + (mouseX * 0.04 * parallaxInfluence);
+        const targetTiltX = THREE.MathUtils.lerp(baseRotX, targetFaceOnX, warpCurve) + (effectiveParallaxY * parallaxAmpY * parallaxInfluence);
+        const targetTiltY = THREE.MathUtils.lerp(baseRotY, 0.0, warpCurve) + (effectiveParallaxX * parallaxAmpX * parallaxInfluence);
         const targetTiltZ = THREE.MathUtils.lerp(baseRotZ, 0.0, warpCurve);
 
         compassRoot.rotation.set(targetTiltX, targetTiltY, targetTiltZ);
@@ -852,6 +939,9 @@ export const HeroCompass3D: React.FC<HeroCompass3DProps> = ({ isVisible = true }
       window.removeEventListener('touchmove', handleScrollClose);
       window.removeEventListener('click', handleWindowCaptureClick, { capture: true });
       window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('deviceorientation', handleDeviceOrientation);
+      window.removeEventListener('devicemotion', handleDeviceMotion);
+      window.removeEventListener('touchstart', requestDevicePermission);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
 

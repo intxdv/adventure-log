@@ -8,6 +8,7 @@ export const useMotionEngine = () => {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let footerMouseMoveHandler: ((e: MouseEvent) => void) | null = null;
+    let footerOrientationHandler: ((e: DeviceOrientationEvent) => void) | null = null;
 
     const ctx = gsap.context(() => {
       // 0. Accessible Fallback for Reduced Motion
@@ -523,8 +524,27 @@ export const useMotionEngine = () => {
               copyrightY(normY * 12);
             };
 
-            footerMouseMoveHandler = handleFooterMouseMove;
+              footerMouseMoveHandler = handleFooterMouseMove;
             window.addEventListener('mousemove', footerMouseMoveHandler, { passive: true });
+
+            // Mobile Device Orientation Parallax for Footer Landscape
+            const handleFooterOrientation = (e: DeviceOrientationEvent) => {
+              if (!isLandscapeVisible || e.gamma === null || e.beta === null) return;
+              const normX = Math.max(-1, Math.min(1, e.gamma / 30));
+              const normY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+
+              bgX(normX * -18);
+              bgY(normY * -10);
+              fgX(normX * 10);
+              fgY(normY * 6);
+              copyrightX(normX * 16);
+              copyrightY(normY * 12);
+            };
+
+            footerOrientationHandler = handleFooterOrientation;
+            if (typeof window !== 'undefined' && 'DeviceOrientationEvent' in window) {
+              window.addEventListener('deviceorientation', footerOrientationHandler, { passive: true });
+            }
           }
         }
       }
@@ -534,6 +554,9 @@ export const useMotionEngine = () => {
       ctx.revert();
       if (footerMouseMoveHandler) {
         window.removeEventListener('mousemove', footerMouseMoveHandler);
+      }
+      if (footerOrientationHandler) {
+        window.removeEventListener('deviceorientation', footerOrientationHandler);
       }
     };
   }, []);
