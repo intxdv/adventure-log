@@ -759,7 +759,6 @@
   border-radius: 0;
   overflow: hidden;
   border: none;
-  border-bottom: 1px solid var(--hairline-base);
   margin: 0;
   background: #121512;
 }
