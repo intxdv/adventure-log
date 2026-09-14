@@ -206,7 +206,7 @@
 
 /* Zine Card Footer (Inspired by reference VOL. 1 layout) */
 .field-zine-footer {
-  margin-top: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(1.2rem, 2.2vw, 1.75rem);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -221,20 +221,20 @@
 
 .field-zine-callname {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-size: clamp(3rem, 5vw, 4.25rem);
   font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: 0.12em;
+  line-height: 0.88;
+  letter-spacing: 0.09em;
   color: var(--color-ink);
 }
 
 .field-zine-fullname {
   font-family: var(--font-mono);
-  font-size: clamp(0.8rem, 0.9vw, 0.92rem);
+  font-size: clamp(0.95rem, 1.15vw, 1.25rem);
   color: var(--color-ink-muted);
-  margin-top: 8px;
+  margin-top: 10px;
   letter-spacing: -0.01em;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .field-zine-quote-trigger {
@@ -246,18 +246,18 @@
   padding: 0;
   text-align: right;
   margin-left: auto;
-  max-width: clamp(200px, 18vw, 260px);
+  max-width: clamp(230px, 20vw, 310px);
 }
 
 .field-zine-quote {
   font-family: var(--font-body);
-  font-size: clamp(0.85rem, 0.95vw, 1.02rem);
-  line-height: 1.42;
+  font-size: clamp(1.05rem, 1.3vw, 1.35rem);
+  line-height: 1.35;
   color: var(--color-ink);
   text-align: right;
   margin: 0;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.015em;
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
@@ -334,7 +334,7 @@
 
 @media (max-width: 480px) {
   .field-zine-card {
-    padding: 0.875rem 0.875rem 1.85rem;
+    padding: 0.875rem 0.875rem 2rem;
   }
 
   .field-zine-footer {
@@ -342,7 +342,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: var(--space-xs);
-    padding-top: 2px;
+    padding-top: 4px;
   }
 
   .field-zine-identity {
@@ -350,21 +350,24 @@
   }
 
   .field-zine-callname {
-    font-size: clamp(2rem, 8vw, 2.6rem);
-    letter-spacing: 0.1em;
+    font-size: clamp(2.4rem, 9.5vw, 3.2rem);
+    letter-spacing: 0.08em;
   }
 
   .field-zine-fullname {
-    font-size: 0.76rem;
-    margin-top: 4px;
+    font-size: 0.88rem;
+    margin-top: 6px;
+    font-weight: 600;
   }
 
   .field-zine-quote-trigger {
-    max-width: 175px;
+    max-width: 185px;
   }
 
   .field-zine-quote {
-    font-size: clamp(0.78rem, 2.6vw, 0.88rem);
+    font-size: clamp(0.9rem, 3.2vw, 1.05rem);
+    line-height: 1.35;
+    font-weight: 600;
   }
 
   .field-zine-manifesto-popover {
