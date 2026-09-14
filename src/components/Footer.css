@@ -488,7 +488,8 @@
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
-    top: 83%;
+    top: auto;
+    bottom: clamp(76px, 11vh, 92px);
     font-size: clamp(0.68rem, 1.8vw, 0.75rem);
     padding: 6px 14px;
     letter-spacing: 0.06em;

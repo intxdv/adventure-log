@@ -183,31 +183,29 @@
 /* Mobile Adjustments (<= 768px) */
 @media (max-width: 768px) {
   .arsenal-section {
-    padding-top: var(--space-3xl);
+    padding-top: calc(var(--space-3xl) + 24px);
     padding-bottom: clamp(12rem, 24vh, 18rem);
     padding-left: 0;
     padding-right: 0;
   }
-
-
 
   .arsenal-control-bar {
     width: 100%;
   }
 
   .arsenal-nav-tabs {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     width: 100%;
-    justify-content: space-between;
     gap: 6px;
   }
 
   .arsenal-tab-btn {
-    flex: 1;
+    width: 100%;
     justify-content: center;
-    padding: 10px 6px;
-    min-height: 44px;
-    font-size: clamp(0.62rem, 1.8vw, 0.7rem);
+    padding: 8px 4px;
+    min-height: 40px;
+    font-size: clamp(0.58rem, 1.7vw, 0.68rem);
     white-space: nowrap;
   }
 }

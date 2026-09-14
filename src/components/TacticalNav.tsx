@@ -16,6 +16,14 @@ const DEFAULT_SECTIONS: NavSection[] = [
   { id: 'footer', index: '04', label: 'BASECAMP DISPATCH', alt: '3142M' },
 ];
 
+const MOBILE_LABELS: Record<string, string> = {
+  hero: 'HERO',
+  about: 'FIELD BIO',
+  expeditions: 'EXPEDITIONS',
+  arsenal: 'ARSENAL',
+  footer: 'DISPATCH',
+};
+
 export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = DEFAULT_SECTIONS }) => {
   const [activeId, setActiveId] = useState<string>(sections[0]?.id || 'hero');
   const [scrollPct, setScrollPct] = useState<number>(0);
@@ -173,7 +181,7 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
         <div className={`mobile-nav-pill ${activeId === 'about' ? 'theme-dark' : ''}`}>
           <div className="mobile-nav-telemetry">
             <span className="mobile-alt-val">+{altimeter}M</span>
-            <span className="mobile-sec-name">[{currentSection.index}] {currentSection.label.split('/')[0].trim()}</span>
+            <span className="mobile-sec-name">[{currentSection.index}] {MOBILE_LABELS[currentSection.id] || currentSection.label}</span>
           </div>
           <div className="mobile-pips-row">
             {sections.map((sec) => (

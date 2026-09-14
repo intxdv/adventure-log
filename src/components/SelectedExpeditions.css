@@ -1028,3 +1028,54 @@
     gap: 12px;
   }
 }
+
+@media (max-width: 768px) {
+  .expeditions-swiss-container {
+    padding-top: calc(var(--space-2xl) + 24px);
+    padding-bottom: clamp(1rem, 2vh, 1.8rem);
+    padding-left: clamp(1rem, 3vw, 1.5rem);
+    padding-right: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .swiss-header-row {
+    font-size: 0.62rem;
+  }
+
+  .swiss-main-title {
+    font-size: clamp(2.2rem, 8vw, 3.4rem);
+  }
+
+  .swiss-col-left {
+    padding: 0.85rem;
+  }
+
+  .swiss-col-stage {
+    padding: 0.85rem 0.85rem 80px 0.85rem;
+  }
+
+  .swiss-depth-carousel-wrapper {
+    min-height: clamp(260px, 38vh, 340px);
+  }
+
+  .swiss-impact-callout {
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .expeditions-swiss-container {
+    padding-top: calc(var(--space-xl) + 28px);
+  }
+
+  .swiss-header-right {
+    display: none;
+  }
+
+  .swiss-project-title {
+    font-size: 1.3rem;
+  }
+
+  .swiss-editorial-summary {
+    font-size: 0.64rem;
+  }
+}

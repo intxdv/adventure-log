@@ -40,6 +40,14 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hero-compass-3d-wrapper {
+    align-items: flex-end;
+    padding-bottom: clamp(6vh, 8vh, 12vh);
+    opacity: 0.45 !important;
+  }
+}
+
 /* 4. Exploded Schematic Overlay (Blueprint Leader Lines & Telemetry) */
 .hero-compass-exploded-svg {
   position: absolute;

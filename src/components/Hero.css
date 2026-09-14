@@ -278,6 +278,13 @@
   .hero-top-datum {
     display: none;
   }
+  .hero-left-col {
+    max-width: 100%;
+  }
+  .hero-body-container {
+    padding-top: calc(var(--space-2xl) + 20px);
+    padding-bottom: 72px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -300,5 +307,11 @@
 
   .hero-dynamic-title {
     white-space: normal;
+  }
+
+  .hero-bio-paragraph {
+    max-width: 100%;
+    font-size: 1.05rem;
+    line-height: 1.55;
   }
 }
