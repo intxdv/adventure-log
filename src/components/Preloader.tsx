@@ -48,39 +48,48 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
     setDisplayedProgress(100);
 
-    // Zen pacing: hold 100% for 220ms before smooth curtain lift
+    // Zen pacing: hold 100% for 350ms before smooth curtain lift
     pauseTimerRef.current = setTimeout(() => {
       setIsRevealing(true);
-      // Smooth curtain fade transition (700ms)
+      // Smooth curtain fade transition (750ms)
       dismissTimerRef.current = setTimeout(() => {
         setIsDismissed(true);
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
         onComplete?.();
-      }, 700);
-    }, 220);
+      }, 750);
+    }, 350);
   }, [onComplete]);
 
-  // Smoothly interpolate displayed progress towards true asset download progress
+  // Smoothly interpolate displayed progress across a measured ~2.0s curve, bound to true asset readiness
   useEffect(() => {
     if (isDismissed) return;
 
     let animationFrameId: number;
+    let startTime: number | null = null;
+    const minDuration = 2000; // 2.0s calm, dignified loading curve
 
-    const updateProgress = () => {
+    const updateProgress = (timestamp: number) => {
       if (hasTriggeredRevealRef.current) return;
+      if (!startTime) startTime = timestamp;
 
-      const target = isReady ? 100 : Math.min(96, targetAssetProgress);
-      const current = currentProgressRef.current;
+      const elapsed = timestamp - startTime;
+      const timeRatio = Math.min(elapsed / minDuration, 1);
 
-      if (current < target) {
-        // Smooth step increment (faster when further behind, smooth as it approaches)
-        const step = Math.max(1, Math.ceil((target - current) * 0.15));
-        const nextVal = Math.min(target, current + step);
-        currentProgressRef.current = nextVal;
-        setDisplayedProgress(nextVal);
-      }
+      // Smooth S-curve easing
+      const easedTimeRatio = timeRatio < 0.5
+        ? 4 * timeRatio * timeRatio * timeRatio
+        : 1 - Math.pow(-2 * timeRatio + 2, 3) / 2;
 
-      if (isReady && currentProgressRef.current >= 100) {
+      const timeBasedProgress = Math.floor(easedTimeRatio * 100);
+
+      // Cap at 92% until all critical images are 100% decoded
+      const currentCap = isReady ? 100 : Math.min(92, targetAssetProgress);
+      const calculated = Math.min(timeBasedProgress, currentCap);
+
+      currentProgressRef.current = calculated;
+      setDisplayedProgress(calculated);
+
+      if (isReady && timeRatio >= 1 && calculated >= 100) {
         triggerRevealSequence();
       } else {
         animationFrameId = requestAnimationFrame(updateProgress);
