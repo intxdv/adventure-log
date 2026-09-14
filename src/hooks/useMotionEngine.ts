@@ -101,6 +101,8 @@ export const useMotionEngine = () => {
         // 1a. Reset display and ensure bio container is 100% hidden initially
         portalTimeline.set('#about', { display: 'flex', opacity: 0 }, 0);
         portalTimeline.set('.about-container', { opacity: 0 }, 0);
+        portalTimeline.set('#expeditions', { visibility: 'hidden', pointerEvents: 'none', display: 'none' }, 0);
+        portalTimeline.set('#expeditions-swiss-container', { opacity: 0, pointerEvents: 'none' }, 0);
 
         // Konten kiri Hero (judul & bio) meredup lembut di awal scroll
         portalTimeline.to(
@@ -247,9 +249,10 @@ export const useMotionEngine = () => {
         // Enable visibility & pointer events on expeditions stage tepat saat tertutup sempurna
         portalTimeline.set(
           '#expeditions',
-          { visibility: 'visible', pointerEvents: 'auto' },
+          { visibility: 'visible', pointerEvents: 'auto', display: 'flex' },
           2.80
         );
+        portalTimeline.set('#expeditions-swiss-container', { pointerEvents: 'auto' }, 3.10);
 
         // Sembunyikan Section 01 (#about) sepenuhnya setelah background putih menutupi 100% layar (t = 2.82)
         portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 2.82);

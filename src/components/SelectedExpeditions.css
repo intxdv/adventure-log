@@ -10,7 +10,7 @@
   height: 100vh;
   min-height: 100vh;
   width: 100%;
-  z-index: 3;
+  z-index: 1;
   align-self: start;
   background: transparent;
   overflow: hidden;
@@ -22,9 +22,20 @@
   box-sizing: border-box;
 }
 
+.expeditions-perspective-stage:not(.is-active) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+.expeditions-perspective-stage:not(.is-active) * {
+  pointer-events: none !important;
+}
+
 .expeditions-perspective-stage.is-active {
-  visibility: visible;
-  pointer-events: auto;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
 }
 
 /* 0. Expanding White/Neutral Canvas (Base for Section 3) */

@@ -29,7 +29,8 @@
 }
 
 .about-section.is-active {
-  pointer-events: auto;
+  pointer-events: auto !important;
+  z-index: 10 !important;
 }
 
 /* Nocturnal Canvas (Pure Black #000000) */
