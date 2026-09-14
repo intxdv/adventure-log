@@ -657,20 +657,29 @@ const CompleteArchiveModal: React.FC<CompleteArchiveModalProps> = ({
 
             <div className="archive-cards-list font-mono">
               {expeditions.map((exp) => (
-                <div key={exp.id} className="archive-row-card">
+                <div
+                  key={exp.id}
+                  className="archive-row-card cursor-target"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => onSelectDossier(exp)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSelectDossier(exp);
+                    }
+                  }}
+                  aria-label={`Open dossier for ${exp.title}`}
+                >
                   <div className="archive-row-left">
                     <span className="archive-row-idx">{exp.indexNumber}</span>
                     <span className="archive-row-title font-display">{exp.title}</span>
                     <span className="archive-row-cat font-mono">{exp.categoryLabel}</span>
                   </div>
                   <div className="archive-row-right">
-                    <button
-                      type="button"
-                      className="archive-row-btn font-mono"
-                      onClick={() => onSelectDossier(exp)}
-                    >
+                    <span className="archive-row-btn font-mono" aria-hidden="true">
                       DOSSIER ↗
-                    </button>
+                    </span>
                   </div>
                 </div>
               ))}
