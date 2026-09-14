@@ -274,7 +274,6 @@
 
 /* 3. 3D Compass Asset is styled in HeroCompass3D.css */
 
-/* Responsive Breakpoints */
 @media (max-width: 1024px) {
   .hero-body-container {
     flex-direction: column;
@@ -283,15 +282,46 @@
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    justify-content: flex-start;
+  }
+
   .hero-top-datum {
     display: none;
   }
+
+  .hero-body-container {
+    margin: 0;
+    padding-top: clamp(12px, 2.5vh, 20px);
+    padding-bottom: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .hero-left-col {
     max-width: 100%;
   }
-  .hero-body-container {
-    padding-top: calc(var(--space-2xl) + 20px);
-    padding-bottom: 72px;
+
+  .hero-meta-kicker {
+    margin-bottom: 4px;
+    font-size: 0.68rem;
+    letter-spacing: 0.10em;
+  }
+
+  .hero-title-wrapper {
+    min-height: 3.2rem;
+    margin-bottom: 8px;
+  }
+
+  .hero-dynamic-title {
+    font-size: clamp(1.85rem, 7.5vw, 2.4rem) !important;
+    white-space: normal;
+  }
+
+  .hero-bio-paragraph {
+    max-width: 100%;
+    font-size: clamp(0.82rem, 3.4vw, 0.90rem);
+    line-height: 1.5;
   }
 }
 
@@ -307,19 +337,5 @@
 
   .hero-top-clock {
     font-size: 0.75rem;
-  }
-
-  .hero-title-wrapper {
-    min-height: 4.8rem;
-  }
-
-  .hero-dynamic-title {
-    white-space: normal;
-  }
-
-  .hero-bio-paragraph {
-    max-width: 100%;
-    font-size: 1.05rem;
-    line-height: 1.55;
   }
 }
