@@ -197,9 +197,9 @@ export const DepthCarousel = ({
           // Passed cards (d < 0): push strictly behind active card in Z space
           // so it NEVER intersects or slices across the front plane in 3D
           tz = -cfg.depth * (0.8 + Math.abs(d) * 1.2);
-          ty = -vDir * (cfg.spread * 2.2) * Math.abs(d);
+          ty = -vDir * cfg.spread * Math.abs(d);
           rx = 0; // Neutralize tilt to prevent X-axis geometric plane collision
-          scale = sc * Math.max(0.85, 1 - Math.abs(d) * 0.05);
+          scale = sc * Math.max(0.78, 1 - Math.abs(d) * 0.035);
         }
       } else {
         tz = -cfg.depth * back;
@@ -365,7 +365,9 @@ export const DepthCarousel = ({
       if (!drag.moved) return;
       const now = performance.now();
       const dt = Math.max(now - drag.lastT, 1);
-      drag.v = (isVert ? -vDir * dy : dx) / dt;
+      const stepDx = e.clientX - drag.lastX;
+      const stepDy = e.clientY - drag.lastY;
+      drag.v = (isVert ? -vDir * stepDy : stepDx) / dt;
       drag.lastX = e.clientX;
       drag.lastY = e.clientY;
       drag.lastT = now;
@@ -381,12 +383,16 @@ export const DepthCarousel = ({
     dragRef.current = null;
     if (!drag.moved) return;
     const cfg = cfgRef.current;
-    const isVert = cfg.orientation === 'vertical';
-    const stepPx = isVert
-      ? Math.max(cfg.cardHeight * 0.45 * scaleRef.current, 35)
-      : Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40);
-    const projected = posRef.current - (drag.v * 180) / stepPx;
-    setFocus(Math.round(projected), true);
+
+    // Symmetric flick threshold: either 18% displacement or flick velocity
+    const diff = posRef.current - drag.startPos;
+    let target = Math.round(posRef.current);
+    if (Math.abs(diff) >= 0.18) {
+      target = diff > 0 ? Math.ceil(drag.startPos) : Math.floor(drag.startPos);
+    } else if (Math.abs(drag.v) > 0.3) {
+      target = drag.v > 0 ? Math.ceil(drag.startPos) : Math.floor(drag.startPos);
+    }
+    setFocus(clamp(target, 0, cfg.count - 1), true);
   }, [setFocus]);
 
   const onKeyDown = useCallback(

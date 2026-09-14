@@ -19,6 +19,11 @@ export const SelectedExpeditions: React.FC = () => {
 
   const isProgrammaticScrollRef = useRef(false);
   const programmaticTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const activeIndexRef = useRef(activeIndex);
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
 
   // Smooth project navigation with optional ScrollTrigger stage synchronization
   const goToProject = useCallback((newIndex: number, syncScroll = false) => {
@@ -29,20 +34,19 @@ export const SelectedExpeditions: React.FC = () => {
       if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
       programmaticTimerRef.current = setTimeout(() => {
         isProgrammaticScrollRef.current = false;
-      }, 750);
+      }, 500);
 
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-        const progressMap = [0.49, 0.60, 0.71, 0.81];
-        const targetRatio = progressMap[newIndex] ?? (0.49 + newIndex * 0.11);
+        // Symmetric 0.10 step distribution matching useMotionEngine thresholds
+        const progressMap = [0.49, 0.59, 0.69, 0.79];
+        const targetRatio = progressMap[newIndex] ?? (0.49 + newIndex * 0.10);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }
     }
   }, []);
-
-
 
   // Listen for scroll synchronization events from GSAP motion engine
   useEffect(() => {
@@ -60,6 +64,64 @@ export const SelectedExpeditions: React.FC = () => {
       if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
     };
   }, [goToProject]);
+
+  // Section-wide discrete wheel listener with 100% symmetric effort for forward & backward swaps
+  const wheelLockRef = useRef(false);
+  const wheelLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const stage = document.getElementById('expeditions');
+    if (!stage) return;
+
+    const onWheel = (e: WheelEvent) => {
+      // 1. Guard: If modal is open, let native modal scroll freely
+      if (activeDossier || isRepoModalOpen) return;
+      const modal = (e.target as HTMLElement | null)?.closest(
+        '.dossier-modal-overlay, .dossier-modal, .archive-modal-overlay, .archive-modal'
+      );
+      if (modal) return;
+
+      // 2. Guard: Only intercept if section 3 is active
+      if (!stage.classList.contains('is-active')) return;
+
+      const delta = e.deltaY;
+      // Filter out small jitter (< 18px)
+      if (Math.abs(delta) < 18) return;
+
+      const currentIdx = activeIndexRef.current;
+
+      // 3. Boundary pass-through:
+      // If at last mockup (3) and scrolling down: let it scroll down naturally to Section 4 (Field Arsenal)
+      if (delta > 0 && currentIdx >= FEATURED_EXPEDITIONS.length - 1) {
+        return;
+      }
+      // If at first mockup (0) and scrolling up: let it scroll up naturally to Section 2 (About)
+      if (delta < 0 && currentIdx <= 0) {
+        return;
+      }
+
+      // 4. Inside Section 3 between mockups:
+      // Intercept wheel and advance exactly 1 step with IDENTICAL effort in both directions
+      e.preventDefault();
+
+      if (wheelLockRef.current) return;
+      wheelLockRef.current = true;
+
+      const nextIdx = delta > 0 ? currentIdx + 1 : currentIdx - 1;
+      goToProject(nextIdx, true);
+
+      if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+      wheelLockTimerRef.current = setTimeout(() => {
+        wheelLockRef.current = false;
+      }, 260);
+    };
+
+    stage.addEventListener('wheel', onWheel, { passive: false });
+    return () => {
+      stage.removeEventListener('wheel', onWheel);
+      if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
+    };
+  }, [activeDossier, isRepoModalOpen, goToProject]);
 
   // Modal keyboard accessibility (Escape key) & body scroll lock
   useEffect(() => {

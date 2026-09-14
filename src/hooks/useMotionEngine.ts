@@ -62,9 +62,9 @@ export const useMotionEngine = () => {
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
               if (self.progress >= 0.44) {
                 let targetExp = 0;
-                if (self.progress >= 0.76) {
+                if (self.progress >= 0.74) {
                   targetExp = 3;
-                } else if (self.progress >= 0.65) {
+                } else if (self.progress >= 0.64) {
                   targetExp = 2;
                 } else if (self.progress >= 0.54) {
                   targetExp = 1;
