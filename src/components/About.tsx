@@ -127,8 +127,10 @@ export const About: React.FC = () => {
                 <span className="field-zine-callname">TAKI</span>
                 <span className="field-zine-fullname">Syafiq Abiyyu Taqi</span>
               </div>
-              <div className="field-zine-quote">
-                “karena kita terlalu berharga untuk disia-siakan.”
+              <div className="field-zine-telemetry font-mono" aria-label="Geographic telemetry and academic coordinates">
+                <span className="telemetry-coord">7.45° S, 110.51° E</span>
+                <span className="telemetry-origin">MERBABU // TENGARAN, ID</span>
+                <span className="telemetry-station">STATION // UNDIP CS '23</span>
               </div>
             </figcaption>
           </figure>
