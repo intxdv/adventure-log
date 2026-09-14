@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { initialExpeditions } from '../data/expeditions';
@@ -80,9 +81,9 @@ export const SelectedExpeditions: React.FC = () => {
 
     const onWheel = (e: WheelEvent) => {
       // 1. Guard: If modal is open, let native modal scroll freely
-      if (activeDossier || isRepoModalOpen) return;
+      if (activeDossier || isRepoModalOpen || document.querySelector('.dossier-modal-backdrop')) return;
       const modal = (e.target as HTMLElement | null)?.closest(
-        '.dossier-modal-overlay, .dossier-modal, .archive-modal-overlay, .archive-modal'
+        '.dossier-modal-backdrop, .dossier-modal-container, .dossier-modal-body'
       );
       if (modal) return;
 
@@ -208,13 +209,16 @@ export const SelectedExpeditions: React.FC = () => {
 
     if (activeDossier || isRepoModalOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
 
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [activeDossier, isRepoModalOpen]);
@@ -485,9 +489,13 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({
   isFromArchive = false,
   onClose,
 }) => {
-  return (
+  return createPortal(
     <div
       className={`dossier-modal-backdrop ${isFromArchive ? 'is-stacked' : ''}`}
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => {
+        if (e.target === e.currentTarget) e.preventDefault();
+      }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -675,7 +683,8 @@ const ExpeditionDossierModal: React.FC<ExpeditionDossierModalProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
@@ -691,9 +700,13 @@ const CompleteArchiveModal: React.FC<CompleteArchiveModalProps> = ({
   onSelectDossier,
   onClose,
 }) => {
-  return (
+  return createPortal(
     <div
       className="dossier-modal-backdrop"
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => {
+        if (e.target === e.currentTarget) e.preventDefault();
+      }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -773,6 +786,7 @@ const CompleteArchiveModal: React.FC<CompleteArchiveModalProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
