@@ -34,8 +34,8 @@ export const SelectedExpeditions: React.FC = () => {
       const stageWrapper = document.getElementById('hero-stage-wrapper');
       if (stageWrapper) {
         const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-        const progressMap = [0.45, 0.59, 0.73, 0.87];
-        const targetRatio = progressMap[newIndex] ?? (0.45 + newIndex * 0.14);
+        const progressMap = [0.52, 0.65, 0.78, 0.91];
+        const targetRatio = progressMap[newIndex] ?? (0.52 + newIndex * 0.13);
         const targetScroll = stageWrapper.offsetTop + maxScroll * targetRatio;
         window.scrollTo({ top: targetScroll, behavior: 'auto' });
       }

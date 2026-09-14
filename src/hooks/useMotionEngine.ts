@@ -55,20 +55,20 @@ export const useMotionEngine = () => {
                 }
               }
               // Coordinate About section pointer-events interactivity (hanya aktif saat bio tampil)
-              if (self.progress > 0.12 && self.progress < 0.35) {
+              if (self.progress > 0.10 && self.progress < 0.42) {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
               }
 
               // Synchronize 4 Featured Expeditions continuously based on scroll progress (bidirectional & reverse-safe)
-              if (self.progress >= 0.38 && self.progress <= 0.98) {
+              if (self.progress >= 0.46 && self.progress <= 0.98) {
                 let targetExp = 0;
-                if (self.progress >= 0.80) {
+                if (self.progress >= 0.85) {
                   targetExp = 3;
-                } else if (self.progress >= 0.66) {
+                } else if (self.progress >= 0.72) {
                   targetExp = 2;
-                } else if (self.progress >= 0.52) {
+                } else if (self.progress >= 0.59) {
                   targetExp = 1;
                 } else {
                   targetExp = 0;
@@ -87,16 +87,16 @@ export const useMotionEngine = () => {
           },
         });
 
-        // 1a. Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero (t = 0.40 -> 1.45)
+        // 1a. Section 2 mekar melingkar dari titik tengah layar menembus kanvas Hero (t = 0.35 -> 1.35)
         portalTimeline.fromTo(
           aboutSection,
           { clipPath: 'circle(0% at 50% 50%)' },
           {
             clipPath: 'circle(150% at 50% 50%)',
-            duration: 1.05,
+            duration: 1.00,
             ease: 'power2.inOut',
           },
-          0.40
+          0.35
         );
 
         // 1b. Konten Hero meredup lembut di balik mekarnya lingkaran portal nokturnal
@@ -107,31 +107,22 @@ export const useMotionEngine = () => {
             duration: 0.45,
             ease: 'power1.out',
           },
-          0.45
+          0.40
         );
 
-        // 1c. Entrance Tiap Elemen Section 2 (Muncul SETELAH seluruh screen tertutup hijau/gelap)
-        // Dimulai pada t = 1.50 setelah lingkaran mekar 100% penuh!
+        // 1c. Entrance Tiap Elemen Section 2 (Muncul berurutan dan tenang)
         portalTimeline.fromTo(
           '.about-kicker, .about-subhead',
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.50
+          1.38
         );
 
         portalTimeline.fromTo(
           '.field-zine-card',
           { opacity: 0, y: 28, scale: 0.94 },
           { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(1.2)' },
-          1.55
-        );
-
-        // Subtle scroll-scrubbed vertical parallax drift on photo within frame
-        portalTimeline.fromTo(
-          '#field-zine-portrait-img',
-          { yPercent: -5 },
-          { yPercent: 5, ease: 'none', duration: 1.95 },
-          1.60
+          1.44
         );
 
         // Stagger per-kata pada headline Section 2
@@ -139,7 +130,7 @@ export const useMotionEngine = () => {
           '.about-headline .about-word',
           { opacity: 0, y: 18 },
           { opacity: 1, y: 0, stagger: 0.035, duration: 0.25, ease: 'power2.out' },
-          1.60
+          1.50
         );
 
         // Stagger per-kata pada bio editorial Section 2
@@ -147,7 +138,7 @@ export const useMotionEngine = () => {
           '.about-lead .about-word, .about-body .about-word',
           { opacity: 0, y: 12 },
           { opacity: 1, y: 0, stagger: 0.006, duration: 0.18, ease: 'power2.out' },
-          1.67
+          1.56
         );
 
         // Selvagant emblem logo badge
@@ -155,41 +146,48 @@ export const useMotionEngine = () => {
           '.field-zine-logo-badge',
           { opacity: 0, scale: 0.88, y: -8 },
           { opacity: 1, scale: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          1.75
+          1.65
         );
 
         portalTimeline.fromTo(
           '.about-tags-row .tag-badge',
           { opacity: 0, y: 10, scale: 0.92 },
           { opacity: 1, y: 0, scale: 1, stagger: 0.04, duration: 0.25, ease: 'power2.out' },
-          1.87
+          1.75
         );
 
-        // Kotak manifesto baru mulai muncul setelah SEMUA elemen lain di Section 2 SELESAI TOTAL
+        // Kotak manifesto
         portalTimeline.fromTo(
           '.about-manifesto',
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          2.35
+          { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' },
+          1.95
         );
 
         // Kicker kutipan manifesto
         portalTimeline.fromTo(
           '.about-manifesto .about-manifesto-kicker',
           { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' },
-          2.71
+          { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' },
+          2.15
         );
 
         portalTimeline.fromTo(
           '.about-manifesto .about-word, .about-manifesto-cite',
           { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, stagger: 0.012, duration: 0.25, ease: 'power2.out' },
-          2.97
+          { opacity: 1, y: 0, stagger: 0.010, duration: 0.22, ease: 'power2.out' },
+          2.30
         );
 
+        // ======================================================================
+        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 2.55 -> 5.20)
+        // Seluruh elemen Section 2 menetap kokoh di layar sehingga pengunjung dapat
+        // membaca bio, mengamati kartu polaroid, berinteraksi kursor parallax,
+        // dan mengeksplorasi popover etimologi tanpa terburu-buru.
+        // ======================================================================
+
         // ----------------------------------------------------------------------
-        // 1d. White Card Transformation & Viewport Expansion (t = 3.55 -> 4.55)
+        // 1d. White Card Transformation & Viewport Expansion (t = 5.20 -> 6.20)
         // ----------------------------------------------------------------------
 
         // 1. Foto, badge logo, dan teks dalam frame kartu menghilang (menjadi solid white)
@@ -200,7 +198,7 @@ export const useMotionEngine = () => {
             duration: 0.35,
             ease: 'power2.inOut',
           },
-          3.55
+          5.20
         );
 
         // Bio editorial, headline, tag, dan manifesto meredup keluar
@@ -212,7 +210,7 @@ export const useMotionEngine = () => {
             duration: 0.35,
             ease: 'power2.in',
           },
-          3.55
+          5.20
         );
 
         // 2. Kotak kartu putih membesar memenuhi layar sesuai 4 direksi sudut
@@ -223,7 +221,7 @@ export const useMotionEngine = () => {
             duration: 0.70,
             ease: 'power2.inOut',
           },
-          3.85
+          5.50
         );
 
         // Background putih kanvas Section 3 menyala penuh
@@ -234,7 +232,7 @@ export const useMotionEngine = () => {
             duration: 0.50,
             ease: 'power2.inOut',
           },
-          3.95
+          5.60
         );
 
         // Swiss Editorial Showcase Container Fade-In
@@ -247,17 +245,17 @@ export const useMotionEngine = () => {
             duration: 0.45,
             ease: 'power2.out',
           },
-          4.15
+          5.80
         );
 
         // Enable pointer events on expeditions stage
-        portalTimeline.set('#expeditions', { pointerEvents: 'auto' }, 4.35);
+        portalTimeline.set('#expeditions', { pointerEvents: 'auto' }, 6.00);
 
         // Sembunyikan About sepenuhnya setelah background putih menutupi 100% layar
-        portalTimeline.set('#about', { opacity: 0 }, 4.55);
+        portalTimeline.set('#about', { opacity: 0 }, 6.20);
 
         // ----------------------------------------------------------------------
-        // 1e. Swiss Editorial Showcase: Timeline pacing (t = 4.55 -> 10.65)
+        // 1e. Swiss Editorial Showcase: Timeline pacing (t = 6.20 -> 12.20)
         // Project indexing is synchronized continuously via onUpdate (reverse-scrub safe)
         // ----------------------------------------------------------------------
 
@@ -270,7 +268,7 @@ export const useMotionEngine = () => {
             duration: 0.50,
             ease: 'power1.out',
           },
-          10.55
+          12.10
         );
       }
 
