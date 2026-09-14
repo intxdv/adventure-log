@@ -527,18 +527,18 @@ export const useMotionEngine = () => {
               footerMouseMoveHandler = handleFooterMouseMove;
             window.addEventListener('mousemove', footerMouseMoveHandler, { passive: true });
 
-            // Mobile Device Orientation Parallax for Footer Landscape (Aggressive diorama depth)
+            // Mobile Device Orientation Parallax for Footer Landscape (Calibrated diorama depth with safe bleed bounds)
             const handleFooterOrientation = (e: DeviceOrientationEvent) => {
               if (!isLandscapeVisible || e.gamma === null || e.beta === null) return;
-              const normX = Math.max(-1, Math.min(1, e.gamma / 20));
-              const normY = Math.max(-1, Math.min(1, (e.beta - 45) / 20));
+              const normX = Math.max(-1, Math.min(1, e.gamma / 22));
+              const normY = Math.max(-1, Math.min(1, (e.beta - 45) / 22));
 
-              bgX(normX * -38);
-              bgY(normY * -24);
-              fgX(normX * 28);
-              fgY(normY * 18);
-              copyrightX(normX * 34);
-              copyrightY(normY * 24);
+              bgX(normX * -34);
+              bgY(normY * -20);
+              fgX(normX * 24);
+              fgY(normY * 16);
+              copyrightX(normX * 28);
+              copyrightY(normY * 18);
             };
 
             footerOrientationHandler = handleFooterOrientation;

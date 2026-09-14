@@ -366,10 +366,10 @@
 /* Layer 1: Background Sky, Hills, & Distant Mountains (Centered Bleed Parallax Anti-Bolong) */
 .footer-landscape-bg {
   position: absolute;
-  top: -4%;
-  left: -6%;
-  width: 112%;
-  height: 114%;
+  top: -8%;
+  left: -12%;
+  width: 124%;
+  height: 124%;
   max-width: none !important;
   max-height: none !important;
   object-fit: cover;
@@ -414,10 +414,10 @@
 /* Layer 3: Foreground Hill Slope with Mossy CRT Monitor Cutout (Centered Bleed Parallax Anti-Bolong) */
 .footer-landscape-fg {
   position: absolute;
-  top: -6.5%;
-  left: -6%;
-  width: 112%;
-  height: 117%;
+  top: -10%;
+  left: -12%;
+  width: 124%;
+  height: 126%;
   max-width: none !important;
   max-height: none !important;
   object-fit: cover;
@@ -492,6 +492,10 @@
 
   .footer-landscape-bg,
   .footer-landscape-fg {
+    top: -12%;
+    left: -18%;
+    width: 136%;
+    height: 132%;
     object-position: 62% bottom;
   }
 
