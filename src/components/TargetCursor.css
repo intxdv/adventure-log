@@ -1,0 +1,79 @@
+/* ==========================================================================
+   TargetCursor Component Styles
+   ========================================================================== */
+
+.target-cursor-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 2147483647;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+/* Center Solid Dot (Gambar 1) */
+.target-cursor-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+/* Outer Dashed Ring (Gambar 1 - Putus-putus) */
+.target-cursor-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+  overflow: visible;
+}
+
+.target-cursor-ring circle {
+  transform-origin: center;
+}
+
+/* 4 Bracket Corners for Active Target Lock-on */
+.target-cursor-corner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-color: #ffffff;
+  border-style: solid;
+  pointer-events: none;
+  will-change: transform, opacity, border-color;
+  opacity: 0;
+}
+
+.corner-tl {
+  border-width: 2px 0 0 2px;
+  transform: translate(-150%, -150%);
+}
+
+.corner-tr {
+  border-width: 2px 2px 0 0;
+  transform: translate(50%, -150%);
+}
+
+.corner-br {
+  border-width: 0 2px 2px 0;
+  transform: translate(50%, 50%);
+}
+
+.corner-bl {
+  border-width: 0 0 2px 2px;
+  transform: translate(-150%, 50%);
+}

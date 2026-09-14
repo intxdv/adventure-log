@@ -8,6 +8,7 @@ import { About } from './components/About';
 import { SelectedExpeditions } from './components/SelectedExpeditions';
 import { FieldArsenal } from './components/FieldArsenal';
 import { Footer } from './components/Footer';
+import TargetCursor from './TargetCursor';
 
 export const App: React.FC = () => {
   const [isAppLoaded, setIsAppLoaded] = React.useState(false);
@@ -15,6 +16,13 @@ export const App: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: 'var(--color-canvas)' }}>
+      {/* Tactical Dynamic Target Cursor */}
+      <TargetCursor 
+        spinDuration={2}
+        hideDefaultCursor={true}
+        parallaxOn={true}
+        targetSelector=".cursor-target, a, button"
+      />
       {/* Tactile Paper Noise Overlay */}
       <div className="paper-grain-overlay" aria-hidden="true" />
 
