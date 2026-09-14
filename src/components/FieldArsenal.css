@@ -8,7 +8,10 @@
   margin-top: -100dvh;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: var(--space-4xl) 0;
+  padding-top: var(--space-4xl);
+  padding-bottom: clamp(6.5rem, 12vh, 11rem);
+  padding-left: 0;
+  padding-right: 0;
   position: relative;
   z-index: 10;
   background-color: var(--color-canvas);
@@ -135,7 +138,10 @@
 /* Mobile Adjustments (<= 768px) */
 @media (max-width: 768px) {
   .arsenal-section {
-    padding: var(--space-3xl) 0;
+    padding-top: var(--space-3xl);
+    padding-bottom: clamp(4rem, 8vh, 6.5rem);
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .arsenal-control-bar {
