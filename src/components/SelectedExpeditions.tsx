@@ -96,11 +96,11 @@ export const SelectedExpeditions: React.FC = () => {
           </div>
         </header>
 
-        {/* 2. Three-Panel Swiss Layout Grid */}
+        {/* 2. Two-Column Swiss Layout Grid (Sketched Architecture) */}
         <div className="swiss-grid">
-          {/* LEFT PANEL: Rolling Counter directly above Project Title (Centered) + Dossier Trigger */}
+          {/* LEFT PANEL: Dynamic Dossier Sidebar (Counter + Title + Specs + Tech Stack + Dossier Button) */}
           <div className="swiss-col-left">
-            <div className="swiss-left-center-group">
+            <div className="swiss-left-top">
               <div className="swiss-counter-reel">
                 <div
                   className="swiss-counter-track font-display"
@@ -117,7 +117,7 @@ export const SelectedExpeditions: React.FC = () => {
                 </div>
               </div>
 
-              {/* Project Title & Metadata (Directly below counter number) */}
+              {/* Project Title & Metadata */}
               <div className="swiss-left-project-info font-mono">
                 <h3 className="swiss-project-title font-display">
                   {currentExpedition.title}
@@ -135,73 +135,8 @@ export const SelectedExpeditions: React.FC = () => {
               </div>
             </div>
 
-            <div className="swiss-left-bottom">
-              <button
-                type="button"
-                className="swiss-dossier-btn font-mono"
-                onClick={() => setActiveDossier(currentExpedition)}
-                title={`Open technical dossier for ${currentExpedition.title}`}
-              >
-                <span>VIEW DOSSIER</span>
-                <span className="btn-arrow" aria-hidden="true">↗</span>
-              </button>
-            </div>
-          </div>
-
-          {/* CENTER PANEL: Project Showcase with DepthCarousel (3D GSAP hardware-accelerated stack) */}
-          <div className="swiss-col-center">
-            <div className="swiss-depth-carousel-wrapper">
-              <DepthCarousel
-                items={CAROUSEL_ITEMS}
-                cardWidth={560}
-                cardHeight={315}
-                radius={6}
-                tint="#121512"
-                depth={80}
-                spread={26}
-                tilt={4}
-                orientation="vertical"
-                verticalDirection="up"
-                perspective={1100}
-                visibleCards={3}
-                falloff={0.24}
-                blur={2}
-                duration={600}
-                ease="power3.out"
-                loop={false}
-                showControls={true}
-                showIndicators={false}
-                activeIndex={activeIndex}
-                onChange={(idx) => setActiveIndex(idx)}
-              />
-            </div>
-
-            {/* Tactical Step Indicator beneath Center Frame (Matching Botanical Olive Theme) */}
-            <div className="swiss-step-nav" role="tablist" aria-label="Expedition showcase navigation">
-              <div className="swiss-step-track">
-                {FEATURED_EXPEDITIONS.map((exp, idx) => (
-                  <button
-                    key={exp.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={activeIndex === idx}
-                    aria-label={`Jump to expedition 0${idx + 1}: ${exp.title}`}
-                    className={`swiss-step-btn ${activeIndex === idx ? 'is-active' : ''}`}
-                    onClick={() => goToProject(idx)}
-                  >
-                    <span className="swiss-step-dash" />
-                  </button>
-                ))}
-              </div>
-              <span className="swiss-step-label font-mono">
-                0{activeIndex + 1} / 0{FEATURED_EXPEDITIONS.length}
-              </span>
-            </div>
-          </div>
-
-          {/* RIGHT PANEL: Specification, Editorial Narrative & Repository Actions (Centered) */}
-          <div className="swiss-col-right font-mono">
-            <div className="swiss-right-dossier-box">
+            {/* Mid Section: Editorial Narrative, Impact & Arsenal Telemetry (Option A) */}
+            <div className="swiss-left-body font-mono">
               <div className="swiss-box-header font-mono">
                 <span className="swiss-box-kicker">[ EXPEDITION SPECIFICATION ]</span>
                 <span className="swiss-box-idx">{currentExpedition.indexNumber}</span>
@@ -230,9 +165,75 @@ export const SelectedExpeditions: React.FC = () => {
                   ))}
                 </div>
               </div>
+            </div>
 
-              {currentExpedition.repoUrl && (
-                <div className="swiss-source-wrapper">
+            {/* Bottom Anchor: View Dossier Trigger */}
+            <div className="swiss-left-bottom">
+              <button
+                type="button"
+                className="swiss-dossier-btn font-mono"
+                onClick={() => setActiveDossier(currentExpedition)}
+                title={`Open technical dossier for ${currentExpedition.title}`}
+              >
+                <span>VIEW DOSSIER</span>
+                <span className="btn-arrow" aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT PANEL: Expansive 3D Visual Stage + Unified Tactical Datum Bar */}
+          <div className="swiss-col-stage">
+            <div className="swiss-depth-carousel-wrapper">
+              <DepthCarousel
+                items={CAROUSEL_ITEMS}
+                cardWidth={720}
+                cardHeight={405}
+                radius={6}
+                tint="#121512"
+                depth={95}
+                spread={30}
+                tilt={4}
+                orientation="vertical"
+                verticalDirection="up"
+                perspective={1200}
+                visibleCards={3}
+                falloff={0.24}
+                blur={2}
+                duration={600}
+                ease="power3.out"
+                loop={false}
+                showControls={true}
+                showIndicators={false}
+                activeIndex={activeIndex}
+                onChange={(idx) => setActiveIndex(idx)}
+              />
+            </div>
+
+            {/* Tactical Datum Bar beneath Stage: Step Indicator on Left, Action CTA on Right */}
+            <div className="swiss-stage-bottom-bar font-mono">
+              <div className="swiss-step-nav" role="tablist" aria-label="Expedition showcase navigation">
+                <div className="swiss-step-track">
+                  {FEATURED_EXPEDITIONS.map((exp, idx) => (
+                    <button
+                      key={exp.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={activeIndex === idx}
+                      aria-label={`Jump to expedition 0${idx + 1}: ${exp.title}`}
+                      className={`swiss-step-btn ${activeIndex === idx ? 'is-active' : ''}`}
+                      onClick={() => goToProject(idx)}
+                    >
+                      <span className="swiss-step-dash" />
+                    </button>
+                  ))}
+                </div>
+                <span className="swiss-step-label font-mono">
+                  0{activeIndex + 1} / 0{FEATURED_EXPEDITIONS.length}
+                </span>
+              </div>
+
+              <div className="swiss-stage-actions">
+                {currentExpedition.repoUrl && (
                   <a
                     href={currentExpedition.repoUrl}
                     target="_blank"
@@ -256,15 +257,13 @@ export const SelectedExpeditions: React.FC = () => {
                     </svg>
                     <span>SOURCE REPOSITORY ↗</span>
                   </a>
-                </div>
-              )}
+                )}
 
-              {/* Grand Archive CTA - Placed strictly on the final project (04) */}
-              {activeIndex === FEATURED_EXPEDITIONS.length - 1 && (
-                <div className="swiss-final-archive-cta font-mono">
+                {/* Grand Archive CTA - Placed strictly on the final project (04) */}
+                {activeIndex === FEATURED_EXPEDITIONS.length - 1 && (
                   <button
                     type="button"
-                    className="swiss-archive-highlight-btn"
+                    className="swiss-archive-highlight-btn inline-compact font-mono"
                     onClick={() => setIsRepoModalOpen(true)}
                   >
                     <span className="cta-kicker">[ FIELD REPOSITORY ARCHIVE ]</span>
@@ -273,8 +272,8 @@ export const SelectedExpeditions: React.FC = () => {
                       <span className="cta-arrow" aria-hidden="true">↗</span>
                     </span>
                   </button>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
