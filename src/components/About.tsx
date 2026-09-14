@@ -112,7 +112,7 @@ export const About: React.FC = () => {
         <div className="field-card-wrapper">
           <figure
             id="field-zine-card-elem"
-            className="field-zine-card"
+            className={`field-zine-card ${isNoteOpen ? 'is-note-open' : ''} ${isManifestoOpen ? 'is-manifesto-open' : ''}`}
             aria-label="Portrait: Syafiq Abiyyu Taqi"
           >
             <div className="field-zine-frame">

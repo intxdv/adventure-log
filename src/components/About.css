@@ -324,6 +324,22 @@
   align-items: flex-start;
   gap: var(--space-md);
   padding-top: 4px;
+  position: relative;
+  z-index: 25;
+}
+
+/* When Manifesto Popover is active, hide the top-right logo emblem so text is 100% clean and unobscured */
+.field-zine-card.is-manifesto-open .field-zine-logo-badge {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(-4px) scale(0.92);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+/* When Logo Etymology Popover is active, softly dim the quote */
+.field-zine-card.is-note-open .field-zine-quote-trigger {
+  opacity: 0.35;
+  transition: opacity 0.22s ease;
 }
 
 .field-zine-identity {
@@ -372,6 +388,10 @@
   z-index: 10;
 }
 
+.field-zine-quote-trigger.is-active {
+  z-index: 60;
+}
+
 .field-zine-quote {
   font-family: var(--font-body);
   font-size: clamp(0.88rem, 1.05vw, 1.08rem);
@@ -418,7 +438,7 @@
   transform-origin: bottom right;
   transition: opacity 0.3s ease, transform 0.3s var(--ease-out-expo), visibility 0.3s;
   pointer-events: none;
-  z-index: 30;
+  z-index: 60;
   text-align: left;
 }
 
