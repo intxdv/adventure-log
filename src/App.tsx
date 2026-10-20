@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useMotionEngine } from './hooks/useMotionEngine';
 import { Preloader } from './components/Preloader';
 import { TacticalNav } from './components/TacticalNav';
@@ -6,10 +6,14 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { SelectedExpeditions } from './components/SelectedExpeditions';
-import { HeroCompass3D } from './components/HeroCompass3D';
 import { FieldArsenal } from './components/FieldArsenal';
 import { Footer } from './components/Footer';
 import TargetCursor from './TargetCursor';
+
+// Lazy-load Three.js 3D Compass to keep main entry chunk lightweight
+const HeroCompass3D = lazy(() =>
+  import('./components/HeroCompass3D').then((m) => ({ default: m.HeroCompass3D }))
+);
 
 export const App: React.FC = () => {
   const [isAppLoaded, setIsAppLoaded] = React.useState(false);
@@ -41,7 +45,9 @@ export const App: React.FC = () => {
           <Hero isAppLoaded={isAppLoaded} />
           <About />
           <SelectedExpeditions />
-          <HeroCompass3D isVisible={isAppLoaded} />
+          <Suspense fallback={null}>
+            <HeroCompass3D isVisible={isAppLoaded} />
+          </Suspense>
         </div>
         <FieldArsenal />
       </main>
