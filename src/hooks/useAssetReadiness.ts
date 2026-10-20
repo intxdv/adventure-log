@@ -6,10 +6,6 @@ import { useState, useEffect } from 'react';
  */
 export const CRITICAL_IMAGES = [
   '/images/taki-portrait.webp',
-  '/images/expeditions/dipofeed.webp',
-  '/images/expeditions/aware.webp',
-  '/images/expeditions/lapor-fsm.webp',
-  '/images/expeditions/kagu.webp',
   '/logo/Logo SVG/Logo-deep-ink.svg',
   '/logo/Logo SVG/Logo-text-deep-ink.svg',
 ];
