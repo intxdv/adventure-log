@@ -51,6 +51,8 @@ export const Footer: React.FC = () => {
                 src="/logo/Logo SVG/Logo-text-deep-ink.svg"
                 alt="Selvagant Logo"
                 className="footer-brand-logo-img"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -81,6 +83,8 @@ export const Footer: React.FC = () => {
                     alt=""
                     className="footer-dispatch-svg"
                     aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </a>
               ))}

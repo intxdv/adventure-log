@@ -168,6 +168,8 @@ export const About: React.FC = () => {
                   className="field-zine-logo-img"
                   width={72}
                   height={42}
+                  loading="lazy"
+                  decoding="async"
                 />
 
                 {/* Floating Etymology Note Popover with Official Logo + Text SVG */}
@@ -183,6 +185,8 @@ export const About: React.FC = () => {
                       className="field-zine-note-brand-svg"
                       width={160}
                       height={24}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <span className="field-zine-note-tag font-mono">// ETYMOLOGY</span>
                   </div>
