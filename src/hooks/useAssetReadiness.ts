@@ -10,7 +10,6 @@ export const CRITICAL_IMAGES = [
   '/images/expeditions/aware.webp',
   '/images/expeditions/lapor-fsm.webp',
   '/images/expeditions/kagu.webp',
-  '/images/hero-ink-splatter.webp',
   '/logo/Logo SVG/Logo-deep-ink.svg',
   '/logo/Logo SVG/Logo-text-deep-ink.svg',
 ];
