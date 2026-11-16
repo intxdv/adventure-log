@@ -121,7 +121,7 @@ export const About: React.FC = () => {
                   <img
                     id="field-zine-portrait-img"
                     src="/images/taki-portrait.webp"
-                    alt="Syafiq Abiyyu Taqi (Taki / Selvagant) resting in nature foliage"
+                    alt="Syafiq Abiyyu Taqi (Taki / Selvagant)"
                     className="field-zine-img"
                     width={1080}
                     height={1080}
