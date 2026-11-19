@@ -349,7 +349,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           </div>
 
           <p className="hero-bio-paragraph">
-            A personal log by <strong>Syafiq Abiyyu Taqi (Taki)</strong>. Software developer building mobile apps, web extensions, and practical tools that solve everyday problems.
+            A personal log by <strong>Taki</strong>. Software developer building mobile apps, web extensions, and practical tools that solve everyday problems.
           </p>
         </div>
       </div>
