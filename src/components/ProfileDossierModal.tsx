@@ -106,7 +106,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <span className="dossier-sec-num">[01]</span> PROFESSIONAL SUMMARY
               </h4>
               <p className="profile-dossier-p">
-                Computer Science student at Universitas Diponegoro and software developer focused on <strong>fullstack web</strong>, <strong>applied AI</strong>, and <strong>developer tooling</strong>, with production experience in <strong>mobile engineering</strong> (Flutter/Dart). Experienced in building clean client-server architectures, offline-first systems, and practical tools that solve real operational problems.
+                Computer Science student at Universitas Diponegoro and software developer working across <strong>fullstack web</strong>, <strong>applied AI</strong>, and <strong>developer tools</strong>, with practical mobile development experience in <strong>Flutter and Dart</strong>. Builds clean client-server architectures, offline-first mobile systems, and developer extensions.
               </p>
             </div>
 
@@ -146,27 +146,27 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 </div>
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-subtitle">Mobile Developer (Flutter)</span>
-                  <span className="dossier-cv-meta">Jan &ndash; Mei 2026</span>
+                  <span className="dossier-cv-meta">Jan &ndash; May 2026</span>
                 </div>
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Developed <em>Lapor FSM</em>, a mobile incident reporting app connecting campus students and staff directly with maintenance technicians.</span>
+                    <span>Built <em>Lapor FSM</em>, a mobile incident reporting app for students and campus staff to submit facility repair tickets directly to maintenance teams.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Built offline-first draft caching and state management so reports submit reliably when campus Wi-Fi drops.</span>
+                    <span>Implemented offline draft caching and local state management so reports submit reliably when campus Wi-Fi drops.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Integrated authenticated REST APIs with token management and client-side photo compression.</span>
+                    <span>Integrated authenticated REST APIs with token refresh handling and client-side photo compression.</span>
                   </li>
                 </ul>
               </div>
 
               <div className="dossier-cv-entry">
                 <div className="dossier-cv-row">
-                  <span className="dossier-cv-title">DipoFeed &mdash; FPP Undip &amp; ACIAR</span>
+                  <span className="dossier-cv-title">DipoFeed (FPP Undip &amp; ACIAR)</span>
                   <span className="dossier-cv-meta">Semarang, Indonesia</span>
                 </div>
                 <div className="dossier-cv-row">
@@ -176,15 +176,15 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Engineered an offline feed calculator for smallholder dairy farmers in partnership with the Australian Centre for International Agricultural Research (ACIAR).</span>
+                    <span>Built an offline mobile feed calculator for smallholder dairy farmers in Central Java, in partnership with the Australian Centre for International Agricultural Research (ACIAR).</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Implemented client-side least-cost ration balancing algorithms without needing an internet connection.</span>
+                    <span>Implemented cattle feed formulation algorithms using local forage nutritional data, running calculations entirely on-device.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Designed high-contrast screens and large touch targets for outdoor sunlight visibility and one-handed use.</span>
+                    <span>Designed high-contrast layouts and large touch targets for outdoor sunlight visibility and one-handed field use.</span>
                   </li>
                 </ul>
               </div>
@@ -201,11 +201,11 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Built a real-time computer vision screening tool for worker fatigue safety using MediaPipe facial landmarks (EAR &amp; MAR).</span>
+                    <span>Built a computer vision fatigue screening tool using MediaPipe facial landmarks to track eye (EAR) and mouth (MAR) aspect ratios in real time.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Integrated browser camera inference workflows with a responsive interface to flag drowsiness in under 30 seconds.</span>
+                    <span>Ran browser webcam inference with a responsive interface to flag signs of worker drowsiness in under 30 seconds.</span>
                   </li>
                 </ul>
               </div>
@@ -229,15 +229,15 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Authored an open-source VS Code and Antigravity extension for instant EPUB and XHTML publication previewing.</span>
+                    <span>Created an open-source VS Code and Antigravity extension to preview EPUB and XHTML publications directly inside the editor.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Built two reading modes: continuous vertical scroll and paginated multi-column book layout with live TOC navigation.</span>
+                    <span>Built continuous vertical scroll and paginated multi-column reading modes with a live table of contents drawer.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Handled in-memory ZIP extraction and anchored footnote popovers with zero external runtime dependencies.</span>
+                    <span>Handled in-memory ZIP extraction with JSZip and anchored footnote popovers with zero runtime dependencies.</span>
                   </li>
                 </ul>
               </div>
@@ -254,11 +254,11 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Developed an interactive Flutter music education game with real-time pitch feedback and rhythm drills.</span>
+                    <span>Developed a Flutter mobile game for ear training with pitch recognition drills and interactive rhythm exercises.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Engineered a low-latency audio synthesis pipeline for fast sound response across Android devices.</span>
+                    <span>Implemented low-latency audio playback and touch handling for responsive note feedback across Android devices.</span>
                   </li>
                 </ul>
               </div>
@@ -266,7 +266,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               <div className="dossier-cv-entry">
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-title">Kagu Voice AI</span>
-                  <span className="dossier-cv-meta">Agu &ndash; Sep 2026</span>
+                  <span className="dossier-cv-meta">Aug &ndash; Sep 2026</span>
                 </div>
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-subtitle">BYOK Browser Voice Assistant Extension</span>
@@ -275,11 +275,11 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Created a lightweight browser extension with Bring-Your-Own-Key (BYOK) architecture for Gemini Live and OpenAI Whisper APIs.</span>
+                    <span>Built a Chromium browser extension using WXT with a Bring-Your-Own-Key (BYOK) architecture for Gemini Live and OpenAI Whisper APIs.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Built voice-to-text input with live transcription and on-device API key storage.</span>
+                    <span>Supported voice-to-text transcription directly into active web fields while keeping API keys stored locally in the browser.</span>
                   </li>
                 </ul>
               </div>
