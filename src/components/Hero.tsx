@@ -349,7 +349,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           </div>
 
           <p className="hero-bio-paragraph">
-            A digital log by <strong>Syafiq Abiyyu Taqi (Taki)</strong> — Software developer building functional apps and pragmatic tools. Driven by curiosity, clean systems, and turning real friction into working software.
+            A personal log by <strong>Syafiq Abiyyu Taqi (Taki)</strong>. Software developer building mobile apps, web extensions, and practical tools that solve everyday problems.
           </p>
         </div>
       </div>

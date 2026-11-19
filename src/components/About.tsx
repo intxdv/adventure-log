@@ -20,7 +20,7 @@ export const About: React.FC = () => {
       aria-labelledby="about-heading"
     >
       <div className="about-container about-grid">
-        {/* Kolom Kiri: Kartu Foto Portrait dengan Footer Dagu Putih Rapi */}
+        {/* Kolom Kiri: Kartu Foto Portrait Bersih (Dagu Putih Polaroid Tanpa Teks) */}
         <div className="field-card-wrapper">
           <figure
             id="field-zine-card-elem"
@@ -69,18 +69,10 @@ export const About: React.FC = () => {
                 />
               </div>
             </div>
-
-            {/* Dagu Putih Rapi: Nama TAKI & Syafiq Abiyyu Taqi Bersih Tanpa Bayangan Hitam di Foto */}
-            <figcaption className="field-zine-footer">
-              <div className="field-zine-identity">
-                <span className="field-zine-callname font-display">TAKI</span>
-                <span className="field-zine-fullname font-mono">Syafiq Abiyyu Taqi</span>
-              </div>
-            </figcaption>
           </figure>
         </div>
 
-        {/* Kolom Kanan: Bio Editorial Berbobot & Padat (English) */}
+        {/* Kolom Kanan: Bio Editorial Humanized (No em-dashes, no AI puffery) */}
         <article className="about-article">
           <header>
             <div className="about-kicker font-mono">
@@ -94,13 +86,13 @@ export const About: React.FC = () => {
 
           <p className="about-lead">
             {renderWords(
-              "I build software driven by curiosity and practical problem-solving—ranging from campus mobile platforms and offline-first agro-tech, to browser extensions and AI tools built to solve everyday friction."
+              "I build mobile apps, web extensions, and practical tools. Most of what I make starts with a real problem: an offline feed calculator for rural dairy farmers, campus facility reporting without bureaucracy, or a code-editor EPUB previewer I built because reading raw translation chapters one by one got annoying."
             )}
           </p>
 
           <p className="about-body">
             {renderWords(
-              "My focus is simple: understand systems from the ground up, eliminate unnecessary complexity, and engineer software that is genuinely useful."
+              "I like digging into systems from scratch and keeping code simple so the tool just works."
             )}
           </p>
         </article>
