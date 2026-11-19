@@ -110,16 +110,7 @@ export const About: React.FC = () => {
         <article className="about-article">
           <header>
             <div className="about-kicker font-mono">
-              <button
-                type="button"
-                className="about-field-brief-btn font-mono cursor-target"
-                onClick={() => setIsProfileModalOpen(true)}
-                aria-label="Open full Resume and Profile Dossier"
-                title="Open full Resume and Profile Dossier"
-              >
-                <span>[ 01 // RESUME · PROFILE ]</span>
-                <span className="about-btn-arrow" aria-hidden="true">↗</span>
-              </button>
+              <span className="about-kicker-tag">[ 01 // ABOUT ]</span>
             </div>
             
             <h2 id="about-heading" className="about-headline font-display">
@@ -138,6 +129,19 @@ export const About: React.FC = () => {
               "I like digging into systems from scratch and keeping code simple so the tool just works."
             )}
           </p>
+
+          <div className="about-actions">
+            <button
+              type="button"
+              className="about-field-brief-btn font-mono cursor-target"
+              onClick={() => setIsProfileModalOpen(true)}
+              aria-label="Open full Resume and Profile Dossier"
+              title="Open full Resume and Profile Dossier"
+            >
+              <span>[ RESUME · PROFILE ]</span>
+              <span className="about-btn-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
         </article>
       </div>
 

@@ -43,10 +43,10 @@
 
 .about-container {
   width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding-left: clamp(2rem, 4.5vw, 5.5rem);
-  padding-right: clamp(2rem, 4.5vw, 5.5rem);
+  max-width: min(1200px, 88vw);
+  margin: 0 auto;
+  padding-left: clamp(1.5rem, 3.5vw, 3.5rem);
+  padding-right: clamp(1.5rem, 3.5vw, 3.5rem);
   box-sizing: border-box;
   opacity: 0;
   will-change: opacity;
@@ -65,7 +65,7 @@
   font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
@@ -98,9 +98,10 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: min(clamp(360px, 28vw, 440px), 58vh) 1fr;
-  gap: clamp(2.5rem, 4.5vw, 5.5rem);
+  grid-template-columns: min(clamp(340px, 26vw, 420px), 56vh) 1fr;
+  gap: clamp(3rem, 5vw, 5.5rem);
   align-items: center;
+  justify-content: center;
   width: 100%;
 }
 
@@ -155,9 +156,14 @@
   }
 
   .about-kicker {
+    display: none !important;
+  }
+
+  .about-actions {
     order: 3 !important;
     margin-top: clamp(8px, 1.6vh, 16px) !important;
-    margin-bottom: 0 !important;
+    justify-content: center !important;
+    width: 100%;
   }
 
   .about-article .about-lead,
@@ -666,6 +672,12 @@
 
 .about-section.is-nocturne .about-body {
   color: #A6AAA0;
+}
+
+.about-actions {
+  margin-top: clamp(1.5rem, 2.6vh, 2.25rem);
+  display: flex;
+  align-items: center;
 }
 
 /* --------------------------------------------------------------------------
