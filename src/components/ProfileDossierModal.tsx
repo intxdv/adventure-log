@@ -92,7 +92,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               </div>
               <div className="dossier-spec-item">
                 <span className="dossier-spec-label">FOCUS</span>
-                <span className="dossier-spec-val">Mobile Engineering &amp; Dev Tools</span>
+                <span className="dossier-spec-val">Fullstack, Applied AI, &amp; Dev Tools</span>
               </div>
               <div className="dossier-spec-item">
                 <span className="dossier-spec-label">LOCATION</span>
@@ -106,7 +106,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <span className="dossier-sec-num">[01]</span> PROFESSIONAL SUMMARY
               </h4>
               <p className="profile-dossier-p">
-                Computer Science student at Universitas Diponegoro and software developer focused on <strong>mobile engineering</strong> (Flutter/Dart), <strong>web extensions</strong>, and <strong>developer tooling</strong>. Experienced in building <strong>offline-first systems</strong>, clean state architectures, and practical tools that solve real operational problems.
+                Computer Science student at Universitas Diponegoro and software developer focused on <strong>fullstack web</strong>, <strong>applied AI</strong>, and <strong>developer tooling</strong>, with production experience in <strong>mobile engineering</strong> (Flutter/Dart). Experienced in building clean client-server architectures, offline-first systems, and practical tools that solve real operational problems.
               </p>
             </div>
 
@@ -201,11 +201,11 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Built an accessible computer vision web app for municipal waste categorization.</span>
+                    <span>Built a real-time computer vision screening tool for worker fatigue safety using MediaPipe facial landmarks (EAR &amp; MAR).</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Integrated browser camera inference workflows with a responsive, lightweight user flow.</span>
+                    <span>Integrated browser camera inference workflows with a responsive interface to flag drowsiness in under 30 seconds.</span>
                   </li>
                 </ul>
               </div>
@@ -297,7 +297,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 </li>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                  <div><strong>FRAMEWORKS &amp; TOOLS:</strong> Flutter, React 19, Vite, WXT (Web Extensions), VS Code Extension API, Git, Linux, Hive, SQLite, REST APIs</div>
+                  <div><strong>FRAMEWORKS &amp; TOOLS:</strong> Flutter, React 19, Vite, WXT (Web Extensions), VS Code Extension API, MediaPipe, Git, Linux, SQLite, REST APIs</div>
                 </li>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
