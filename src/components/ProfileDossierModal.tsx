@@ -170,7 +170,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                   <span className="dossier-cv-meta">Semarang, Indonesia</span>
                 </div>
                 <div className="dossier-cv-row">
-                  <span className="dossier-cv-subtitle">Lead Mobile Developer (Flutter)</span>
+                  <span className="dossier-cv-subtitle">Mobile Developer (Flutter)</span>
                   <span className="dossier-cv-meta">Mar 2026 &ndash; Present</span>
                 </div>
                 <ul className="dossier-cv-bullets">
