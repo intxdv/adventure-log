@@ -68,6 +68,11 @@ export const About: React.FC = () => {
                   decoding="async"
                 />
               </div>
+
+              {/* Minimalist In-Photo TAKI mark on bottom-left sleeve */}
+              <div className="field-photo-callname font-display" aria-hidden="true">
+                TAKI
+              </div>
             </div>
           </figure>
         </div>
