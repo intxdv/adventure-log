@@ -147,51 +147,61 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Header (2 Columns: Name & Title Left, Contact Right) */
+/* Header (Centered Classic Resume Layout) */
 .rover-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.2rem;
-  gap: 1.25rem;
-}
-
-.rover-header-left {
-  flex: 1 1 auto;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .rover-name {
-  font-size: clamp(1.75rem, 3.2vw, 2.2rem);
+  font-size: clamp(1.85rem, 3.4vw, 2.35rem);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: #000000;
-  line-height: 1.08;
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
 }
 
 .rover-subtitle {
-  font-size: 1rem;
-  color: #222222;
-  margin-top: 0.25rem;
+  font-size: 1.02rem;
+  color: #333333;
   font-weight: 400;
+  font-style: italic;
+  margin-bottom: 0.55rem;
 }
 
-.rover-header-right {
-  text-align: right;
-  font-size: 0.85rem;
-  line-height: 1.4;
+.rover-contact-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 0.85rem;
+  font-size: 9.2pt;
   color: #222222;
-  flex-shrink: 0;
+  line-height: 1.35;
 }
 
-.rover-header-right a {
+.rover-contact-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rover-contact-sep {
+  color: #888888;
+  margin-left: 0.85rem;
+  user-select: none;
+}
+
+.rover-contact-line a {
   color: #000000;
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: opacity 0.15s ease;
 }
 
-.rover-header-right a:hover {
+.rover-contact-line a:hover {
   opacity: 0.7;
 }
 
