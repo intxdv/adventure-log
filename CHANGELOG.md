@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v1.1.0] - 2026-11-20
+
+### 🚀 What's New / Added
+- **[portfolio & identity]** Kalibrasi naratif identitas profesional menjadi *Software Developer & Builder* dengan fokus pada tiga pilar utama: Fullstack Web, Applied AI, dan Developer Tooling.
+- **[dossier modal]** Desain ulang modal resume & curriculum vitae interaktif dengan navigasi yang ringkas, profil kualifikasi terstruktur, dan tautan unduh dokumen PDF ATS single-page.
+- **[expeditions & projects]** Pembaruan showcase proyek utama mencakup XHTML Reader Previewer (VS Code & Antigravity Extension), Kagu Voice AI (Browser Extension), NoteCraft (Flutter Game), dan DBS Foundation Computer Vision Fatigue Screening Tool.
+- **[analytics]** Integrasi script telemetri privasi Umami Analytics pada `index.html`.
+
+### 🔄 Changed & Improvements
+- **[profile & about]** Pembaruan visual portrait profil dan kartu polaroid dengan micro-details tactile.
+- **[skills & tools]** Penambahan PostgreSQL dan penyelarasan tumpukan teknologi modern (WXT, GSAP, Webviews, Local AI inference).
+- **[ux & navigation]** Penyesuaian layout responsive grid, tactical navigation rail, dan transisi curtain slide-up.
+
+### ⚡ Performance
+- **[core & assets]** Pembersihan aset yang tidak terpakai, konversi web fonts ke format WOFF2, serta lazy loading modul Three.js untuk mempercepat waktu inisialisasi awal.
+
+---
+
 ## [v1.0.0] - 2026-09-15
 
 ### 🚀 What's New / Added
