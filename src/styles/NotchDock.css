@@ -12,21 +12,34 @@
   pointer-events: none;
   display: flex;
   justify-content: center;
-  will-change: transform, opacity;
-  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .notch-header-container.is-hidden {
-  transform: translateY(-100%);
   opacity: 0;
+  pointer-events: none !important;
+}
+
+.notch-header-container.is-hidden * {
+  pointer-events: none !important;
 }
 
 .notch-header-container.is-visible {
-  transform: translateY(0);
   opacity: 1;
 }
 
-/* Main Body of the Cutout Notch */
+/* Hover Trigger Zone: Extends 28px down from top edge to catch cursor approach */
+.notch-hover-zone {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+  padding-top: 0;
+  padding-bottom: 28px;
+  cursor: pointer;
+}
+
+/* Main Body of the Cutout Notch: DEFAULT HIDDEN (tucked up above the viewport) */
 .notch-dock-body {
   pointer-events: auto;
   position: relative;
@@ -45,14 +58,22 @@
   padding: 0 28px;
   user-select: none;
   cursor: pointer;
-  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+  transform: translateY(-100%);
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.26s ease,
               box-shadow 0.24s ease,
               border-color 0.2s ease;
 }
 
-.notch-dock-body:hover {
-  transform: translateY(2px);
-  box-shadow: 0 6px 22px rgba(24, 26, 24, 0.11);
+/* Reveal Notch on Hover: Slides down smoothly into view */
+.notch-hover-zone:hover .notch-dock-body,
+.notch-dock-body:hover,
+.notch-dock-body:focus-within {
+  transform: translateY(0);
+  opacity: 1;
+  box-shadow: 0 8px 24px rgba(24, 26, 24, 0.12);
   border-color: var(--color-olive-border);
 }
 

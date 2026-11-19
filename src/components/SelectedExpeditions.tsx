@@ -96,57 +96,14 @@ export const SelectedExpeditions: React.FC = () => {
 
       const currentIdx = activeIndexRef.current;
 
-      // 3. Boundary forward transition:
-      // If at last mockup (3) and scrolling down: smoothly glide directly to Section 4 (Field Arsenal)
+      // 3. Boundary transitions: Let native scalar scroll flow naturally without hijacking
+      // If at last mockup (3) and scrolling down: allow natural scroll into Section 3 (Skills)
       if (delta > 0 && currentIdx >= FEATURED_EXPEDITIONS.length - 1) {
-        e.preventDefault();
-        if (wheelLockRef.current) return;
-        wheelLockRef.current = true;
-
-        const stageWrapper = document.getElementById('hero-stage-wrapper');
-        if (stageWrapper) {
-          const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-          const targetScroll = stageWrapper.offsetTop + maxScroll;
-
-          gsap.to(window, {
-            duration: 1.05,
-            scrollTo: { y: targetScroll, autoKill: false },
-            ease: 'power2.inOut',
-            onComplete: () => {
-              if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
-              wheelLockTimerRef.current = setTimeout(() => {
-                wheelLockRef.current = false;
-              }, 200);
-            },
-          });
-        }
         return;
       }
 
-      // 4. Boundary backward transition:
-      // If at first mockup (0) and scrolling up: smoothly glide to Section 2 (About)
+      // If at first mockup (0) and scrolling up: allow natural scroll back to Section 1 (About)
       if (delta < 0 && currentIdx <= 0) {
-        e.preventDefault();
-        if (wheelLockRef.current) return;
-        wheelLockRef.current = true;
-
-        const stageWrapper = document.getElementById('hero-stage-wrapper');
-        if (stageWrapper) {
-          const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-          const targetScroll = stageWrapper.offsetTop + maxScroll * 0.19;
-
-          gsap.to(window, {
-            duration: 1.05,
-            scrollTo: { y: targetScroll, autoKill: false },
-            ease: 'power2.inOut',
-            onComplete: () => {
-              if (wheelLockTimerRef.current) clearTimeout(wheelLockTimerRef.current);
-              wheelLockTimerRef.current = setTimeout(() => {
-                wheelLockRef.current = false;
-              }, 200);
-            },
-          });
-        }
         return;
       }
 
@@ -262,7 +219,7 @@ export const SelectedExpeditions: React.FC = () => {
           </div>
           <h2 className="swiss-main-title font-display">WORK</h2>
           <div className="swiss-header-right font-mono">
-            <span>SELECTED EXPEDITIONS</span>
+            <span>SELECTED WORKS</span>
             <span className="header-sep">//</span>
             <span className="count-tag">04 FEATURED</span>
           </div>

@@ -384,7 +384,7 @@ export const AccordionGallery = ({
               {/* Dossier Header Info */}
               <div className="ag-dossier__header">
                 <div className="ag-dossier__meta font-mono">
-                  <span className="ag-dossier__pillar-idx">{item.pillarIndex || `PILLAR // 0${i + 1}`}</span>
+                  <span className="ag-dossier__pillar-idx">AREA // {item.pillarIndex || `0${i + 1}`}</span>
                   <span className="ag-dossier__sep">/</span>
                   <span className="ag-dossier__pillar-code">{item.code}</span>
                 </div>
@@ -407,8 +407,8 @@ export const AccordionGallery = ({
               {item.skills && item.skills.length > 0 && (
                 <div className="ag-dossier__skills">
                   <div className="ag-dossier__skills-label font-mono">
-                    <span>VERIFIED CAPABILITIES (0{item.skills.length} SPECS) //</span>
-                    <span className="ag-dossier__skills-status font-mono">PRODUCTION TESTED</span>
+                    <span>CORE SKILLS //</span>
+                    <span className="ag-dossier__skills-status font-mono">0{item.skills.length} FOCUS AREAS</span>
                   </div>
                   <ul className="ag-dossier__skills-grid" role="list">
                     {item.skills.map((skill) => (
@@ -435,7 +435,7 @@ export const AccordionGallery = ({
               {/* Primary Production Toolchain Tray */}
               {item.tools && item.tools.length > 0 && (
                 <div className="ag-dossier__tools font-mono">
-                  <span className="ag-dossier__tools-heading">PRIMARY PRODUCTION TOOLCHAIN //</span>
+                  <span className="ag-dossier__tools-heading">TOOLS &amp; STACK //</span>
                   <div className="ag-dossier__tools-pills">
                     {item.tools.map((tool) => (
                       <span key={tool} className="ag-tool-pill">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { initialArsenal } from '../data/arsenal';
@@ -10,49 +10,6 @@ gsap.registerPlugin(ScrollToPlugin);
 
 export const FieldArsenal: React.FC = () => {
   const [activePillarIndex, setActivePillarIndex] = useState<number>(0);
-
-  // Smooth reverse glide from top of Arsenal back into Selected Expeditions (Mockup 3)
-  useEffect(() => {
-    const arsenalEl = document.getElementById('arsenal');
-    const stageWrapper = document.getElementById('hero-stage-wrapper');
-    if (!arsenalEl || !stageWrapper) return;
-
-    let isTransitioning = false;
-    let timer: ReturnType<typeof setTimeout> | null = null;
-
-    const handleArsenalWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 18) return;
-
-      const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
-      const arsenalTopScroll = stageWrapper.offsetTop + maxScroll;
-
-      // Only intercept if user is at the top edge of Arsenal and scrolls up
-      if (e.deltaY < 0 && window.scrollY <= arsenalTopScroll + 8) {
-        e.preventDefault();
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        const targetScroll = stageWrapper.offsetTop + maxScroll * 0.725;
-        gsap.to(window, {
-          duration: 1.05,
-          scrollTo: { y: targetScroll, autoKill: false },
-          ease: 'power2.inOut',
-          onComplete: () => {
-            if (timer) clearTimeout(timer);
-            timer = setTimeout(() => {
-              isTransitioning = false;
-            }, 200);
-          },
-        });
-      }
-    };
-
-    arsenalEl.addEventListener('wheel', handleArsenalWheel, { passive: false });
-    return () => {
-      arsenalEl.removeEventListener('wheel', handleArsenalWheel);
-      if (timer) clearTimeout(timer);
-    };
-  }, []);
 
   // Map arsenal pillars directly with complete dossier specs
   const galleryItems: AccordionGalleryItem[] = initialArsenal.map((pillar) => ({
@@ -75,25 +32,25 @@ export const FieldArsenal: React.FC = () => {
         {/* Section Header: Horizontal Tri-Column Alignment (Badge, Title, Telemetry) */}
         <header className="arsenal-header">
           <div className="arsenal-header-row">
-            {/* Left Column: Technical Capabilities Tag Badge */}
+            {/* Left Column: Skills Tag Badge */}
             <div className="arsenal-header-left">
-              <span className="tag-badge">TECHNICAL CAPABILITIES // 03 · CRAFT</span>
+              <span className="tag-badge">[ 03 // SKILLS ]</span>
             </div>
 
             {/* Center Column: Technical Capabilities Headline & Tagline */}
             <div className="arsenal-header-center">
               <h2 id="arsenal-heading" className="arsenal-headline font-display">
-                Technical Capabilities<span style={{ color: 'var(--color-olive)' }}>.</span>
+                Skills &amp; Capabilities<span style={{ color: 'var(--color-olive)' }}>.</span>
               </h2>
               <p className="arsenal-header-tagline font-serif">
-                “Tactical toolchains & craft disciplines forged through production expeditions.”
+                “Fullstack engineering, applied AI, and developer tools built through real projects.”
               </p>
             </div>
 
             {/* Right Column: Inventory Telemetry */}
             <div className="arsenal-header-right font-mono">
               <span className="arsenal-telemetry-meta">
-                CORE INVENTORY: 03 PILLARS // 18 SPECS
+                CORE FOCUS: 03 PILLARS // {initialArsenal.reduce((acc, p) => acc + p.skills.length, 0)} SPECS
               </span>
             </div>
           </div>
@@ -104,7 +61,11 @@ export const FieldArsenal: React.FC = () => {
           <div className="arsenal-nav-tabs">
             {initialArsenal.map((pillar, idx) => {
               const shortLabel =
-                pillar.id === 'creative-web' ? 'WEB & SPATIAL' : pillar.id === 'mobile-craft' ? 'MOBILE ARCH' : 'INTERFACE SYSTEMS';
+                pillar.id === 'mobile-dev'
+                  ? 'MOBILE'
+                  : pillar.id === 'tooling-extensions'
+                  ? 'TOOLING'
+                  : 'WEB & DESIGN';
               const isActive = activePillarIndex === idx;
 
               return (
