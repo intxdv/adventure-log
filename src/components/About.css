@@ -236,7 +236,7 @@
   position: relative;
   background-color: #FFFFFF;
   border: 1px solid var(--hairline-base);
-  padding: clamp(0.875rem, 1.6vw, 1.25rem) clamp(0.875rem, 1.6vw, 1.25rem) clamp(2.25rem, 4vw, 3.25rem);
+  padding: clamp(0.75rem, 1.4vw, 1.1rem);
   box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
   opacity: 0;
   will-change: opacity, transform;
@@ -286,6 +286,47 @@
 .field-zine-card:hover .field-zine-img {
   transform: scale(1.035);
   filter: contrast(1.04) brightness(1.01);
+}
+
+/* Sleek Photo Identity Overlay (In-photo bottom-left) */
+.field-photo-identity-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(1rem, 2.4vw, 1.75rem);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.5) 45%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.field-overlay-callname {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.field-overlay-fullname {
+  font-family: var(--font-mono);
+  font-size: clamp(0.8rem, 1.1vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.88);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 }
 
 /* Fallback Container if Image Unloaded/Error */
@@ -574,6 +615,14 @@
 
 .about-kicker {
   margin-bottom: var(--space-sm);
+}
+
+.about-kicker-tag {
+  display: inline-block;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-olive);
+  font-weight: 600;
 }
 
 .about-headline {

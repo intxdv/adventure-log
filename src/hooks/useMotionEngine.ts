@@ -51,15 +51,15 @@ export const useMotionEngine = () => {
                 }
               }
               // Coordinate About section pointer-events interactivity (aktif saat bio tampil)
-              if (self.progress >= 0.08 && self.progress < 0.42) {
+              if (self.progress >= 0.08 && self.progress < 0.28) {
                 aboutSection.classList.add('is-active');
               } else {
                 aboutSection.classList.remove('is-active');
               }
 
-              // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 02 mekar penuh hingga tertutup Section 03)
+              // Coordinate Expeditions stage visibility & interactivity (aktif saat Section 02 meluncur naik menutup Section 01)
               if (expeditionsSection) {
-                if (self.progress >= 0.42) {
+                if (self.progress >= 0.25) {
                   expeditionsSection.classList.add('is-active');
                 } else {
                   expeditionsSection.classList.remove('is-active');
@@ -101,7 +101,7 @@ export const useMotionEngine = () => {
         // 1a. Reset display and ensure bio container is 100% hidden initially
         portalTimeline.set('#about', { display: 'flex', opacity: 0 }, 0);
         portalTimeline.set('.about-container', { opacity: 0 }, 0);
-        portalTimeline.set('#expeditions', { visibility: 'hidden', pointerEvents: 'none', display: 'none' }, 0);
+        portalTimeline.set('#expeditions', { visibility: 'hidden', pointerEvents: 'none', display: 'none', yPercent: 100 }, 0);
         portalTimeline.set('#expeditions-swiss-container', { opacity: 0, pointerEvents: 'none' }, 0);
 
         // Konten kiri Hero (judul & bio) meredup lembut di awal scroll
@@ -192,83 +192,65 @@ export const useMotionEngine = () => {
         );
 
         // ======================================================================
-        // JEDA TENANG MEMBACA SECTION 2 (DWELL / RESTING ZONE: t = 1.30 -> 2.40)
-        // Dwell zone dioptimalkan (~56vh equivalent) sehingga cukup waktu membaca
-        // tanpa menimbulkan rasa scroll yang terlalu lama/lambat.
+        // JEDA TENANG MEMBACA SECTION 01 & PARALLAX SCROLL PADA KARTU PROFIL
         // ======================================================================
-
-        // ----------------------------------------------------------------------
-        // 1d. White Card Transformation & Viewport Expansion (t = 2.40 -> 3.20)
-        // ----------------------------------------------------------------------
-
-        // 1. Foto, badge logo, dan teks dalam frame kartu menghilang (menjadi solid white)
-        portalTimeline.to(
-          '#field-zine-portrait-img, .field-zine-footer, .field-zine-logo-badge',
+        // Parallax halus pada kartu foto relatif terhadap artikel bio saat di-scroll
+        portalTimeline.fromTo(
+          '.field-card-wrapper',
+          { y: 0 },
           {
-            opacity: 0,
-            duration: 0.20,
-            ease: 'power2.inOut',
+            y: -36,
+            duration: 0.85,
+            ease: 'none',
           },
-          2.30
+          1.45
         );
 
-        // Bio editorial, headline meredup keluar
+        // ----------------------------------------------------------------------
+        // 1d. Curtain Slide-Up Transition: Section 02 meluncur naik menutup Section 01
+        // ----------------------------------------------------------------------
+
+        // Konten bio editorial meredup keluar mendahului naiknya tirai Section 02
         portalTimeline.to(
-          '.about-article, .about-headline, .about-kicker',
+          '.about-container',
           {
             opacity: 0,
-            y: -20,
-            duration: 0.20,
+            y: -24,
+            duration: 0.25,
             ease: 'power2.in',
           },
           2.30
         );
 
-        // 2. Kotak kartu putih membesar memenuhi layar sesuai 4 direksi sudut hingga menutup 100% viewport
-        portalTimeline.to(
-          '#field-zine-card-elem',
-          {
-            scale: 28,
-            duration: 0.40,
-            ease: 'power2.inOut',
-          },
-          2.40
-        );
+        // Background kanvas putih Section 02 siap solid
+        portalTimeline.set('#expeditions-white-canvas', { opacity: 1 }, 2.30);
 
-        // Background putih kanvas Section 02 menyala penuh menutup seluruh layar
-        portalTimeline.to(
-          '#expeditions-white-canvas',
-          {
-            opacity: 1,
-            duration: 0.35,
-            ease: 'power2.inOut',
-          },
-          2.45
-        );
-
-        // Enable visibility & pointer events on expeditions stage tepat saat tertutup sempurna
-        portalTimeline.set(
+        // Curtain Slide-Up: Lembaran Section 02 meluncur naik dari bawah (yPercent: 100 -> 0)
+        portalTimeline.fromTo(
           '#expeditions',
-          { visibility: 'visible', pointerEvents: 'auto', display: 'flex' },
-          2.80
+          { yPercent: 100, visibility: 'visible', pointerEvents: 'auto', display: 'flex' },
+          {
+            yPercent: 0,
+            duration: 0.65,
+            ease: 'power2.out',
+          },
+          2.35
         );
-        portalTimeline.set('#expeditions-swiss-container', { pointerEvents: 'auto' }, 3.10);
 
-        // Sembunyikan Section 01 (#about) sepenuhnya setelah background putih menutupi 100% layar (t = 2.82)
-        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 2.82);
+        // Sembunyikan Section 01 (#about) sepenuhnya setelah tirai Section 02 menutup sempurna (t = 2.95)
+        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 2.95);
 
-        // 3. BARU MUNCUL KONTEN SECTION 02 SETELAH LAYAR TERTUTUP 100% SEMPURNA & JEDA TENANG! (t = 3.10 -> 3.55)
-        // Swiss Editorial Showcase Container Fade-In
+        // Munculkan konten showcase proyek Section 02 secara tenang
         portalTimeline.fromTo(
           '#expeditions-swiss-container',
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
             y: 0,
             duration: 0.45,
             ease: 'power2.out',
           },
-          3.10
+          2.90
         );
 
         // ----------------------------------------------------------------------
