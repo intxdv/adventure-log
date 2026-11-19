@@ -62,10 +62,10 @@ export const FieldArsenal: React.FC = () => {
             {initialArsenal.map((pillar, idx) => {
               const shortLabel =
                 pillar.id === 'mobile-dev'
-                  ? 'MOBILE DEV'
+                  ? 'MOBILE'
                   : pillar.id === 'tooling-extensions'
-                  ? 'TOOLING & EXT'
-                  : 'WEB & SYSTEMS';
+                  ? 'TOOLING'
+                  : 'WEB & DESIGN';
               const isActive = activePillarIndex === idx;
 
               return (
