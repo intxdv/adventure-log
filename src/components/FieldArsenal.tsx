@@ -34,23 +34,23 @@ export const FieldArsenal: React.FC = () => {
           <div className="arsenal-header-row">
             {/* Left Column: Skills Tag Badge */}
             <div className="arsenal-header-left">
-              <span className="tag-badge">SKILLS // 03 · CAPABILITIES</span>
+              <span className="tag-badge">[ 03 // SKILLS ]</span>
             </div>
 
             {/* Center Column: Technical Capabilities Headline & Tagline */}
             <div className="arsenal-header-center">
               <h2 id="arsenal-heading" className="arsenal-headline font-display">
-                Technical Capabilities<span style={{ color: 'var(--color-olive)' }}>.</span>
+                Skills &amp; Capabilities<span style={{ color: 'var(--color-olive)' }}>.</span>
               </h2>
               <p className="arsenal-header-tagline font-serif">
-                “Practical toolchains &amp; engineering disciplines built through production projects.”
+                “Mobile architectures, developer tooling, and web systems built through real projects.”
               </p>
             </div>
 
             {/* Right Column: Inventory Telemetry */}
             <div className="arsenal-header-right font-mono">
               <span className="arsenal-telemetry-meta">
-                CORE INVENTORY: 03 PILLARS // 18 SPECS
+                CORE FOCUS: 03 PILLARS // 18 SPECS
               </span>
             </div>
           </div>
@@ -61,7 +61,11 @@ export const FieldArsenal: React.FC = () => {
           <div className="arsenal-nav-tabs">
             {initialArsenal.map((pillar, idx) => {
               const shortLabel =
-                pillar.id === 'creative-web' ? 'WEB & SPATIAL' : pillar.id === 'mobile-craft' ? 'MOBILE ARCH' : 'INTERFACE SYSTEMS';
+                pillar.id === 'mobile-dev'
+                  ? 'MOBILE DEV'
+                  : pillar.id === 'tooling-extensions'
+                  ? 'TOOLING & EXT'
+                  : 'WEB & SYSTEMS';
               const isActive = activePillarIndex === idx;
 
               return (
