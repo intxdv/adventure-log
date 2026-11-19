@@ -117,4 +117,4 @@ npm run preview
 ## 📄 License & Attribution
 
 - Built and maintained by [Syafiq Abiyyu Taqi (Taki)](https://github.com/intxdv).
-- Released under the [MIT License](LICENSE).
+- © 2026 Syafiq Abiyyu Taqi. **All Rights Reserved**. See [LICENSE](LICENSE) for details.
