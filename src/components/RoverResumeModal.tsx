@@ -84,31 +84,30 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
         {/* Modal Body: Base Rover LaTeX Paper Sheet */}
         <div className="rover-modal-body">
           <article className="rover-sheet">
-            {/* Header: Centered Classic Resume Layout */}
+            {/* Header: Centered Name, Contact Links, Location, and Summary */}
             <header className="rover-header">
               <h1 id="rover-resume-name" className="rover-name">
                 Syafiq Abiyyu Taqi
               </h1>
-              <div className="rover-subtitle">
-                Software Developer &amp; Builder
-              </div>
               <div className="rover-contact-line">
                 <span className="rover-contact-item">
-                  Email: <a href="mailto:selvagant@gmail.com">selvagant@gmail.com</a>
+                  <a href="mailto:selvagant@gmail.com">selvagant@gmail.com</a>
                 </span>
-                <span className="rover-contact-sep" aria-hidden="true">•</span>
+                <span className="rover-contact-sep" aria-hidden="true">|</span>
                 <span className="rover-contact-item">
-                  Location: Semarang, Central Java, Indonesia
+                  <a href="https://linkedin.com/in/syafiq-abiyyu-taqi" target="_blank" rel="noopener noreferrer">linkedin.com/in/syafiq-abiyyu-taqi</a>
                 </span>
-                <span className="rover-contact-sep" aria-hidden="true">•</span>
+                <span className="rover-contact-sep" aria-hidden="true">|</span>
                 <span className="rover-contact-item">
-                  LinkedIn: <a href="https://linkedin.com/in/syafiq-abiyyu-taqi" target="_blank" rel="noopener noreferrer">linkedin.com/in/syafiq-abiyyu-taqi</a>
-                </span>
-                <span className="rover-contact-sep" aria-hidden="true">•</span>
-                <span className="rover-contact-item">
-                  GitHub: <a href="https://github.com/intxdv" target="_blank" rel="noopener noreferrer">github.com/intxdv</a>
+                  <a href="https://github.com/intxdv" target="_blank" rel="noopener noreferrer">github.com/intxdv</a>
                 </span>
               </div>
+              <div className="rover-location-line">
+                Semarang, Central Java, Indonesia
+              </div>
+              <p className="rover-summary-p">
+                Software developer building mobile apps, web extensions, and practical developer tools.
+              </p>
             </header>
 
             {/* Section: Education */}
@@ -118,14 +117,14 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
 
               <div className="rover-entry">
                 <div className="rover-entry-row">
-                  <div>
-                    <span className="rover-entry-primary">Universitas Diponegoro, Semarang</span>
-                    {' '}| <span className="rover-entry-secondary">B.S. in Computer Science</span>
-                  </div>
+                  <span className="rover-entry-primary">Universitas Diponegoro</span>
+                  <span className="rover-entry-date">Semarang, Indonesia</span>
+                </div>
+                <div className="rover-entry-row">
+                  <span className="rover-entry-secondary">Bachelor Degree in Computer Science | GPA: 3.8/4.0</span>
                   <span className="rover-entry-date">2023 &ndash; Present</span>
                 </div>
                 <ul className="rover-bullets">
-                  <li>Cumulative GPA: 3.7+ / 4.00 &bull; Focus: Software Engineering &amp; Mobile Systems</li>
                   <li>Relevant Coursework: Mobile Application Development, Software Architecture, Database Systems, Computer Networks, Operating Systems, Algorithms &amp; Data Structures.</li>
                 </ul>
               </div>
@@ -197,7 +196,7 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                 <div className="rover-entry-row">
                   <div>
                     <span className="rover-entry-primary">XHTML Reader Previewer</span>
-                    {' '}| <a href="https://github.com/intxdv/XHTML-Reader-Previewer" target="_blank" rel="noopener noreferrer" className="rover-entry-link">github.com/intxdv/XHTML-Reader-Previewer</a>
+                    {' '}| <span className="rover-entry-secondary">VS Code &amp; Antigravity Extension</span>
                   </div>
                   <span className="rover-entry-date">Nov 2026 &ndash; Present</span>
                 </div>
@@ -268,10 +267,19 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
         <div className="rover-modal-footer">
           <div className="rover-footer-links">
             <a
+              href="mailto:selvagant@gmail.com"
+              className="rover-footer-link-btn"
+              title="Send email to selvagant@gmail.com"
+            >
+              <span>EMAIL</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a
               href="https://github.com/intxdv"
               target="_blank"
               rel="noopener noreferrer"
               className="rover-footer-link-btn"
+              title="Open GitHub Profile"
             >
               <span>GITHUB</span>
               <span aria-hidden="true">↗</span>
@@ -281,6 +289,7 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
               target="_blank"
               rel="noopener noreferrer"
               className="rover-footer-link-btn"
+              title="Open LinkedIn Profile"
             >
               <span>LINKEDIN</span>
               <span aria-hidden="true">↗</span>

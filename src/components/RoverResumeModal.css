@@ -147,29 +147,20 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Header (Centered Classic Resume Layout) */
+/* Header (Baskara Antonio Style — Clean, Centered, Professional Resume Standard) */
 .rover-header {
   text-align: center;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.25rem;
+  margin-bottom: 1.15rem;
 }
 
 .rover-name {
-  font-size: clamp(1.85rem, 3.4vw, 2.35rem);
+  font-size: clamp(1.85rem, 3.4vw, 2.3rem);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   color: #000000;
   line-height: 1.1;
-  margin-bottom: 0.25rem;
-}
-
-.rover-subtitle {
-  font-size: 1.02rem;
-  color: #333333;
-  font-weight: 400;
-  font-style: italic;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.35rem;
 }
 
 .rover-contact-line {
@@ -177,8 +168,8 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0.35rem 0.85rem;
-  font-size: 9.2pt;
+  gap: 0.25rem 0.65rem;
+  font-size: 9pt;
   color: #222222;
   line-height: 1.35;
 }
@@ -189,8 +180,7 @@
 }
 
 .rover-contact-sep {
-  color: #888888;
-  margin-left: 0.85rem;
+  color: #666666;
   user-select: none;
 }
 
@@ -203,6 +193,22 @@
 
 .rover-contact-line a:hover {
   opacity: 0.7;
+}
+
+.rover-location-line {
+  font-size: 9pt;
+  color: #333333;
+  margin-top: 0.15rem;
+  margin-bottom: 0.45rem;
+}
+
+.rover-summary-p {
+  font-size: 9.3pt;
+  line-height: 1.38;
+  color: #111111;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* Section & Titlerule */
