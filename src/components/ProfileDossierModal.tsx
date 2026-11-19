@@ -56,9 +56,9 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
         {/* Modal Top Bar */}
         <div className="dossier-modal-top font-mono">
           <div className="dossier-modal-header-meta">
-            <span className="dossier-index-badge">[ 01 // PROFILE ]</span>
+            <span className="dossier-index-badge">[ 01 // RESUME ]</span>
             <span className="dossier-meta-sep">//</span>
-            <span className="dossier-meta-tag">FIELD BRIEF &amp; RESUME DOSSIER</span>
+            <span className="dossier-meta-tag">CURRICULUM VITAE &amp; FIELD DOSSIER</span>
           </div>
           <button
             onClick={onClose}
@@ -78,7 +78,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               <h3 id="profile-dossier-title" className="dossier-title font-display">
                 Software Developer &amp; Builder.
               </h3>
-              <p className="dossier-tagline">
+              <p className="dossier-tagline font-serif">
                 “Building mobile apps, web extensions, and practical developer tools.”
               </p>
             </div>
@@ -112,47 +112,214 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               </div>
             </div>
 
-            {/* Section 1: Executive Dossier */}
+            {/* Section 1: Professional Summary */}
             <div className="dossier-section">
               <h4 className="dossier-section-title font-mono">
-                <span className="dossier-sec-num">[01]</span> EXECUTIVE SUMMARY
+                <span className="dossier-sec-num">[01]</span> PROFESSIONAL SUMMARY
               </h4>
               <p className="profile-dossier-p">
-                Computer Science student at Universitas Diponegoro and software developer focused on mobile engineering (Flutter/Dart), web extensions, and developer tooling. Experienced in building offline-first systems, clean state architectures, and practical tools that solve real operational problems.
+                Computer Science student at Universitas Diponegoro and software developer focused on <strong>mobile engineering</strong> (Flutter/Dart), <strong>web extensions</strong>, and <strong>developer tooling</strong>. Experienced in building <strong>offline-first systems</strong>, clean state architectures, and practical tools that solve real operational problems.
               </p>
             </div>
 
-            {/* Section 2: Background & Selected Work */}
+            {/* Section 2: Education */}
             <div className="dossier-section">
               <h4 className="dossier-section-title font-mono">
-                <span className="dossier-sec-num">[02]</span> BACKGROUND &amp; SELECTED WORK
+                <span className="dossier-sec-num">[02]</span> EDUCATION
               </h4>
-              <p className="profile-dossier-p">
-                Experienced in mobile architecture with Flutter (Lapor FSM at UP2TI Undip, NoteCraft musical education game, and DipoFeed offline-first cattle feed calculator with FPP Undip and ACIAR). Built AI computer vision web solutions at DBS Foundation Coding Camp (AWARE), as well as open developer extensions like XHTML Reader Previewer and Kagu Voice AI (BYOK).
-              </p>
+              <div className="dossier-cv-entry">
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-title">Universitas Diponegoro</span>
+                  <span className="dossier-cv-meta">Semarang, Indonesia</span>
+                </div>
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-subtitle">Bachelor Degree in Computer Science · Cumulative GPA: 3.8/4.0</span>
+                  <span className="dossier-cv-meta">2023 &ndash; Present</span>
+                </div>
+                <ul className="dossier-cv-bullets">
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Relevant Coursework: Mobile Application Development, Software Architecture, Database Systems, Computer Networks, Operating Systems, Algorithms &amp; Data Structures.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            {/* Section 3: Etymology & Philosophy */}
+            {/* Section 3: Work Experience */}
             <div className="dossier-section">
               <h4 className="dossier-section-title font-mono">
-                <span className="dossier-sec-num">[03]</span> ETYMOLOGY &amp; PHILOSOPHY
+                <span className="dossier-sec-num">[03]</span> EXPERIENCE
               </h4>
-              <p className="profile-dossier-p">
-                Evolved from the Latin <em>Solivagant</em> (one who wanders alone), condensed into <em>Slvgnt</em>, and forged into <strong>Selvagant</strong> by infusing <strong>Selv</strong> (phonetic resonance with <em>Self</em>). A moniker capturing personal exploration across software craft and conscious learning.
-              </p>
+
+              <div className="dossier-cv-entry">
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-title">UP2TI Universitas Diponegoro</span>
+                  <span className="dossier-cv-meta">Semarang, Indonesia</span>
+                </div>
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-subtitle">Mobile Developer (Flutter)</span>
+                  <span className="dossier-cv-meta">Jan &ndash; Mei 2026</span>
+                </div>
+                <ul className="dossier-cv-bullets">
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Developed <em>Lapor FSM</em>, a mobile incident reporting app connecting campus students and staff directly with maintenance technicians.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Built offline-first draft caching and state management so reports submit reliably when campus Wi-Fi drops.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Integrated authenticated REST APIs with token management and client-side photo compression.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="dossier-cv-entry">
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-title">DipoFeed &mdash; FPP Undip &amp; ACIAR</span>
+                  <span className="dossier-cv-meta">Semarang, Indonesia</span>
+                </div>
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-subtitle">Lead Mobile Developer (Flutter)</span>
+                  <span className="dossier-cv-meta">Mar 2026 &ndash; Present</span>
+                </div>
+                <ul className="dossier-cv-bullets">
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Engineered an offline feed calculator for smallholder dairy farmers in partnership with the Australian Centre for International Agricultural Research (ACIAR).</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Implemented client-side least-cost ration balancing algorithms without needing an internet connection.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Designed high-contrast screens and large touch targets for outdoor sunlight visibility and one-handed use.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="dossier-cv-entry">
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-title">DBS Foundation Coding Camp</span>
+                  <span className="dossier-cv-meta">Remote</span>
+                </div>
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-subtitle">Front-End &amp; Machine Learning Cohort (AWARE)</span>
+                  <span className="dossier-cv-meta">Apr &ndash; Jun 2026</span>
+                </div>
+                <ul className="dossier-cv-bullets">
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Built an accessible computer vision web app for municipal waste categorization.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Integrated browser camera inference workflows with a responsive, lightweight user flow.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            {/* Section 4: Expedition Manifesto */}
+            {/* Section 4: Selected Projects */}
             <div className="dossier-section">
               <h4 className="dossier-section-title font-mono">
-                <span className="dossier-sec-num">[04]</span> EXPEDITION MANIFESTO
+                <span className="dossier-sec-num">[04]</span> SELECTED PROJECTS
               </h4>
-              <blockquote className="profile-dossier-quote">
-                “Menyusuri daerah yang tak terjamah indra sejarah, tak terjamah pengalaman. Sebagian waktu berusaha, sebagian waktu menyesali keputusan, hingga tersadar bahwa penyesalan itu sia-sia sambil mengingat alasan kita memulainya. Perjalanan ini bukan sekadar tentang sampai di puncak tujuan, melainkan proses memaknai tiap keheningan, rintangan, dan keteguhan batin di sepanjang lintasan tapak.”
-              </blockquote>
-              <cite className="profile-dossier-cite font-mono">
-                — Syafiq Abiyyu Taqi · Catatan Refleksi Eksplorasi
-              </cite>
+
+              <div className="dossier-cv-entry">
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-title">XHTML Reader Previewer</span>
+                  <span className="dossier-cv-meta">Nov 2026 &ndash; Present</span>
+                </div>
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-subtitle">VS Code &amp; Antigravity Extension</span>
+                  <span className="dossier-cv-meta">Open Source</span>
+                </div>
+                <ul className="dossier-cv-bullets">
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Authored an open-source VS Code and Antigravity extension for instant EPUB and XHTML publication previewing.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Built two reading modes: continuous vertical scroll and paginated multi-column book layout with live TOC navigation.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Handled in-memory ZIP extraction and anchored footnote popovers with zero external runtime dependencies.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="dossier-cv-entry">
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-title">NoteCraft</span>
+                  <span className="dossier-cv-meta">Mar 2026</span>
+                </div>
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-subtitle">Interactive Music Education Mobile Game</span>
+                  <span className="dossier-cv-meta">Android</span>
+                </div>
+                <ul className="dossier-cv-bullets">
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Developed an interactive Flutter music education game with real-time pitch feedback and rhythm drills.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Engineered a low-latency audio synthesis pipeline for fast sound response across Android devices.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="dossier-cv-entry">
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-title">Kagu Voice AI</span>
+                  <span className="dossier-cv-meta">Agu &ndash; Sep 2026</span>
+                </div>
+                <div className="dossier-cv-row">
+                  <span className="dossier-cv-subtitle">BYOK Browser Voice Assistant Extension</span>
+                  <span className="dossier-cv-meta">Chrome &amp; Edge</span>
+                </div>
+                <ul className="dossier-cv-bullets">
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Created a lightweight browser extension with Bring-Your-Own-Key (BYOK) architecture for Gemini Live and OpenAI Whisper APIs.</span>
+                  </li>
+                  <li className="dossier-cv-bullet">
+                    <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                    <span>Built voice-to-text input with live transcription and on-device API key storage.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Section 5: Technical Skills */}
+            <div className="dossier-section">
+              <h4 className="dossier-section-title font-mono">
+                <span className="dossier-sec-num">[05]</span> TECHNICAL SKILLS &amp; CAPABILITIES
+              </h4>
+              <ul className="dossier-cv-bullets font-mono" style={{ fontSize: '0.8rem' }}>
+                <li className="dossier-cv-bullet">
+                  <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                  <div><strong>LANGUAGES:</strong> Dart, TypeScript, JavaScript, HTML5/CSS3, Python, Node.js</div>
+                </li>
+                <li className="dossier-cv-bullet">
+                  <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                  <div><strong>FRAMEWORKS &amp; TOOLS:</strong> Flutter, React 19, Vite, WXT (Web Extensions), VS Code Extension API, Git, Linux, Hive, SQLite, REST APIs</div>
+                </li>
+                <li className="dossier-cv-bullet">
+                  <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                  <div><strong>ARCHITECTURE:</strong> Clean Architecture, Offline-First Systems, State Management (BLoC / Provider), Progressive Web Apps</div>
+                </li>
+                <li className="dossier-cv-bullet">
+                  <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
+                  <div><strong>SPOKEN LANGUAGES:</strong> Indonesian (Native), English (Professional Working Proficiency)</div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
