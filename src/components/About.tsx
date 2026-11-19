@@ -94,13 +94,13 @@ export const About: React.FC = () => {
 
           <p className="about-lead">
             {renderWords(
-              "I build mobile apps, web extensions, and practical tools. Most of what I make starts with a real problem: an offline feed calculator for rural dairy farmers, campus facility reporting without bureaucracy, or a code-editor EPUB previewer I built because reading raw translation chapters one by one got annoying."
+              "I build fullstack applications, practical tools, and mobile software. Most of what I make starts with a real problem: an offline feed calculator for rural dairy farmers, campus facility reporting with Elysia REST APIs, real-time computer vision fatigue screening, or an in-editor EPUB previewer I built because checking webnovel translation layouts one by one got annoying."
             )}
           </p>
 
           <p className="about-body">
             {renderWords(
-              "I like digging into systems from scratch and keeping code simple so the tool just works."
+              "I like connecting clean client-side interfaces with reliable backends, integrating applied AI models into everyday workflows, and keeping code simple so the tool just works."
             )}
           </p>
 
