@@ -88,15 +88,15 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               </div>
               <div className="dossier-spec-item">
                 <span className="dossier-spec-label">EDUCATION</span>
-                <span className="dossier-spec-val">CS @ Universitas Diponegoro (GPA 3.8)</span>
+                <span className="dossier-spec-val">Universitas Diponegoro (GPA 3.8/4.0)</span>
               </div>
               <div className="dossier-spec-item">
                 <span className="dossier-spec-label">FOCUS</span>
-                <span className="dossier-spec-val">Fullstack, Applied AI, &amp; Dev Tools</span>
+                <span className="dossier-spec-val">Fullstack · Applied AI · Dev Tools</span>
               </div>
               <div className="dossier-spec-item">
                 <span className="dossier-spec-label">LOCATION</span>
-                <span className="dossier-spec-val">Semarang, Central Java, ID</span>
+                <span className="dossier-spec-val">Semarang, Central Java, Indonesia</span>
               </div>
             </div>
 
@@ -220,11 +220,11 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               <div className="dossier-cv-entry">
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-title">XHTML Reader Previewer</span>
-                  <span className="dossier-cv-meta">Nov 2026 &ndash; Present</span>
+                  <span className="dossier-cv-meta">Open Source</span>
                 </div>
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-subtitle">VS Code &amp; Antigravity Extension</span>
-                  <span className="dossier-cv-meta">Open Source</span>
+                  <span className="dossier-cv-meta">Nov 2026 &ndash; Present</span>
                 </div>
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
@@ -245,11 +245,11 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               <div className="dossier-cv-entry">
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-title">NoteCraft</span>
-                  <span className="dossier-cv-meta">Mar 2026</span>
+                  <span className="dossier-cv-meta">Android</span>
                 </div>
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-subtitle">Interactive Music Education Mobile Game</span>
-                  <span className="dossier-cv-meta">Android</span>
+                  <span className="dossier-cv-meta">Mar 2026</span>
                 </div>
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
@@ -266,20 +266,20 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               <div className="dossier-cv-entry">
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-title">Kagu Voice AI</span>
-                  <span className="dossier-cv-meta">Aug &ndash; Sep 2026</span>
+                  <span className="dossier-cv-meta">Firefox &amp; Chrome</span>
                 </div>
                 <div className="dossier-cv-row">
                   <span className="dossier-cv-subtitle">BYOK Browser Voice Assistant Extension</span>
-                  <span className="dossier-cv-meta">Chrome &amp; Edge</span>
+                  <span className="dossier-cv-meta">Aug &ndash; Sep 2026</span>
                 </div>
                 <ul className="dossier-cv-bullets">
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Built a Chromium browser extension using WXT with a Bring-Your-Own-Key (BYOK) architecture for Gemini Live and OpenAI Whisper APIs.</span>
+                    <span>Built a browser extension for Firefox and Chrome using WXT with a Bring-Your-Own-Key (BYOK) architecture for Gemini Live and OpenAI Whisper APIs.</span>
                   </li>
                   <li className="dossier-cv-bullet">
                     <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                    <span>Supported voice-to-text transcription directly into active web fields while keeping API keys stored locally in the browser.</span>
+                    <span>Published on Firefox Add-ons with live speech-to-text transcription directly into active web fields and local API key storage.</span>
                   </li>
                 </ul>
               </div>
