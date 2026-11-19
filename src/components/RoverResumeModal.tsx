@@ -1,0 +1,307 @@
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import './RoverResumeModal.css';
+
+interface RoverResumeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onClose }) => {
+  // Close on Escape key & manage non-intrusive scroll boundaries
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('.rover-modal-body')) {
+        return;
+      }
+      e.preventDefault();
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('.rover-modal-body')) {
+        return;
+      }
+      e.preventDefault();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div
+      className="dossier-modal-backdrop is-stacked"
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => {
+        if (e.target === e.currentTarget) e.preventDefault();
+      }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="rover-resume-name"
+    >
+      <div className="rover-modal-container hairline-box">
+        {/* Modal Top Bar */}
+        <div className="rover-modal-top font-mono">
+          <div className="rover-modal-meta">
+            <span className="rover-index-badge">[ 01 // RESUME ]</span>
+            <span className="rover-meta-sep">//</span>
+            <span className="rover-meta-tag">BASE ROVER ATS TEMPLATE</span>
+          </div>
+
+          <div className="rover-modal-actions">
+            <a
+              href="/resume-syafiq-abiyyu-taqi.pdf"
+              download="Resume_Syafiq_Abiyyu_Taqi.pdf"
+              className="rover-download-btn cursor-target"
+              title="Download ATS Resume as PDF (Base Rover Template)"
+            >
+              <span className="rover-download-icon" aria-hidden="true">⤓</span>
+              <span>DOWNLOAD PDF</span>
+            </a>
+
+            <button
+              onClick={onClose}
+              className="rover-close-btn cursor-target"
+              aria-label="Close resume modal"
+              title="Close modal (Esc)"
+            >
+              <span>CLOSE [ESC]</span>
+              <span aria-hidden="true">✕</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Modal Body: Base Rover LaTeX Paper Sheet */}
+        <div className="rover-modal-body">
+          <article className="rover-sheet">
+            {/* Header: Name & Title (Left) + Contact Details (Right) */}
+            <header className="rover-header">
+              <div className="rover-header-left">
+                <h1 id="rover-resume-name" className="rover-name">
+                  Syafiq Abiyyu Taqi
+                </h1>
+                <div className="rover-subtitle">
+                  Software Developer &amp; Builder
+                </div>
+              </div>
+
+              <div className="rover-header-right">
+                <div>Email: <a href="mailto:syafiqabiyyutaqi123@gmail.com">syafiqabiyyutaqi123@gmail.com</a></div>
+                <div>Location: Semarang, Central Java, Indonesia</div>
+                <div>LinkedIn: <a href="https://linkedin.com/in/syafiq-abiyyu-taqi" target="_blank" rel="noopener noreferrer">linkedin.com/in/syafiq-abiyyu-taqi</a></div>
+                <div>GitHub: <a href="https://github.com/TaqiSyafiq" target="_blank" rel="noopener noreferrer">github.com/TaqiSyafiq</a></div>
+              </div>
+            </header>
+
+            {/* Section: Education */}
+            <section className="rover-section">
+              <h2 className="rover-section-title">Education</h2>
+              <div className="rover-titlerule" aria-hidden="true"></div>
+
+              <div className="rover-entry">
+                <div className="rover-entry-row">
+                  <div>
+                    <span className="rover-entry-primary">Universitas Diponegoro, Semarang</span>
+                    {' '}| <span className="rover-entry-secondary">B.S. in Computer Science</span>
+                  </div>
+                  <span className="rover-entry-date">2022 &ndash; Present</span>
+                </div>
+                <ul className="rover-bullets">
+                  <li>Cumulative GPA: 3.7+ / 4.00 &bull; Focus: Software Engineering &amp; Mobile Systems</li>
+                  <li>Relevant Coursework: Mobile Application Development, Software Architecture, Database Systems, Computer Networks, Operating Systems, Algorithms &amp; Data Structures.</li>
+                </ul>
+              </div>
+            </section>
+
+            {/* Section: Experience */}
+            <section className="rover-section">
+              <h2 className="rover-section-title">Experience</h2>
+              <div className="rover-titlerule" aria-hidden="true"></div>
+
+              {/* UP2TI Undip */}
+              <div className="rover-entry">
+                <div className="rover-entry-row">
+                  <span className="rover-entry-primary">UP2TI Universitas Diponegoro</span>
+                  <span className="rover-entry-date">Semarang, Indonesia</span>
+                </div>
+                <div className="rover-entry-row">
+                  <span className="rover-entry-secondary">Mobile Developer (Flutter)</span>
+                  <span className="rover-entry-date">2023 &ndash; 2024</span>
+                </div>
+                <ul className="rover-bullets">
+                  <li>Developed <em>Lapor FSM</em>, a mobile facility incident reporting system connecting students and campus administration with maintenance dispatch.</li>
+                  <li>Architected offline-first caching and state management to guarantee reliable report submissions across intermittent campus network connections.</li>
+                  <li>Integrated authenticated RESTful APIs with secure token management and client-side media upload compression.</li>
+                </ul>
+              </div>
+
+              {/* DipoFeed */}
+              <div className="rover-entry">
+                <div className="rover-entry-row">
+                  <span className="rover-entry-primary">DipoFeed &mdash; FPP Undip &amp; ACIAR</span>
+                  <span className="rover-entry-date">Semarang, Indonesia</span>
+                </div>
+                <div className="rover-entry-row">
+                  <span className="rover-entry-secondary">Lead Mobile Developer (Flutter)</span>
+                  <span className="rover-entry-date">2023 &ndash; 2024</span>
+                </div>
+                <ul className="rover-bullets">
+                  <li>Engineered an offline-first cattle feed formulation calculator for smallholder dairy farmers in partnership with the Australian Centre for International Agricultural Research (ACIAR).</li>
+                  <li>Implemented client-side mathematical least-cost ration balancing algorithms without relying on cloud or backend roundtrips.</li>
+                  <li>Designed a high-contrast tactile interface optimized for outdoor bright sunlight visibility and single-thumb field operation.</li>
+                </ul>
+              </div>
+
+              {/* DBS Foundation */}
+              <div className="rover-entry">
+                <div className="rover-entry-row">
+                  <span className="rover-entry-primary">DBS Foundation Coding Camp</span>
+                  <span className="rover-entry-date">Remote</span>
+                </div>
+                <div className="rover-entry-row">
+                  <span className="rover-entry-secondary">Front-End &amp; Machine Learning Cohort (AWARE)</span>
+                  <span className="rover-entry-date">2024</span>
+                </div>
+                <ul className="rover-bullets">
+                  <li>Built an accessible computer vision web application for intelligent municipal waste categorization.</li>
+                  <li>Integrated browser camera inference workflows with a responsive editorial interface and clean progressive enhancement.</li>
+                </ul>
+              </div>
+            </section>
+
+            {/* Section: Selected Projects */}
+            <section className="rover-section">
+              <h2 className="rover-section-title">Selected Projects</h2>
+              <div className="rover-titlerule" aria-hidden="true"></div>
+
+              {/* XHTML Reader */}
+              <div className="rover-entry">
+                <div className="rover-entry-row">
+                  <div>
+                    <span className="rover-entry-primary">XHTML Reader Previewer</span>
+                    {' '}| <a href="https://github.com/intxdv/XHTML-Reader-Previewer" target="_blank" rel="noopener noreferrer" className="rover-entry-link">github.com/intxdv/XHTML-Reader-Previewer</a>
+                  </div>
+                  <span className="rover-entry-date">2024</span>
+                </div>
+                <ul className="rover-bullets">
+                  <li>Authored an open-source VS Code and Antigravity IDE extension for instantaneous EPUB and XHTML publication previewing.</li>
+                  <li>Engineered dual reading engines (fluid continuous scroll and book-like pagination) with a live chapter TOC navigation drawer.</li>
+                  <li>Implemented in-memory ZIP package decompression and footnote popovers with zero runtime external dependencies.</li>
+                </ul>
+              </div>
+
+              {/* NoteCraft */}
+              <div className="rover-entry">
+                <div className="rover-entry-row">
+                  <div>
+                    <span className="rover-entry-primary">NoteCraft</span>
+                    {' '}| <span className="rover-entry-secondary">Interactive Music Education Mobile Game</span>
+                  </div>
+                  <span className="rover-entry-date">2024</span>
+                </div>
+                <ul className="rover-bullets">
+                  <li>Developed an interactive Flutter music education mobile game featuring real-time pitch feedback and progressive rhythm drills.</li>
+                  <li>Engineered a lightweight audio synthesis pipeline ensuring low-latency sound triggering across Android hardware.</li>
+                </ul>
+              </div>
+
+              {/* Kagu Voice AI */}
+              <div className="rover-entry">
+                <div className="rover-entry-row">
+                  <div>
+                    <span className="rover-entry-primary">Kagu Voice AI</span>
+                    {' '}| <span className="rover-entry-secondary">BYOK Browser Voice Assistant Extension</span>
+                  </div>
+                  <span className="rover-entry-date">2024</span>
+                </div>
+                <ul className="rover-bullets">
+                  <li>Created a lightweight browser extension with Bring-Your-Own-Key (BYOK) architecture for Gemini Live and OpenAI Whisper APIs.</li>
+                  <li>Streamlined hands-free voice transcription, instantaneous context summarization, and local key vault encryption.</li>
+                </ul>
+              </div>
+            </section>
+
+            {/* Section: Skills & Interests */}
+            <section className="rover-section">
+              <h2 className="rover-section-title">Technical Skills &amp; Interests</h2>
+              <div className="rover-titlerule" aria-hidden="true"></div>
+
+              <div className="rover-skill-line">
+                <span className="rover-skill-label">Languages:</span>
+                <span>Dart, TypeScript, JavaScript, HTML5/CSS3, Python, Node.js</span>
+              </div>
+              <div className="rover-skill-line">
+                <span className="rover-skill-label">Frameworks &amp; Tooling:</span>
+                <span>Flutter, React, Vite, WXT (Web Extensions), VS Code Extension API, Git, Linux, Hive, SQLite, REST APIs</span>
+              </div>
+              <div className="rover-skill-line">
+                <span className="rover-skill-label">Architecture:</span>
+                <span>Clean Architecture, Offline-First Systems, State Management (BLoC / Provider), Progressive Web Apps</span>
+              </div>
+              <div className="rover-skill-line">
+                <span className="rover-skill-label">Spoken Languages:</span>
+                <span>Indonesian (Native), English (Professional Working Proficiency)</span>
+              </div>
+            </section>
+          </article>
+        </div>
+
+        {/* Modal Bottom Bar */}
+        <div className="rover-modal-footer">
+          <div className="rover-footer-colophon">
+            Template: <a href="https://github.com/subidit/rover-resume" target="_blank" rel="noopener noreferrer">Rover Resume (Base Rover)</a> by Subidit
+          </div>
+          <div className="rover-footer-actions">
+            <a
+              href="https://github.com/TaqiSyafiq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rover-footer-link-btn"
+            >
+              <span>GITHUB</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a
+              href="https://linkedin.com/in/syafiq-abiyyu-taqi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rover-footer-link-btn"
+            >
+              <span>LINKEDIN</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a
+              href="/resume-syafiq-abiyyu-taqi.pdf"
+              download="Resume_Syafiq_Abiyyu_Taqi.pdf"
+              className="rover-download-btn cursor-target"
+            >
+              <span className="rover-download-icon" aria-hidden="true">⤓</span>
+              <span>DOWNLOAD PDF</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
