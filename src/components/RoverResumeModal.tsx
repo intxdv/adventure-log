@@ -149,9 +149,9 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                   <span className="rover-entry-date">2023 &ndash; 2024</span>
                 </div>
                 <ul className="rover-bullets">
-                  <li>Developed <em>Lapor FSM</em>, a mobile facility incident reporting system connecting students and campus administration with maintenance dispatch.</li>
-                  <li>Architected offline-first caching and state management to guarantee reliable report submissions across intermittent campus network connections.</li>
-                  <li>Integrated authenticated RESTful APIs with secure token management and client-side media upload compression.</li>
+                  <li>Developed <em>Lapor FSM</em>, a mobile incident reporting app connecting campus students and staff directly with maintenance technicians.</li>
+                  <li>Built offline-first draft caching and state management so reports submit reliably when campus Wi-Fi drops.</li>
+                  <li>Integrated authenticated REST APIs with token management and client-side photo compression.</li>
                 </ul>
               </div>
 
@@ -166,9 +166,9 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                   <span className="rover-entry-date">2023 &ndash; 2024</span>
                 </div>
                 <ul className="rover-bullets">
-                  <li>Engineered an offline-first cattle feed formulation calculator for smallholder dairy farmers in partnership with the Australian Centre for International Agricultural Research (ACIAR).</li>
-                  <li>Implemented client-side mathematical least-cost ration balancing algorithms without relying on cloud or backend roundtrips.</li>
-                  <li>Designed a high-contrast tactile interface optimized for outdoor bright sunlight visibility and single-thumb field operation.</li>
+                  <li>Engineered an offline feed calculator for smallholder dairy farmers in partnership with the Australian Centre for International Agricultural Research (ACIAR).</li>
+                  <li>Implemented client-side least-cost ration balancing algorithms without needing an internet connection.</li>
+                  <li>Designed high-contrast screens and large touch targets for outdoor sunlight visibility and one-handed use.</li>
                 </ul>
               </div>
 
@@ -183,8 +183,8 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                   <span className="rover-entry-date">2024</span>
                 </div>
                 <ul className="rover-bullets">
-                  <li>Built an accessible computer vision web application for intelligent municipal waste categorization.</li>
-                  <li>Integrated browser camera inference workflows with a responsive editorial interface and clean progressive enhancement.</li>
+                  <li>Built an accessible computer vision web app for municipal waste categorization.</li>
+                  <li>Integrated browser camera inference workflows with a responsive, lightweight user flow.</li>
                 </ul>
               </div>
             </section>
@@ -204,9 +204,9 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                   <span className="rover-entry-date">2024</span>
                 </div>
                 <ul className="rover-bullets">
-                  <li>Authored an open-source VS Code and Antigravity IDE extension for instantaneous EPUB and XHTML publication previewing.</li>
-                  <li>Engineered dual reading engines (fluid continuous scroll and book-like pagination) with a live chapter TOC navigation drawer.</li>
-                  <li>Implemented in-memory ZIP package decompression and footnote popovers with zero runtime external dependencies.</li>
+                  <li>Authored an open-source VS Code and Antigravity extension for instant EPUB and XHTML publication previewing.</li>
+                  <li>Built two reading modes: continuous vertical scroll and paginated multi-column book layout with live TOC navigation.</li>
+                  <li>Handled in-memory ZIP extraction and anchored footnote popovers with zero external runtime dependencies.</li>
                 </ul>
               </div>
 
@@ -220,8 +220,8 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                   <span className="rover-entry-date">2024</span>
                 </div>
                 <ul className="rover-bullets">
-                  <li>Developed an interactive Flutter music education mobile game featuring real-time pitch feedback and progressive rhythm drills.</li>
-                  <li>Engineered a lightweight audio synthesis pipeline ensuring low-latency sound triggering across Android hardware.</li>
+                  <li>Developed an interactive Flutter music education game with real-time pitch feedback and rhythm drills.</li>
+                  <li>Engineered a low-latency audio synthesis pipeline for fast sound response across Android devices.</li>
                 </ul>
               </div>
 
@@ -236,7 +236,7 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                 </div>
                 <ul className="rover-bullets">
                   <li>Created a lightweight browser extension with Bring-Your-Own-Key (BYOK) architecture for Gemini Live and OpenAI Whisper APIs.</li>
-                  <li>Streamlined hands-free voice transcription, instantaneous context summarization, and local key vault encryption.</li>
+                  <li>Built voice-to-text input with live transcription and on-device API key storage.</li>
                 </ul>
               </div>
             </section>

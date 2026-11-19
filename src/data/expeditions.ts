@@ -20,15 +20,15 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/lapor-fsm.webp',
     dossier: {
       englishSummary:
-        'A centralized digital reporting and incident management mobile application developed to streamline grievance resolution and campus facility maintenance for the FSM Undip academic community.',
+        'A mobile reporting and maintenance management application for the FSM Undip campus community to submit and track facility issues.',
       nature: 'Internship',
       isGroupProject: true,
       groupRole: 'Mobile Engineer & UI/UX Designer (Supervisor & Technician Modules)',
       impact: [
-        'Empowered campus community transparency and psychological safety by bridging students and staff directly to facility technicians without bureaucratic friction or fear of reporting.',
-        'Designed and implemented Clean Architecture in Flutter with strict separation of concerns, ensuring high testability and reliable offline report drafting.',
-        'Engineered high-throughput REST microservices using Elysia and Bun, achieving sub-millisecond response times for campus incident dispatch.',
-        'Accelerated critical campus facility remediation from weeks to days, safeguarding the daily learning environment for 5,000+ faculty students.',
+        'Connected students and faculty staff directly to maintenance technicians, speeding up facility repairs without bureaucratic delays.',
+        'Structured the Flutter app with Clean Architecture and local caching so users can draft reports offline when campus Wi-Fi drops.',
+        'Built REST API endpoints with Elysia and Bun for fast incident dispatch.',
+        'Helped maintenance teams resolve critical campus facility tickets in days rather than weeks.',
       ],
       learnings: [
         'Mastered end-to-end type-safe API contract design between Elysia and Flutter clients with zero schema drift.',
@@ -58,18 +58,18 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/dipofeed.webp',
     dossier: {
       englishSummary:
-        'A specialized agricultural mobile application engineered to assist Indonesian dairy cattle farmers in formulating and evaluating nutritionally balanced feed rations using local forage databases.',
+        'An offline-first mobile app that helps Indonesian dairy farmers calculate balanced cattle feed rations using local forage options.',
       nature: 'Work',
       isGroupProject: true,
       groupRole: 'Mobile Developer & UI Engineer',
       impact: [
-        'Democratized precision animal nutrition for rural dairy smallholders in Central Java, optimizing ration cost-efficiency and boosting farm yields without reliance on costly commercial feeds.',
-        'Translated complex animal nutrition equations into an intuitive, offline-first mobile calculator using Flutter.',
-        'Enabled rural dairy farmers to optimize ration cost-efficiency directly in remote fields without requiring persistent cellular reception.',
+        'Helped smallholder dairy farmers in Central Java formulate balanced rations from local forage, lowering feed costs without requiring commercial feed mixes.',
+        'Translated animal nutrition equations into an offline calculator in Flutter so farmers can run calculations right in the field.',
+        'Designed high-contrast screens and large touch targets for outdoor sunlight visibility and one-handed phone use.',
       ],
       learnings: [
-        'Learned how to translate intricate domain-specific mathematical models into reactive, foolproof state management.',
-        'Gained firsthand empathy for agrarian user constraints, prioritizing large touch targets and high-contrast outdoor readability.',
+        'Learned how to turn mathematical nutrition formulas into simple, reactive mobile state management.',
+        'Gained firsthand empathy for agrarian users, prioritizing clear offline feedback over complex animations.',
       ],
       mediaLinks: [
         { label: 'GitHub Repository', url: 'https://github.com/leanderarya/dipo-feed' },
@@ -95,18 +95,18 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/aware.webp',
     dossier: {
       englishSummary:
-        'An occupational safety screening platform that detects worker fatigue in under 30 seconds by combining real-time computer vision facial landmark tracking with daily health self-assessments.',
+        'A pre-shift fatigue screening tool that uses computer vision and self-reported health questions to flag worker drowsiness in under 30 seconds.',
       nature: 'Course Capstone Project',
       isGroupProject: true,
       groupRole: 'Computer Vision Engineer',
       impact: [
-        'Championed worker dignity and proactive industrial safety by creating an empathetic, non-invasive fatigue screening tool that prevents workplace injuries before shifts begin.',
-        'Implemented real-time facial landmark telemetry with MediaPipe to calculate Eye Aspect Ratio (EAR) and Mouth Aspect Ratio (MAR) for automated drowsiness and yawning detection.',
-        'Built a rapid, pre-shift fit-to-work screening pipeline executing in under 30 seconds per worker on commodity webcam hardware.',
+        'Built a fast pre-shift screening tool to check worker drowsiness and help prevent fatigue-related factory accidents.',
+        'Tracked facial landmarks with MediaPipe to calculate Eye Aspect Ratio (EAR) and Mouth Aspect Ratio (MAR) for real-time blink and yawn detection.',
+        'Ran the screening pipeline on standard laptop webcams without requiring specialized infrared cameras.',
       ],
       learnings: [
-        'Deepened practical knowledge of edge computer vision optimization and dynamic threshold calibration under erratic industrial lighting.',
-        'Learned the critical importance of human-centered AI design when communicating safety risk indicators to frontline workers without stigma.',
+        'Calibrated face detection thresholds to handle uneven factory lighting and motion blur.',
+        'Learned to present safety assessment results clearly and supportively to workers without making them feel penalized.',
       ],
       mediaLinks: [
         { label: 'GitHub Repository', url: 'https://github.com/sekarwidhastri/AWARE' },
@@ -132,14 +132,14 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/kagu.webp',
     dossier: {
       englishSummary:
-        'A modern, privacy-focused browser extension that transforms spoken ideas into formatted text directly inside any active web input field using Google Gemini and Whisper API with a Bring-Your-Own-Key model.',
+        'A lightweight browser extension that transcribes speech into formatted text inside any active input field using Google Gemini and Whisper API with a Bring-Your-Own-Key model.',
       nature: 'Self-initiated',
       isGroupProject: false,
       groupRole: 'Solo Creator & Fullstack Extension Engineer',
       impact: [
-        'Empowered developers, writers, and individuals with typing fatigue or motor strain with a voice-first productivity workflow, removing barriers to digital expression.',
-        'Engineered a zero-friction voice capture pipeline that injects transcribed text directly into active browser DOM input elements while preserving cursor position.',
-        'Architected a Bring-Your-Own-Key (BYOK) privacy model that eliminates central data tracking and provides cost-free transcription via Gemini Flash.',
+        'Helped writers and developers speak their text directly into web forms without repetitive typing strain.',
+        'Injected speech-to-text transcriptions directly into focused web fields while keeping the original cursor position intact.',
+        'Adopted a Bring-Your-Own-Key (BYOK) setup so API keys stay stored locally in the browser with no central server tracking.',
       ],
       learnings: [
         'Mastered modern WebExtension development using the WXT framework and navigating cross-browser content-script isolation constraints.',
@@ -169,18 +169,18 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/notecraft.webp',
     dossier: {
       englishSummary:
-        'An interactive music education mobile platform designed to make fundamental music theory intuitive through gamified rhythm training, interactive pitch canvas, and tactile audio feedback.',
+        'A mobile music game built with Flutter that teaches fundamental rhythm and pitch recognition through interactive drills and real-time audio feedback.',
       nature: 'Work',
       isGroupProject: true,
       groupRole: 'Mobile & Interactive Audio Engineer',
       impact: [
-        'Made foundational music literacy and rhythmic training accessible to young learners everywhere through gamified acoustic interactions, lowering barriers to musical education.',
-        'Developed interactive custom canvas components in Flutter for real-time rhythm and pitch tapping with negligible latency.',
-        'Constructed a lightweight leaderboard and user progression backend with Elysia and Bun to sustain student motivation.',
+        'Created gamified rhythm challenges and an interactive pitch canvas to make basic music theory approachable for beginners.',
+        'Built custom canvas components in Flutter for low-latency rhythm tapping and note scoring.',
+        'Constructed a lightweight student progression backend with Elysia and Bun.',
       ],
       learnings: [
-        'Gained deep technical proficiency in low-latency mobile audio buffer handling and coordinating game tick loops with Flutter rendering cycles.',
-        'Learned effective modular collaboration in cross-functional agile teams managing simultaneous mobile and backend lifecycles.',
+        'Managed low-latency mobile audio buffers and synchronized game loops with Flutter render frames.',
+        'Collaborated across mobile and backend tasks in a fast-paced development sprint.',
       ],
       mediaLinks: [
         { label: 'GitHub Repository', url: 'https://github.com/Note-Craft-Project/note-craft' },
@@ -206,18 +206,18 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/baca-di-teras.webp',
     dossier: {
       englishSummary:
-        'A comprehensive public library automation deployment that digitized book cataloging, member registration, and book loans for rural community reading rooms in Teras District, Boyolali.',
+        'A digital library setup that digitized book cataloging, member registration, and book loans for rural community reading rooms in Teras District, Boyolali.',
       nature: 'Community Initiative',
       isGroupProject: true,
       groupRole: 'Systems Architect & Fullstack Engineer',
       impact: [
-        'Democratized public knowledge and reading access in rural Boyolali by modernizing community libraries with digital cataloging, empowering local village youth and educators.',
-        'Configured and deployed an open-source SLiMS (Senayan Library Management System) instance tailored for rural public service operations.',
-        'Migrated hundreds of legacy physical card catalogs into an online searchable OPAC (Open Public Access Catalog), empowering local youth and educators.',
+        'Set up a digital library catalog in rural Boyolali so local students and teachers can find and borrow books without paper card delays.',
+        'Configured an open-source SLiMS (Senayan Library Management System) installation tailored for local volunteer librarians.',
+        'Migrated physical card catalog records into a searchable web catalog.',
       ],
       learnings: [
-        'Learned how to adapt and maintain open-source software within resource-constrained municipal IT infrastructure.',
-        'Strengthened civic user onboarding skills, translating technical database workflows into clear, non-technical operational manuals for local volunteers.',
+        'Learned to deploy and maintain open-source software on limited community IT hardware.',
+        'Wrote simple operational guides for local volunteers who were not tech-savvy.',
       ],
       mediaLinks: [
         { label: 'GitHub Repository', url: 'https://github.com/baca-di-teras/baca-di-teras' },
@@ -243,18 +243,18 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/orv-translation.webp',
     dossier: {
       englishSummary:
-        'A fan-driven digital editorial and typesetting project publishing an Indonesian translation of the webnovel "Omniscient Reader’s Viewpoint" packaged into an elegant, standards-compliant EPUB3 edition.',
+        'A fan translation and digital typesetting project publishing an Indonesian edition of "Omniscient Reader’s Viewpoint" in standards-compliant EPUB3.',
       nature: 'Self-initiated',
       isGroupProject: false,
       groupRole: 'Solo Editorial Typesetter & Translator',
       impact: [
-        'Promoted grassroots literary access and inclusive storytelling by offering a high-grade, accessible Indonesian translation to thousands of speculative fiction fans.',
-        'Crafted semantic, clean HTML5/CSS stylesheets calibrated specifically for optical contrast and comfortable long-form reading on e-ink devices.',
-        'Engineered standards-compliant EPUB3 files with interactive footnotes, structured table of contents, and responsive chapter typography.',
+        'Translated novel chapters into Indonesian and packaged them into clean EPUB3 files for readers who prefer e-ink devices.',
+        'Wrote custom HTML5/CSS stylesheets calibrated for high contrast and comfortable long-form reading on digital screens.',
+        'Added interactive footnotes, a linked table of contents, and responsive chapter layout.',
       ],
       learnings: [
-        'Mastered micro-typography principles including kerning, leading, typographic hierarchy, and cross-platform e-reader CSS rendering quirks.',
-        'Cultivated aesthetic restraint and rigorous attention to linguistic precision in large-scale literary projects.',
+        'Learned micro-typography details like kerning, leading hierarchy, and e-reader rendering differences across devices.',
+        'Maintained consistency across hundreds of thousands of words in a multi-volume webnovel translation.',
       ],
       mediaLinks: [
         { label: 'GitHub Repository', url: 'https://github.com/intxdv/orv-id-translation' },
@@ -280,19 +280,19 @@ export const initialExpeditions: Expedition[] = [
     image: '/images/expeditions/xhtml-reader.png',
     dossier: {
       englishSummary:
-        'A modern, feature-rich XHTML and EPUB live previewer extension for VS Code and Google Antigravity 2.0 featuring dual reading modes (continuous scroll & paginated), hierarchical TOC navigation, and anchored footnote popovers.',
+        'An XHTML and EPUB live previewer extension for VS Code and Google Antigravity 2.0 with continuous scroll and paginated reading modes, live TOC navigation, and anchored footnote popovers.',
       nature: 'Self-initiated',
       isGroupProject: false,
       groupRole: 'Solo Creator & Extension Engineer',
       impact: [
-        'Built a zero-friction reading environment for eBook editors, translators, and typesetters by rendering live XHTML and binary .epub archives directly inside the editor without external reader apps.',
-        'Engineered dual reading mechanics: web-like continuous scroll with natural gesture transitions, and a clean paginated multi-column book layout.',
-        'Designed anchored footnote and noteref popovers with precise pointer carets, allowing instant inspection of translation notes without losing the reader’s scroll position.',
-        'Integrated as a Google Antigravity 2.0 native plugin, providing an auxiliary pane sidecar and autonomous MCP tools (xhtml_reader_mcp) for agentic document exploration.',
+        'Rendered live XHTML chapters and binary .epub archives directly in the editor, eliminating the need to export and open external reader apps during translation or editing.',
+        'Built two distinct reading modes: smooth vertical continuous scroll, and a paginated multi-column book layout.',
+        'Engineered anchored footnote popovers with clean arrow carets so readers can check translation notes without losing their reading place.',
+        'Packaged as a native Google Antigravity 2.0 plugin with an auxiliary pane sidecar and MCP tools for agentic inspection.',
       ],
       learnings: [
-        'Mastered VS Code Webview API, state persistence across editor tabs, and binary EPUB archive stream parsing using JSZip.',
-        'Explored autonomous agent tooling design by bridging webview previewers into the Model Context Protocol (MCP) ecosystem.',
+        'Worked extensively with the VS Code Webview API, state persistence across editor tabs, and binary EPUB archive stream parsing using JSZip.',
+        'Designed autonomous agent tools bridging webview previews into the Model Context Protocol (MCP).',
       ],
       mediaLinks: [
         { label: 'GitHub Repository', url: 'https://github.com/intxdv/XHTML-Reader-Previewer' },
