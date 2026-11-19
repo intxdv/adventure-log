@@ -293,15 +293,15 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               <ul className="dossier-cv-bullets font-mono" style={{ fontSize: '0.8rem' }}>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                  <div><strong>LANGUAGES:</strong> Dart, TypeScript, JavaScript, HTML5/CSS3, Python, Node.js</div>
+                  <div><strong>LANGUAGES:</strong> TypeScript, Dart, Python, JavaScript, HTML5/CSS3, SQL</div>
                 </li>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                  <div><strong>FRAMEWORKS &amp; TOOLS:</strong> Flutter, React 19, Vite, WXT (Web Extensions), VS Code Extension API, MediaPipe, Git, Linux, SQLite, REST APIs</div>
+                  <div><strong>FRAMEWORKS &amp; TOOLS:</strong> Flutter, React 19, Vite, Elysia (Bun), SQLite, WXT (Web Extensions), VS Code Extension API, MediaPipe, REST APIs, Git</div>
                 </li>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                  <div><strong>ARCHITECTURE:</strong> Clean Architecture, Offline-First Systems, State Management (BLoC / Provider), Progressive Web Apps</div>
+                  <div><strong>ARCHITECTURE:</strong> Clean Architecture, Offline-First Systems, Client-Server Architecture, State Management (BLoC / Riverpod / React Hooks)</div>
                 </li>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
