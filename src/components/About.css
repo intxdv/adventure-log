@@ -98,7 +98,7 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: min(clamp(500px, 40vw, 720px), 76vh) 1fr;
+  grid-template-columns: min(clamp(360px, 28vw, 440px), 58vh) 1fr;
   gap: clamp(2.5rem, 4.5vw, 5.5rem);
   align-items: center;
   width: 100%;
@@ -218,7 +218,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  max-width: min(clamp(440px, 35vw, 620px), 70vh);
+  max-width: min(clamp(360px, 28vw, 440px), 58vh);
   width: 100%;
   justify-self: start;
 }
@@ -226,7 +226,7 @@
 @media (max-width: 960px) {
   .field-card-wrapper {
     margin: 0 auto;
-    max-width: 440px;
+    max-width: min(290px, 78vw);
     width: 100%;
   }
 }
@@ -236,7 +236,7 @@
   position: relative;
   background-color: #FFFFFF;
   border: 1px solid var(--hairline-base);
-  padding: clamp(0.7rem, 1.2vw, 0.95rem) clamp(0.7rem, 1.2vw, 0.95rem) clamp(1.25rem, 2.2vw, 1.85rem);
+  padding: clamp(0.7rem, 1.2vw, 0.95rem) clamp(0.7rem, 1.2vw, 0.95rem) clamp(3.0rem, 5.2vw, 4.4rem);
   box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
   opacity: 0;
   will-change: opacity, transform;
@@ -290,21 +290,37 @@
   filter: contrast(1.04) brightness(1.01);
 }
 
-/* Clean in-photo TAKI mark on bottom-left sleeve (no dark gradient block) */
-.field-photo-callname {
+/* In-photo identity stamp on bottom-left sleeve */
+.field-photo-identity-stamp {
   position: absolute;
-  bottom: clamp(14px, 3%, 22px);
-  left: clamp(14px, 3%, 22px);
-  font-family: var(--font-display);
-  font-size: clamp(1.15rem, 1.8vw, 1.6rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  color: #FFFFFF;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 4px rgba(0, 0, 0, 0.8);
+  bottom: clamp(14px, 3.2%, 24px);
+  left: clamp(14px, 3.5%, 26px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   z-index: 5;
   pointer-events: none;
   user-select: none;
+}
+
+.field-photo-callname {
+  font-family: var(--font-display);
+  font-size: clamp(2.0rem, 3.2vw, 2.85rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 4px rgba(0, 0, 0, 0.85);
+}
+
+.field-photo-fullname {
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 0.95vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  margin-top: 6px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.95), 0 0 3px rgba(0, 0, 0, 0.85);
 }
 
 /* Fallback Container if Image Unloaded/Error */
@@ -793,7 +809,26 @@
   color: #E2E4DE;
 }
 
-/* Profile Dossier Modal Manifesto Block */
+/* Profile Dossier Modal Content Typography */
+.profile-dossier-p {
+  font-family: var(--font-body);
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.profile-dossier-quote {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--color-ink);
+  margin: 0 0 10px 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--color-olive);
+}
+
 .profile-dossier-manifesto {
   font-size: clamp(0.95rem, 1.25vw, 1.15rem);
   font-style: italic;
