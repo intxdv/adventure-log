@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './About.css';
-import { RoverResumeModal } from './RoverResumeModal';
+import { ProfileDossierModal } from './ProfileDossierModal';
 
 export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
@@ -119,8 +119,8 @@ export const About: React.FC = () => {
         </article>
       </div>
 
-      {/* Base Rover Resume Modal */}
-      <RoverResumeModal
+      {/* Profile & Resume Dossier Modal */}
+      <ProfileDossierModal
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
       />
