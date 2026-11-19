@@ -12,11 +12,11 @@ export interface FooterSocialLink {
 }
 
 export const FOOTER_NAV_LINKS: FooterNavLink[] = [
-  { index: '00', label: 'Expedition Hero', href: '#hero' },
-  { index: '01', label: 'Field Brief / Bio', href: '#about' },
-  { index: '02', label: 'Selected Expeditions', href: '#expeditions' },
-  { index: '03', label: 'Technical Capabilities', href: '#arsenal' },
-  { index: '04', label: 'Basecamp Dispatch', href: '#footer' },
+  { index: '00', label: 'Intro', href: '#hero' },
+  { index: '01', label: 'About', href: '#about' },
+  { index: '02', label: 'Works', href: '#expeditions' },
+  { index: '03', label: 'Skills', href: '#arsenal' },
+  { index: '04', label: 'Contact', href: '#footer' },
 ];
 
 export const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
@@ -28,17 +28,17 @@ export const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
 ];
 
 export const FOOTER_COLOPHON = {
-  tagline: 'Personal digital archive & software engineering field log by Selvagant.',
+  tagline: 'Personal digital log & software engineering journal by Syafiq Abiyyu Taqi.',
   typography: 'Lufga, Newsreader, JetBrains Mono.',
   stack: 'React 19 · TypeScript · Vite · Modular CSS.',
-  edition: 'Adventure Log Field Archive · Edition 2026.',
+  edition: 'Adventure Log · Edition 2026.',
 };
 
 export const MARQUEE_ITEMS: string[] = [
   'EXPLORE THE UNKNOWN',
   'CRAFT WITH PRECISION',
-  'CREATIVE DEVELOPER',
-  'MOBILE ARCHITECT',
+  'SOFTWARE DEVELOPER',
+  'BUILDER',
   'ADVENTURE LOG.',
   'SELVAGANT — THE WANDERING SELV',
   'QUIET ARCHITECTURE',

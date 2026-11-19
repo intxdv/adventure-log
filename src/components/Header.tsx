@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
           href="#hero"
           onClick={handleScrollToTop}
           className="notch-brand-anchor no-cursor-target"
-          title="Click to Return to Expedition Basecamp (Hero)"
+          title="Click to Return to Intro (Hero)"
         >
           {/* Default View: Editorial Wordmark */}
           <span className="notch-label-default">

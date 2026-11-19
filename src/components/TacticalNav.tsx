@@ -9,19 +9,19 @@ export interface NavSection {
 }
 
 const DEFAULT_SECTIONS: NavSection[] = [
-  { id: 'hero', index: '00', label: 'EXPEDITION HERO', alt: '280M' },
-  { id: 'about', index: '01', label: 'FIELD BRIEF / BIO', alt: '850M' },
-  { id: 'expeditions', index: '02', label: 'SELECTED EXPEDITIONS', alt: '1640M' },
-  { id: 'arsenal', index: '03', label: 'TECHNICAL CAPABILITIES', alt: '2280M' },
-  { id: 'footer', index: '04', label: 'BASECAMP DISPATCH', alt: '3142M' },
+  { id: 'hero', index: '00', label: 'INTRO', alt: '00' },
+  { id: 'about', index: '01', label: 'ABOUT', alt: '01' },
+  { id: 'expeditions', index: '02', label: 'WORKS', alt: '02' },
+  { id: 'arsenal', index: '03', label: 'SKILLS', alt: '03' },
+  { id: 'footer', index: '04', label: 'CONTACT', alt: '04' },
 ];
 
 const MOBILE_LABELS: Record<string, string> = {
-  hero: 'HERO',
-  about: 'FIELD BIO',
-  expeditions: 'EXPEDITIONS',
-  arsenal: 'ARSENAL',
-  footer: 'DISPATCH',
+  hero: 'INTRO',
+  about: 'ABOUT',
+  expeditions: 'WORKS',
+  arsenal: 'SKILLS',
+  footer: 'CONTACT',
 };
 
 export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = DEFAULT_SECTIONS }) => {
@@ -193,10 +193,10 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
     <>
       {/* Desktop Vertical Rail */}
       <nav className={`tactical-nav-rail ${activeId === 'about' ? 'theme-dark' : ''}`} aria-label="Expedition Sections">
-        {/* Altimeter Telemetry Header */}
+        {/* Reading Progress Telemetry Header */}
         <div className="tactical-nav-altimeter">
-          <span className="alt-label">ALT // ELEV</span>
-          <span className="alt-val">+{altimeter}M [{scrollPct}%]</span>
+          <span className="alt-label">PROGRESS</span>
+          <span className="alt-val">[{scrollPct}%]</span>
         </div>
 
         {/* Nav Items on the Vertical Ruler */}

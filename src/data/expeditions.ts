@@ -3,7 +3,7 @@ import type { Expedition } from '../types';
 export const initialExpeditions: Expedition[] = [
   {
     id: 'lapor-fsm',
-    indexNumber: 'EXP. 01 / 07',
+    indexNumber: 'EXP. 01 / 08',
     title: 'lapor fsm.',
     tagline: 'Because our community deserves a safer campus experience.',
     category: 'mobile',
@@ -41,7 +41,7 @@ export const initialExpeditions: Expedition[] = [
   },
   {
     id: 'dipofeed',
-    indexNumber: 'EXP. 02 / 07',
+    indexNumber: 'EXP. 02 / 08',
     title: 'dipofeed.',
     tagline: 'formula for the herds.',
     category: 'mobile',
@@ -78,7 +78,7 @@ export const initialExpeditions: Expedition[] = [
   },
   {
     id: 'aware',
-    indexNumber: 'EXP. 03 / 07',
+    indexNumber: 'EXP. 03 / 08',
     title: 'aware.',
     tagline: 'guardian before the shift.',
     category: 'ai-tools',
@@ -115,7 +115,7 @@ export const initialExpeditions: Expedition[] = [
   },
   {
     id: 'kagu',
-    indexNumber: 'EXP. 04 / 07',
+    indexNumber: 'EXP. 04 / 08',
     title: 'kagu (kata gua).',
     tagline: 'voice onto canvas.',
     category: 'ai-tools',
@@ -152,7 +152,7 @@ export const initialExpeditions: Expedition[] = [
   },
   {
     id: 'notecraft',
-    indexNumber: 'EXP. 05 / 07',
+    indexNumber: 'EXP. 05 / 08',
     title: 'note craft.',
     tagline: 'the rhythm in craft.',
     category: 'mobile',
@@ -189,7 +189,7 @@ export const initialExpeditions: Expedition[] = [
   },
   {
     id: 'baca-di-teras',
-    indexNumber: 'EXP. 06 / 07',
+    indexNumber: 'EXP. 06 / 08',
     title: 'baca di teras.',
     tagline: "Because Knowledge Should Be Within Everyone's Reach.",
     category: 'systems',
@@ -226,7 +226,7 @@ export const initialExpeditions: Expedition[] = [
   },
   {
     id: 'orv-translation',
-    indexNumber: 'EXP. 07 / 07',
+    indexNumber: 'EXP. 07 / 08',
     title: 'orv fan-translation.',
     tagline: 'chronicles of reader’s gaze.',
     category: 'editorial',
@@ -258,6 +258,41 @@ export const initialExpeditions: Expedition[] = [
       ],
       mediaLinks: [
         { label: 'GitHub Repository', url: 'https://github.com/intxdv/orv-id-translation' },
+      ],
+    },
+  },
+  {
+    id: 'xhtml-reader',
+    indexNumber: 'EXP. 08 / 08',
+    title: 'xhtml reader previewer.',
+    tagline: 'live epub preview inside code editors.',
+    category: 'systems',
+    categoryLabel: 'Developer Tooling · Extension',
+    year: '2026',
+    period: '2026',
+    role: 'Creator & Engineer',
+    status: 'Active',
+    stack: ['TypeScript', 'Extension API', 'XHTML', 'EPUB Previewer'],
+    summary: 'Ekstensi previewer XHTML dan EPUB terintegrasi untuk code editor, membantu editor dan penerjemah membaca serta menginspeksi chapter langsung dari workspace.',
+    featured: false,
+    repoUrl: 'https://github.com/TaqiSyafiq',
+    link: 'https://github.com/TaqiSyafiq',
+    image: '/images/expeditions/orv-translation.webp',
+    dossier: {
+      englishSummary:
+        'A dedicated XHTML & EPUB live preview extension engineered for code editors to streamline eBook typesetting, chapter inspection, and digital reading workflows without external readers.',
+      nature: 'Self-initiated',
+      isGroupProject: false,
+      groupRole: 'Solo Creator & Extension Engineer',
+      impact: [
+        'Eliminated workflow friction for digital book typesetters by rendering interactive XHTML previews and TOC structures directly inside modern code editors.',
+        'Engineered fast chapter parsing and standards-compliant EPUB document tree exploration in a lightweight sidecar viewer.',
+      ],
+      learnings: [
+        'Deepened knowledge of editor extension architectures, webview IPC communication, and digital publication standards.',
+      ],
+      mediaLinks: [
+        { label: 'GitHub Profile', url: 'https://github.com/TaqiSyafiq' },
       ],
     },
   },

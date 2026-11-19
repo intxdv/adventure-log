@@ -262,7 +262,7 @@ export const SelectedExpeditions: React.FC = () => {
           </div>
           <h2 className="swiss-main-title font-display">WORK</h2>
           <div className="swiss-header-right font-mono">
-            <span>SELECTED EXPEDITIONS</span>
+            <span>SELECTED WORKS</span>
             <span className="header-sep">//</span>
             <span className="count-tag">04 FEATURED</span>
           </div>

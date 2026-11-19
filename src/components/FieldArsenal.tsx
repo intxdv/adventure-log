@@ -75,9 +75,9 @@ export const FieldArsenal: React.FC = () => {
         {/* Section Header: Horizontal Tri-Column Alignment (Badge, Title, Telemetry) */}
         <header className="arsenal-header">
           <div className="arsenal-header-row">
-            {/* Left Column: Technical Capabilities Tag Badge */}
+            {/* Left Column: Skills Tag Badge */}
             <div className="arsenal-header-left">
-              <span className="tag-badge">TECHNICAL CAPABILITIES // 03 · CRAFT</span>
+              <span className="tag-badge">SKILLS // 03 · CAPABILITIES</span>
             </div>
 
             {/* Center Column: Technical Capabilities Headline & Tagline */}
@@ -86,7 +86,7 @@ export const FieldArsenal: React.FC = () => {
                 Technical Capabilities<span style={{ color: 'var(--color-olive)' }}>.</span>
               </h2>
               <p className="arsenal-header-tagline font-serif">
-                “Tactical toolchains & craft disciplines forged through production expeditions.”
+                “Practical toolchains &amp; engineering disciplines built through production projects.”
               </p>
             </div>
 
