@@ -43,7 +43,7 @@ export const FieldArsenal: React.FC = () => {
                 Skills &amp; Capabilities<span style={{ color: 'var(--color-olive)' }}>.</span>
               </h2>
               <p className="arsenal-header-tagline font-serif">
-                “Mobile architectures, developer tooling, and web systems built through real projects.”
+                “Fullstack engineering, applied AI, and developer tools built through real projects.”
               </p>
             </div>
 
