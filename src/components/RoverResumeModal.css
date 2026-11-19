@@ -204,11 +204,16 @@
 
 .rover-summary-p {
   font-size: 9.3pt;
-  line-height: 1.38;
+  line-height: 1.42;
   color: #111111;
-  max-width: 680px;
-  margin: 0 auto;
-  text-align: center;
+  text-align: left;
+  margin-top: 0.65rem;
+  margin-bottom: 0.25rem;
+}
+
+.rover-summary-p strong {
+  font-weight: 700;
+  color: #000000;
 }
 
 /* Section & Titlerule */

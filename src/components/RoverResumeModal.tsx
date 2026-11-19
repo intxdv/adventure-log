@@ -106,7 +106,7 @@ export const RoverResumeModal: React.FC<RoverResumeModalProps> = ({ isOpen, onCl
                 Semarang, Central Java, Indonesia
               </div>
               <p className="rover-summary-p">
-                Software developer building mobile apps, web extensions, and practical developer tools.
+                Computer Science student at Universitas Diponegoro and software developer focused on <strong>mobile engineering</strong> (Flutter/Dart), <strong>web extensions</strong>, and <strong>developer tooling</strong>. Experienced in building <strong>offline-first systems</strong>, clean state architectures, and practical tools that solve real operational problems.
               </p>
             </header>
 
