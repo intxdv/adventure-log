@@ -8,16 +8,16 @@ export const initialArsenal: ArsenalPillar[] = [
     title: 'fullstack & mobile engineering.',
     tagline: 'end-to-end web apps, clean mobile architectures, and reliable apis.',
     description:
-      'Building dependable client-server systems and cross-platform mobile apps. Focused on clean state management, type-safe REST APIs with Bun/Elysia, offline persistence with SQLite, and performant user interfaces.',
+      'Building dependable client-server systems and cross-platform mobile apps. Focused on clean state management, type-safe REST APIs with Bun/Elysia, database persistence with PostgreSQL & SQLite, and performant user interfaces.',
     skills: [
       { name: 'React & TypeScript', spec: 'Component architectures, hooks, and responsive frontend', highlight: true },
       { name: 'Flutter & Dart', spec: 'Building cross-platform mobile apps across Android and iOS', highlight: true },
       { name: 'REST API & Backend', spec: 'Setting up lightweight server endpoints with Elysia, Bun, and Node.js', highlight: true },
-      { name: 'Offline Storage & DB', spec: 'Relational data persistence using SQLite, Drift, and local caching', highlight: true },
+      { name: 'Relational DB & Offline Cache', spec: 'Relational data persistence with PostgreSQL, SQLite, Drift, and caching', highlight: true },
       { name: 'Web Animation with GSAP', spec: 'Scroll-triggered animations, page transitions, and timeline sequencing' },
       { name: 'Clean Architecture & State', spec: 'Separating presentation, domain logic, and state management (BLoC/Riverpod)' },
     ],
-    tools: ['React', 'TypeScript', 'Flutter', 'Dart', 'Elysia', 'Bun', 'SQLite', 'GSAP'],
+    tools: ['React', 'TypeScript', 'Flutter', 'Dart', 'Elysia', 'Bun', 'PostgreSQL', 'SQLite', 'GSAP'],
     image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop',
   },
   {

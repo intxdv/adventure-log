@@ -297,7 +297,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
                 </li>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
-                  <div><strong>FRAMEWORKS &amp; TOOLS:</strong> Flutter, React 19, Vite, Elysia (Bun), SQLite, WXT (Web Extensions), VS Code Extension API, MediaPipe, REST APIs, Git</div>
+                  <div><strong>FRAMEWORKS &amp; TOOLS:</strong> Flutter, React 19, Vite, Elysia (Bun), PostgreSQL, SQLite, WXT (Web Extensions), VS Code Extension API, MediaPipe, GSAP, REST APIs, Git</div>
                 </li>
                 <li className="dossier-cv-bullet">
                   <span className="dossier-cv-bullet-marker" aria-hidden="true">✦</span>
