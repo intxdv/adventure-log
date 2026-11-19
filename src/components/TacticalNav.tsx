@@ -10,7 +10,7 @@ export interface NavSection {
 
 const DEFAULT_SECTIONS: NavSection[] = [
   { id: 'hero', index: '00', label: 'INTRO', alt: '00' },
-  { id: 'about', index: '01', label: 'ABOUT', alt: '01' },
+  { id: 'about', index: '01', label: 'PROFILE', alt: '01' },
   { id: 'expeditions', index: '02', label: 'WORKS', alt: '02' },
   { id: 'arsenal', index: '03', label: 'SKILLS', alt: '03' },
   { id: 'footer', index: '04', label: 'CONTACT', alt: '04' },
@@ -18,7 +18,7 @@ const DEFAULT_SECTIONS: NavSection[] = [
 
 const MOBILE_LABELS: Record<string, string> = {
   hero: 'INTRO',
-  about: 'ABOUT',
+  about: 'PROFILE',
   expeditions: 'WORKS',
   arsenal: 'SKILLS',
   footer: 'CONTACT',

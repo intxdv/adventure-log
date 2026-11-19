@@ -110,7 +110,7 @@ export const About: React.FC = () => {
         <article className="about-article">
           <header>
             <div className="about-kicker font-mono">
-              <span className="about-kicker-tag">[ 01 // ABOUT ]</span>
+              <span className="about-kicker-tag">[ 01 // PROFILE ]</span>
             </div>
             
             <h2 id="about-heading" className="about-headline font-display">
@@ -138,7 +138,7 @@ export const About: React.FC = () => {
               aria-label="Open full Resume and Profile Dossier"
               title="Open full Resume and Profile Dossier"
             >
-              <span>[ RESUME · PROFILE ]</span>
+              <span>[ RESUME ]</span>
               <span className="about-btn-arrow" aria-hidden="true">↗</span>
             </button>
           </div>
