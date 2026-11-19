@@ -325,7 +325,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
         {/* Kolom Kiri: Judul Dinamis & Bio Editorial */}
         <div className="hero-left-col">
           <div className={`hero-meta-kicker font-mono ${hasStartedLoop ? 'is-visible' : ''}`}>
-            <span>[ 00 // EXPEDITION BASECAMP ]</span>
+            <span>[ 00 // INTRO ]</span>
           </div>
 
           <div className="hero-title-wrapper">
@@ -349,7 +349,7 @@ export const Hero: React.FC<HeroProps> = ({ isAppLoaded = true }) => {
           </div>
 
           <p className="hero-bio-paragraph">
-            A digital field journal by <strong>Selvagant (Taki)</strong> — <strong>Creative Developer &amp; Mobile Architect</strong> based in Central Java. Bridging analytical software engineering with tactile digital systems and organic exploration.
+            A digital log by <strong>Syafiq Abiyyu Taqi (Taki)</strong> — Software developer building functional apps and pragmatic tools. Driven by curiosity, clean systems, and turning real friction into working software.
           </p>
         </div>
       </div>
