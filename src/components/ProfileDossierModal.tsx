@@ -75,7 +75,7 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
         <div className="dossier-modal-body">
           <div className="dossier-modal-content">
             <div className="dossier-title-block">
-              <h3 id="profile-dossier-title" className="dossier-title font-display">
+              <h3 id="profile-dossier-title" className="dossier-title profile-dossier-main-title font-display">
                 Software Developer &amp; Builder.
               </h3>
             </div>

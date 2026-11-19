@@ -924,6 +924,15 @@
 }
 
 /* Dossier Spec Strip (Refined 2-column key-value matrix) */
+.profile-dossier-main-title {
+  font-size: clamp(2.15rem, 3.8vw, 2.95rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: var(--color-ink);
+  margin: 0 0 6px 0;
+}
+
 .dossier-spec-strip {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
