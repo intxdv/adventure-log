@@ -6,31 +6,34 @@ export const About: React.FC = () => {
   const [hasImageError, setHasImageError] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  // Lock body/html scroll when profile modal is open to prevent page scroll hijacking
+  // Prevent background scroll and handle Escape key without touching html/body overflow (which breaks sticky positioning)
   useEffect(() => {
-    if (isProfileModalOpen) {
-      const originalBodyOverflow = document.body.style.overflow;
-      const originalHtmlOverflow = document.documentElement.style.overflow;
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
+    if (!isProfileModalOpen) return;
 
-      return () => {
-        document.body.style.overflow = originalBodyOverflow;
-        document.documentElement.style.overflow = originalHtmlOverflow;
-      };
-    }
-  }, [isProfileModalOpen]);
-
-  // Close modal on Escape key
-  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsProfileModalOpen(false);
       }
     };
+
+    const preventBackgroundScroll = (e: WheelEvent | TouchEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('.dossier-modal-body')) {
+        return;
+      }
+      e.preventDefault();
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+    window.addEventListener('wheel', preventBackgroundScroll, { passive: false });
+    window.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', preventBackgroundScroll);
+      window.removeEventListener('touchmove', preventBackgroundScroll);
+    };
+  }, [isProfileModalOpen]);
 
   // Helper untuk membungkus tiap kata dalam span agar animasi GSAP entrance tetap berjalan halus
   const renderWords = (text: string) => {
