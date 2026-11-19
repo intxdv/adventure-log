@@ -50,7 +50,7 @@ export const FieldArsenal: React.FC = () => {
             {/* Right Column: Inventory Telemetry */}
             <div className="arsenal-header-right font-mono">
               <span className="arsenal-telemetry-meta">
-                CORE FOCUS: 03 PILLARS // 18 SPECS
+                CORE FOCUS: 03 PILLARS // {initialArsenal.reduce((acc, p) => acc + p.skills.length, 0)} SPECS
               </span>
             </div>
           </div>

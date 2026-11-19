@@ -341,6 +341,10 @@
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
+.ag-skill-card:last-child:nth-child(odd) {
+  grid-column: span 2;
+}
+
 .ag-skill-card:hover {
   border-color: rgba(163, 181, 157, 0.5);
   background: rgba(28, 34, 28, 0.85);
