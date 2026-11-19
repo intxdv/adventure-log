@@ -78,37 +78,25 @@ export const ProfileDossierModal: React.FC<ProfileDossierModalProps> = ({ isOpen
               <h3 id="profile-dossier-title" className="dossier-title font-display">
                 Software Developer &amp; Builder.
               </h3>
-              <p className="dossier-tagline font-serif">
-                “Building mobile apps, web extensions, and practical developer tools.”
-              </p>
             </div>
 
-            {/* Classification & Identity Matrix */}
-            <div className="dossier-meta-grid font-mono">
-              <div className="dossier-meta-cell">
-                <span className="dossier-label">CREATOR IDENTITY</span>
-                <span className="dossier-nature-badge">TAKI (SYAFIQ ABIYYU TAQI)</span>
+            {/* Architectural Spec Strip (Refined Key-Value Matrix) */}
+            <div className="dossier-spec-strip font-mono">
+              <div className="dossier-spec-item">
+                <span className="dossier-spec-label">IDENTITY</span>
+                <span className="dossier-spec-val">Syafiq Abiyyu Taqi (Taki)</span>
               </div>
-
-              <div className="dossier-meta-cell">
-                <span className="dossier-label">ACADEMIC AFFILIATION</span>
-                <span className="dossier-team-badge is-individual">
-                  CS @ UNIVERSITAS DIPONEGORO (GPA 3.8/4.0)
-                </span>
+              <div className="dossier-spec-item">
+                <span className="dossier-spec-label">EDUCATION</span>
+                <span className="dossier-spec-val">CS @ Universitas Diponegoro (GPA 3.8)</span>
               </div>
-
-              <div className="dossier-meta-cell">
-                <span className="dossier-label">CORE FOCUS</span>
-                <span className="dossier-role-value">
-                  MOBILE ENGINEERING &amp; PRACTICAL TOOLS
-                </span>
+              <div className="dossier-spec-item">
+                <span className="dossier-spec-label">FOCUS</span>
+                <span className="dossier-spec-val">Mobile Engineering &amp; Dev Tools</span>
               </div>
-
-              <div className="dossier-meta-cell">
-                <span className="dossier-label">BASECAMP</span>
-                <span className="dossier-timeline-value">
-                  SEMARANG, INDONESIA
-                </span>
+              <div className="dossier-spec-item">
+                <span className="dossier-spec-label">LOCATION</span>
+                <span className="dossier-spec-val">Semarang, Central Java, ID</span>
               </div>
             </div>
 
