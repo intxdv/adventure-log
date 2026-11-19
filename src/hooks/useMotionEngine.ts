@@ -210,45 +210,45 @@ export const useMotionEngine = () => {
         // 1d. Curtain Slide-Up Transition: Section 02 meluncur naik menutup Section 01
         // ----------------------------------------------------------------------
 
-        // Konten bio editorial meredup keluar mendahului naiknya tirai Section 02
+        // Konten bio editorial meredup keluar mendahului naiknya tirai Section 02 secara natural scalar
         portalTimeline.to(
           '.about-container',
           {
             opacity: 0,
             y: -24,
-            duration: 0.25,
-            ease: 'power2.in',
+            duration: 0.30,
+            ease: 'none',
           },
-          2.30
+          2.25
         );
 
         // Background kanvas putih Section 02 siap solid
-        portalTimeline.set('#expeditions-white-canvas', { opacity: 1 }, 2.30);
+        portalTimeline.set('#expeditions-white-canvas', { opacity: 1 }, 2.25);
 
-        // Curtain Slide-Up: Lembaran Section 02 meluncur naik dari bawah (yPercent: 100 -> 0)
+        // Curtain Slide-Up: Lembaran Section 02 meluncur naik dari bawah secara linear 1:1 scalar scroll
         portalTimeline.fromTo(
           '#expeditions',
           { yPercent: 100, visibility: 'visible', pointerEvents: 'auto', display: 'flex' },
           {
             yPercent: 0,
-            duration: 0.65,
-            ease: 'power2.out',
+            duration: 0.70,
+            ease: 'none',
           },
-          2.35
+          2.30
         );
 
-        // Sembunyikan Section 01 (#about) sepenuhnya setelah tirai Section 02 menutup sempurna (t = 2.95)
-        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 2.95);
+        // Sembunyikan Section 01 (#about) sepenuhnya setelah tirai Section 02 menutup sempurna (t = 3.00)
+        portalTimeline.set('#about', { opacity: 0, visibility: 'hidden', display: 'none' }, 3.00);
 
-        // Munculkan konten showcase proyek Section 02 secara tenang
+        // Munculkan konten showcase proyek Section 02 secara tenang dan proporsional
         portalTimeline.fromTo(
           '#expeditions-swiss-container',
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: 24 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.45,
-            ease: 'power2.out',
+            duration: 0.40,
+            ease: 'none',
           },
           2.90
         );

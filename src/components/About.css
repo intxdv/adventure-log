@@ -236,22 +236,24 @@
   position: relative;
   background-color: #FFFFFF;
   border: 1px solid var(--hairline-base);
-  padding: clamp(0.75rem, 1.4vw, 1.1rem);
+  padding: clamp(0.75rem, 1.4vw, 1.1rem) clamp(0.75rem, 1.4vw, 1.1rem) clamp(1.6rem, 2.8vw, 2.4rem);
   box-shadow: 0 10px 30px -5px rgba(24, 26, 24, 0.05), 0 2px 8px rgba(24, 26, 24, 0.03);
   opacity: 0;
   will-change: opacity, transform;
-  transition: box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s ease;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
 
 .about-section.is-nocturne .field-zine-card {
   border-color: rgba(255, 255, 255, 0.16);
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.25);
-  transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
 
+/* Hover: Timbul seluruh frame beserta isinya secara harmonis */
 .about-section.is-nocturne .field-zine-card:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: 0 24px 52px -8px rgba(0, 0, 0, 0.65), 0 4px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 .field-zine-frame {
@@ -280,53 +282,51 @@
   object-fit: cover;
   display: block;
   filter: contrast(1.02) brightness(0.98);
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  transition: filter 0.5s ease;
 }
 
+/* Gambar tidak membesar terpisah, frame seutuhnya yang timbul */
 .field-zine-card:hover .field-zine-img {
-  transform: scale(1.035);
   filter: contrast(1.04) brightness(1.01);
 }
 
-/* Sleek Photo Identity Overlay (In-photo bottom-left) */
-.field-photo-identity-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: clamp(1rem, 2.4vw, 1.75rem);
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.88) 0%,
-    rgba(0, 0, 0, 0.5) 45%,
-    transparent 100%
-  );
+/* Zine Card Footer (Dagu Putih Rapi di Bawah Foto) */
+.field-zine-footer {
+  margin-top: clamp(1rem, 1.8vw, 1.4rem);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  z-index: 6;
-  pointer-events: none;
+  padding-top: 2px;
+  position: relative;
+  z-index: 5;
 }
 
-.field-overlay-callname {
+.field-zine-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.field-zine-callname {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
   font-weight: 900;
   line-height: 0.88;
   letter-spacing: 0.06em;
-  color: #FFFFFF;
+  color: var(--color-ink);
+  text-align: left;
   margin: 0;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-.field-overlay-fullname {
+.field-zine-fullname {
   font-family: var(--font-mono);
-  font-size: clamp(0.8rem, 1.1vw, 1.05rem);
-  color: rgba(255, 255, 255, 0.88);
-  margin-top: 6px;
-  letter-spacing: 0.02em;
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  color: var(--color-ink-muted);
+  margin-top: 8px;
+  letter-spacing: -0.01em;
   font-weight: 600;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+  text-align: left;
 }
 
 /* Fallback Container if Image Unloaded/Error */

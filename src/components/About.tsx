@@ -20,7 +20,7 @@ export const About: React.FC = () => {
       aria-labelledby="about-heading"
     >
       <div className="about-container about-grid">
-        {/* Kolom Kiri: Kartu Foto Portrait dengan Overlay Identitas */}
+        {/* Kolom Kiri: Kartu Foto Portrait dengan Footer Dagu Putih Rapi */}
         <div className="field-card-wrapper">
           <figure
             id="field-zine-card-elem"
@@ -68,17 +68,19 @@ export const About: React.FC = () => {
                   decoding="async"
                 />
               </div>
-
-              {/* Minimalist Name Overlay di Sudut Kiri Bawah Foto */}
-              <div className="field-photo-identity-overlay">
-                <span className="field-overlay-callname font-display">TAKI</span>
-                <span className="field-overlay-fullname font-mono">Syafiq Abiyyu Taqi</span>
-              </div>
             </div>
+
+            {/* Dagu Putih Rapi: Nama TAKI & Syafiq Abiyyu Taqi Bersih Tanpa Bayangan Hitam di Foto */}
+            <figcaption className="field-zine-footer">
+              <div className="field-zine-identity">
+                <span className="field-zine-callname font-display">TAKI</span>
+                <span className="field-zine-fullname font-mono">Syafiq Abiyyu Taqi</span>
+              </div>
+            </figcaption>
           </figure>
         </div>
 
-        {/* Kolom Kanan: Bio Editorial Berbobot & Padat */}
+        {/* Kolom Kanan: Bio Editorial Berbobot & Padat (English) */}
         <article className="about-article">
           <header>
             <div className="about-kicker font-mono">
@@ -92,13 +94,13 @@ export const About: React.FC = () => {
 
           <p className="about-lead">
             {renderWords(
-              "Saya membangun software berangkat dari rasa penasaran dan friksi nyata di sekitar—mulai dari aplikasi mobile kampus dan agro-tech offline-first, hingga ekstensi browser dan AI tools yang saya buat untuk mempermudah pekerjaan sehari-hari."
+              "I build software driven by curiosity and practical problem-solving—ranging from campus mobile platforms and offline-first agro-tech, to browser extensions and AI tools built to solve everyday friction."
             )}
           </p>
 
           <p className="about-body">
             {renderWords(
-              "Fokus saya sederhana: mengulik sistem dari nol, memangkas kerumitan, dan membuat software yang benar-benar berguna."
+              "My focus is simple: understand systems from the ground up, eliminate unnecessary complexity, and engineer software that is genuinely useful."
             )}
           </p>
         </article>
