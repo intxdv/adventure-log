@@ -37,10 +37,10 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
   const measurePips = useCallback(() => {
     if (!spineRef.current) return;
     const spineRect = spineRef.current.getBoundingClientRect();
-    const pipEls = spineRef.current.querySelectorAll('.tactical-nav-pip');
-    if (pipEls.length >= sections.length) {
-      const coords = Array.from(pipEls).map((pip) => {
-        const rect = pip.getBoundingClientRect();
+    const pipBoxes = spineRef.current.querySelectorAll('.tactical-nav-pip-box');
+    if (pipBoxes.length >= sections.length) {
+      const coords = Array.from(pipBoxes).map((box) => {
+        const rect = box.getBoundingClientRect();
         return rect.top + rect.height / 2 - spineRect.top;
       });
       setPipCoords(coords);
@@ -206,9 +206,9 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
             {/* 1. Subtle Inactive Guide Line from first to last pip */}
             {pipCoords.length >= 2 && (
               <line
-                x1="5.5"
+                x1="12"
                 y1={pipCoords[0]}
-                x2="5.5"
+                x2="12"
                 y2={pipCoords[pipCoords.length - 1]}
                 className="tactical-spine-track"
               />
@@ -217,9 +217,9 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
             {/* 2. Explored Path: Solid Active Line */}
             {pipCoords.length >= 2 && currentSpineY > pipCoords[0] && (
               <line
-                x1="5.5"
+                x1="12"
                 y1={pipCoords[0]}
-                x2="5.5"
+                x2="12"
                 y2={currentSpineY}
                 className="tactical-spine-active-line"
               />
@@ -229,14 +229,14 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
             {pipCoords.length >= 2 && isTransitioning && (
               <>
                 <line
-                  x1="5.5"
+                  x1="12"
                   y1={activeSegmentStartY}
-                  x2="5.5"
+                  x2="12"
                   y2={currentSpineY}
                   className="tactical-spine-living-beam"
                 />
                 <circle
-                  cx="5.5"
+                  cx="12"
                   cy={currentSpineY}
                   r="2.5"
                   className="tactical-spine-beacon"
@@ -259,14 +259,16 @@ export const TacticalNav: React.FC<{ sections?: NavSection[] }> = ({ sections = 
                 aria-label={`Jump to ${sec.label}`}
                 aria-current={isActive ? 'true' : undefined}
               >
-                {/* Hover Reveal Card */}
+                {/* Hover Reveal Card (Positioned absolute to the left, isolated from layout flow) */}
                 <div className="tactical-nav-reveal">
                   <span className="nav-idx">[{sec.index}]</span>
                   <span className="nav-title">{sec.label}</span>
                 </div>
 
-                {/* Pip Marker on Ruler */}
-                <div className="tactical-nav-pip" />
+                {/* Pip Marker Container on Ruler */}
+                <div className="tactical-nav-pip-box">
+                  <div className="tactical-nav-pip" />
+                </div>
               </button>
             );
           })}
