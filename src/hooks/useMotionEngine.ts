@@ -4,7 +4,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useMotionEngine = () => {
+export const useMotionEngine = (isAppLoaded: boolean = true) => {
+  useEffect(() => {
+    if (!isAppLoaded) return;
+    // Allow React 19 DOM mutations (e.g. HeroCompass3D mount) and body overflow release to settle
+    const rafId = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [isAppLoaded]);
+
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let footerMouseMoveHandler: ((e: MouseEvent) => void) | null = null;

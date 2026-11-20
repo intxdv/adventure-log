@@ -17,7 +17,7 @@ const HeroCompass3D = lazy(() =>
 
 export const App: React.FC = () => {
   const [isAppLoaded, setIsAppLoaded] = React.useState(false);
-  useMotionEngine();
+  useMotionEngine(isAppLoaded);
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: 'var(--color-canvas)' }}>
