@@ -60,12 +60,7 @@ export const FieldArsenal: React.FC = () => {
         <div className="arsenal-control-bar font-mono" role="toolbar" aria-label="Capabilities Pillar Navigation">
           <div className="arsenal-nav-tabs">
             {initialArsenal.map((pillar, idx) => {
-              const shortLabel =
-                pillar.id === 'mobile-dev'
-                  ? 'MOBILE'
-                  : pillar.id === 'tooling-extensions'
-                  ? 'TOOLING'
-                  : 'WEB & DESIGN';
+              const shortLabel = pillar.code;
               const isActive = activePillarIndex === idx;
 
               return (
