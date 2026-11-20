@@ -14,7 +14,6 @@
   align-self: start;
   background: transparent;
   overflow: hidden;
-  visibility: hidden;
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -23,19 +22,17 @@
 }
 
 .expeditions-perspective-stage:not(.is-active) {
-  visibility: hidden !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .expeditions-perspective-stage:not(.is-active) * {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 
 .expeditions-perspective-stage.is-active {
-  visibility: visible !important;
-  pointer-events: auto !important;
-  z-index: 10 !important;
+  pointer-events: auto;
+  z-index: 10;
 }
 
 /* 0. Expanding White/Neutral Canvas (Base for Section 3) */

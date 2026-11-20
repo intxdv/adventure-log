@@ -253,13 +253,14 @@ export const useMotionEngine = (isAppLoaded: boolean = true) => {
           2.25
         );
 
-        // Background kanvas putih Section 02 siap solid
-        portalTimeline.set('#expeditions-white-canvas', { opacity: 1 }, 2.25);
+        // Background kanvas putih Section 02 siap solid & siapkan container expeditions
+        portalTimeline.set('#expeditions-white-canvas', { opacity: 1 }, 2.20);
+        portalTimeline.set('#expeditions', { display: 'flex', visibility: 'visible', pointerEvents: 'auto' }, 2.20);
 
         // Curtain Slide-Up: Lembaran Section 02 meluncur naik dari bawah secara linear 1:1 scalar scroll
         portalTimeline.fromTo(
           '#expeditions',
-          { yPercent: 100, visibility: 'visible', pointerEvents: 'auto', display: 'flex' },
+          { yPercent: 100 },
           {
             yPercent: 0,
             duration: 0.70,
