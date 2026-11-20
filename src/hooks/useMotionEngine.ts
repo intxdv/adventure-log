@@ -27,6 +27,26 @@ export const useMotionEngine = (isAppLoaded: boolean = true) => {
         gsap.set('#top-notch-header', { opacity: 1, visibility: 'visible' });
       }
 
+      // Re-calibrate ScrollTrigger when tab wakes up from sleep or session restore (Gecko/Zen Browser Tab Unload)
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === 'visible') {
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+          });
+        }
+      };
+
+      const handlePageShow = (e: PageTransitionEvent) => {
+        if (e.persisted || document.visibilityState === 'visible') {
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+          });
+        }
+      };
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+      window.addEventListener('pageshow', handlePageShow);
+
       // ======================================================================
       // 1. HERO -> ABOUT CENTER CIRCLE PORTAL TRANSITION (CLIP-PATH BLOOM)
       // ======================================================================
@@ -548,6 +568,8 @@ export const useMotionEngine = (isAppLoaded: boolean = true) => {
 
     return () => {
       ctx.revert();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pageshow', handlePageShow);
       if (footerMouseMoveHandler) {
         window.removeEventListener('mousemove', footerMouseMoveHandler);
       }
