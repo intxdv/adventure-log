@@ -21,31 +21,31 @@ export const useMotionEngine = (isAppLoaded: boolean = true) => {
     let footerMouseMoveHandler: ((e: MouseEvent) => void) | null = null;
     let footerOrientationHandler: ((e: DeviceOrientationEvent) => void) | null = null;
 
+    // Re-calibrate ScrollTrigger when tab wakes up from sleep or session restore (Gecko/Zen Browser Tab Unload)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+      }
+    };
+
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted || document.visibilityState === 'visible') {
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pageshow', handlePageShow);
+
     const ctx = gsap.context(() => {
       // 0. Accessible Fallback for Reduced Motion
       if (prefersReducedMotion) {
         gsap.set('#top-notch-header', { opacity: 1, visibility: 'visible' });
       }
-
-      // Re-calibrate ScrollTrigger when tab wakes up from sleep or session restore (Gecko/Zen Browser Tab Unload)
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === 'visible') {
-          requestAnimationFrame(() => {
-            ScrollTrigger.refresh();
-          });
-        }
-      };
-
-      const handlePageShow = (e: PageTransitionEvent) => {
-        if (e.persisted || document.visibilityState === 'visible') {
-          requestAnimationFrame(() => {
-            ScrollTrigger.refresh();
-          });
-        }
-      };
-
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-      window.addEventListener('pageshow', handlePageShow);
 
       // ======================================================================
       // 1. HERO -> ABOUT CENTER CIRCLE PORTAL TRANSITION (CLIP-PATH BLOOM)
