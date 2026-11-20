@@ -4,11 +4,42 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useMotionEngine = () => {
+export const useMotionEngine = (isAppLoaded: boolean = true) => {
+  useEffect(() => {
+    if (!isAppLoaded) return;
+    // Allow React 19 DOM mutations (e.g. HeroCompass3D mount) and body overflow release to settle
+    const rafId = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [isAppLoaded]);
+
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let footerMouseMoveHandler: ((e: MouseEvent) => void) | null = null;
     let footerOrientationHandler: ((e: DeviceOrientationEvent) => void) | null = null;
+
+    // Re-calibrate ScrollTrigger when tab wakes up from sleep or session restore (Gecko/Zen Browser Tab Unload)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+      }
+    };
+
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted || document.visibilityState === 'visible') {
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pageshow', handlePageShow);
 
     const ctx = gsap.context(() => {
       // 0. Accessible Fallback for Reduced Motion
@@ -222,13 +253,14 @@ export const useMotionEngine = () => {
           2.25
         );
 
-        // Background kanvas putih Section 02 siap solid
-        portalTimeline.set('#expeditions-white-canvas', { opacity: 1 }, 2.25);
+        // Background kanvas putih Section 02 siap solid & siapkan container expeditions
+        portalTimeline.set('#expeditions-white-canvas', { opacity: 1 }, 2.20);
+        portalTimeline.set('#expeditions', { display: 'flex', visibility: 'visible', pointerEvents: 'auto' }, 2.20);
 
         // Curtain Slide-Up: Lembaran Section 02 meluncur naik dari bawah secara linear 1:1 scalar scroll
         portalTimeline.fromTo(
           '#expeditions',
-          { yPercent: 100, visibility: 'visible', pointerEvents: 'auto', display: 'flex' },
+          { yPercent: 100 },
           {
             yPercent: 0,
             duration: 0.70,
@@ -537,6 +569,8 @@ export const useMotionEngine = () => {
 
     return () => {
       ctx.revert();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pageshow', handlePageShow);
       if (footerMouseMoveHandler) {
         window.removeEventListener('mousemove', footerMouseMoveHandler);
       }

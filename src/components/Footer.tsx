@@ -14,6 +14,31 @@ export const Footer: React.FC = () => {
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
+      const id = href.slice(1);
+      const stageWrapper = document.getElementById('hero-stage-wrapper');
+
+      if (stageWrapper) {
+        const stageTop = stageWrapper.offsetTop;
+        const maxScroll = stageWrapper.offsetHeight - window.innerHeight;
+
+        if (id === 'hero') {
+          window.scrollTo({ top: stageTop, behavior: 'smooth' });
+          return;
+        }
+        if (id === 'about') {
+          window.scrollTo({ top: stageTop + maxScroll * 0.19, behavior: 'smooth' });
+          return;
+        }
+        if (id === 'expeditions') {
+          window.scrollTo({ top: stageTop + maxScroll * 0.44, behavior: 'smooth' });
+          return;
+        }
+        if (id === 'arsenal') {
+          window.scrollTo({ top: stageTop + maxScroll, behavior: 'smooth' });
+          return;
+        }
+      }
+
       const target = document.querySelector(href);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });

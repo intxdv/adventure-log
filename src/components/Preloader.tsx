@@ -53,6 +53,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       setIsRevealing(true);
       // Smooth curtain fade transition (750ms)
       dismissTimerRef.current = setTimeout(() => {
+        document.body.style.overflow = '';
         setIsDismissed(true);
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
         onComplete?.();

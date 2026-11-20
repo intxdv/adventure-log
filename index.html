@@ -25,6 +25,14 @@
     <meta name="twitter:description" content="Digital journal of Taki. Software developer building mobile apps, web extensions, and practical tools." />
     <meta name="twitter:image" content="https://selvagant.is-a.dev/og-image.png?v=2" />
 
+    <!-- Immediate Scroll Restoration Reset (Fixes Gecko/Zen & Chromium desync on reload) -->
+    <script>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    </script>
+
     <!-- Google Font: Newsreader Editorial Serif -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
